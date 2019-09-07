@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class Fighter : MonoBehaviour
 {
     public GameObject healthUI;
-    public int baseHealth;
-    public int baseSpeed;
-    public int baseDamage;
+    public int baseHealth = 5;
+    public int baseSpeed = 1;
+    public int baseDamage = 1;
+    public int baseMana = 1;
+    public float range = 1;
     public bool isPlayer;
-
-    private const float meleeRange = 1f;
 
     private int health;
     private int speed;
     private int damage;
+    private int mana;
 
     private enum State {Moving, Attacking};
     private State currentState = State.Moving;
@@ -23,7 +24,6 @@ public class Fighter : MonoBehaviour
     private GameObject attackParent;
     private GameObject attackObj;
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class Fighter : MonoBehaviour
         health = baseHealth;
         speed = baseSpeed;
         damage = baseDamage;
-
+        mana = baseMana;
 
         if (isPlayer)
         {
@@ -55,7 +55,7 @@ public class Fighter : MonoBehaviour
             {
                 case State.Moving:
                 {
-                    if ((transform.position - attackObj.transform.position).sqrMagnitude > meleeRange)
+                    if ((transform.position - attackObj.transform.position).sqrMagnitude > range)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, attackObj.transform.position, speed * Time.deltaTime);
                     }
@@ -69,24 +69,29 @@ public class Fighter : MonoBehaviour
                 default:
                     break;
             }
-
-            
-            
-
         }
     }
 
+    /// <summary>
+    /// Calls attack on attackObj every second until it is defeated
+    /// </summary>
+    /// <returns></returns>
     IEnumerator AttackTimer()
     {
         while (attackObj.activeSelf)
         {
             attackObj.GetComponent<Fighter>().Attack(damage);
+            mana++;
             yield return new WaitForSeconds(1);
         }
         SetAttackObj();
         currentState = State.Moving;
     }
 
+    /// <summary>
+    /// Called by other fighters when they attack this one
+    /// </summary>
+    /// <param name="dmg"></param>
     public void Attack (int dmg)
     {
         health -= dmg;
