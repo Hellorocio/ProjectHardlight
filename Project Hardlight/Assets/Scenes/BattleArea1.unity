@@ -291,6 +291,7 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 1225098633}
   manaUI: {fileID: 111080207}
+  anim: {fileID: 1549314201}
   baseHealth: 150
   baseSpeed: 1
   baseDamage: 1
@@ -878,6 +879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1317324163}
   - component: {fileID: 1317324164}
+  - component: {fileID: 1317324165}
   m_Layer: 0
   m_Name: Appearance
   m_TagString: Untagged
@@ -949,6 +951,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1317324165
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317324162}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 79e50a63d1151b2468da17676619bdc9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1382669338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2194,11 @@ PrefabInstance:
       propertyPath: manaUI
       value: 
       objectReference: {fileID: 1281447385}
+    - target: {fileID: 6417920846059879940, guid: a461db7570a40234fabedb8a97f09beb,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1317324165}
     - target: {fileID: 4341052714299764119, guid: a461db7570a40234fabedb8a97f09beb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2247,6 +2273,7 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 5232319470648848278}
   manaUI: {fileID: 1206626595}
+  anim: {fileID: 1903524394}
   baseHealth: 50
   baseSpeed: 1
   baseDamage: 1

@@ -13,6 +13,7 @@ public class Fighter : MonoBehaviour
 
     public GameObject healthUI;
     public GameObject manaUI;
+    public Animator anim;
     public int baseHealth = 5;
     public float baseSpeed = 1.0f;
     public int baseDamage = 1;
@@ -38,6 +39,7 @@ public class Fighter : MonoBehaviour
     private IEnumerator basicAttackLoop;
     // This makes it so there's not weird jittering on the edge of your attack range
     private static float attackRangeAllowance = 0.2f;
+    
 
     // Move
     private IEnumerator moveLoop;
@@ -150,6 +152,7 @@ public class Fighter : MonoBehaviour
         {
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();
+            anim.Play("Attack");
             yield return new WaitForSeconds(basicAttackStats.attackSpeed);
         }
     }
