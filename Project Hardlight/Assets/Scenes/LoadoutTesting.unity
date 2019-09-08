@@ -680,6 +680,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1358281135}
+        m_MethodName: EquipSoul
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &274914589
@@ -809,6 +820,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358281135}
+        m_MethodName: EquipSoul
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1297,15 +1319,13 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 1225098633}
   manaUI: {fileID: 111080207}
-  baseHealth: 150
-  baseSpeed: 1
-  baseDamage: 1
-  baseMana: 1
-  isPlayer: 1
+  anim: {fileID: 0}
+  fighterStats: {fileID: 0}
   basicAttackAction: {fileID: 515426206}
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
   attackTarget: {fileID: 0}
+  attackBoost: 0
 --- !u!61 &515426205
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1801,6 +1821,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358281135}
+        m_MethodName: EquipSoul
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2603,7 +2634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1276684993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3855,6 +3886,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1358281135}
+        m_MethodName: EquipSoul
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1428461124
@@ -4341,6 +4383,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358281135}
+        m_MethodName: EquipSoul
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5472,12 +5525,10 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 5232319470648848278}
   manaUI: {fileID: 1206626595}
-  baseHealth: 50
-  baseSpeed: 1
-  baseDamage: 1
-  baseMana: 1
-  isPlayer: 1
+  anim: {fileID: 0}
+  fighterStats: {fileID: 0}
   basicAttackAction: {fileID: 4140467197057999895}
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
   attackTarget: {fileID: 0}
+  attackBoost: 0
