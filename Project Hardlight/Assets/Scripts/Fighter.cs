@@ -14,18 +14,13 @@ public class Fighter : MonoBehaviour
     public GameObject healthUI;
     public GameObject manaUI;
     public Animator anim;
-    public int baseHealth = 5;
-    public float baseSpeed = 1.0f;
-    public int baseDamage = 1;
-    public int baseMana = 0;
-    public bool isPlayer;
+    public FighterStats fighterStats;
 
     public MonoBehaviour basicAttackAction;
 
-    private int health;
+    private float health;
     private float speed;
-    private int damage;
-    private int mana;
+    private float mana;
 
     private enum State {Idle, Move, BasicAttack};
     private State currentState = State.Idle;
@@ -47,14 +42,14 @@ public class Fighter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = baseHealth;
-        speed = baseSpeed;
-        damage = baseDamage;
-        mana = baseMana;
+        health = fighterStats.maxHealth + fighterStats.maxHealth * fighterStats.soul.healthBoost;
+        speed = fighterStats.movementSpeed + fighterStats.movementSpeed * fighterStats.soul.movementSpeedBoost;
+        mana = 0;
 
-        if (isPlayer)
+        if (team == CombatInfo.Team.Hero)
         {
             attackParent = GameObject.Find("Enemies");
+            
         }
         else
         {
@@ -134,7 +129,6 @@ public class Fighter : MonoBehaviour
                 }
             }
         }
-
     }
     
     IEnumerator MoveLoop()
@@ -153,7 +147,7 @@ public class Fighter : MonoBehaviour
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();
             anim.Play("Attack");
-            yield return new WaitForSeconds(basicAttackStats.attackSpeed);
+            yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * fighterStats.soul.attackSpeedBoost);
         }
     }
 
@@ -161,9 +155,9 @@ public class Fighter : MonoBehaviour
     /// Called by other fighters when they attack this one
     /// </summary>
     /// <param name="dmg"></param>
-    public void Attack (int dmg)
+    public void Attack (float dmg)
     {
-        health -= dmg;
+        health -= dmg - dmg * fighterStats.soul.defenseBoost;
 
         if (health <= 0)
         {
@@ -176,7 +170,7 @@ public class Fighter : MonoBehaviour
     // TODO cap at max mana, do something special when mana hits max
     public void GainMana (int manaGained)
     {
-        mana += manaGained;
+        mana += manaGained + manaGained * fighterStats.soul.manaGenerationBoost;
         SetManaUI();
     }
 
@@ -210,11 +204,11 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void SetHealthUI()
     {
-        healthUI.GetComponent<Text>().text = health.ToString();
+        healthUI.GetComponent<Text>().text = ((int)health).ToString();
     }
 
     void SetManaUI()
     {
-        manaUI.GetComponent<Text>().text = mana.ToString();
+        manaUI.GetComponent<Text>().text = ((int)mana).ToString();
     }
 }

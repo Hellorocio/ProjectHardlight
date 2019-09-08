@@ -7,7 +7,7 @@ public class MeleeBasicAttackAction : BasicAttackAction
     public override void DoBasicAttack()
     {
         Fighter thisFighter = GetComponent<Fighter>();
-        int damage = thisFighter.basicAttackStats.damage;
+        float damage = thisFighter.basicAttackStats.damage + thisFighter.basicAttackStats.damage * (thisFighter.fighterStats.soul.attackBoost / 100);
         thisFighter.attackTarget.GetComponent<Fighter>().Attack(damage);
     }
 }
