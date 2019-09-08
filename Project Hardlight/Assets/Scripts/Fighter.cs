@@ -72,7 +72,7 @@ public class Fighter : MonoBehaviour
         // TODO(Don't stop movement if player issued the Move command)
 
         // You have a target to go for
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.activeSelf)
         {
             float distanceFromTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
 
@@ -124,6 +124,12 @@ public class Fighter : MonoBehaviour
             if (currentTarget == null)
             {
                 currentState = State.Idle;
+                // Stop basic attacking
+                if (basicAttackLoop != null)
+                {
+                    StopCoroutine(basicAttackLoop);
+                    basicAttackLoop = null;
+                }
             }
         }
 
@@ -156,7 +162,7 @@ public class Fighter : MonoBehaviour
     {
         health -= dmg;
 
-        if (health == 0)
+        if (health <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -165,9 +171,9 @@ public class Fighter : MonoBehaviour
     }
 
     // TODO cap at max mana, do something special when mana hits max
-    public void GainMana (int mana)
+    public void GainMana (int manaGained)
     {
-        mana += mana;
+        mana += manaGained;
         SetManaUI();
     }
 

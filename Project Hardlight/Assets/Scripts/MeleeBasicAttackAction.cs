@@ -6,6 +6,8 @@ public class MeleeBasicAttackAction : BasicAttackAction
 {
     public override void DoBasicAttack()
     {
-        Debug.Log("Melee basic attack");
+        Fighter thisFighter = GetComponent<Fighter>();
+        int damage = thisFighter.basicAttackStats.damage;
+        thisFighter.attackTarget.GetComponent<Fighter>().Attack(damage);
     }
 }
