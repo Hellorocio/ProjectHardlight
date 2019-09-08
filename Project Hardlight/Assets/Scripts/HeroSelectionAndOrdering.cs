@@ -12,7 +12,7 @@ public class HeroSelectionAndOrdering : MonoBehaviour
     void Start()
     {
         spriteRend = gameObject.GetComponentInChildren<SpriteRenderer>();
-        unselectedColor = spriteRend.color;
+        unselectedColor = spriteRend.material.color;
 
     }
 
@@ -27,12 +27,12 @@ public class HeroSelectionAndOrdering : MonoBehaviour
             Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
             if (hitCollider != null && hitCollider.gameObject.Equals(gameObject))
             {
-                spriteRend.color = selectedColor;
+                spriteRend.material.color = selectedColor;
                 isHeroSelected = true;
             } else
             {
                 isHeroSelected = false;
-                spriteRend.color = unselectedColor;
+                spriteRend.material.color = unselectedColor;
             }
         }
     }

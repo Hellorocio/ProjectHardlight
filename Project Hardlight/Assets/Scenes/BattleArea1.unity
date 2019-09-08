@@ -227,6 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515426202}
   - component: {fileID: 515426205}
+  - component: {fileID: 515426207}
   - component: {fileID: 515426204}
   - component: {fileID: 515426203}
   - component: {fileID: 515426206}
@@ -337,6 +338,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &515426207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515426201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b630bd9d7673bbe419a05dfb9246f911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHeroSelected: 0
 --- !u!1 &559064953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,6 +1885,7 @@ GameObject:
   - component: {fileID: 3484025196660654442}
   - component: {fileID: 6985538492629933183}
   - component: {fileID: 4140467197057999895}
+  - component: {fileID: 4140467197057999896}
   - component: {fileID: 8498681325404337951}
   - component: {fileID: 3284979846832962041}
   m_Layer: 0
@@ -1894,6 +1909,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
     type: 3}
+--- !u!114 &4140467197057999896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140467197057999894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b630bd9d7673bbe419a05dfb9246f911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHeroSelected: 0
 --- !u!114 &4883057671078795288
 MonoBehaviour:
   m_ObjectHideFlags: 0
