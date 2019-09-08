@@ -39,17 +39,27 @@ public class Fighter : MonoBehaviour
     // Move
     private IEnumerator moveLoop;
 
+    //Buff list
+    List<BuffObj> buffs;
+    private IEnumerator buffLoop;
+    private float movementSpeedBoost;
+    private float attackSpeedBoost;
+    private float defenseBoost;
+    public float attackBoost;
+    private float manaGenerationBoost;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        InitBoosts();
         health = fighterStats.maxHealth + fighterStats.maxHealth * fighterStats.soul.healthBoost;
-        speed = fighterStats.movementSpeed + fighterStats.movementSpeed * fighterStats.soul.movementSpeedBoost;
+        speed = fighterStats.movementSpeed;
         mana = 0;
 
         if (team == CombatInfo.Team.Hero)
         {
             attackParent = GameObject.Find("Enemies");
-            
         }
         else
         {
@@ -61,9 +71,22 @@ public class Fighter : MonoBehaviour
         SetCurrentTarget();
     }
 
+    /// <summary>
+    /// Initializes boost amounts based on soul boosts
+    /// </summary>
+    void InitBoosts ()
+    {
+        movementSpeedBoost += fighterStats.soul.movementSpeedBoost;
+        attackSpeedBoost += fighterStats.soul.attackSpeedBoost;
+        defenseBoost += fighterStats.soul.defenseBoost;
+        attackBoost += fighterStats.soul.attackBoost;
+        manaGenerationBoost += fighterStats.soul.manaGenerationBoost;
+    }
+
     // Update is called once per frame
     void Update()
     {
+
 
         // Basic AI
         // TODO(Don't stop movement if player issued the Move command)
@@ -135,7 +158,8 @@ public class Fighter : MonoBehaviour
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+            float currentSpeed = speed + (speed * movementSpeedBoost);
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, currentSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -147,7 +171,51 @@ public class Fighter : MonoBehaviour
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();
             anim.Play("Attack");
-            yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * fighterStats.soul.attackSpeedBoost);
+            yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * attackSpeedBoost);
+        }
+    }
+
+    /// <summary>
+    /// Adds a new buff to the list and implements its effect
+    /// Starts buff timer if it isn't already running
+    /// </summary>
+    /// <param name="newBuff"></param>
+    void AddTimedBuff (BuffObj newBuff)
+    {
+        buffs.Add(newBuff);
+
+        movementSpeedBoost += newBuff.movementSpeedBoost;
+        attackSpeedBoost += newBuff.attackSpeedBoost;
+        defenseBoost += newBuff.defenseBoost;
+        attackBoost += newBuff.attackBoost;
+        manaGenerationBoost += newBuff.manaGenerationBoost;
+
+        if (buffLoop == null)
+        {
+            buffLoop = UpdateBuff();
+            StartCoroutine(buffLoop);
+        }
+    }
+
+    IEnumerator UpdateBuff ()
+    {
+        while (buffs.Count > 0)
+        {
+            foreach(BuffObj b in buffs)
+            {
+                b.timeActive--;
+                if (b.timeActive >= 0)
+                {
+                    movementSpeedBoost -= b.movementSpeedBoost;
+                    attackSpeedBoost -= b.attackSpeedBoost;
+                    defenseBoost -= b.defenseBoost;
+                    attackBoost -= b.attackBoost;
+                    manaGenerationBoost -= b.manaGenerationBoost;
+
+                    buffs.Remove(b);
+                }
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 
@@ -157,7 +225,7 @@ public class Fighter : MonoBehaviour
     /// <param name="dmg"></param>
     public void Attack (float dmg)
     {
-        health -= dmg - dmg * fighterStats.soul.defenseBoost;
+        health -= dmg - dmg * defenseBoost;
 
         if (health <= 0)
         {
@@ -170,7 +238,7 @@ public class Fighter : MonoBehaviour
     // TODO cap at max mana, do something special when mana hits max
     public void GainMana (int manaGained)
     {
-        mana += manaGained + manaGained * fighterStats.soul.manaGenerationBoost;
+        mana += manaGained + manaGained * manaGenerationBoost;
         SetManaUI();
     }
 
