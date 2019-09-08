@@ -173,6 +173,11 @@ public class Fighter : MonoBehaviour
             attack.DoBasicAttack();
             anim.Play("Attack");
             yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * attackSpeedBoost);
+
+            if (healer)
+            {
+                SetCurrentTarget();
+            }
         }
     }
 
@@ -243,6 +248,7 @@ public class Fighter : MonoBehaviour
         {
             health = fighterStats.maxHealth;
         }
+        SetHealthUI();
     }
 
     // TODO cap at max mana, do something special when mana hits max
