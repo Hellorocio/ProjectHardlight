@@ -15,6 +15,7 @@ public class Fighter : MonoBehaviour
     public GameObject manaUI;
     public Animator anim;
     public FighterStats fighterStats;
+    public bool healer;
 
     public MonoBehaviour basicAttackAction;
 
@@ -180,7 +181,7 @@ public class Fighter : MonoBehaviour
     /// Starts buff timer if it isn't already running
     /// </summary>
     /// <param name="newBuff"></param>
-    void AddTimedBuff (BuffObj newBuff)
+    public void AddTimedBuff (BuffObj newBuff)
     {
         buffs.Add(newBuff);
 
@@ -235,6 +236,15 @@ public class Fighter : MonoBehaviour
         SetHealthUI();
     }
 
+    public void Heal (float amt)
+    {
+        health += amt;
+        if (health >= fighterStats.maxHealth)
+        {
+            health = fighterStats.maxHealth;
+        }
+    }
+
     // TODO cap at max mana, do something special when mana hits max
     public void GainMana (int manaGained)
     {
@@ -248,6 +258,18 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void SetCurrentTarget()
     {
+        if (!healer)
+        {
+            SetAttackTarget();
+        }
+        else
+        {
+            SetHealingTarget();
+        }
+    }
+
+    void SetAttackTarget ()
+    {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
         float minDist = 1000f;
         GameObject tempcurrentTarget = null;
@@ -260,6 +282,27 @@ public class Fighter : MonoBehaviour
                 if (dist < minDist)
                 {
                     minDist = dist;
+                    tempcurrentTarget = currentTargets[i].gameObject;
+                }
+            }
+        }
+        currentTarget = tempcurrentTarget;
+    }
+    
+    void SetHealingTarget ()
+    {
+        Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
+        float maxHealth = 1000f;
+        GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                float checkHealth = currentTargets[i].health;
+                if (checkHealth < maxHealth)
+                {
+                    maxHealth = checkHealth;
                     tempcurrentTarget = currentTargets[i].gameObject;
                 }
             }
