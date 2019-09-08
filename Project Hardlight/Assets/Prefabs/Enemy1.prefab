@@ -130,7 +130,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6417920846059879940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,11 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: defaultCharacterName
   healthUI: {fileID: 6547534737224929194}
   baseHealth: 5
   baseSpeed: 1
   baseDamage: 1
+  baseMana: 1
+  range: 1
   isPlayer: 0
+  basicAttackAction: {fileID: 0}
+  basicAttackStats: {fileID: 0}
+  currentTarget: {fileID: 0}
+  attackTarget: {fileID: 0}
 --- !u!1 &6547534737224929194
 GameObject:
   m_ObjectHideFlags: 0

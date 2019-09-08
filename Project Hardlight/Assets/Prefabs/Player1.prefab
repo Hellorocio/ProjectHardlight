@@ -122,11 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: defaultCharacterName
   healthUI: {fileID: 7280764866682510725}
   baseHealth: 5
   baseSpeed: 1
   baseDamage: 1
+  baseMana: 1
+  range: 1
   isPlayer: 1
+  basicAttackScript: {fileID: 0}
+  currentTarget: {fileID: 0}
+  attackTarget: {fileID: 0}
 --- !u!50 &879266794
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +153,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &4739649062088450635
 GameObject:
   m_ObjectHideFlags: 0

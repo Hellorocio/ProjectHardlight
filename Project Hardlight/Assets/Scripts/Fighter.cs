@@ -3,27 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.Events;
+
 public class Fighter : MonoBehaviour
 {
+
+    public string characterName = "defaultCharacterName";
+    public CombatInfo.Team team;
+
     public GameObject healthUI;
+    public GameObject manaUI;
     public int baseHealth = 5;
-    public int baseSpeed = 1;
+    public float baseSpeed = 1.0f;
     public int baseDamage = 1;
-    public int baseMana = 1;
-    public float range = 1;
+    public int baseMana = 0;
     public bool isPlayer;
 
+    public MonoBehaviour basicAttackAction;
+
     private int health;
-    private int speed;
+    private float speed;
     private int damage;
     private int mana;
 
-    private enum State {Moving, Attacking};
-    private State currentState = State.Moving;
+    private enum State {Idle, Move, BasicAttack};
+    private State currentState = State.Idle;
 
     private GameObject attackParent;
-    private GameObject attackObj;
 
+    // Basic attacking
+    public BasicAttackStats basicAttackStats;
+    public GameObject currentTarget;
+    public GameObject attackTarget;
+    private IEnumerator basicAttackLoop;
+    // This makes it so there's not weird jittering on the edge of your attack range
+    private static float attackRangeAllowance = 0.2f;
+
+    // Move
+    private IEnumerator moveLoop;
 
     // Start is called before the first frame update
     void Start()
@@ -43,49 +60,92 @@ public class Fighter : MonoBehaviour
         }
 
         SetHealthUI();
-        SetAttackObj();
+        SetManaUI();
+        SetCurrentTarget();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attackObj != null)
+
+        // Basic AI
+        // TODO(Don't stop movement if player issued the Move command)
+
+        // You have a target to go for
+        if (currentTarget != null)
         {
-            switch (currentState)
+            float distanceFromTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
+
+            // In range of target
+            if (distanceFromTarget < basicAttackStats.range)
             {
-                case State.Moving:
+
+                // Stop moving
+                if (moveLoop != null)
                 {
-                    if ((transform.position - attackObj.transform.position).sqrMagnitude > range)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, attackObj.transform.position, speed * Time.deltaTime);
-                    }
-                    else
-                    {
-                        currentState = State.Attacking;
-                        StartCoroutine(AttackTimer());
-                    }
-                    break;
+                    StopCoroutine(moveLoop);
+                    moveLoop = null;
                 }
-                default:
-                    break;
+
+                // Start basic attacking
+                if (attackTarget == null)
+                {
+                    attackTarget = currentTarget;
+                    basicAttackLoop = BasicAttackLoop();
+                    StartCoroutine(basicAttackLoop);
+                    currentState = State.BasicAttack;
+                }
             }
+            else if (distanceFromTarget > basicAttackStats.range + attackRangeAllowance)
+            {
+                // Out of range
+
+                // Move towards target
+                if (moveLoop == null)
+                {
+                    moveLoop = MoveLoop();
+                    StartCoroutine(moveLoop);
+                    currentState = State.Move;
+                }
+
+                // Stop basic attacking
+                if (basicAttackLoop != null)
+                {
+                    StopCoroutine(basicAttackLoop);
+                    basicAttackLoop = null;
+                }
+            }
+
+        }
+        else
+        {
+            // No target to go for, get one
+            SetCurrentTarget();
+            if (currentTarget == null)
+            {
+                currentState = State.Idle;
+            }
+        }
+
+    }
+    
+    IEnumerator MoveLoop()
+    {
+        while (true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+            yield return null;
         }
     }
 
-    /// <summary>
-    /// Calls attack on attackObj every second until it is defeated
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator AttackTimer()
+    IEnumerator BasicAttackLoop()
     {
-        while (attackObj.activeSelf)
+        while (true)
         {
-            attackObj.GetComponent<Fighter>().Attack(damage);
-            mana++;
-            yield return new WaitForSeconds(1);
+            BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
+            attack.DoBasicAttack();
+            yield return new WaitForSeconds(basicAttackStats.attackSpeed);
         }
-        SetAttackObj();
-        currentState = State.Moving;
     }
 
     /// <summary>
@@ -104,29 +164,36 @@ public class Fighter : MonoBehaviour
         SetHealthUI();
     }
 
-    /// <summary>
-    /// Searches enemies or players gameObject for the closest thing to attack and sets attackObj
-    /// Sets attackObj to null if there are no more things to attack
-    /// </summary>
-    void SetAttackObj()
+    // TODO cap at max mana, do something special when mana hits max
+    public void GainMana (int mana)
     {
-        Fighter[] attackObjs = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
-        GameObject tempAttackObj = null;
+        mana += mana;
+        SetManaUI();
+    }
 
-        for (int i = 0; i < attackObjs.Length; i++)
+    /// <summary>
+    /// Searches enemies or players gameObject for the closest thing to attack and sets currentTarget
+    /// Sets currentTarget to null if there are no more things to attack
+    /// </summary>
+    void SetCurrentTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float minDist = 1000f;
+        GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
         {
-            if (attackObjs[i].gameObject.activeSelf)
+            if (currentTargets[i].gameObject.activeSelf)
             {
-                float dist = (transform.position - attackObjs[i].transform.position).sqrMagnitude;
+                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
                 if (dist < minDist)
                 {
                     minDist = dist;
-                    tempAttackObj = attackObjs[i].gameObject;
+                    tempcurrentTarget = currentTargets[i].gameObject;
                 }
             }
         }
-        attackObj = tempAttackObj;
+        currentTarget = tempcurrentTarget;
     }
 
     /// <summary>
@@ -135,5 +202,10 @@ public class Fighter : MonoBehaviour
     void SetHealthUI()
     {
         healthUI.GetComponent<Text>().text = health.ToString();
+    }
+
+    void SetManaUI()
+    {
+        manaUI.GetComponent<Text>().text = mana.ToString();
     }
 }
