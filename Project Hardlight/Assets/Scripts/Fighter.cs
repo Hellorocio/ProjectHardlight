@@ -13,18 +13,14 @@ public class Fighter : MonoBehaviour
 
     public GameObject healthUI;
     public GameObject manaUI;
-    public int baseHealth = 5;
-    public float baseSpeed = 1.0f;
-    public int baseDamage = 1;
-    public int baseMana = 0;
-    public bool isPlayer;
+    public Animator anim;
+    public FighterStats fighterStats;
 
     public MonoBehaviour basicAttackAction;
 
-    private int health;
+    private float health;
     private float speed;
-    private int damage;
-    private int mana;
+    private float mana;
 
     private enum State {Idle, Move, BasicAttack};
     private State currentState = State.Idle;
@@ -38,19 +34,30 @@ public class Fighter : MonoBehaviour
     private IEnumerator basicAttackLoop;
     // This makes it so there's not weird jittering on the edge of your attack range
     private static float attackRangeAllowance = 0.2f;
+    
 
     // Move
     private IEnumerator moveLoop;
 
+    //Buff list
+    List<BuffObj> buffs;
+    private IEnumerator buffLoop;
+    private float movementSpeedBoost;
+    private float attackSpeedBoost;
+    private float defenseBoost;
+    public float attackBoost;
+    private float manaGenerationBoost;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        health = baseHealth;
-        speed = baseSpeed;
-        damage = baseDamage;
-        mana = baseMana;
+        InitBoosts();
+        health = fighterStats.maxHealth + fighterStats.maxHealth * fighterStats.soul.healthBoost;
+        speed = fighterStats.movementSpeed;
+        mana = 0;
 
-        if (isPlayer)
+        if (team == CombatInfo.Team.Hero)
         {
             attackParent = GameObject.Find("Enemies");
         }
@@ -64,9 +71,22 @@ public class Fighter : MonoBehaviour
         SetCurrentTarget();
     }
 
+    /// <summary>
+    /// Initializes boost amounts based on soul boosts
+    /// </summary>
+    void InitBoosts ()
+    {
+        movementSpeedBoost += fighterStats.soul.movementSpeedBoost;
+        attackSpeedBoost += fighterStats.soul.attackSpeedBoost;
+        defenseBoost += fighterStats.soul.defenseBoost;
+        attackBoost += fighterStats.soul.attackBoost;
+        manaGenerationBoost += fighterStats.soul.manaGenerationBoost;
+    }
+
     // Update is called once per frame
     void Update()
     {
+
 
         // Basic AI
         // TODO(Don't stop movement if player issued the Move command)
@@ -132,14 +152,14 @@ public class Fighter : MonoBehaviour
                 }
             }
         }
-
     }
     
     IEnumerator MoveLoop()
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+            float currentSpeed = speed + (speed * movementSpeedBoost);
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, currentSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -150,7 +170,52 @@ public class Fighter : MonoBehaviour
         {
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();
-            yield return new WaitForSeconds(basicAttackStats.attackSpeed);
+            anim.Play("Attack");
+            yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * attackSpeedBoost);
+        }
+    }
+
+    /// <summary>
+    /// Adds a new buff to the list and implements its effect
+    /// Starts buff timer if it isn't already running
+    /// </summary>
+    /// <param name="newBuff"></param>
+    void AddTimedBuff (BuffObj newBuff)
+    {
+        buffs.Add(newBuff);
+
+        movementSpeedBoost += newBuff.movementSpeedBoost;
+        attackSpeedBoost += newBuff.attackSpeedBoost;
+        defenseBoost += newBuff.defenseBoost;
+        attackBoost += newBuff.attackBoost;
+        manaGenerationBoost += newBuff.manaGenerationBoost;
+
+        if (buffLoop == null)
+        {
+            buffLoop = UpdateBuff();
+            StartCoroutine(buffLoop);
+        }
+    }
+
+    IEnumerator UpdateBuff ()
+    {
+        while (buffs.Count > 0)
+        {
+            foreach(BuffObj b in buffs)
+            {
+                b.timeActive--;
+                if (b.timeActive >= 0)
+                {
+                    movementSpeedBoost -= b.movementSpeedBoost;
+                    attackSpeedBoost -= b.attackSpeedBoost;
+                    defenseBoost -= b.defenseBoost;
+                    attackBoost -= b.attackBoost;
+                    manaGenerationBoost -= b.manaGenerationBoost;
+
+                    buffs.Remove(b);
+                }
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 
@@ -158,9 +223,9 @@ public class Fighter : MonoBehaviour
     /// Called by other fighters when they attack this one
     /// </summary>
     /// <param name="dmg"></param>
-    public void Attack (int dmg)
+    public void Attack (float dmg)
     {
-        health -= dmg;
+        health -= dmg - dmg * defenseBoost;
 
         if (health <= 0)
         {
@@ -173,7 +238,7 @@ public class Fighter : MonoBehaviour
     // TODO cap at max mana, do something special when mana hits max
     public void GainMana (int manaGained)
     {
-        mana += manaGained;
+        mana += manaGained + manaGained * manaGenerationBoost;
         SetManaUI();
     }
 
@@ -207,11 +272,11 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void SetHealthUI()
     {
-        healthUI.GetComponent<Text>().text = health.ToString();
+        healthUI.GetComponent<Text>().text = ((int)health).ToString();
     }
 
     void SetManaUI()
     {
-        manaUI.GetComponent<Text>().text = mana.ToString();
+        manaUI.GetComponent<Text>().text = ((int)mana).ToString();
     }
 }
