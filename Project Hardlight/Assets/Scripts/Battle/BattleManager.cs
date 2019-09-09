@@ -82,7 +82,12 @@ public class BattleManager : Singleton<BattleManager>
                     case Targeting.Type.TargetPosition:
                         Vector3 mousePos = Input.mousePosition;
                         selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
-                        // TODO (mchi) left off here: Now write the ability and cast the ability with the position
+                        if (selectedAbility.DoAbility())
+                        {
+                            StopTargeting();
+                            DeselectHero();
+                        }
+                        // TODO (mchi) Neutral sound on failure
                         break;
                     default:
                         break;
@@ -97,7 +102,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public void StartTargeting()
     {
-
         Debug.Log("TARGETING | Started");
 
         inputState = InputState.Targeting;
@@ -117,15 +121,21 @@ public class BattleManager : Singleton<BattleManager>
             default:
                 break;
         }
+
+        // TODO(mchi) Not sure where to put this exactly yet
+        selectedAbility.StartTargeting();
     }
 
     public void StopTargeting()
     {
         Debug.Log("TARGETING | Stopped");
 
+        selectedAbility.StopTargeting();
+
         inputState = InputState.Idle;
         selectedAbility = null;
         SetCursor(battleConfig.defaultCursor);
+
     }
 
     public void SetCursor(Texture2D cursorTexture)

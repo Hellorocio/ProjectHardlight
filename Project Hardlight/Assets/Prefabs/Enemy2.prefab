@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 952073211779320124}
-  - component: {fileID: 2671806292810023584}
+  - component: {fileID: 6786974485281815704}
   - component: {fileID: 6417920846059879946}
   - component: {fileID: 6417920846059879940}
   - component: {fileID: 205179122}
@@ -216,8 +216,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2671806292810023584
-BoxCollider2D:
+--- !u!70 &6786974485281815704
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -229,19 +229,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.2}
-    newSize: {x: 0.2, y: 0.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.08752775, y: 0}
+  m_Size: {x: 0.88252974, y: 1}
+  m_Direction: 0
 --- !u!50 &6417920846059879946
 Rigidbody2D:
   serializedVersion: 4
@@ -279,6 +269,7 @@ MonoBehaviour:
   team: 2
   healthUI: {fileID: 6547534737224929194}
   manaUI: {fileID: 1281447385}
+  selectedUI: {fileID: 0}
   anim: {fileID: 1317324165}
   fighterStats: {fileID: 11400000, guid: 361242637e8174240953fefc722f9e03, type: 2}
   healer: 0

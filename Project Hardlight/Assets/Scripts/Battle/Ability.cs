@@ -11,13 +11,20 @@ public class Ability : MonoBehaviour
     public Vector3 selectedPosition;
     public GameObject selectedTarget;
 
-    public virtual void StartTargeting()
+    public virtual bool StartTargeting()
     {
         Debug.Log("Default StartTargeting()");
+        return true;
     }
 
-    public virtual void DoAbility()
+    public virtual void StopTargeting()
+    {
+        Debug.Log("Default StopTargeting()");
+    }
+
+    public virtual bool DoAbility()
     {
         Debug.Log("Default DoAbility()");
+        return true;
     }
 }
