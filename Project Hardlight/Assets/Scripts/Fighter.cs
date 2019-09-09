@@ -13,6 +13,7 @@ public class Fighter : MonoBehaviour
 
     public GameObject healthUI;
     public GameObject manaUI;
+    public GameObject selectedUI;
     public Animator anim;
     public FighterStats fighterStats;
     public bool healer;
@@ -87,8 +88,6 @@ public class Fighter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         // Basic AI
         // TODO(Don't stop movement if player issued the Move command)
 
@@ -327,5 +326,10 @@ public class Fighter : MonoBehaviour
     void SetManaUI()
     {
         manaUI.GetComponent<Text>().text = ((int)mana).ToString();
+    }
+
+    public void SetSelectedUI(bool active)
+    {
+        selectedUI.SetActive(active);
     }
 }

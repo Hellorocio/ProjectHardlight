@@ -10,4 +10,14 @@ public class Ability : MonoBehaviour
     public Targeting.Type targetingType;
     public Vector3 selectedPosition;
     public GameObject selectedTarget;
+
+    public virtual void StartTargeting()
+    {
+        Debug.Log("Default StartTargeting()");
+    }
+
+    public virtual void DoAbility()
+    {
+        Debug.Log("Default DoAbility()");
+    }
 }
