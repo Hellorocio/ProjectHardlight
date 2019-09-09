@@ -569,12 +569,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183485228}
   m_CullTransparentMesh: 0
---- !u!1 &205179121 stripped
+--- !u!1 &205179121
 GameObject:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 295596027026680896, guid: a461db7570a40234fabedb8a97f09beb,
     type: 3}
   m_PrefabInstance: {fileID: 6417920846059879937}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205179123}
+  - component: {fileID: 205179122}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!114 &205179122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +599,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &205179123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205179121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 635885681}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245024798
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +683,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mage2
+  m_Text: Healer
 --- !u!222 &245024801
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1024,7 +1050,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mercenary2
+  m_Text: Mercenary
 --- !u!222 &371685533
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1245,6 +1271,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421458637}
   m_CullTransparentMesh: 0
+--- !u!1 &458012109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129181116}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &485024838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1357,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: idk2
+  m_Text: Healer
 --- !u!222 &485024841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1398,6 +1440,7 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 1225098633}
   manaUI: {fileID: 111080207}
+  selectedUI: {fileID: 0}
   anim: {fileID: 0}
   fighterStats: {fileID: 0}
   healer: 0
@@ -1484,9 +1527,42 @@ Transform:
   m_LocalPosition: {x: 9.87, y: -3.06, z: -7.9249077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6063947962575009597}
+  - {fileID: 635885681}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &635885680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 635885681}
+  m_Layer: 0
+  m_Name: Enemy1 (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &635885681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635885680}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 205179123}
+  - {fileID: 2129181116}
+  - {fileID: 6063947962575009597}
+  m_Father: {fileID: 559064954}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &658780495
 GameObject:
@@ -1585,7 +1661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &661550657
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1657,6 +1733,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e44abec4fb3024f891c21d64a5e94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mercenaryPrefab: {fileID: 3171901982325591327, guid: bcc49c09777713b488bea3617dbfaa97,
+    type: 3}
+  magePrefab: {fileID: 2169203085962951801, guid: 40cf737905425b246afb4017393ec8b7,
+    type: 3}
+  healerPrefab: {fileID: 3061916897697390927, guid: fca533348c17797469b1f0143a71bad5,
+    type: 3}
+  tmpPrefab: {fileID: 1061797060}
 --- !u!1 &804831976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1910,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Soul1
+  m_Text: Soul5
 --- !u!222 &933595146
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2116,7 +2199,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: idk1
+  m_Text: Mage
 --- !u!222 &1052916853
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2267,6 +2350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1061797061}
+  - component: {fileID: 1061797062}
   m_Layer: 5
   m_Name: TmpHero
   m_TagString: Untagged
@@ -2293,6 +2377,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!212 &1061797062
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061797060}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1144924495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2363,7 +2496,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mercenary1
+  m_Text: Mercenary
 --- !u!222 &1144924498
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2442,7 +2575,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mage1
+  m_Text: Mage
 --- !u!222 &1163240653
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2984,7 +3117,7 @@ RectTransform:
   m_LocalScale: {x: 0.03911271, y: 0.03911271, z: 0.03911271}
   m_Children: []
   m_Father: {fileID: 2129181116}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3278,7 +3411,7 @@ Transform:
   m_LocalScale: {x: 0.16000001, y: 0.16000001, z: 0.2}
   m_Children: []
   m_Father: {fileID: 6063947962575009597}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1317324164
 SpriteRenderer:
@@ -3348,7 +3481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1318700147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3430,6 +3563,7 @@ MonoBehaviour:
   soulSelectionMenu: {fileID: 1358281131}
   debugPartyLineup: {fileID: 148207807}
   startButtonText: {fileID: 421458639}
+  partyPlacement: {fileID: 661550656}
 --- !u!1 &1358281131
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4590,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1624572172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6063947962575009597}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1753968126
 GameObject:
   m_ObjectHideFlags: 0
@@ -5282,12 +5432,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015207793}
   m_CullTransparentMesh: 0
---- !u!224 &2129181116 stripped
+--- !u!224 &2129181116
 RectTransform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 3228730841961174305, guid: a461db7570a40234fabedb8a97f09beb,
     type: 3}
   m_PrefabInstance: {fileID: 6417920846059879937}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458012109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1281447386}
+  m_Father: {fileID: 635885681}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &655028855338608575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5533,12 +5698,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232319470648848278}
   m_CullTransparentMesh: 0
---- !u!4 &6063947962575009597 stripped
+--- !u!4 &6063947962575009597
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 952073211779320124, guid: a461db7570a40234fabedb8a97f09beb,
     type: 3}
   m_PrefabInstance: {fileID: 6417920846059879937}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624572172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1317324163}
+  m_Father: {fileID: 635885681}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6417920846059879937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5744,6 +5919,7 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 5232319470648848278}
   manaUI: {fileID: 1206626595}
+  selectedUI: {fileID: 0}
   anim: {fileID: 0}
   fighterStats: {fileID: 0}
   healer: 0

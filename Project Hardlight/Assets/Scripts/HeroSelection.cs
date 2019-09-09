@@ -11,6 +11,7 @@ public class HeroSelection : MonoBehaviour
     public Text startButtonText;
     private List<Vector2> lineup = new List<Vector2>();
     private int partySize = 0;
+    public GameObject partyPlacement;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +52,8 @@ public class HeroSelection : MonoBehaviour
     {
         if(partySize == 3)
         {
+            partyPlacement.SetActive(true);
+            partyPlacement.GetComponent<HeroPlacer>().StartHeroPlacement(lineup);
             gameObject.SetActive(false);
         }
     }
