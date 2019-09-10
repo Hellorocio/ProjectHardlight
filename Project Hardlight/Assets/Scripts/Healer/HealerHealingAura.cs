@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageAoEBlast : Ability
+public class HealerHealingAura : Ability
 {
     public float baseEffectRange;
     public float baseEffectRadius;
@@ -56,8 +56,9 @@ public class MageAoEBlast : Ability
 
     public override bool DoAbility()
     {
-        Debug.Log("MAGE PEW PEW");
-        print(radiusIndicator.transform.position);
+        Debug.Log("Healer healy woo");
+        //TODO: waiting to implmenent because we can base it off the attacking AOE
+
         return true;
     }
 

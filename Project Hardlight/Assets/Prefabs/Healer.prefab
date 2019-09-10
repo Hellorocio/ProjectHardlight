@@ -194,6 +194,8 @@ GameObject:
   - component: {fileID: 7420410924264124998}
   - component: {fileID: 4511883402718477472}
   - component: {fileID: 3674736732129029270}
+  - component: {fileID: 2951533379305144079}
+  - component: {fileID: 6465402585232177096}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Player
@@ -210,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 3061916897697390927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.78, y: -0.36, z: 1.979969}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children:
   - {fileID: 5832178710632447168}
   - {fileID: 1372465152858603377}
@@ -268,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Mage
+  characterName: Healer
   team: 1
   healthUI: {fileID: 6599769199649368783}
   manaUI: {fileID: 1372465152479456378}
@@ -316,6 +318,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healBasicAction: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
     type: 3}
+--- !u!114 &2951533379305144079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061916897697390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab4a01e5fe164846b7a24f83a65e5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Healing Aura
+  abilityDescription: The bright aura of a healer slightly rejuviantes allies in a
+    radius
+  targetingType: 3
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 0
+  baseEffectRadius: 0
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  radiusIndicator: {fileID: 0}
+--- !u!114 &6465402585232177096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061916897697390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fa96d916bf8974f8bcf7ae19d37e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityList:
+  - {fileID: 2951533379305144079}
 --- !u!1 &6599769199649368783
 GameObject:
   m_ObjectHideFlags: 0
