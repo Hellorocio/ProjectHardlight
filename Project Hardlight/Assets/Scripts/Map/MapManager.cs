@@ -14,6 +14,9 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] panels;
 
+    public GameObject dialogueBox;
+
+
     void Start()
     {
         for(int i = 0; i < nodes.Length;i++){
@@ -118,4 +121,24 @@ public class MapManager : MonoBehaviour
         }
         
     }
+
+    public void go(int index){
+        dialogueBox.SetActive(true);
+        switch(index){
+            case 0:
+                dialogueBox.GetComponentInChildren<Text>().text = "Let's do this!";
+                break;
+            case 1:
+                dialogueBox.GetComponentInChildren<Text>().text = "Here we go!";
+                break;
+            case 2:
+                dialogueBox.GetComponentInChildren<Text>().text = "This is it!";
+                break;
+        }
+        GameManager.Instance.levelSelect(index);
+    }
+
+    public void startLevel(){
+        GameManager.Instance.startLevel();
+            }
 }

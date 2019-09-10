@@ -6,9 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [HideInInspector]
-    public bool[] unlockedLevels = {true,true,true};
-    public bool[] levelsBeaten = {true,false,false};
-
+    public bool[] unlockedLevels = {true,false,false};
+    public bool[] levelsBeaten = {false,false,false};
     public int currentLevel;
     
     // Start is called before the first frame update
@@ -36,7 +35,31 @@ public class GameManager : Singleton<GameManager>
         currentLevel = index;
     }
     public void startLevel(){
-        SceneManager.LoadScene(currentLevel);
+        switch(currentLevel){
+            case 0:
+            loadScene(2);
+                break;
+            case 1:
+            loadScene(3);
+                break;
+            case 2:
+            loadScene(4);
+                break;
+        }
     }
+
+    public void winLevel(){
+        levelsBeaten[currentLevel] = true;
+        switch(currentLevel){
+            case 0:
+                unlockedLevels[1] = true;
+                break;
+            case 1:
+                unlockedLevels[2] = true;
+                break;
+        }
+
+    }
+
 
 }
