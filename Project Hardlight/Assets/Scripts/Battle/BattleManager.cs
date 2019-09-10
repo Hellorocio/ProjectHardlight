@@ -112,6 +112,15 @@ public class BattleManager : Singleton<BattleManager>
                         }
                         // TODO (mchi) Neutral sound on failure
                         break;
+                    case Targeting.Type.TargetUnit:
+                        Vector3 mousePos2 = Input.mousePosition;
+                        selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos2);
+                        if (selectedAbility.DoAbility())
+                        {
+                            StopTargeting();
+                            DeselectHero();
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -136,6 +145,7 @@ public class BattleManager : Singleton<BattleManager>
                 break;
             case Targeting.Type.TargetUnit:
                 Debug.Log("TARGETING | Target Unit");
+                SetCursor(battleConfig.targetUnitCursor);
                 // TODO change cursor
                 break;
             case Targeting.Type.Instant:
