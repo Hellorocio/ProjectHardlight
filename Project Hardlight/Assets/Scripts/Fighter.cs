@@ -353,4 +353,9 @@ public class Fighter : MonoBehaviour
     {
         selectedUI.SetActive(active);
     }
+
+    public float GetHealth ()
+    {
+        return health;
+    }
 }
