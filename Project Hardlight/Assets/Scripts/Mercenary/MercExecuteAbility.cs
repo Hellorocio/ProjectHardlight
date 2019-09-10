@@ -17,6 +17,7 @@ public class MercExecuteAbility: Ability
     public void Start()
     {
         targeting = false;
+        abilityName = "Execute";
     }
 
     private void Update()

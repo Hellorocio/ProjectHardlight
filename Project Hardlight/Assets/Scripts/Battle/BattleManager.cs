@@ -13,6 +13,8 @@ public class BattleManager : Singleton<BattleManager>
     public Ability selectedAbility;
     public InputState inputState;
 
+    public GameObject commandsUI;
+
     public void Start()
     {
         selectedHero = null;
@@ -21,7 +23,10 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Update()
     {
-
+        if(selectedHero != null && !selectedHero.activeSelf)
+        {
+            selectedHero = null;
+        }
         /////////////////// Idle
         if (inputState == InputState.Idle)
         {
@@ -185,6 +190,7 @@ public class BattleManager : Singleton<BattleManager>
 
         selectedHero = hero;
         selectedHero.GetComponent<Fighter>().SetSelectedUI(true);
+        commandsUI.GetComponent<CommandsUIHandler>().selectHero(hero);
     }
 
     public void DeselectHero()
@@ -193,6 +199,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
             selectedHero = null;
+            commandsUI.GetComponent<CommandsUIHandler>().deselectedHero();
         }
     }
 }

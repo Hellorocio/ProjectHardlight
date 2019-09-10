@@ -19,6 +19,7 @@ public class HealerHealingAura : Ability
     public void Start()
     {
         targeting = false;
+        abilityName = "Healing Aura";
     }
 
     public void Update()

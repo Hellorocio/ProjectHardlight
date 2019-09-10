@@ -19,6 +19,7 @@ public class HealerMajorHeal : Ability
     public void Start()
     {
         targeting = false;
+        abilityName = "Major Heal";
     }
 
     private void Update()
