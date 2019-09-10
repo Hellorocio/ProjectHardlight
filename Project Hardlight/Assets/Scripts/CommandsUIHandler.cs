@@ -53,4 +53,14 @@ public class CommandsUIHandler : MonoBehaviour
         moveButton.gameObject.SetActive(b);
         targetButton.gameObject.SetActive(b);
     }
+
+    private void setTargetButton()
+    {
+
+    }
+
+    private void castAbilityButton(int i)
+    {
+
+    }
 }
