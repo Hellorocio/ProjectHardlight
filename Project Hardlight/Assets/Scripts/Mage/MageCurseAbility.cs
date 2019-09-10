@@ -18,7 +18,6 @@ public class MageCurseAbility : Ability
     public void Start()
     {
         targeting = false;
-        abilityName = "Curse";
     }
 
     private void Update()
