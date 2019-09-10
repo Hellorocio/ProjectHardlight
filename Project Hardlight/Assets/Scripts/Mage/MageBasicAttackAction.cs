@@ -17,6 +17,6 @@ public class MageBasicAttackAction : BasicAttackAction
         GameObject mageBasicAttack = Instantiate(mageBasicAttackPrefab);
         mageBasicAttack.transform.position = transform.position;
         mageBasicAttack.GetComponent<ProjectileMovement>().source = gameObject;
-        mageBasicAttack.GetComponent<ProjectileMovement>().target = GetComponent<Fighter>().attackTarget.gameObject;
+        mageBasicAttack.GetComponent<ProjectileMovement>().target = GetComponent<Fighter>().currentTarget.gameObject;
     }
 }

@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 3171901982325591320}
   - component: {fileID: 382628994}
   - component: {fileID: 382628995}
+  - component: {fileID: 6846174989839160682}
   m_Layer: 0
   m_Name: Mercenary
   m_TagString: Player
@@ -265,7 +266,6 @@ MonoBehaviour:
   manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
-  attackTarget: {fileID: 0}
   attackBoost: 0
 --- !u!50 &3171901982325591325
 Rigidbody2D:
@@ -337,6 +337,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityList:
   - {fileID: 382628994}
+  - {fileID: 6846174989839160682}
+--- !u!114 &6846174989839160682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171901982325591327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33da7796f9ffe7943810bafeee28a484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Survival
+  abilityDescription: Does medium damage to an enemy in range, does large damage and
+    heals if HP < 10%
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 3
+  baseDamage: 5
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
 --- !u!1 &3171901982729959817
 GameObject:
   m_ObjectHideFlags: 0
