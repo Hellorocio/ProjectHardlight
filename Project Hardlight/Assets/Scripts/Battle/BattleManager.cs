@@ -58,9 +58,32 @@ public class BattleManager : Singleton<BattleManager>
             // TODO (Change to actually selecting an ability, keyboard for now)
             else if (Input.GetKeyDown(KeyCode.Alpha1) && selectedHero != null)
             {
+                if (selectedAbility != null)
+                {
+                    StopTargeting();
+                }
+
                 // Clear any existing selected ability
                 selectedAbility = null;
                 Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[0];
+                if (ability != null)
+                {
+                    selectedAbility = ability;
+
+                    // Start targeting
+                    StartTargeting();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && selectedHero != null)
+            {
+                if (selectedAbility != null)
+                {
+                    StopTargeting();
+                }
+
+                // Clear any existing selected ability
+                selectedAbility = null;
+                Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[1];
                 if (ability != null)
                 {
                     selectedAbility = ability;
