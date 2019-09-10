@@ -10,7 +10,10 @@ public class CommandsUIHandler : MonoBehaviour
     public Button ability1Button;
     public Button ability2Button;
     public Button targetButton;
+    public GameObject battleManager;
     private bool isUIShowing = false;
+    private GameObject currentlySelectedHero;
+    private bool selectingTarget = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +23,35 @@ public class CommandsUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (selectingTarget)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 pos = Input.mousePosition;
+                Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
+                if(hitCollider != null)
+                {
+                    Fighter tmp = hitCollider.GetComponent<Fighter>();
+
+                    if(tmp != null && tmp.team == CombatInfo.Team.Enemy)
+                    {
+                        currentlySelectedHero.GetComponent<Fighter>().currentTarget = tmp.gameObject;
+                    }
+                    selectingTarget = false;
+                    battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
+
+                } else
+                {
+                    selectingTarget = false;
+                    battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
+                }
+            }
+        }
     }
 
     public void deselectedHero()
     {
+        currentlySelectedHero = null;
         setEnabled(false);
         
     }
@@ -32,6 +59,7 @@ public class CommandsUIHandler : MonoBehaviour
     public void selectHero(GameObject f)
     {
         setEnabled(true);
+        currentlySelectedHero = f;
         heroNameText.text = f.GetComponent<Fighter>().characterName;
         HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
         ability1Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[0]).abilityName;
@@ -52,9 +80,11 @@ public class CommandsUIHandler : MonoBehaviour
         targetButton.gameObject.SetActive(b);
     }
 
-    private void setTargetButton()
+    public void setTargetButton()
     {
-
+        selectingTarget = true;
+        battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = true;
+        
     }
 
     private void castAbilityButton(int i)

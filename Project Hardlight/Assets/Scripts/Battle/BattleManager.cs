@@ -15,6 +15,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public GameObject commandsUI;
 
+    public bool commandIsSettingNewTarget = false;
+
     public void Start()
     {
         selectedHero = null;
@@ -35,7 +37,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 Vector3 pos = Input.mousePosition;
                 Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                if (hitCollider != null && hitCollider.gameObject.layer == 9) // if click hit the commandUI element, don't do anything
+                if ((hitCollider != null && hitCollider.gameObject.layer == 9) || commandIsSettingNewTarget) // if click hit the commandUI element, don't do anything
                 {
 
                 }
@@ -189,23 +191,29 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetSelectedHero(GameObject hero)
     {
-        if (selectedHero != null)
+        if (!commandIsSettingNewTarget)
         {
-            selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
-        }
+            if (selectedHero != null)
+            {
+                selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
+            }
 
-        selectedHero = hero;
-        selectedHero.GetComponent<Fighter>().SetSelectedUI(true);
-        commandsUI.GetComponent<CommandsUIHandler>().selectHero(hero);
+            selectedHero = hero;
+            selectedHero.GetComponent<Fighter>().SetSelectedUI(true);
+            commandsUI.GetComponent<CommandsUIHandler>().selectHero(hero);
+        }
     }
 
     public void DeselectHero()
     {
-        if (selectedHero != null)
+        if (!commandIsSettingNewTarget)
         {
-            selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
-            selectedHero = null;
-            commandsUI.GetComponent<CommandsUIHandler>().deselectedHero();
+            if (selectedHero != null)
+            {
+                selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
+                selectedHero = null;
+                commandsUI.GetComponent<CommandsUIHandler>().deselectedHero();
+            }
         }
     }
 }
