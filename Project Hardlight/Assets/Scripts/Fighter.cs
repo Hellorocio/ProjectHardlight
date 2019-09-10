@@ -77,6 +77,8 @@ public class Fighter : MonoBehaviour
             attackParent = GameObject.Find("Players");
         }
 
+        buffs = new List<BuffObj>();
+
         SetHealthUI();
         SetManaUI();
         SetCurrentTarget();
@@ -201,7 +203,8 @@ public class Fighter : MonoBehaviour
     /// <param name="newBuff"></param>
     public void AddTimedBuff (BuffObj newBuff)
     {
-        buffs.Add(newBuff);
+        BuffObj cloneBuff = Instantiate(newBuff);
+        buffs.Add(cloneBuff);
 
         movementSpeedBoost += newBuff.movementSpeedBoost;
         attackSpeedBoost += newBuff.attackSpeedBoost;
@@ -220,22 +223,32 @@ public class Fighter : MonoBehaviour
     {
         while (buffs.Count > 0)
         {
-            foreach(BuffObj b in buffs)
+            for (int i = 0; i < buffs.Count; i++)
             {
-                b.timeActive--;
-                if (b.timeActive >= 0)
+                buffs[i].timeActive--;
+                if (buffs[i].timeActive <= 0)
                 {
-                    movementSpeedBoost -= b.movementSpeedBoost;
-                    attackSpeedBoost -= b.attackSpeedBoost;
-                    defenseBoost -= b.defenseBoost;
-                    attackBoost -= b.attackBoost;
-                    manaGenerationBoost -= b.manaGenerationBoost;
+                    movementSpeedBoost -= buffs[i].movementSpeedBoost;
+                    attackSpeedBoost -= buffs[i].attackSpeedBoost;
+                    defenseBoost -= buffs[i].defenseBoost;
+                    attackBoost -= buffs[i].attackBoost;
+                    manaGenerationBoost -= buffs[i].manaGenerationBoost;
 
-                    buffs.Remove(b);
+                    buffs.Remove(buffs[i]);
+                    i--;
                 }
             }
             yield return new WaitForSeconds(1);
         }
+    }
+
+    float GetAttackBoost ()
+    {
+        if (attackBoost < 0)
+        {
+            return 0;
+        }
+        return attackBoost;
     }
 
     /// <summary>

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffObj : MonoBehaviour
+[CreateAssetMenu(fileName = "Data", menuName = "Battle/BuffObj", order = 1)]
+public class BuffObj : ScriptableObject
 {
     //percent stat buff
     public float movementSpeedBoost;
