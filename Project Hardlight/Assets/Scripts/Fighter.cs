@@ -35,7 +35,6 @@ public class Fighter : MonoBehaviour
     // Basic attacking
     public BasicAttackStats basicAttackStats;
     public GameObject currentTarget;
-    public GameObject attackTarget;
     private IEnumerator basicAttackLoop;
     // This makes it so there's not weird jittering on the edge of your attack range
     private static float attackRangeAllowance = 0.2f;
@@ -121,9 +120,8 @@ public class Fighter : MonoBehaviour
                 }
 
                 // Start basic attacking
-                if (attackTarget == null)
+                if (basicAttackLoop == null)
                 {
-                    attackTarget = currentTarget;
                     basicAttackLoop = BasicAttackLoop();
                     StartCoroutine(basicAttackLoop);
                     currentState = State.BasicAttack;
@@ -179,7 +177,7 @@ public class Fighter : MonoBehaviour
 
     IEnumerator BasicAttackLoop()
     {
-        while (true)
+        while (currentTarget != null && currentTarget.activeSelf)
         {
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();

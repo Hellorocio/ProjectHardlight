@@ -8,6 +8,6 @@ public class MeleeBasicAttackAction : BasicAttackAction
     {
         Fighter thisFighter = GetComponent<Fighter>();
         float damage = thisFighter.basicAttackStats.damage + thisFighter.basicAttackStats.damage * thisFighter.attackBoost;
-        thisFighter.attackTarget.GetComponent<Fighter>().TakeDamage(damage);
+        thisFighter.currentTarget.GetComponent<Fighter>().TakeDamage(damage);
     }
 }
