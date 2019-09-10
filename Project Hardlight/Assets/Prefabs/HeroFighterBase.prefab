@@ -106,7 +106,7 @@ Transform:
   m_GameObject: {fileID: 2169203085962951801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.094803, y: -1.4613411, z: 9.904877}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 7247589394789687798}
   - {fileID: 2841606765839737415}
@@ -178,10 +178,11 @@ MonoBehaviour:
   manaUI: {fileID: 2841606766618718540}
   selectedUI: {fileID: 1125286265050604820}
   anim: {fileID: 2841606765839737413}
-  fighterStats: {fileID: 11400000, guid: abc6160d1fdff23438eb5bd71fc76748, type: 2}
+  fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
   soul: {fileID: 0}
   healer: 0
   basicAttackAction: {fileID: 2169203085962951802}
+  manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
   attackTarget: {fileID: 0}
@@ -234,6 +235,7 @@ MonoBehaviour:
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
   baseEffectRadius: 2.5
+  baseDamage: 0
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
@@ -267,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 2841606765839737416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children: []
   m_Father: {fileID: 1672757653819103493}
   m_RootOrder: 1
@@ -310,7 +312,7 @@ SpriteRenderer:
   m_SortingLayerID: -384906397
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5511494001424625563, guid: 908284d4d3bd3aa41953e1bb58a3eec5,
+  m_Sprite: {fileID: -7936488368728208126, guid: f152f49d44d1de247b013a74eee3a679,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
