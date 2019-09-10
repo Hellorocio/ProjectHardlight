@@ -6,6 +6,7 @@ public class HealerHealingAura : Ability
 {
     public float baseEffectRange;
     public float baseEffectRadius;
+    public float baseHealAmt;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject radiusIndicatorPrefab;
@@ -56,10 +57,35 @@ public class HealerHealingAura : Ability
 
     public override bool DoAbility()
     {
-        Debug.Log("Healer healy woo");
-        //TODO: waiting to implmenent because we can base it off the attacking AOE
+        if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
+        {
+            Debug.Log("AoE heal casted");
 
-        return true;
+            //heal allies
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
+            foreach (Collider2D collider in hitColliders)
+            {
+                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
+                if (hitFighter != null)
+                {
+                    if (hitFighter.team == CombatInfo.Team.Hero)
+                    {
+                        hitFighter.Heal(GetHealAmt());
+                    }
+                }
+            }
+
+            // Lose mana
+            Fighter fighter = gameObject.GetComponent<Fighter>();
+            fighter.LoseMana(fighter.manaCosts);
+
+            return true;
+        }
+        else
+        {
+            Debug.Log("AoE blast out of range");
+            return false;
+        }
     }
 
     public float GetRange()
@@ -71,4 +97,11 @@ public class HealerHealingAura : Ability
     {
         return baseEffectRadius;
     }
+
+    public float GetHealAmt()
+    {
+        return baseHealAmt;
+    }
+
+
 }

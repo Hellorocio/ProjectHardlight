@@ -35,7 +35,7 @@ public class HeroSelectionAndOrdering : MonoBehaviour
             {
                 if (BattleManager.Instance.selectedHero == gameObject)
                 {
-                    BattleManager.Instance.selectedHero = null;
+                    BattleManager.Instance.DeselectHero();
                 }
                 isHeroSelected = false;
                 spriteRend.material.color = unselectedColor;
