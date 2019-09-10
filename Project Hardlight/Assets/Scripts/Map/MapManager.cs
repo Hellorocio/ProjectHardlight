@@ -21,6 +21,7 @@ public class MapManager : MonoBehaviour
         }
         Party.transform.position = nodes[currentNode].transform.position;
         panels[currentNode].SetActive(true);
+        updatePanel();
         GetComponent<MapPathFollow>().StartPosition = Party.transform.position;
         GetComponent<MapPathFollow>().CurrentPosition = Party.transform.position;
 
@@ -101,6 +102,20 @@ public class MapManager : MonoBehaviour
                 break;
         }
         panels[currentNode].SetActive(true);
+        updatePanel();
+
+    }
+
+    public void loadScene(int index){
+        GameManager.Instance.loadScene(index);
     }
     
+    public void updatePanel(){
+        if(GameManager.Instance.levelsBeaten[currentNode] == true){
+            if(panels[currentNode].GetComponentInChildren<Button>()){
+            panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
+            }
+        }
+        
+    }
 }

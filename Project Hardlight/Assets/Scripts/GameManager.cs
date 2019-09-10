@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [HideInInspector]
-    public bool[] unlockedLevels = {true,false,false};
+    public bool[] unlockedLevels = {true,true,true};
+    public bool[] levelsBeaten = {true,false,false};
+
+    public int currentLevel;
     
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     // Update is called once per frame
@@ -24,4 +27,16 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.LoadScene(scene);
     }
+
+    public void unlockLevel(int index){
+        unlockedLevels[index] = true;
+    }
+
+    public void levelSelect(int index){
+        currentLevel = index;
+    }
+    public void startLevel(){
+        SceneManager.LoadScene(currentLevel);
+    }
+
 }
