@@ -33,20 +33,26 @@ public class CommandsUIHandler : MonoBehaviour
                 {
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
 
-                    if(tmp != null && tmp.team == CombatInfo.Team.Enemy)
+                    if(tmp != null && ((tmp.team == CombatInfo.Team.Enemy && !currentlySelectedHero.GetComponent<Fighter>().healer)
+                        || (tmp.team == CombatInfo.Team.Hero && currentlySelectedHero.GetComponent<Fighter>().healer)))
                     {
                         currentlySelectedHero.GetComponent<Fighter>().currentTarget = tmp.gameObject;
                     }
-                    selectingTarget = false;
-                    battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
+                    StartCoroutine(endTargeting());
 
                 } else
                 {
-                    selectingTarget = false;
-                    battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
+                    StartCoroutine(endTargeting());
                 }
             }
         }
+    }
+
+    IEnumerator endTargeting()
+    {
+        yield return new WaitForEndOfFrame();
+        selectingTarget = false;
+        battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
     }
 
     public void deselectedHero()
@@ -58,14 +64,18 @@ public class CommandsUIHandler : MonoBehaviour
 
     public void selectHero(GameObject f)
     {
-        setEnabled(true);
-        currentlySelectedHero = f;
-        heroNameText.text = f.GetComponent<Fighter>().characterName;
-        HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
-        ability1Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[0]).abilityName;
-        if(tmpAbilities.abilityList.Count > 1)
+        if (!selectingTarget)
         {
-            ability2Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[1]).abilityName;
+
+            setEnabled(true);
+            currentlySelectedHero = f;
+            heroNameText.text = f.GetComponent<Fighter>().characterName;
+            HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
+            ability1Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[0]).abilityName;
+            if (tmpAbilities.abilityList.Count > 1)
+            {
+                ability2Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[1]).abilityName;
+            }
         }
 
     }

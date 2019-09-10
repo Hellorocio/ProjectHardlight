@@ -191,7 +191,7 @@ public class Fighter : MonoBehaviour
 
             if (healer)
             {
-                SetCurrentTarget();
+                //SetCurrentTarget(); // This may be overriding the commandUI's set new target
             }
         }
     }
