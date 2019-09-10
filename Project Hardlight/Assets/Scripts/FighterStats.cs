@@ -8,7 +8,4 @@ public class FighterStats : ScriptableObject
     public float maxHealth = 100;
     public float maxMana = 10;
     public float movementSpeed = 1.0f;
-
-    //equipped soul
-    public SoulStats soul;
 }

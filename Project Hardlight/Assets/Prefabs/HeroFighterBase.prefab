@@ -104,7 +104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2169203085962951801}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.094803, y: -1.4613411, z: 9.904877}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
@@ -178,7 +178,8 @@ MonoBehaviour:
   manaUI: {fileID: 2841606766618718540}
   selectedUI: {fileID: 1125286265050604820}
   anim: {fileID: 2841606765839737413}
-  fighterStats: {fileID: 11400000, guid: f812af14e64d97b4d8b7fd9b60137040, type: 2}
+  fighterStats: {fileID: 11400000, guid: abc6160d1fdff23438eb5bd71fc76748, type: 2}
+  soul: {fileID: 0}
   healer: 0
   basicAttackAction: {fileID: 2169203085962951802}
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityList:
   - {fileID: 2169203085962951803}
+  - {fileID: 2169203085962951803}
 --- !u!114 &2169203085962951803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +232,7 @@ MonoBehaviour:
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 4
+  baseEffectRange: 8
   baseEffectRadius: 2.5
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}

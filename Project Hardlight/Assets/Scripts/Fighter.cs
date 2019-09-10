@@ -16,9 +16,12 @@ public class Fighter : MonoBehaviour
     public GameObject selectedUI;
     public Animator anim;
     public FighterStats fighterStats;
+    public SoulStats soul;
     public bool healer;
 
     public MonoBehaviour basicAttackAction;
+
+    public int manaCosts;
 
     private float health;
     private float speed;
@@ -55,7 +58,14 @@ public class Fighter : MonoBehaviour
     void Start()
     {
         InitBoosts();
-        health = fighterStats.maxHealth + fighterStats.maxHealth * fighterStats.soul.healthBoost;
+        if (soul != null)
+        {
+            health = fighterStats.maxHealth + fighterStats.maxHealth * soul.healthBoost;
+        }
+        else
+        {
+            health = fighterStats.maxHealth;
+        }
         speed = fighterStats.movementSpeed;
         mana = 0;
 
@@ -78,11 +88,14 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void InitBoosts ()
     {
-        movementSpeedBoost += fighterStats.soul.movementSpeedBoost;
-        attackSpeedBoost += fighterStats.soul.attackSpeedBoost;
-        defenseBoost += fighterStats.soul.defenseBoost;
-        attackBoost += fighterStats.soul.attackBoost;
-        manaGenerationBoost += fighterStats.soul.manaGenerationBoost;
+        if (soul != null)
+        {
+            movementSpeedBoost += soul.movementSpeedBoost;
+            attackSpeedBoost += soul.attackSpeedBoost;
+            defenseBoost += soul.defenseBoost;
+            attackBoost += soul.attackBoost;
+            manaGenerationBoost += soul.manaGenerationBoost;
+        }
     }
 
     // Update is called once per frame
@@ -94,7 +107,7 @@ public class Fighter : MonoBehaviour
         // You have a target to go for
         if (currentTarget != null && currentTarget.activeSelf)
         {
-            float distanceFromTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
+            float distanceFromTarget = Vector2.Distance(transform.position, currentTarget.transform.position);
 
             // In range of target
             if (distanceFromTarget < basicAttackStats.range)
@@ -170,7 +183,10 @@ public class Fighter : MonoBehaviour
         {
             BasicAttackAction attack = (BasicAttackAction)basicAttackAction;
             attack.DoBasicAttack();
-            anim.Play("Attack");
+            if (anim != null)
+            {
+                anim.Play("Attack");
+            }
             yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * attackSpeedBoost);
 
             if (healer)
@@ -228,7 +244,7 @@ public class Fighter : MonoBehaviour
     /// Called by other fighters when they attack this one
     /// </summary>
     /// <param name="dmg"></param>
-    public void Attack (float dmg)
+    public void TakeDamage (float dmg)
     {
         health -= dmg - dmg * defenseBoost;
 
@@ -251,9 +267,16 @@ public class Fighter : MonoBehaviour
     }
 
     // TODO cap at max mana, do something special when mana hits max
-    public void GainMana (int manaGained)
+    public void GainMana(int manaGained)
     {
         mana += manaGained + manaGained * manaGenerationBoost;
+        SetManaUI();
+    }
+
+    // TODO cap at max mana, do something special when mana hits max
+    public void LoseMana (int manaGained)
+    {
+        mana -= mana;
         SetManaUI();
     }
 
