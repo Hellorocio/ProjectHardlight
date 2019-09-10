@@ -4,76 +4,73 @@ using UnityEngine;
 
 public class MapPathFollow : MonoBehaviour
 {
-    public Transform[] Nodes;
+    public Node[] Nodes;
     public GameObject Party;
     public float Speed;
     float Timer;
-    static Vector3 CurrentPosition;
+    [HideInInspector]
+    public Vector3 CurrentPosition;
 
-    private Vector2 StartPosition;
+    [HideInInspector]
+    public Vector2 StartPosition;
     int CurrentNode = 0;
-    public GameObject[] FirstNodes;
 
-    private bool PathChosen;
+    private bool pathChosen;
+    public GameObject[] paths;
+
+    [HideInInspector]
     public bool traveling;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        //Nodes = FirstNodes[0].GetComponentsInChildren<Transform>();
+        StartPosition = Party.transform.position;
         CurrentPosition = Party.transform.position;
-        //CheckPos();
-
     }
 
-    void CheckPos()
+    void CheckNode()
     {
-        
             StartPosition = Party.transform.position;
             Timer = 0;
-            CurrentPosition = Nodes[CurrentNode].position;
-            
+            CurrentPosition = Nodes[CurrentNode].transform.position;       
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        if(PathChosen)
-        {
+    {   if(pathChosen){
+
             Timer += Time.deltaTime * Speed;
             if(Party.transform.position != CurrentPosition)
             {
-                traveling = true;
                 Party.transform.position = Vector3.Lerp(StartPosition, CurrentPosition,Timer);
             }
             else
             {
-                if( CurrentNode < Nodes.Length -1)
+                if(CurrentNode < Nodes.Length -1)
                 {
                     CurrentNode++;
-                    CheckPos();
+                    CheckNode();
                 }
-                else if(CurrentNode == Nodes.Length -1)
-                {
-                    PathChosen = false;
+
+                else{
                     traveling = false;
+                    pathChosen = false;
                 }
-                
-                
             }
         }
     }
+            
+    
 
-    public void newDestination(int start){
-        if(traveling){
-            return;
-        }
-        Nodes = FirstNodes[start].GetComponentsInChildren<Transform>();
+    public void travel(int path){
+        Nodes = paths[path].GetComponentsInChildren<Node>();
         CurrentNode = 0;
-        PathChosen = true;
-        //CheckPos();
-        
-
+        traveling = true;
+        pathChosen = true;
+       
     }
+     
+          
 }
+    
+
