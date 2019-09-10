@@ -9,7 +9,6 @@ public class CommandsUIHandler : MonoBehaviour
     public Text heroNameText;
     public Button ability1Button;
     public Button ability2Button;
-    public Button moveButton;
     public Button targetButton;
     private bool isUIShowing = false;
     // Start is called before the first frame update
@@ -50,7 +49,6 @@ public class CommandsUIHandler : MonoBehaviour
         heroNameText.gameObject.SetActive(b);
         ability1Button.gameObject.SetActive(b);
         ability2Button.gameObject.SetActive(b);
-        moveButton.gameObject.SetActive(b);
         targetButton.gameObject.SetActive(b);
     }
 
