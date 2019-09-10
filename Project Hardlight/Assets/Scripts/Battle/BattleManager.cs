@@ -114,22 +114,39 @@ public class BattleManager : Singleton<BattleManager>
                 switch (selectedAbility.targetingType)
                 {
                     case Targeting.Type.TargetPosition:
-                        Vector3 mousePos = Input.mousePosition;
-                        selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
-                        if (selectedAbility.DoAbility())
                         {
-                            StopTargeting();
-                            DeselectHero();
+                            Vector3 mousePos = Input.mousePosition;
+                            selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
+                            if (selectedAbility.DoAbility())
+                            {
+                                StopTargeting();
+                                DeselectHero();
+                            }
+                            // TODO (mchi) Neutral sound on failure
                         }
-                        // TODO (mchi) Neutral sound on failure
                         break;
-                    case Targeting.Type.TargetUnit:
-                        Vector3 mousePos2 = Input.mousePosition;
-                        selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos2);
-                        if (selectedAbility.DoAbility())
+                    case Targeting.Type.TargetUnit:// M1
                         {
-                            StopTargeting();
-                            DeselectHero();
+                            Vector3 pos = Input.mousePosition;
+                            Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
+                            bool clickedEnemyFighter = false;
+
+                            if (hitCollider != null)
+                            {
+                                Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
+                                if (clickedFighter != null)
+                                {
+                                    if (clickedFighter.team == CombatInfo.Team.Enemy)
+                                    {
+                                        clickedEnemyFighter = true;
+                                    }
+                                }
+                            }
+
+                            if (clickedEnemyFighter)
+                            {
+                                selectedAbility.selectedTarget = hitCollider.gameObject;
+                            }
                         }
                         break;
                     default:
