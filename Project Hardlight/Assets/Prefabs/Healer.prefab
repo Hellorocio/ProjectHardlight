@@ -271,13 +271,14 @@ GameObject:
   - component: {fileID: 3674736732129029270}
   - component: {fileID: 2951533379305144079}
   - component: {fileID: 6465402585232177096}
+  - component: {fileID: 634472076}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2545175618986722355
 Transform:
   m_ObjectHideFlags: 0
@@ -436,6 +437,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityList:
   - {fileID: 2951533379305144079}
+  - {fileID: 634472076}
+--- !u!114 &634472076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061916897697390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c4977a98082b4da02dcaa8d785144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Major Heal
+  abilityDescription: A healer puts all thier willpower together to heal one nearby
+    ally a huge amount
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 6
+  baseHealAmt: 22
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  healEffectPrefab: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
+    type: 3}
+  attackTargetUnit: {fileID: 0}
 --- !u!1 &6599769199649368783
 GameObject:
   m_ObjectHideFlags: 0

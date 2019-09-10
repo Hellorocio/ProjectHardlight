@@ -16,6 +16,6 @@ public class DisableOnCooldown : MonoBehaviour
     IEnumerator CooldownTimer ()
     {
         yield return new WaitForSeconds(timer);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
