@@ -217,6 +217,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &332375057
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1191404532884517704, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.2605996
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8828728
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.012057
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf255fca5105447778a9280b13b44631, type: 3}
 --- !u!1 &515426201
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,12 +360,16 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 1225098633}
   manaUI: {fileID: 111080207}
+  selectedUI: {fileID: 0}
   anim: {fileID: 1549314201}
   fighterStats: {fileID: 11400000, guid: 31544656542b2ea49a29830cd2c12b66, type: 2}
+  soul: {fileID: 0}
+  healer: 0
   basicAttackAction: {fileID: 515426206}
+  manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
-  attackTarget: {fileID: 0}
+  attackBoost: 0
 --- !u!61 &515426205
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -375,7 +448,7 @@ Transform:
   m_LocalPosition: {x: 9.87, y: -3.06, z: -7.9249077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6063947962575009597}
+  - {fileID: 6417920846059879938}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -733,7 +806,7 @@ RectTransform:
   m_LocalScale: {x: 0.03911271, y: 0.03911271, z: 0.03911271}
   m_Children: []
   m_Father: {fileID: 2129181116}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -895,7 +968,7 @@ Transform:
   m_LocalScale: {x: 0.16000001, y: 0.16000001, z: 0.2}
   m_Children: []
   m_Father: {fileID: 6063947962575009597}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1317324164
 SpriteRenderer:
@@ -2035,6 +2108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
     type: 3}
+  spawnPoint: {fileID: 0}
+  animationDelay: 0
 --- !u!114 &4140467197057999896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2318,6 +2393,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 60676569974374596, guid: a461db7570a40234fabedb8a97f09beb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a461db7570a40234fabedb8a97f09beb, type: 3}
+--- !u!4 &6417920846059879938 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 6417920846059879937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!61 &6985538492629933183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2379,9 +2459,13 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 5232319470648848278}
   manaUI: {fileID: 1206626595}
+  selectedUI: {fileID: 0}
   anim: {fileID: 1903524394}
   fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
+  soul: {fileID: 0}
+  healer: 0
   basicAttackAction: {fileID: 4140467197057999895}
+  manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
-  attackTarget: {fileID: 0}
+  attackBoost: 0
