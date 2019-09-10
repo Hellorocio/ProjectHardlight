@@ -14,6 +14,12 @@ public class HeroPlacer : MonoBehaviour
     private List<Fighter> heroScripts = new List<Fighter>();
     private int numHeroesLeftToPlace = -1;
     private int index = 0;
+    public SoulStats soul1;
+    public SoulStats soul2;
+    public SoulStats soul3;
+    public SoulStats soul4;
+    public SoulStats soul5;
+    public SoulStats soul6;
     public GameObject enemyParent;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +39,31 @@ public class HeroPlacer : MonoBehaviour
                 GameObject h = Instantiate(currentHeroPrefab, tmpInstance.transform.position, tmpInstance.transform.rotation);
                 h.transform.parent = GameObject.Find("Players").transform;
                 heroScripts.Add(h.GetComponent<Fighter>());
+                
+                if(heroes[index].y == 1)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul1;
+                } else if(heroes[index].y == 2)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul2;
+                }
+                else if (heroes[index].y == 3)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul3;
+                }
+                else if (heroes[index].y == 4)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul4;
+                }
+                else if (heroes[index].y == 5)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul5;
+                }
+                else if (heroes[index].y == 6)
+                {
+                    heroScripts[heroScripts.Count - 1].soul = soul6;
+                }
+                
                 heroScripts[heroScripts.Count - 1].enabled = false;
                 h.GetComponent<Fighter>().enabled = false;
                 Destroy(tmpInstance);
