@@ -14,9 +14,11 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] panels;
 
-
     void Start()
     {
+        for(int i = 0; i < nodes.Length;i++){
+            nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
+        }
         Party.transform.position = nodes[currentNode].transform.position;
         panels[currentNode].SetActive(true);
         GetComponent<MapPathFollow>().StartPosition = Party.transform.position;
@@ -54,12 +56,13 @@ public class MapManager : MonoBehaviour
     }
 
     public void travel(int destination){
+        if(nodes[destination].unlocked == false || destination == currentNode || GetComponent<MapPathFollow>().traveling){
+            return;
+        }
         foreach(GameObject p in panels){
             p.SetActive(false);
         }
-        if(nodes[destination].locked == true || destination == currentNode || GetComponent<MapPathFollow>().traveling){
-            return;
-        }
+        
 
         switch(currentNode){
             case 0:

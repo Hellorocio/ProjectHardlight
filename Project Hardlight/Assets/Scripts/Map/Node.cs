@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     public string levelName;
     public Node[] adjacentNodes;
 
-    public bool locked;
+    public bool unlocked;
 
 
     // Start is called before the first frame update
