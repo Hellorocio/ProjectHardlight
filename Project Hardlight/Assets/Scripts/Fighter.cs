@@ -262,6 +262,7 @@ public class Fighter : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>().checkFighters();
         }
 
         SetHealthUI();

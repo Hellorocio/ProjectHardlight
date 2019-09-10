@@ -26,7 +26,7 @@ public class MageCurseAbility : Ability
         {
             // Update positions
             rangeIndicator.transform.position = gameObject.transform.position;
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("what");
         }
     }
 
@@ -52,33 +52,21 @@ public class MageCurseAbility : Ability
     {
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
-            //Check for a single enemy at click position (check small range)
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, 0.5f);
-            foreach (Collider2D collider in hitColliders)
+            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
+            if (selectedFighter != null)
             {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
-                {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
-                    {
-                        hitFighter.TakeDamage(GetDamage());
+                selectedFighter.TakeDamage(GetDamage());
+                //add debuff
+                selectedFighter.AddTimedBuff(attackDebuff);
+                // Lose mana
+                selectedFighter.LoseMana(selectedFighter.manaCosts);
 
-                        //add debuff
-                        hitFighter.AddTimedBuff(attackDebuff);
-
-                        // Lose mana
-                        Fighter fighter = gameObject.GetComponent<Fighter>();
-                        fighter.LoseMana(fighter.manaCosts);
-
-                        return true;
-                    }
-                }
+                return true;
             }
-
-            //if we get here then there weren't any enemies right where the player clicked
-            Debug.Log("Mage: Selected area does not have an enemy");
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         Debug.Log("Mage: Selelected area is not in range");
