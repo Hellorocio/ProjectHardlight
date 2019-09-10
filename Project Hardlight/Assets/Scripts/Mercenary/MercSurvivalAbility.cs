@@ -17,6 +17,7 @@ public class MercSurvivalAbility : Ability
     public void Start()
     {
         targeting = false;
+        abilityName = "Survive";
     }
 
     private void Update()

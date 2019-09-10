@@ -35,28 +35,34 @@ public class BattleManager : Singleton<BattleManager>
             {
                 Vector3 pos = Input.mousePosition;
                 Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-
-                bool clickedHeroFighter = false;
-
-                if (hitCollider != null)
+                if (hitCollider != null && hitCollider.gameObject.layer == 9) // if click hit the commandUI element, don't do anything
                 {
-                    Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
-                    if (clickedFighter != null)
-                    {
-                        if (clickedFighter.team == CombatInfo.Team.Hero)
-                        {
-                            clickedHeroFighter = true;
-                        }
-                    }
-                }
 
-                if (clickedHeroFighter)
-                {
-                    SetSelectedHero(hitCollider.gameObject);
                 }
                 else
                 {
-                    DeselectHero();
+                    bool clickedHeroFighter = false;
+
+                    if (hitCollider != null)
+                    {
+                        Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
+                        if (clickedFighter != null)
+                        {
+                            if (clickedFighter.team == CombatInfo.Team.Hero)
+                            {
+                                clickedHeroFighter = true;
+                            }
+                        }
+                    }
+
+                    if (clickedHeroFighter)
+                    {
+                        SetSelectedHero(hitCollider.gameObject);
+                    }
+                    else
+                    {
+                        DeselectHero();
+                    }
                 }
             }
             // Key 1 to select ability

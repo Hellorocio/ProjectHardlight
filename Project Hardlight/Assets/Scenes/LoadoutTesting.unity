@@ -1464,7 +1464,6 @@ MonoBehaviour:
   manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
-  attackTarget: {fileID: 0}
   attackBoost: 0
 --- !u!61 &515426205
 BoxCollider2D:
@@ -2054,7 +2053,7 @@ GameObject:
   - component: {fileID: 875849025}
   - component: {fileID: 875849027}
   - component: {fileID: 875849026}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2425,7 +2424,7 @@ GameObject:
   - component: {fileID: 993042412}
   - component: {fileID: 993042411}
   - component: {fileID: 993042410}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: AbilityButton1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2545,7 +2544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018109784}
   - component: {fileID: 1018109783}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: CommandsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2607,7 +2606,7 @@ GameObject:
   - component: {fileID: 1037906829}
   - component: {fileID: 1037906828}
   - component: {fileID: 1037906827}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: AbilityButton2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3026,7 +3025,7 @@ GameObject:
   - component: {fileID: 1127360964}
   - component: {fileID: 1127360963}
   - component: {fileID: 1127360962}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: MoveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3438,7 +3437,7 @@ GameObject:
   - component: {fileID: 1179514244}
   - component: {fileID: 1179514246}
   - component: {fileID: 1179514245}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3893,7 +3892,7 @@ GameObject:
   - component: {fileID: 1277261243}
   - component: {fileID: 1277261245}
   - component: {fileID: 1277261244}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4858,7 +4857,7 @@ GameObject:
   - component: {fileID: 1390827843}
   - component: {fileID: 1390827845}
   - component: {fileID: 1390827844}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5404,7 +5403,7 @@ GameObject:
   - component: {fileID: 1631851845}
   - component: {fileID: 1631851847}
   - component: {fileID: 1631851846}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5483,7 +5482,7 @@ GameObject:
   - component: {fileID: 1683185733}
   - component: {fileID: 1683185735}
   - component: {fileID: 1683185734}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5551,6 +5550,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683185732}
   m_CullTransparentMesh: 0
+--- !u!1 &1690666972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1690666974}
+  - component: {fileID: 1690666973}
+  m_Layer: 9
+  m_Name: CommandsUIHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1690666973
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690666972}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1690666974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690666972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.21, y: -3.04, z: 0}
+  m_LocalScale: {x: 6, y: 4, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1741044674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6459,7 +6515,7 @@ GameObject:
   - component: {fileID: 2004146687}
   - component: {fileID: 2004146686}
   - component: {fileID: 2004146685}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: TargetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6969,5 +7025,4 @@ MonoBehaviour:
   manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
-  attackTarget: {fileID: 0}
   attackBoost: 0
