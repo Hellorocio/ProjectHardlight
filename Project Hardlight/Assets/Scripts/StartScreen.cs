@@ -18,6 +18,5 @@ public class StartScreen : MonoBehaviour
 
     public void StartGame(){
         GameManager.Instance.loadScene(1);
-        GameManager.Instance.unlockLevel(2);
     }
 }
