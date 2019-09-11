@@ -189,7 +189,7 @@ public class Fighter : MonoBehaviour
             }
 
             AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource != null)
+            if (audioSource != null && basicAttackStats.sfx != null)
             {
                 audioSource.clip = basicAttackStats.sfx;
                 audioSource.Play();
