@@ -26,7 +26,6 @@ public class MageCurseAbility : Ability
         {
             // Update positions
             rangeIndicator.transform.position = gameObject.transform.position;
-            Debug.Log("what");
         }
     }
 
@@ -50,11 +49,14 @@ public class MageCurseAbility : Ability
 
     public override bool DoAbility()
     {
-        if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
+        if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
+            Debug.Log("in range");
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
             if (selectedFighter != null)
             {
+                Debug.Log("pew pew");
+
                 selectedFighter.TakeDamage(GetDamage());
                 //add debuff
                 selectedFighter.AddTimedBuff(attackDebuff);
@@ -63,13 +65,7 @@ public class MageCurseAbility : Ability
 
                 return true;
             }
-            else
-            {
-                return false;
-            }
         }
-
-        Debug.Log("Mage: Selelected area is not in range");
         return false;
 
     }
