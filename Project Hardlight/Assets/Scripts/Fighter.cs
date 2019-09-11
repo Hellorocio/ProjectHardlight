@@ -12,6 +12,7 @@ public class Fighter : MonoBehaviour
 
     public GameObject healthUI;
     public GameObject manaUI;
+    public GameObject maxManaUI;
     public GameObject selectedUI;
     public Animator anim;
     public FighterStats fighterStats;
@@ -79,6 +80,7 @@ public class Fighter : MonoBehaviour
 
         SetHealthUI();
         SetManaUI();
+        SetMaxManaUI();
         SetCurrentTarget();
     }
 
@@ -372,7 +374,12 @@ public class Fighter : MonoBehaviour
 
     void SetManaUI()
     {
-        manaUI.GetComponent<Text>().text = ((int)mana).ToString();
+        manaUI.GetComponent<Text>().text = mana.ToString();
+    }
+
+    void SetMaxManaUI()
+    {
+        maxManaUI.GetComponent<Text>().text = "/" + fighterStats.maxMana.ToString();
     }
 
     public void SetSelectedUI(bool active)

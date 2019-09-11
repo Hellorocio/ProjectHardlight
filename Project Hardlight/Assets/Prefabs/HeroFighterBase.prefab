@@ -109,9 +109,9 @@ Transform:
   m_LocalPosition: {x: -8.094803, y: -1.4613411, z: 9.904877}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
-  - {fileID: 1862939594246855016}
   - {fileID: 7247589394789687798}
   - {fileID: 2841606765839737415}
+  - {fileID: 1862939594246855016}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00427562}
+  m_Offset: {x: 0.024960637, y: -0.018538892}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.37387615}
+  m_Size: {x: 0.24992129, y: 0.4024027}
   m_EdgeRadius: 0
 --- !u!114 &5953208878818963312
 MonoBehaviour:
@@ -178,13 +178,14 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 8066937154966550521}
   manaUI: {fileID: 2841606766618718540}
+  maxManaUI: {fileID: 6283568529366187445}
   selectedUI: {fileID: 1125286265050604820}
   anim: {fileID: 2841606765839737413}
   fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
   soul: {fileID: 0}
   healer: 0
   basicAttackAction: {fileID: 2169203085962951802}
-  manaCosts: 0
+  manaCosts: 30
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0
@@ -202,8 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
     type: 3}
-  spawnPoint: {fileID: 0}
-  animationDelay: 0
+  spawnPoint: {fileID: 3246368686423804003}
+  animationDelay: 0.7
 --- !u!114 &2169203085962951780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ MonoBehaviour:
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
   baseEffectRadius: 2.5
-  baseDamage: 5
+  baseDamage: 10
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
@@ -257,9 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Curse
-  abilityDescription: Cast a curse on one nearby enemy which deals medium damage and
-    stops it from attacking for 10 seconds
+  abilityName: Light Prison
+  abilityDescription: Deal damage over time and increase damage dealt against enemy
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
@@ -296,11 +296,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2841606765839737416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.034, y: -0.185, z: 0}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children: []
   m_Father: {fileID: 1672757653819103493}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2841606765839737414
 SpriteRenderer:
@@ -474,11 +474,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3246368686423804003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.404, y: 0.159, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1672757653819103493}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5422158295666559031
 GameObject:
@@ -513,8 +513,9 @@ RectTransform:
   - {fileID: 2172105245934743921}
   - {fileID: 2841606766618718539}
   - {fileID: 1125286265050604821}
+  - {fileID: 7751300710477601866}
   m_Father: {fileID: 1672757653819103493}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -581,6 +582,85 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &6283568529366187445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7751300710477601866}
+  - component: {fileID: 6483793248871128388}
+  - component: {fileID: 1033004807014844330}
+  m_Layer: 5
+  m_Name: MaxMana
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7751300710477601866
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283568529366187445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.03910922, y: 0.03910922, z: 0.03910922}
+  m_Children: []
+  m_Father: {fileID: 7247589394789687798}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.01, y: -2.23}
+  m_SizeDelta: {x: 29.3076, y: 27.4734}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6483793248871128388
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283568529366187445}
+  m_CullTransparentMesh: 0
+--- !u!114 &1033004807014844330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283568529366187445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: /MP
 --- !u!1 &8066937154966550521
 GameObject:
   m_ObjectHideFlags: 0
