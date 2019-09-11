@@ -179,13 +179,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372465152858603390}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.01, y: 0.04, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 2545175618986722355}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &1372465152858603376
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -224,9 +224,9 @@ SpriteRenderer:
   m_SortingLayerID: -384906397
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5511494001424625563, guid: 908284d4d3bd3aa41953e1bb58a3eec5,
+  m_Sprite: {fileID: -6303401400232227047, guid: 5316b24cdd502c24ab74cd4357d8c9c7,
     type: 3}
-  m_Color: {r: 0.5615618, g: 1, b: 0.5235849, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -246,7 +246,7 @@ Animator:
   m_GameObject: {fileID: 1372465152858603390}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73c6f9e38b6de6c43951a7aea78b6d1c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 25139845c58f4574fa4357048beb3b00, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -336,13 +336,14 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 6599769199649368783}
   manaUI: {fileID: 1372465152479456378}
+  maxManaUI: {fileID: 0}
   selectedUI: {fileID: 129382588}
   anim: {fileID: 1372465152858603379}
   fighterStats: {fileID: 11400000, guid: f812af14e64d97b4d8b7fd9b60137040, type: 2}
   soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
   healer: 1
   basicAttackAction: {fileID: 3674736732129029270}
-  manaCosts: 0
+  manaCosts: 30
   basicAttackStats: {fileID: 11400000, guid: 3abe87aaefce32d4ea3d540f79045fbf, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0
