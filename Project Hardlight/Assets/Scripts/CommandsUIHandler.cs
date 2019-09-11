@@ -22,6 +22,10 @@ public class CommandsUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!currentlySelectedHero.activeSelf)
+        {
+            deselectedHero();
+        }
         if (selectingTarget)
         {
             if (Input.GetMouseButtonDown(0))
