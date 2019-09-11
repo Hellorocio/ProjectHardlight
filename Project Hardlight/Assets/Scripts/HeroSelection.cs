@@ -12,11 +12,12 @@ public class HeroSelection : MonoBehaviour
     private List<Vector2> lineup = new List<Vector2>();
     private int partySize = 0;
     public GameObject partyPlacement;
-    public GameObject enemyParent;
+    private GameObject enemyParent;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyParent = GameObject.Find("Enemies");
         foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
         {
             f.enabled = false;

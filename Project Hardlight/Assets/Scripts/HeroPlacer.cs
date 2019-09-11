@@ -20,11 +20,11 @@ public class HeroPlacer : MonoBehaviour
     public SoulStats soul4;
     public SoulStats soul5;
     public SoulStats soul6;
-    public GameObject enemyParent;
+    private GameObject enemyParent;
     // Start is called before the first frame update
     void Start()
     {
-
+        enemyParent = GameObject.Find("Enemies");
     }
 
     // Update is called once per frame
