@@ -22,7 +22,7 @@ public class CommandsUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!currentlySelectedHero.activeSelf)
+        if(currentlySelectedHero != null && !currentlySelectedHero.activeSelf)
         {
             deselectedHero();
         }
