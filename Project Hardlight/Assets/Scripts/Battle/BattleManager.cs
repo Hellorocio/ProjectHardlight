@@ -124,11 +124,6 @@ public class BattleManager : Singleton<BattleManager>
                         {
                             Vector3 mousePos = Input.mousePosition;
                             selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
-                            if (selectedAbility.DoAbility())
-                            {
-                                StopTargeting();
-                                DeselectHero();
-                            }
                             // TODO (mchi) Neutral sound on failure
                         }
                         break;
@@ -155,17 +150,27 @@ public class BattleManager : Singleton<BattleManager>
                                 Debug.Log("got enemy target unit");
                                 selectedAbility.selectedTarget = hitCollider.gameObject;
                             }
-
-                            if (selectedAbility.DoAbility())
-                            {
-                                Debug.Log("did ability");
-                                StopTargeting();
-                                DeselectHero();
-                            }
                         }
                         break;
                     default:
                         break;
+                }
+
+                // Check has enough mana
+                Fighter selectedFighter = selectedHero.GetComponent<Fighter>();
+                if (selectedFighter.GetCurrentMana() >= selectedFighter.manaCosts)
+                {
+                    if (selectedAbility.DoAbility())
+                    {
+                        // Lose mana
+                        selectedFighter.LoseMana(selectedFighter.manaCosts);
+                        StopTargeting();
+                        DeselectHero();
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not enough mana");
                 }
             }
             else if (Input.GetMouseButtonDown(1))

@@ -299,6 +299,11 @@ public class Fighter : MonoBehaviour
         SetManaUI();
     }
 
+    public int GetCurrentMana()
+    {
+        return mana;
+    }
+
     /// <summary>
     /// Searches enemies or players gameObject for the closest thing to attack and sets currentTarget
     /// Sets currentTarget to null if there are no more things to attack
