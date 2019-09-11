@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 public class Fighter : MonoBehaviour
 {
-
     public string characterName = "defaultCharacterName";
     public CombatInfo.Team team;
 
@@ -25,7 +24,7 @@ public class Fighter : MonoBehaviour
 
     private float health;
     private float speed;
-    private float mana;
+    private int mana;
 
     private enum State {Idle, Move, BasicAttack};
     private State currentState = State.Idle;
@@ -37,9 +36,8 @@ public class Fighter : MonoBehaviour
     public GameObject currentTarget;
     private IEnumerator basicAttackLoop;
     // This makes it so there's not weird jittering on the edge of your attack range
-    private static float attackRangeAllowance = 0.2f;
+    private static float attackRangeAllowance = 0.1f;
     
-
     // Move
     private IEnumerator moveLoop;
 
@@ -281,14 +279,23 @@ public class Fighter : MonoBehaviour
     // TODO cap at max mana, do something special when mana hits max
     public void GainMana(int manaGained)
     {
-        mana += manaGained + manaGained * manaGenerationBoost;
+        int prevMana = mana;
+
+        mana += (int) (manaGained + manaGained * manaGenerationBoost);
+        mana = Mathf.Clamp(mana, 0, fighterStats.maxMana);
+
+        if (prevMana != mana && mana == fighterStats.maxMana)
+        {
+            Debug.Log("READY TO CAST SPELLS!");
+        }
+
         SetManaUI();
     }
 
-    // TODO cap at max mana, do something special when mana hits max
-    public void LoseMana (int manaGained)
+    public void LoseMana (int manaLost)
     {
-        mana -= mana;
+        mana -= manaLost;
+        mana = Mathf.Clamp(mana, 0, fighterStats.maxMana);
         SetManaUI();
     }
 
