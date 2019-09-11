@@ -11,6 +11,8 @@ public class MageAoEBlast : Ability
     public GameObject rangeIndicatorPrefab;
     public GameObject radiusIndicatorPrefab;
 
+    public GameObject lightBlastPrefab;
+
     public GameObject rangeIndicator;
     public GameObject radiusIndicator;
 
@@ -76,6 +78,12 @@ public class MageAoEBlast : Ability
                     }
                 }
             }
+
+            //display boom!
+            GameObject boom = Instantiate(lightBlastPrefab);
+            Vector3 boomPos = selectedPosition;
+            boomPos.z = 2;
+            boom.transform.position = boomPos;
 
             return true;
         }
