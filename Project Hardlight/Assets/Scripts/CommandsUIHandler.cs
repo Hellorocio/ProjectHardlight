@@ -10,14 +10,13 @@ public class CommandsUIHandler : MonoBehaviour
     public Button ability1Button;
     public Button ability2Button;
     public Button targetButton;
-    public GameObject battleManager;
     private bool isUIShowing = false;
     private GameObject currentlySelectedHero;
     private bool selectingTarget = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        BattleManager.Instance.commandIsSettingNewTarget = false;
     }
 
     // Update is called once per frame
@@ -52,7 +51,7 @@ public class CommandsUIHandler : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         selectingTarget = false;
-        battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = false;
+        BattleManager.Instance.commandIsSettingNewTarget = false;
     }
 
     public void deselectedHero()
@@ -93,18 +92,18 @@ public class CommandsUIHandler : MonoBehaviour
     public void setTargetButton()
     {
         selectingTarget = true;
-        battleManager.GetComponent<BattleManager>().commandIsSettingNewTarget = true;
+        BattleManager.Instance.commandIsSettingNewTarget = true;
         
     }
 
     public void useAbilityOne()
     {
-        battleManager.GetComponent<BattleManager>().commandIsUsingAbility1 = true;
+        BattleManager.Instance.commandIsUsingAbility1 = true;
     }
 
     public void useAbilityTwo()
     {
-        battleManager.GetComponent<BattleManager>().commandIsUsingAbility2 = true;
+        BattleManager.Instance.commandIsUsingAbility2 = true;
     }
 
     private void castAbilityButton(int i)
