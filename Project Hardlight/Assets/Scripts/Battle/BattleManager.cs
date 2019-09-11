@@ -21,7 +21,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Start()
     {
-        commandsUI = GameObject.Find("CommandsUI");
+        Debug.Log("hacky hello from the BM object named " + BattleManager.Instance.gameObject.name);
+        //commandsUI = GameObject.Find("CommandsUI");
         selectedHero = null;
         inputState = InputState.Idle;
     }
@@ -236,7 +237,7 @@ public class BattleManager : Singleton<BattleManager>
 
             selectedHero = hero;
             selectedHero.GetComponent<Fighter>().SetSelectedUI(true);
-            commandsUI.GetComponent<CommandsUIHandler>().selectHero(hero);
+            GameObject.Find("CommandsUI").GetComponent<CommandsUIHandler>().selectHero(hero);
         }
     }
 
@@ -248,7 +249,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
                 selectedHero = null;
-                commandsUI.GetComponent<CommandsUIHandler>().deselectedHero();
+                GameObject.Find("CommandsUI").GetComponent<CommandsUIHandler>().deselectedHero();
             }
         }
     }

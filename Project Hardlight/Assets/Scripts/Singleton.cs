@@ -41,6 +41,12 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                         // Make instance persistent.
                         DontDestroyOnLoad(singletonObject);
                     }
+                    else
+                    {
+                        // TODO(mchi) remove this hack and do it a more sustainable way
+                        DontDestroyOnLoad(m_Instance.gameObject);
+                    }
+                    
                 }
 
                 return m_Instance;
