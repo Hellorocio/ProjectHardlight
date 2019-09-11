@@ -379,7 +379,10 @@ public class Fighter : MonoBehaviour
 
     void SetMaxManaUI()
     {
-        maxManaUI.GetComponent<Text>().text = "/" + fighterStats.maxMana.ToString();
+        if (maxManaUI != null)
+        {
+            maxManaUI.GetComponent<Text>().text = "/" + fighterStats.maxMana.ToString();
+        }
     }
 
     public void SetSelectedUI(bool active)
