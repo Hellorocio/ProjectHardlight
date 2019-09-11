@@ -257,6 +257,7 @@ MonoBehaviour:
   team: 1
   healthUI: {fileID: 3171901983575674639}
   manaUI: {fileID: 3171901982729959817}
+  maxManaUI: {fileID: 0}
   selectedUI: {fileID: 1361691927}
   anim: {fileID: 3171901983355281951}
   fighterStats: {fileID: 11400000, guid: 31544656542b2ea49a29830cd2c12b66, type: 2}
@@ -314,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Execute
   abilityDescription: Stab one nearby enemy for a large amount of damage
-  targetingType: 1
+  targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 3
@@ -353,7 +354,7 @@ MonoBehaviour:
   abilityName: Survival
   abilityDescription: Does medium damage to an enemy in range, does large damage and
     heals if HP < 10%
-  targetingType: 1
+  targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 3
@@ -466,13 +467,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3171901983355281936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 3171901982325591324}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &3171901983355281950
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -511,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: -384906397
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7932412133476086176, guid: 908284d4d3bd3aa41953e1bb58a3eec5,
+  m_Sprite: {fileID: -7528271127412085370, guid: d0eb1c464f309e24bb466c915bf0df59,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
