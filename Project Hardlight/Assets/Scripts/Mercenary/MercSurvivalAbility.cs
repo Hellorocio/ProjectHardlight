@@ -50,42 +50,26 @@ public class MercSurvivalAbility : Ability
 
     public override bool DoAbility()
     {
-        if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
+        if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            //Check for a single enemy at click position (check small range)
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, 0.5f);
-            foreach (Collider2D collider in hitColliders)
+            Debug.Log("in range");
+            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
+            if (selectedFighter != null)
             {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
+                selectedFighter.TakeDamage(GetDamage());
+                // Lose mana
+                selectedFighter.LoseMana(selectedFighter.manaCosts);
+
+                // heal this fighter
+                Fighter thisFighter = gameObject.GetComponent<Fighter>();
+                if (thisFighter.GetHealth() <= thisFighter.fighterStats.maxHealth * 0.1f)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
-                    {
-                        hitFighter.TakeDamage(GetDamage());
-
-                        // Lose mana
-                        Fighter fighter = gameObject.GetComponent<Fighter>();
-                        fighter.LoseMana(fighter.manaCosts);
-
-                        //heal this fighter
-                        Fighter thisFighter = gameObject.GetComponent<Fighter>();
-                        if (thisFighter.GetHealth() <= thisFighter.fighterStats.maxHealth * 0.1f)
-                        {
-                            thisFighter.Heal(GetDamage());
-                        }
-
-                        return true;
-                    }
+                    thisFighter.Heal(GetDamage());
                 }
+
+                return true;
             }
-
-            //if we get here then there weren't any enemies right where the player clicked
-            Debug.Log("Merc: Selected area does not have an enemy");
-
-            return false;
         }
-
-        Debug.Log("Merc: Selelected area is not in range");
         return false;
 
     }
