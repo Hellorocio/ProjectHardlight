@@ -97,6 +97,16 @@ public class CommandsUIHandler : MonoBehaviour
         
     }
 
+    public void useAbilityOne()
+    {
+        battleManager.GetComponent<BattleManager>().commandIsUsingAbility1 = true;
+    }
+
+    public void useAbilityTwo()
+    {
+        battleManager.GetComponent<BattleManager>().commandIsUsingAbility2 = true;
+    }
+
     private void castAbilityButton(int i)
     {
 

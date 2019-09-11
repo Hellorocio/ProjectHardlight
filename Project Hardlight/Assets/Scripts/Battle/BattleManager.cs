@@ -16,6 +16,8 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject commandsUI;
 
     public bool commandIsSettingNewTarget = false;
+    public bool commandIsUsingAbility1 = false;
+    public bool commandIsUsingAbility2 = false;
 
     public void Start()
     {
@@ -69,8 +71,9 @@ public class BattleManager : Singleton<BattleManager>
             }
             // Key 1 to select ability
             // TODO (Change to actually selecting an ability, keyboard for now)
-            else if (Input.GetKeyDown(KeyCode.Alpha1) && selectedHero != null)
+            else if ((Input.GetKeyDown(KeyCode.Alpha1) || commandIsUsingAbility1)&& selectedHero != null)
             {
+                commandIsUsingAbility1 = false;
                 if (selectedAbility != null)
                 {
                     StopTargeting();
@@ -87,8 +90,9 @@ public class BattleManager : Singleton<BattleManager>
                     StartTargeting();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && selectedHero != null)
+            else if ((Input.GetKeyDown(KeyCode.Alpha2) || commandIsUsingAbility2) && selectedHero != null)
             {
+                commandIsUsingAbility2 = false;
                 if (selectedAbility != null)
                 {
                     StopTargeting();
