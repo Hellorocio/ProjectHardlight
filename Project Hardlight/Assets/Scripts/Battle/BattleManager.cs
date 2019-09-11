@@ -13,7 +13,7 @@ public class BattleManager : Singleton<BattleManager>
     public Ability selectedAbility;
     public InputState inputState;
 
-    public GameObject commandsUI;
+    private GameObject commandsUI;
 
     public bool commandIsSettingNewTarget = false;
     public bool commandIsUsingAbility1 = false;
@@ -21,6 +21,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Start()
     {
+        commandsUI = GameObject.Find("CommandsUI");
         selectedHero = null;
         inputState = InputState.Idle;
     }
