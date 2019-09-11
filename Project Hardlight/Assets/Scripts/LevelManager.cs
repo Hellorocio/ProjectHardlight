@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     
-    public int numOfEnemies;
-    public int numOfHeroes;
+    private int numOfEnemies;
+    private int numOfHeroes;
 
-    public GameObject[] enemies;
-    public GameObject[] heroes;
+    private GameObject[] enemies;
+    private GameObject[] heroes;
+
+    public GameObject DialoguePanel;
     
 
     // Start is called before the first frame update
@@ -36,12 +39,18 @@ public class LevelManager : MonoBehaviour
         numOfHeroes = heroes.Length;
 
         if(numOfHeroes <= 0){
-            GameManager.Instance.loadScene(1);
+            DialoguePanel.SetActive(true);
+            DialoguePanel.GetComponentInChildren<Text>().text = "Aw man!";
         }
         else if( numOfEnemies <= 0){
+            DialoguePanel.SetActive(true);
+            DialoguePanel.GetComponentInChildren<Text>().text = "We did it!";
             GameManager.Instance.winLevel();
-             GameManager.Instance.loadScene(1);
         }
         
+    }
+
+    public void returnToMap(){
+        GameManager.Instance.loadScene(1);
     }
 }

@@ -152,7 +152,15 @@ public class BattleManager : Singleton<BattleManager>
 
                             if (clickedEnemyFighter)
                             {
+                                Debug.Log("got enemy target unit");
                                 selectedAbility.selectedTarget = hitCollider.gameObject;
+                            }
+
+                            if (selectedAbility.DoAbility())
+                            {
+                                Debug.Log("did ability");
+                                StopTargeting();
+                                DeselectHero();
                             }
                         }
                         break;
@@ -199,6 +207,7 @@ public class BattleManager : Singleton<BattleManager>
         Debug.Log("TARGETING | Stopped");
 
         selectedAbility.StopTargeting();
+        selectedAbility.selectedTarget = null;
 
         inputState = InputState.Idle;
         selectedAbility = null;
