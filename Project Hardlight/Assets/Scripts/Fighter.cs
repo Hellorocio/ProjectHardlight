@@ -187,6 +187,13 @@ public class Fighter : MonoBehaviour
             {
                 anim.Play("Attack");
             }
+
+            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.clip = basicAttackStats.sfx;
+                audioSource.Play();
+            }
             yield return new WaitForSeconds(basicAttackStats.attackSpeed + basicAttackStats.attackSpeed * attackSpeedBoost);
 
             if (healer)
