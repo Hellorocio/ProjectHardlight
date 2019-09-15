@@ -19,6 +19,10 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        if(GameManager.Instance.levelsBeaten[2] == true){
+            loadScene(5);
+        }
+
         for(int i = 0; i < nodes.Length;i++){
             nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
         }
