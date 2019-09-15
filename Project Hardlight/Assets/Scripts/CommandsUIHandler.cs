@@ -26,6 +26,7 @@ public class CommandsUIHandler : MonoBehaviour
         {
             deselectedHero();
         }
+        // if the player has clicked the "Select new Target" button
         if (selectingTarget)
         {
             if (Input.GetMouseButtonDown(0))
@@ -36,9 +37,11 @@ public class CommandsUIHandler : MonoBehaviour
                 {
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
 
+                    // Prevents healers from healing enemies or warriors from attacking friendlies
                     if(tmp != null && ((tmp.team == CombatInfo.Team.Enemy && !currentlySelectedHero.GetComponent<Fighter>().healer)
                         || (tmp.team == CombatInfo.Team.Hero && currentlySelectedHero.GetComponent<Fighter>().healer)))
                     {
+                        //Updates the current target
                         currentlySelectedHero.GetComponent<Fighter>().currentTarget = tmp.gameObject;
                     }
                     StartCoroutine(endTargeting());
