@@ -56,6 +56,9 @@ public class Fighter : MonoBehaviour
     void Start()
     {
         InitBoosts();
+
+        //initialize temp stats
+        //get max health based on soul boost if there is one
         if (soul != null)
         {
             health = fighterStats.maxHealth + fighterStats.maxHealth * soul.healthBoost;
@@ -167,6 +170,10 @@ public class Fighter : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Unit moves towards its current target with speed based on stats
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MoveLoop()
     {
         while (true)
@@ -225,7 +232,7 @@ public class Fighter : MonoBehaviour
             StartCoroutine(buffLoop);
         }
     }
-
+    
     IEnumerator UpdateBuff ()
     {
         while (buffs.Count > 0)
