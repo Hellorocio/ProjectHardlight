@@ -16,7 +16,7 @@ public class CommandsUIHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BattleManager.Instance.commandIsSettingNewTarget = false;
+        //BattleManager.Instance.commandIsSettingNewTarget = false;
     }
 
     // Update is called once per frame
@@ -35,15 +35,9 @@ public class CommandsUIHandler : MonoBehaviour
                 Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
                 if(hitCollider != null)
                 {
+                    //Updates the current target
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
-
-                    // Prevents healers from healing enemies or warriors from attacking friendlies
-                    if(tmp != null && ((tmp.team == CombatInfo.Team.Enemy && !currentlySelectedHero.GetComponent<Fighter>().healer)
-                        || (tmp.team == CombatInfo.Team.Hero && currentlySelectedHero.GetComponent<Fighter>().healer)))
-                    {
-                        //Updates the current target
-                        currentlySelectedHero.GetComponent<Fighter>().currentTarget = tmp.gameObject;
-                    }
+                    currentlySelectedHero.GetComponent<Fighter>().SetIssuedCurrentTarget(tmp);
                     StartCoroutine(endTargeting());
 
                 } else
@@ -58,7 +52,7 @@ public class CommandsUIHandler : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         selectingTarget = false;
-        BattleManager.Instance.commandIsSettingNewTarget = false;
+        //BattleManager.Instance.commandIsSettingNewTarget = false;
     }
 
     public void deselectedHero()
@@ -99,20 +93,10 @@ public class CommandsUIHandler : MonoBehaviour
     public void setTargetButton()
     {
         selectingTarget = true;
-        BattleManager.Instance.commandIsSettingNewTarget = true;
+        //BattleManager.Instance.commandIsSettingNewTarget = true;
         
     }
-
-    public void useAbilityOne()
-    {
-        BattleManager.Instance.commandIsUsingAbility1 = true;
-    }
-
-    public void useAbilityTwo()
-    {
-        BattleManager.Instance.commandIsUsingAbility2 = true;
-    }
-
+    
     private void castAbilityButton(int i)
     {
 

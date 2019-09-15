@@ -27,9 +27,6 @@ public class Fighter : MonoBehaviour
     private float speed;
     private int mana;
 
-    private enum State {Idle, Move, BasicAttack};
-    private State currentState = State.Idle;
-
     private GameObject attackParent;
 
     // Basic attacking
@@ -129,7 +126,6 @@ public class Fighter : MonoBehaviour
                 {
                     basicAttackLoop = BasicAttackLoop();
                     StartCoroutine(basicAttackLoop);
-                    currentState = State.BasicAttack;
                 }
             }
             else if (distanceFromTarget > basicAttackStats.range + attackRangeAllowance)
@@ -141,7 +137,6 @@ public class Fighter : MonoBehaviour
                 {
                     moveLoop = MoveLoop();
                     StartCoroutine(moveLoop);
-                    currentState = State.Move;
                 }
 
                 // Stop basic attacking
@@ -159,7 +154,6 @@ public class Fighter : MonoBehaviour
             SetCurrentTarget();
             if (currentTarget == null)
             {
-                currentState = State.Idle;
                 // Stop basic attacking
                 if (basicAttackLoop != null)
                 {
@@ -328,15 +322,18 @@ public class Fighter : MonoBehaviour
     {
         if (!healer)
         {
-            SetAttackTarget();
+            SetClosestAttackTarget();
         }
         else
         {
-            SetHealingTarget();
+            SetOptimalHealingTarget();
         }
     }
 
-    void SetAttackTarget ()
+    /// <summary>
+    /// Finds the closest enemy and sets current target
+    /// </summary>
+    void SetClosestAttackTarget ()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
         float minDist = 1000f;
@@ -356,8 +353,10 @@ public class Fighter : MonoBehaviour
         }
         currentTarget = tempcurrentTarget;
     }
-    
-    void SetHealingTarget ()
+    /// <summary>
+    /// Finds the lowest health friendly in range and sets them as target
+    /// </summary>
+    void SetOptimalHealingTarget ()
     {
         Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
         float maxHealth = 1000f;
@@ -376,6 +375,20 @@ public class Fighter : MonoBehaviour
             }
         }
         currentTarget = tempcurrentTarget;
+    }
+
+    /// <summary>
+    /// Sets the attack target
+    /// </summary>
+    public void SetIssuedCurrentTarget(Fighter target)
+    {
+        if(target != null && ((target.team == CombatInfo.Team.Enemy && !healer)
+                || (target.team == CombatInfo.Team.Hero && healer)))
+            {
+                //Updates the current target
+                currentTarget = target.gameObject;
+            }
+        
     }
 
     /// <summary>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // All inputs should go int there
-public class BattleManager : Singleton<BattleManager>
+public class BattleManager :  MonoBehaviour
 {
-    public enum InputState { Unknown, Idle, Targeting}
+    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand}
 
     public BattleConfig battleConfig;
 
@@ -13,18 +13,15 @@ public class BattleManager : Singleton<BattleManager>
     public Ability selectedAbility;
     public InputState inputState;
 
-    private GameObject commandsUI;
+    public bool commandIsSettingNewTarget;
 
-    public bool commandIsSettingNewTarget = false;
-    public bool commandIsUsingAbility1 = false;
-    public bool commandIsUsingAbility2 = false;
+    private GameObject commandsUI;
 
     public void Start()
     {
-        Debug.Log("hacky hello from the BM object named " + BattleManager.Instance.gameObject.name);
         //commandsUI = GameObject.Find("CommandsUI");
         selectedHero = null;
-        inputState = InputState.Idle;
+        inputState = InputState.NothingSelected;
     }
 
     public void Update()
@@ -34,128 +31,42 @@ public class BattleManager : Singleton<BattleManager>
             selectedHero = null;
         }
         /////////////////// Idle
-        if (inputState == InputState.Idle)
+        if (inputState == InputState.NothingSelected)
         {
-            // M1
             if (Input.GetMouseButtonDown(0))
             {
-                Vector3 pos = Input.mousePosition;
-                Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                if ((hitCollider != null && hitCollider.gameObject.layer == 9) || commandIsSettingNewTarget) // if click hit the commandUI element, don't do anything
-                {
+                UpdateClickedHero();
+                // if setting new target
 
-                }
-                else
-                {
-                    bool clickedHeroFighter = false;
-
-                    if (hitCollider != null)
-                    {
-                        Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
-                        if (clickedFighter != null)
-                        {
-                            if (clickedFighter.team == CombatInfo.Team.Hero)
-                            {
-                                clickedHeroFighter = true;
-                            }
-                        }
-                    }
-
-                    if (clickedHeroFighter)
-                    {
-                        SetSelectedHero(hitCollider.gameObject);
-                    }
-                    else
-                    {
-                        DeselectHero();
-                    }
-                }
             }
-            // Key 1 to select ability
-            // TODO (Change to actually selecting an ability, keyboard for now)
-            else if ((Input.GetKeyDown(KeyCode.Alpha1) || commandIsUsingAbility1)&& selectedHero != null)
+            
+        }
+        else if (inputState == InputState.HeroSelected)
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                commandIsUsingAbility1 = false;
-                if (selectedAbility != null)
-                {
-                    StopTargeting();
-                }
-
-                // Clear any existing selected ability
-                selectedAbility = null;
-                Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[0];
-                if (ability != null)
-                {
-                    selectedAbility = ability;
-
-                    // Start targeting
-                    StartTargeting();
-                }
+                UpdateClickedHero();
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha2) || commandIsUsingAbility2) && selectedHero != null)
+            if (Input.GetMouseButtonDown(1))
             {
-                commandIsUsingAbility2 = false;
-                if (selectedAbility != null)
-                {
-                    StopTargeting();
-                }
+                //Set state to move or update target
+            }
 
-                // Clear any existing selected ability
-                selectedAbility = null;
-                Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[1];
-                if (ability != null)
-                {
-                    selectedAbility = ability;
-
-                    // Start targeting
-                    StartTargeting();
-                }
+            if ((Input.GetKeyDown(KeyCode.Alpha1)))
+            {
+                UseAbility(0);
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha2)))
+            {
+                UseAbility(1);
             }
         }
-        //////////////// Targeting
-        else if (inputState == InputState.Targeting)
+        else if (inputState == InputState.CastingAbility)
         {
-            // M1
             if (Input.GetMouseButtonDown(0))
             {
                 // Select target
-                switch (selectedAbility.targetingType)
-                {
-                    case Targeting.Type.TargetPosition:
-                        {
-                            Vector3 mousePos = Input.mousePosition;
-                            selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
-                            // TODO (mchi) Neutral sound on failure
-                        }
-                        break;
-                    case Targeting.Type.TargetUnit:// M1
-                        {
-                            Vector3 pos = Input.mousePosition;
-                            Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                            bool clickedEnemyFighter = false;
-
-                            if (hitCollider != null)
-                            {
-                                Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
-                                if (clickedFighter != null)
-                                {
-                                    if (clickedFighter.team == CombatInfo.Team.Enemy)
-                                    {
-                                        clickedEnemyFighter = true;
-                                    }
-                                }
-                            }
-
-                            if (clickedEnemyFighter)
-                            {
-                                Debug.Log("got enemy target unit");
-                                selectedAbility.selectedTarget = hitCollider.gameObject;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                UpdateSelectedTarget(); // BUG: ability target isn't getting properly updated
 
                 // Check has enough mana
                 Fighter selectedFighter = selectedHero.GetComponent<Fighter>();
@@ -181,11 +92,97 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
+    /// <summary>
+    /// Determines targeting type and updates the abiltie
+    /// </summary>
+    void UpdateSelectedTarget()
+    {
+        switch (selectedAbility.targetingType)
+        {
+            case Targeting.Type.TargetPosition:
+                {
+                    Vector3 mousePos = Input.mousePosition;
+                    selectedAbility.selectedPosition = Camera.main.ScreenToWorldPoint(mousePos);
+                    // TODO (mchi) Neutral sound on failure
+                }
+                break;
+            case Targeting.Type.TargetUnit:// M1
+                {
+                    Vector3 pos = Input.mousePosition;
+                    Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
+                    bool clickedEnemyFighter = false;
+
+                    if (hitCollider != null)
+                    {
+                        Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
+                        if (clickedFighter != null)
+                        {
+                            if (clickedFighter.team == CombatInfo.Team.Enemy)
+                            {
+                                clickedEnemyFighter = true;
+                            }
+                        }
+                    }
+
+                    if (clickedEnemyFighter)
+                    {
+                        Debug.Log("got enemy target unit");
+                        selectedAbility.selectedTarget = hitCollider.gameObject;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    /// <summary>
+    /// Sets selected hero to the hero that was justed clicked
+    /// </summary>
+    void UpdateClickedHero ()
+    {
+        Vector3 pos = Input.mousePosition;
+        Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
+        if (hitCollider != null && hitCollider.gameObject.layer != 9 && !commandIsSettingNewTarget) // if click hit the commandUI element, don't do anything
+        {
+            Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
+            if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
+            {
+                SetSelectedHero(hitCollider.gameObject);
+            }
+            else
+            {
+                DeselectHero();
+            }
+        }
+    }
+
+    public void UseAbility (int abilityNum)
+    {
+        if (selectedHero != null)
+        {
+            if (selectedAbility != null)
+            {
+                StopTargeting();
+            }
+
+            // Clear any existing selected ability
+            selectedAbility = null;
+            Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[abilityNum];
+            if (ability != null)
+            {
+                selectedAbility = ability;
+
+                // Start targeting
+                StartTargeting();
+            }
+        }
+    }
+
     public void StartTargeting()
     {
         Debug.Log("TARGETING | Started");
 
-        inputState = InputState.Targeting;
+        inputState = InputState.CastingAbility;
         switch (selectedAbility.targetingType)
         {
             case Targeting.Type.TargetPosition:
@@ -215,7 +212,7 @@ public class BattleManager : Singleton<BattleManager>
         selectedAbility.StopTargeting();
         selectedAbility.selectedTarget = null;
 
-        inputState = InputState.Idle;
+        inputState = InputState.HeroSelected;
         selectedAbility = null;
         SetCursor(battleConfig.defaultCursor);
 

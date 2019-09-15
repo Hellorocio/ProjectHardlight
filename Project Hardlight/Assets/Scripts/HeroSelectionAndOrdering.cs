@@ -11,6 +11,7 @@ public class HeroSelectionAndOrdering : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Is HHeroSelection and Ordering actually used??");
         spriteRend = gameObject.GetComponentInChildren<SpriteRenderer>();
         unselectedColor = spriteRend.material.color;
 
@@ -29,13 +30,13 @@ public class HeroSelectionAndOrdering : MonoBehaviour
             {
                 spriteRend.material.color = selectedColor;
                 isHeroSelected = true;
-                BattleManager.Instance.SetSelectedHero(gameObject);
-                Debug.Log(BattleManager.Instance.selectedHero.GetComponent<Fighter>().characterName);
+                //BattleManager.Instance.SetSelectedHero(gameObject);
+                //Debug.Log(BattleManager.Instance.selectedHero.GetComponent<Fighter>().characterName);
             } else
             {
-                if (BattleManager.Instance.selectedHero == gameObject)
+                //if (BattleManager.Instance.selectedHero == gameObject)
                 {
-                    BattleManager.Instance.DeselectHero();
+                    //BattleManager.Instance.DeselectHero();
                 }
                 isHeroSelected = false;
                 spriteRend.material.color = unselectedColor;

@@ -50,6 +50,9 @@ public class MercSurvivalAbility : Ability
 
     public override bool DoAbility()
     {
+        Debug.Log("Merc's survival ability called");
+        Debug.Log(selectedTarget);
+        Debug.Log("Distance equation == " + (Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange()));
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
             Debug.Log("in range");
