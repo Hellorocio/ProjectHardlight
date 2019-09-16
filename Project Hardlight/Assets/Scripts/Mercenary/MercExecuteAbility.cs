@@ -52,7 +52,7 @@ public class MercExecuteAbility: Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            Debug.Log("in range");
+            Debug.Log("Merc execute ability");
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
             if (selectedFighter != null)
             {

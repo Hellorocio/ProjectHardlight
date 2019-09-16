@@ -63,6 +63,7 @@ public class BattleManager :  MonoBehaviour
         }
         else if (inputState == InputState.CastingAbility)
         {
+            Debug.Log("Input state is casting ability");
             if (Input.GetMouseButtonDown(0))
             {
                 // Select target
@@ -97,6 +98,7 @@ public class BattleManager :  MonoBehaviour
     /// </summary>
     void UpdateSelectedTarget()
     {
+        Debug.Log("In Update Selected Target");
         switch (selectedAbility.targetingType)
         {
             case Targeting.Type.TargetPosition:
@@ -110,24 +112,24 @@ public class BattleManager :  MonoBehaviour
                 {
                     Vector3 pos = Input.mousePosition;
                     Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                    bool clickedEnemyFighter = false;
-
+                    Collider2D[] hitCollider2 = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+                    if(hitCollider2 == null)
+                    {
+                        Debug.Log("HitCollider2 is null");
+                    } else
+                    {
+                        Debug.Log("First element in hitcollider2 is " + hitCollider2[0]);
+                        Debug.Log("Hitcollider 2 size is " + hitCollider2.Length);
+                    }
                     if (hitCollider != null)
                     {
                         Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
-                        if (clickedFighter != null)
+                        Debug.Log("Clicked fighter: " + clickedFighter);
+                        if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Enemy)
                         {
-                            if (clickedFighter.team == CombatInfo.Team.Enemy)
-                            {
-                                clickedEnemyFighter = true;
-                            }
+                            selectedAbility.selectedTarget = hitCollider.gameObject;
+                            Debug.Log("got enemy target unit");
                         }
-                    }
-
-                    if (clickedEnemyFighter)
-                    {
-                        Debug.Log("got enemy target unit");
-                        selectedAbility.selectedTarget = hitCollider.gameObject;
                     }
                 }
                 break;
