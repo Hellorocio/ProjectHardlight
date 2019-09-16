@@ -13,61 +13,29 @@ public class CommandsUIHandler : MonoBehaviour
     private bool isUIShowing = false;
     private GameObject currentlySelectedHero;
     private bool selectingTarget = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //BattleManager.Instance.commandIsSettingNewTarget = false;
-    }
 
     // Update is called once per frame
     void Update()
     {
         if(currentlySelectedHero != null && !currentlySelectedHero.activeSelf)
         {
-            deselectedHero();
-        }
-        // if the player has clicked the "Select new Target" button
-        if (selectingTarget)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 pos = Input.mousePosition;
-                Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                if(hitCollider != null)
-                {
-                    //Updates the current target
-                    Fighter tmp = hitCollider.GetComponent<Fighter>();
-                    currentlySelectedHero.GetComponent<Fighter>().SetIssuedCurrentTarget(tmp);
-                    StartCoroutine(endTargeting());
-
-                } else
-                {
-                    StartCoroutine(endTargeting());
-                }
-            }
+            DisableUI();
         }
     }
 
-    IEnumerator endTargeting()
-    {
-        yield return new WaitForEndOfFrame();
-        selectingTarget = false;
-        //BattleManager.Instance.commandIsSettingNewTarget = false;
-    }
-
-    public void deselectedHero()
+    public void DisableUI()
     {
         currentlySelectedHero = null;
-        setEnabled(false);
+        UISwitch(false);
         
     }
 
-    public void selectHero(GameObject f)
+    public void EnableUI(GameObject f)
     {
         if (!selectingTarget)
         {
 
-            setEnabled(true);
+            UISwitch(true);
             currentlySelectedHero = f;
             heroNameText.text = f.GetComponent<Fighter>().characterName;
             HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
@@ -80,7 +48,7 @@ public class CommandsUIHandler : MonoBehaviour
 
     }
 
-    private void setEnabled(bool b)
+    private void UISwitch(bool b)
     {
         isUIShowing = b;
         background.gameObject.SetActive(b);
@@ -88,17 +56,5 @@ public class CommandsUIHandler : MonoBehaviour
         ability1Button.gameObject.SetActive(b);
         ability2Button.gameObject.SetActive(b);
         targetButton.gameObject.SetActive(b);
-    }
-
-    public void setTargetButton()
-    {
-        selectingTarget = true;
-        //BattleManager.Instance.commandIsSettingNewTarget = true;
-        
-    }
-    
-    private void castAbilityButton(int i)
-    {
-
     }
 }
