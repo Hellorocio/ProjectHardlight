@@ -14,6 +14,7 @@ public class Fighter : MonoBehaviour
     public GameObject manaUI;
     public GameObject maxManaUI;
     public GameObject selectedUI;
+    public GameObject maxManaGlow;
     public Animator anim;
     public FighterStats fighterStats;
     public SoulStats soul;
@@ -47,6 +48,10 @@ public class Fighter : MonoBehaviour
     private float manaGenerationBoost;
 
 
+    //have max mana event
+    public delegate void MaxManaReached();
+    public event MaxManaReached OnMaxMana;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +80,7 @@ public class Fighter : MonoBehaviour
         }
 
         buffs = new List<BuffObj>();
-
+        
         SetHealthUI();
         SetManaUI();
         SetMaxManaUI();
@@ -284,7 +289,10 @@ public class Fighter : MonoBehaviour
         SetHealthUI();
     }
 
-    // TODO cap at max mana, do something special when mana hits max
+    /// <summary>
+    /// Adds mana and triggers max mana event if unit has reached max mana
+    /// </summary>
+    /// <param name="manaGained"></param>
     public void GainMana(int manaGained)
     {
         int prevMana = mana;
@@ -295,6 +303,16 @@ public class Fighter : MonoBehaviour
         if (prevMana != mana && mana == fighterStats.maxMana)
         {
             Debug.Log("READY TO CAST SPELLS!");
+            if (OnMaxMana != null)
+            {
+                //invoke event
+                OnMaxMana();
+            }
+            
+            if (maxManaGlow != null)
+            {
+                maxManaGlow.SetActive(true);
+            }
         }
 
         SetManaUI();
@@ -304,6 +322,12 @@ public class Fighter : MonoBehaviour
     {
         mana -= manaLost;
         mana = Mathf.Clamp(mana, 0, fighterStats.maxMana);
+
+        if (maxManaGlow != null)
+        {
+            maxManaGlow.SetActive(false);
+        }
+
         SetManaUI();
     }
 

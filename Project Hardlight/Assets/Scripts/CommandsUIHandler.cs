@@ -14,6 +14,25 @@ public class CommandsUIHandler : MonoBehaviour
     private GameObject currentlySelectedHero;
     private bool selectingTarget = false;
 
+    private ColorBlock disabledAbilityColors;
+    private ColorBlock enabledAbilityColors;
+
+    private void Start()
+    {
+        //initialize button colors
+        disabledAbilityColors = ability1Button.colors;
+        disabledAbilityColors.normalColor = new Color(200, 200, 200);
+        disabledAbilityColors.highlightedColor = Color.white;
+        disabledAbilityColors.pressedColor = Color.white;
+
+        enabledAbilityColors = ability1Button.colors;
+        enabledAbilityColors.normalColor = new Color(0, 255, 233);
+        enabledAbilityColors.selectedColor = new Color(0, 255, 233);
+        enabledAbilityColors.highlightedColor = new Color(0, 241, 220);
+        enabledAbilityColors.pressedColor = new Color(0, 222, 203);
+        SwitchButtonColor(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -56,5 +75,19 @@ public class CommandsUIHandler : MonoBehaviour
         ability1Button.gameObject.SetActive(b);
         ability2Button.gameObject.SetActive(b);
         targetButton.gameObject.SetActive(b);
+    }
+
+    public void SwitchButtonColor (bool activate)
+    {
+        if (activate)
+        {
+            ability1Button.colors = enabledAbilityColors;
+            ability2Button.colors = enabledAbilityColors;
+        }
+        else
+        {
+            ability1Button.colors = disabledAbilityColors;
+            ability2Button.colors = disabledAbilityColors;
+        }
     }
 }

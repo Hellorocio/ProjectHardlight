@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1191404532884517711, guid: cf255fca5105447778a9280b13b44631,
+        type: 3}
+      propertyPath: DialoguePanel
+      value: 
+      objectReference: {fileID: 1491934365}
     - target: {fileID: 1191404532884517710, guid: cf255fca5105447778a9280b13b44631,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -266,11 +271,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1191404532884517711, guid: cf255fca5105447778a9280b13b44631,
-        type: 3}
-      propertyPath: DialoguePanel
-      value: 
-      objectReference: {fileID: 1491934365}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf255fca5105447778a9280b13b44631, type: 3}
 --- !u!114 &424911436 stripped
@@ -441,7 +441,6 @@ MonoBehaviour:
   soul: {fileID: 0}
   healer: 0
   basicAttackAction: {fileID: 515426206}
-  manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0
@@ -1703,6 +1702,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1461129025}
     m_Modifications:
+    - target: {fileID: 2089750645554752212, guid: 25657f288dbbf4211a18abe6d17c578c,
+        type: 3}
+      propertyPath: m_Name
+      value: Dialogue Box
+      objectReference: {fileID: 0}
     - target: {fileID: 2089750644076560912, guid: 25657f288dbbf4211a18abe6d17c578c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1712,11 +1716,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: returnToMap
-      objectReference: {fileID: 0}
-    - target: {fileID: 2089750645554752212, guid: 25657f288dbbf4211a18abe6d17c578c,
-        type: 3}
-      propertyPath: m_Name
-      value: Dialogue Box
       objectReference: {fileID: 0}
     - target: {fileID: 2089750645554752213, guid: 25657f288dbbf4211a18abe6d17c578c,
         type: 3}
@@ -2020,6 +2019,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7687530590282511461, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Name
+      value: Managers
+      objectReference: {fileID: 0}
     - target: {fileID: 4295151181828603723, guid: c90d0e7b638374d4baff32ba0f7cb210,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2075,10 +2079,80 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7687530590282511461, guid: c90d0e7b638374d4baff32ba0f7cb210,
+    - target: {fileID: 3265828594202249715, guid: c90d0e7b638374d4baff32ba0f7cb210,
         type: 3}
-      propertyPath: m_Name
-      value: Managers
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828594077668474, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828594946167401, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828595096922305, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684878366983753819, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684878368100317744, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828594946167403, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828594946167403, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828594946167403, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828595096922307, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828595096922307, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265828595096922307, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684878366983753817, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684878366983753817, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684878366983753817, guid: c90d0e7b638374d4baff32ba0f7cb210,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c90d0e7b638374d4baff32ba0f7cb210, type: 3}
@@ -2696,7 +2770,6 @@ MonoBehaviour:
   soul: {fileID: 0}
   healer: 0
   basicAttackAction: {fileID: 4140467197057999895}
-  manaCosts: 0
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0

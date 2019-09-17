@@ -32,6 +32,7 @@ public class BattleManager :  MonoBehaviour
     {
         if(selectedHero != null && !selectedHero.gameObject.activeSelf)
         {
+            UnsubscribeMaxManaEvent();
             selectedHero = null;
         }
         /////////////////// Idle
@@ -76,6 +77,7 @@ public class BattleManager :  MonoBehaviour
                 {
                     // Lose mana
                     selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
+                    commandsUI.SwitchButtonColor(false);
                     StopTargeting();
                     DeselectHero();
                 }
@@ -249,11 +251,16 @@ public class BattleManager :  MonoBehaviour
                 {
                     notEnoughManaUI.SetActive(false);
                 }
+
+                UnsubscribeMaxManaEvent();
             }
 
             selectedHero = hero;
             selectedHero.SetSelectedUI(true);
             commandsUI.EnableUI(hero.gameObject);
+            commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.fighterStats.maxMana);
+
+            SubscribeMaxManaEvent();
         }
     }
 
@@ -264,6 +271,7 @@ public class BattleManager :  MonoBehaviour
             if (selectedHero != null)
             {
                 selectedHero.SetSelectedUI(false);
+                UnsubscribeMaxManaEvent();
                 selectedHero = null;
                 commandsUI.DisableUI();
             }
@@ -273,5 +281,28 @@ public class BattleManager :  MonoBehaviour
     public void SetStateToUpdateTarget()
     {
         inputState = InputState.UpdatingTarget;
+    }
+
+    void OnMaxManaEvent ()
+    {
+        commandsUI.SwitchButtonColor(true);
+    }
+
+    void SubscribeMaxManaEvent()
+    {
+        selectedHero.OnMaxMana += OnMaxManaEvent;
+    }
+
+    void UnsubscribeMaxManaEvent ()
+    {
+        selectedHero.OnMaxMana -= OnMaxManaEvent;
+    }
+
+    private void OnDisable()
+    {
+        if (selectedHero != null)
+        {
+            UnsubscribeMaxManaEvent();
+        }
     }
 }
