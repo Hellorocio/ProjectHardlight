@@ -5,17 +5,32 @@ using UnityEngine;
 public class DisableOnCooldown : MonoBehaviour
 {
     public float timer = 5f;
-
-    // Start is called before the first frame update
-    void Start()
+    public bool destroyAfterCooldown = true;
+    
+    void OnEnable()
     {
         StartCoroutine(CooldownTimer());
-        
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    /// <summary>
+    /// Destroys or disables gameobject after timer seconds have passed
+    /// </summary>
+    /// <returns></returns>
     IEnumerator CooldownTimer ()
     {
         yield return new WaitForSeconds(timer);
-        Destroy(gameObject);
+        if (destroyAfterCooldown)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

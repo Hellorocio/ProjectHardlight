@@ -9,24 +9,28 @@ public class BattleManager :  MonoBehaviour
 
     public BattleConfig battleConfig;
 
-    public GameObject selectedHero;
+    private Fighter selectedHero;
     public Ability selectedAbility;
     public InputState inputState;
+    public GameObject notEnoughManaUI;
 
     public bool commandIsSettingNewTarget;
 
-    private GameObject commandsUI;
+    private CommandsUIHandler commandsUI;
 
     public void Start()
     {
-        //commandsUI = GameObject.Find("CommandsUI");
-        selectedHero = null;
+        GameObject commandsUIObj = GameObject.Find("CommandsUI");
+        if (commandsUIObj != null)
+        {
+            commandsUI = commandsUIObj.GetComponent<CommandsUIHandler>();
+        }
         inputState = InputState.NothingSelected;
     }
 
     public void Update()
     {
-        if(selectedHero != null && !selectedHero.activeSelf)
+        if(selectedHero != null && !selectedHero.gameObject.activeSelf)
         {
             selectedHero = null;
         }
@@ -68,21 +72,12 @@ public class BattleManager :  MonoBehaviour
                 // Select target
                 UpdateSelectedTarget();
 
-                // Check has enough mana
-                Fighter selectedFighter = selectedHero.GetComponent<Fighter>();
-                if (selectedFighter.GetCurrentMana() >= selectedFighter.fighterStats.maxMana)
+                if (selectedAbility.DoAbility())
                 {
-                    if (selectedAbility.DoAbility())
-                    {
-                        // Lose mana
-                        selectedFighter.LoseMana(selectedFighter.fighterStats.maxMana);
-                        StopTargeting();
-                        DeselectHero();
-                    }
-                }
-                else
-                {
-                    Debug.Log("Not enough mana");
+                    // Lose mana
+                    selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
+                    StopTargeting();
+                    DeselectHero();
                 }
             }
             else if (Input.GetMouseButtonDown(1))
@@ -100,7 +95,7 @@ public class BattleManager :  MonoBehaviour
                 {
                     //Updates the current target
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
-                    selectedHero.GetComponent<Fighter>().SetIssuedCurrentTarget(tmp);
+                    selectedHero.SetIssuedCurrentTarget(tmp);
                 }
             }
         }
@@ -125,15 +120,6 @@ public class BattleManager :  MonoBehaviour
                 {
                     Vector3 pos = Input.mousePosition;
                     Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                    Collider2D[] hitCollider2 = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
-                    if(hitCollider2 == null)
-                    {
-                        Debug.Log("HitCollider2 is null");
-                    } else
-                    {
-                        Debug.Log("First element in hitcollider2 is " + hitCollider2[0]);
-                        Debug.Log("Hitcollider 2 size is " + hitCollider2.Length);
-                    }
                     if (hitCollider != null)
                     {
                         Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
@@ -162,7 +148,7 @@ public class BattleManager :  MonoBehaviour
             Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
             {
-                SetSelectedHero(hitCollider.gameObject);
+                SetSelectedHero(clickedFighter);
             }
             else
             {
@@ -182,13 +168,26 @@ public class BattleManager :  MonoBehaviour
 
             // Clear any existing selected ability
             selectedAbility = null;
-            Ability ability = (Ability)selectedHero.GetComponent<HeroAbilities>().abilityList[abilityNum];
+            
+            Ability ability = (Ability)selectedHero.gameObject.GetComponent<HeroAbilities>().abilityList[abilityNum];
             if (ability != null)
             {
-                selectedAbility = ability;
+                // Check has enough mana
+                if (selectedHero.GetCurrentMana() >= selectedHero.fighterStats.maxMana)
+                {
+                    selectedAbility = ability;
 
-                // Start targeting
-                StartTargeting();
+                    // Start targeting
+                    StartTargeting();
+                }
+                else
+                {
+                    Debug.Log("Not enough mana");
+                    if (notEnoughManaUI != null)
+                    {
+                        notEnoughManaUI.SetActive(true);
+                    }
+                }
             }
         }
     }
@@ -238,18 +237,23 @@ public class BattleManager :  MonoBehaviour
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
-    public void SetSelectedHero(GameObject hero)
+    public void SetSelectedHero(Fighter hero)
     {
         if (!commandIsSettingNewTarget)
         {
             if (selectedHero != null)
             {
-                selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
+                selectedHero.SetSelectedUI(false);
+
+                if (notEnoughManaUI != null)
+                {
+                    notEnoughManaUI.SetActive(false);
+                }
             }
 
             selectedHero = hero;
-            selectedHero.GetComponent<Fighter>().SetSelectedUI(true);
-            GameObject.Find("CommandsUI").GetComponent<CommandsUIHandler>().EnableUI(hero);
+            selectedHero.SetSelectedUI(true);
+            commandsUI.EnableUI(hero.gameObject);
         }
     }
 
@@ -259,9 +263,9 @@ public class BattleManager :  MonoBehaviour
         {
             if (selectedHero != null)
             {
-                selectedHero.GetComponent<Fighter>().SetSelectedUI(false);
+                selectedHero.SetSelectedUI(false);
                 selectedHero = null;
-                GameObject.Find("CommandsUI").GetComponent<CommandsUIHandler>().DisableUI();
+                commandsUI.DisableUI();
             }
         }
     }
