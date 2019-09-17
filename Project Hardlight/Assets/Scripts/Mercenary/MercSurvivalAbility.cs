@@ -57,8 +57,6 @@ public class MercSurvivalAbility : Ability
             if (selectedFighter != null)
             {
                 selectedFighter.TakeDamage(GetDamage());
-                // Lose mana
-                selectedFighter.LoseMana(selectedFighter.manaCosts);
 
                 // heal this fighter
                 Fighter thisFighter = gameObject.GetComponent<Fighter>();

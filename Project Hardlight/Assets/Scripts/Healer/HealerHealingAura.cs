@@ -76,10 +76,6 @@ public class HealerHealingAura : Ability
                 }
             }
 
-            // Lose mana
-            Fighter fighter = gameObject.GetComponent<Fighter>();
-            fighter.LoseMana(fighter.manaCosts);
-
             return true;
         }
         else

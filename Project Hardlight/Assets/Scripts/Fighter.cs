@@ -21,8 +21,6 @@ public class Fighter : MonoBehaviour
 
     public MonoBehaviour basicAttackAction;
 
-    public int manaCosts;
-
     private float health;
     private float speed;
     private int mana;

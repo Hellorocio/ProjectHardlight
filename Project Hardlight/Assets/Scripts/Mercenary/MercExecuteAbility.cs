@@ -57,8 +57,6 @@ public class MercExecuteAbility: Ability
             if (selectedFighter != null)
             {
                 selectedFighter.TakeDamage(GetDamage());
-                // Lose mana
-                selectedFighter.LoseMana(selectedFighter.manaCosts);
 
                 return true;
             }

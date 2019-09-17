@@ -51,18 +51,15 @@ public class MageCurseAbility : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            Debug.Log("in range");
+            
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
             if (selectedFighter != null)
             {
-                Debug.Log("pew pew");
+                Debug.Log("Mage Light Prison");
 
                 selectedFighter.TakeDamage(GetDamage());
                 //add debuff
                 selectedFighter.AddTimedBuff(attackDebuff);
-                // Lose mana
-                selectedFighter.LoseMana(selectedFighter.manaCosts);
-
                 return true;
             }
         }

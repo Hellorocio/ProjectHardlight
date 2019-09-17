@@ -70,12 +70,12 @@ public class BattleManager :  MonoBehaviour
 
                 // Check has enough mana
                 Fighter selectedFighter = selectedHero.GetComponent<Fighter>();
-                if (selectedFighter.GetCurrentMana() >= selectedFighter.manaCosts)
+                if (selectedFighter.GetCurrentMana() >= selectedFighter.fighterStats.maxMana)
                 {
                     if (selectedAbility.DoAbility())
                     {
                         // Lose mana
-                        selectedFighter.LoseMana(selectedFighter.manaCosts);
+                        selectedFighter.LoseMana(selectedFighter.fighterStats.maxMana);
                         StopTargeting();
                         DeselectHero();
                     }

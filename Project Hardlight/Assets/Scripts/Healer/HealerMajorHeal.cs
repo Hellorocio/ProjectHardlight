@@ -73,10 +73,6 @@ public class HealerMajorHeal : Ability
                         healEffect.transform.localPosition = Vector3.zero;
                         healEffect.transform.localScale = Vector3.one;
 
-                        // Lose mana
-                        Fighter fighter = gameObject.GetComponent<Fighter>();
-                        fighter.LoseMana(fighter.manaCosts);
-
                         return true;
                     }
                 }
