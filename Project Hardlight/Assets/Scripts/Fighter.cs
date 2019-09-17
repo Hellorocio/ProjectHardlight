@@ -52,6 +52,14 @@ public class Fighter : MonoBehaviour
     public delegate void MaxManaReached();
     public event MaxManaReached OnMaxMana;
 
+    //switch target event
+    public delegate void SwitchTarget();
+    public event SwitchTarget OnSwitchTarget;
+
+    //called on death
+    public delegate void Death();
+    public event Death OnDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -274,6 +282,11 @@ public class Fighter : MonoBehaviour
         {
             gameObject.SetActive(false);
             GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>().checkFighters();
+            
+            if (OnDeath != null)
+            {
+                OnDeath();
+            }
         }
 
         SetHealthUI();
@@ -350,6 +363,11 @@ public class Fighter : MonoBehaviour
         {
             SetOptimalHealingTarget();
         }
+
+        if (OnSwitchTarget != null)
+        {
+            OnSwitchTarget();
+        }
     }
 
     /// <summary>
@@ -406,10 +424,15 @@ public class Fighter : MonoBehaviour
     {
         if(target != null && ((target.team == CombatInfo.Team.Enemy && !healer)
                 || (target.team == CombatInfo.Team.Hero && healer)))
+        {
+            //Updates the current target
+            currentTarget = target.gameObject;
+
+            if (OnSwitchTarget != null)
             {
-                //Updates the current target
-                currentTarget = target.gameObject;
+                OnSwitchTarget();
             }
+        }
         
     }
 

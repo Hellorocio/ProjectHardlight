@@ -13,10 +13,10 @@ public class BattleManager :  MonoBehaviour
     public Ability selectedAbility;
     public InputState inputState;
     public GameObject notEnoughManaUI;
-
-    public bool commandIsSettingNewTarget;
+    public GameObject battleTargetPrefab;
 
     private CommandsUIHandler commandsUI;
+    private GameObject battleTarget;
 
     public void Start()
     {
@@ -30,11 +30,6 @@ public class BattleManager :  MonoBehaviour
 
     public void Update()
     {
-        if(selectedHero != null && !selectedHero.gameObject.activeSelf)
-        {
-            UnsubscribeMaxManaEvent();
-            selectedHero = null;
-        }
         /////////////////// Idle
         if (inputState == InputState.NothingSelected)
         {
@@ -98,6 +93,7 @@ public class BattleManager :  MonoBehaviour
                     //Updates the current target
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
                     selectedHero.SetIssuedCurrentTarget(tmp);
+                    inputState = InputState.HeroSelected;
                 }
             }
         }
@@ -145,7 +141,7 @@ public class BattleManager :  MonoBehaviour
     {
         Vector3 pos = Input.mousePosition;
         Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-        if (hitCollider != null && hitCollider.gameObject.layer != 9 && !commandIsSettingNewTarget) // if click hit the commandUI element, don't do anything
+        if (hitCollider != null && hitCollider.gameObject.layer != 9) // if click hit the commandUI element, don't do anything
         {
             Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
@@ -241,40 +237,39 @@ public class BattleManager :  MonoBehaviour
 
     public void SetSelectedHero(Fighter hero)
     {
-        if (!commandIsSettingNewTarget)
+        if (selectedHero != null)
         {
-            if (selectedHero != null)
+            selectedHero.SetSelectedUI(false);
+
+            if (notEnoughManaUI != null)
             {
-                selectedHero.SetSelectedUI(false);
-
-                if (notEnoughManaUI != null)
-                {
-                    notEnoughManaUI.SetActive(false);
-                }
-
-                UnsubscribeMaxManaEvent();
+                notEnoughManaUI.SetActive(false);
             }
 
-            selectedHero = hero;
-            selectedHero.SetSelectedUI(true);
-            commandsUI.EnableUI(hero.gameObject);
-            commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.fighterStats.maxMana);
-
-            SubscribeMaxManaEvent();
+            UnsubscribeHeroEvents();
         }
+
+        selectedHero = hero;
+        selectedHero.SetSelectedUI(true);
+        commandsUI.EnableUI(hero.gameObject);
+        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.fighterStats.maxMana);
+        OnSwitchTargetEvent();
+        SubscribeHeroEvents();
     }
 
+    /// <summary>
+    /// Deactiates selected hero UI and other things
+    /// Called by event when hero dies
+    /// </summary>
     public void DeselectHero()
     {
-        if (!commandIsSettingNewTarget)
+        if (selectedHero != null)
         {
-            if (selectedHero != null)
-            {
-                selectedHero.SetSelectedUI(false);
-                UnsubscribeMaxManaEvent();
-                selectedHero = null;
-                commandsUI.DisableUI();
-            }
+            selectedHero.SetSelectedUI(false);
+            UnsubscribeHeroEvents();
+            selectedHero = null;
+            commandsUI.DisableUI();
+            inputState = InputState.NothingSelected;
         }
     }
 
@@ -283,26 +278,51 @@ public class BattleManager :  MonoBehaviour
         inputState = InputState.UpdatingTarget;
     }
 
+    /// <summary>
+    /// Event that happens when currentHero reaches max mana
+    /// </summary>
     void OnMaxManaEvent ()
     {
         commandsUI.SwitchButtonColor(true);
     }
 
-    void SubscribeMaxManaEvent()
+    /// <summary>
+    /// Event that happens when the currentHero switches its target
+    /// Creates a new battletarget if there isn't one (they will get destroyed when enemy dies)
+    /// </summary>
+    void OnSwitchTargetEvent ()
     {
-        selectedHero.OnMaxMana += OnMaxManaEvent;
+        if (battleTarget == null)
+        {
+            battleTarget = Instantiate(battleTargetPrefab);
+        }
+
+        if (selectedHero.currentTarget != null)
+        {
+            battleTarget.transform.parent = selectedHero.currentTarget.transform;
+            battleTarget.transform.localPosition = Vector3.zero;
+        }
     }
 
-    void UnsubscribeMaxManaEvent ()
+    void SubscribeHeroEvents()
+    {
+        selectedHero.OnMaxMana += OnMaxManaEvent;
+        selectedHero.OnSwitchTarget += OnSwitchTargetEvent;
+        selectedHero.OnDeath += DeselectHero;
+    }
+
+    void UnsubscribeHeroEvents()
     {
         selectedHero.OnMaxMana -= OnMaxManaEvent;
+        selectedHero.OnSwitchTarget -= OnSwitchTargetEvent;
+        selectedHero.OnDeath += DeselectHero;
     }
 
     private void OnDisable()
     {
         if (selectedHero != null)
         {
-            UnsubscribeMaxManaEvent();
+            UnsubscribeHeroEvents();
         }
     }
 }
