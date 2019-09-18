@@ -51,9 +51,8 @@ public class MageCurseAbility : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null)
+            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
                 Debug.Log("Mage Light Prison");
 

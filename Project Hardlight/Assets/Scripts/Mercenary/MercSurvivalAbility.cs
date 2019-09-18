@@ -54,7 +54,7 @@ public class MercSurvivalAbility : Ability
         { 
             Debug.Log("Merc survival cast");
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null)
+            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
                 selectedFighter.TakeDamage(GetDamage());
 
