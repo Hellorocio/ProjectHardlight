@@ -121,16 +121,19 @@ public class HeroPlacer : MonoBehaviour
         {
             currentHeroPrefab = mercenaryPrefab;
             tmpInstance.GetComponent<SpriteRenderer>().sprite = mercenaryPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
+            tmpInstance.GetComponent<SpriteRenderer>().color = mercenaryPrefab.GetComponentInChildren<SpriteRenderer>().color;
         }
         else if (i < 5) // hero is a mage
         {
             currentHeroPrefab = magePrefab;
             tmpInstance.GetComponent<SpriteRenderer>().sprite = magePrefab.GetComponentInChildren<SpriteRenderer>().sprite;
+            tmpInstance.GetComponent<SpriteRenderer>().color = magePrefab.GetComponentInChildren<SpriteRenderer>().color;
         }
         else if (i < 7) // hero is a healer
         {
             currentHeroPrefab = healerPrefab;
             tmpInstance.GetComponent<SpriteRenderer>().sprite = healerPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
+            tmpInstance.GetComponent<SpriteRenderer>().color = healerPrefab.GetComponentInChildren<SpriteRenderer>().color;
         }
     }
 }

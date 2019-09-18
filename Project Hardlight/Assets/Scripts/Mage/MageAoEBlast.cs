@@ -21,7 +21,6 @@ public class MageAoEBlast : Ability
     public void Start()
     {
         targeting = false;
-        abilityName = "AOE";
     }
 
     public void Update()
