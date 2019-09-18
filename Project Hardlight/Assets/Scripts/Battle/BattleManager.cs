@@ -265,6 +265,11 @@ public class BattleManager :  MonoBehaviour
     {
         if (selectedHero != null)
         {
+            if (inputState == InputState.CastingAbility)
+            {
+                StopTargeting();
+            }
+
             selectedHero.SetSelectedUI(false);
             UnsubscribeHeroEvents();
             selectedHero = null;
