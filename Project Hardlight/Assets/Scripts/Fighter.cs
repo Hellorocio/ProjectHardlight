@@ -20,6 +20,9 @@ public class Fighter : MonoBehaviour
     public SoulStats soul;
     public bool healer;
 
+    private Color defaultColor;
+    private Color hitColor;
+
     public MonoBehaviour basicAttackAction;
 
     private float health;
@@ -64,7 +67,9 @@ public class Fighter : MonoBehaviour
     void Start()
     {
         InitBoosts();
-        
+
+        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
+        hitColor = new Color(1f, .5235f, .6194f);
         //initialize temp stats
         //get max health based on soul boost if there is one
         if (soul != null)
@@ -282,7 +287,8 @@ public class Fighter : MonoBehaviour
     public void TakeDamage (float dmg)
     {
         health -= dmg - dmg * defenseBoost;
-
+        IEnumerator colorThing = HitColorChanger();
+        StartCoroutine(colorThing);
         if (health <= 0)
         {
             gameObject.SetActive(false);
@@ -295,6 +301,13 @@ public class Fighter : MonoBehaviour
         }
 
         SetHealthUI();
+    }
+
+    IEnumerator HitColorChanger()
+    {
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
+        yield return new WaitForSeconds((float)0.25);
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
     }
 
     public void Heal (float amt)
