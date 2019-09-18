@@ -29,6 +29,7 @@ public class HeroSelectionMenu2 : MonoBehaviour
     private Sprite currentlyDisplayedHeroSprite;
     private Button lastClickedHeroButton;
     private List<GameObject> lineupInstantiatables = new List<GameObject>();
+    public GameObject[] redXObjects = new GameObject[3];
 
     public Fighter[] heroList;
     public GameObject[] prefabs;
@@ -199,6 +200,7 @@ public class HeroSelectionMenu2 : MonoBehaviour
             lineupInstantiatables.Add(currentlyDisplayedPrefab);
             lineupSoulIcons.Add(currentlyDisplayedSoulIcon);
             lineupHeroSprites.Add(currentlyDisplayedHeroSprite);
+            redXObjects[lineupInstantiatables.Count - 1].SetActive(true);
             updateLineUp();
         }
         
@@ -210,30 +212,54 @@ public class HeroSelectionMenu2 : MonoBehaviour
         startButton.GetComponentInChildren<Text>().text = lineupSoulIcons.Count + "/3 Heroes Selected";
         foreach(Button but in lineup.GetComponentsInChildren<Button>())
         {
-            
-            foreach(Image imag in but.GetComponentsInChildren<Image>())
+            if (but.name == "Hero1" || but.name == "Hero2" || but.name == "Hero3")
             {
-                if(imag.name == "Hero_Image")
+                foreach (Image imag in but.GetComponentsInChildren<Image>())
                 {
-                    if (lineupHeroSprites.Count > count)
+                    if (imag.name == "Hero_Image")
                     {
-                        imag.sprite = lineupHeroSprites[count];
-                        imag.enabled = true;
+                        if (lineupHeroSprites.Count > count)
+                        {
+                            imag.sprite = lineupHeroSprites[count];
+                            imag.enabled = true;
+
+                        }
+                        else
+                        {
+                            imag.enabled = false;
+                        }
                     }
-                } else if(imag.name == "Soul_Image")
-                {
-                    if (lineupSoulIcons.Count > count)
+                    else if (imag.name == "Soul_Image")
                     {
-                        imag.sprite = lineupSoulIcons[count];
-                        imag.enabled = true;
+                        if (lineupSoulIcons.Count > count)
+                        {
+                            imag.sprite = lineupSoulIcons[count];
+                            imag.enabled = true;
+                        }
+                        else
+                        {
+                            imag.enabled = false;
+                        }
+                    }
+                    else
+                    {
+
                     }
                 }
-                else
-                {
-                    
-                }
+                count++;
             }
-            count++;
+        }
+    }
+
+    public void RemoveHeroAtIndex(int index)
+    {
+        if (lineupInstantiatables.Count > index)
+        {
+            lineupInstantiatables.RemoveAt(index);
+            lineupSoulIcons.RemoveAt(index);
+            lineupHeroSprites.RemoveAt(index);
+            updateLineUp();
+            redXObjects[lineupInstantiatables.Count].SetActive(false);
         }
     }
 
