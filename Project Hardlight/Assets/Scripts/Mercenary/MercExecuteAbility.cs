@@ -54,7 +54,7 @@ public class MercExecuteAbility: Ability
         {
             Debug.Log("Merc execute ability");
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null)
+            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
                 selectedFighter.TakeDamage(GetDamage());
 

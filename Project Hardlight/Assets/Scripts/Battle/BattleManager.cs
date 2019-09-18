@@ -114,19 +114,29 @@ public class BattleManager :  MonoBehaviour
                     // TODO (mchi) Neutral sound on failure
                 }
                 break;
-            case Targeting.Type.TargetUnit:// M1
+            case Targeting.Type.TargetUnit:
                 {
                     Vector3 pos = Input.mousePosition;
-                    Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-                    if (hitCollider != null)
+                    Fighter clickedFighter = null;
+
+                    //checking all overlapping colliders in case fighter isn't the first one that comes up
+                    Collider2D[] hitColliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+                    foreach (Collider2D collider in hitColliders)
                     {
-                        Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
-                        Debug.Log("Clicked fighter: " + clickedFighter);
-                        if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Enemy)
+                        Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
+                        if (hitFighter != null)
                         {
-                            selectedAbility.selectedTarget = hitCollider.gameObject;
-                            Debug.Log("got enemy target unit");
+                            clickedFighter = hitFighter;
+                            break;
                         }
+                    }
+
+                    if (clickedFighter != null)
+                    {
+                        Debug.Log("Clicked fighter: " + clickedFighter);
+
+                        //moved check for team into ability so it works with healing target unit abilities
+                        selectedAbility.selectedTarget = clickedFighter.gameObject;
                     }
                 }
                 break;
