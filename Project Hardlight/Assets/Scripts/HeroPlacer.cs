@@ -10,7 +10,7 @@ public class HeroPlacer : MonoBehaviour
     public GameObject tmpPrefab;
     private GameObject tmpInstance;
     private GameObject currentHeroPrefab;
-    private List<Vector2> heroes = new List<Vector2>();
+    private List<GameObject> heroes = new List<GameObject>();
     private List<Fighter> heroScripts = new List<Fighter>();
     private int numHeroesLeftToPlace = -1;
     private int index = 0;
@@ -25,6 +25,10 @@ public class HeroPlacer : MonoBehaviour
     void Start()
     {
         enemyParent = GameObject.Find("Enemies");
+        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
+        {
+            f.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -36,33 +40,11 @@ public class HeroPlacer : MonoBehaviour
             tmpInstance.transform.position = new Vector3(worldPoint.x, worldPoint.y, 0);
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject h = Instantiate(currentHeroPrefab, tmpInstance.transform.position, tmpInstance.transform.rotation);
+                GameObject h = Instantiate(heroes[index], tmpInstance.transform.position, tmpInstance.transform.rotation);
                 h.transform.parent = GameObject.Find("Players").transform;
                 heroScripts.Add(h.GetComponent<Fighter>());
-                
-                if(heroes[index].y == 1)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul1;
-                } else if(heroes[index].y == 2)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul2;
-                }
-                else if (heroes[index].y == 3)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul3;
-                }
-                else if (heroes[index].y == 4)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul4;
-                }
-                else if (heroes[index].y == 5)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul5;
-                }
-                else if (heroes[index].y == 6)
-                {
-                    heroScripts[heroScripts.Count - 1].soul = soul6;
-                }
+
+                //Debug.Log(h.GetComponent<Fighter>().soul);
                 
                 heroScripts[heroScripts.Count - 1].enabled = false;
                 h.GetComponent<Fighter>().enabled = false;
@@ -75,21 +57,33 @@ public class HeroPlacer : MonoBehaviour
         }
     }
 
-    public void StartHeroPlacement(List<Vector2> list)
-    {
-        heroes = list;
-        numHeroesLeftToPlace = list.Count;
-        NextHeroPlacement();
+
+    //public void StartHeroPlacement(List<Vector2> list)
+    //{
+        //heroes = list;
+        //numHeroesLeftToPlace = list.Count;
+        //NextHeroPlacement();
         
 
+    //}
+
+    public void StartHeroPlacement(List<GameObject> prefabs)
+    {
+        heroes = prefabs;
+        numHeroesLeftToPlace = prefabs.Count;
+        NextHeroPlacement();
+
+
     }
+
 
     private void NextHeroPlacement()
     {
         if (numHeroesLeftToPlace > 0)
         {
             tmpInstance = Instantiate(tmpPrefab);
-            GetHeroPrefabType((int)heroes[index].x);
+            tmpInstance.GetComponent<SpriteRenderer>().sprite = heroes[index].GetComponentInChildren<SpriteRenderer>().sprite;
+            //GetHeroPrefabType((int)heroes[index].x);
         } else
         {
             if(tmpInstance != null)
@@ -115,6 +109,7 @@ public class HeroPlacer : MonoBehaviour
 
     }
 
+    /*
     private void GetHeroPrefabType(int i)
     {
         if (i < 3) // hero is a merc
@@ -136,4 +131,5 @@ public class HeroPlacer : MonoBehaviour
             tmpInstance.GetComponent<SpriteRenderer>().color = healerPrefab.GetComponentInChildren<SpriteRenderer>().color;
         }
     }
+    */
 }

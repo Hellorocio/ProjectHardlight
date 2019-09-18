@@ -59,7 +59,7 @@ public class HeroSelection : MonoBehaviour
         if(partySize == 3)
         {
             partyPlacement.SetActive(true);
-            partyPlacement.GetComponent<HeroPlacer>().StartHeroPlacement(lineup);
+            //partyPlacement.GetComponent<HeroPlacer>().StartHeroPlacement();
             gameObject.SetActive(false);
         }
     }
