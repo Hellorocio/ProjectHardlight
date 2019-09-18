@@ -435,7 +435,6 @@ public class Fighter : MonoBehaviour
                     SetClosestAttackTarget();
                 }
             }
-            
 
         }
         else if(healer)
