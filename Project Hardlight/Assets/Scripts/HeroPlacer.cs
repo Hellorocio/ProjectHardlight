@@ -83,6 +83,7 @@ public class HeroPlacer : MonoBehaviour
         {
             tmpInstance = Instantiate(tmpPrefab);
             tmpInstance.GetComponent<SpriteRenderer>().sprite = heroes[index].GetComponentInChildren<SpriteRenderer>().sprite;
+            tmpInstance.GetComponent<SpriteRenderer>().color = heroes[index].GetComponentInChildren<SpriteRenderer>().color;
             //GetHeroPrefabType((int)heroes[index].x);
         } else
         {
