@@ -44,6 +44,7 @@ public class AlchemistBasicAttackAction : BasicAttackAction
                 {
                     if (hitFighter.team == CombatInfo.Team.Enemy)
                     {
+                        print("alchemist basic attack hit " + hitFighter.gameObject.name + " for damage = " + damage);
                         hitFighter.TakeDamage(damage);
                     }
                 }
