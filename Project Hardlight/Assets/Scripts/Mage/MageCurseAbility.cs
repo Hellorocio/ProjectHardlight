@@ -12,6 +12,7 @@ public class MageCurseAbility : Ability
     public BuffObj attackDebuff;
 
     public GameObject attackTargetUnit;
+    public GameObject lightPrisonPrefab;
 
     private bool targeting;
 
@@ -59,6 +60,11 @@ public class MageCurseAbility : Ability
                 selectedFighter.TakeDamage(GetDamage());
                 //add debuff
                 selectedFighter.AddTimedBuff(attackDebuff);
+
+                //display light prison
+                GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
+                lightPrison.transform.localPosition = Vector3.zero;
+                lightPrison.transform.localScale = Vector3.one;
                 return true;
             }
         }

@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 1620355528756934379}
   - component: {fileID: 5103854422192811006}
   - component: {fileID: 6040583921784389790}
+  - component: {fileID: 7270942199044395875}
   - component: {fileID: 843159897424399992}
-  - component: {fileID: 563414976920067662}
   - component: {fileID: 2151344588884086231}
   - component: {fileID: 7824817557037253904}
   - component: {fileID: 3832263635976369236}
@@ -157,21 +157,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Healer
+  characterName: Dark Healer
   team: 1
+  targetPrefs: 
   healthUI: {fileID: 8018282843746014364}
   manaUI: {fileID: 6846847879002493334}
   maxManaUI: {fileID: 1739212665287610408}
   selectedUI: {fileID: 6518751420555252193}
   maxManaGlow: {fileID: 7797850761372023185}
   anim: {fileID: 2748628100524330411}
-  fighterStats: {fileID: 11400000, guid: f812af14e64d97b4d8b7fd9b60137040, type: 2}
+  fighterStats: {fileID: 11400000, guid: 60827c3fc43bd10468fef28eb8c748bc, type: 2}
   soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
   healer: 1
-  basicAttackAction: {fileID: 563414976920067662}
-  basicAttackStats: {fileID: 11400000, guid: 3abe87aaefce32d4ea3d540f79045fbf, type: 2}
+  basicAttackAction: {fileID: 7270942199044395875}
+  basicAttackStats: {fileID: 11400000, guid: 8b48048c9a584a044b76ed0847a3d740, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0
+--- !u!114 &7270942199044395875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbe8cb2ef157964cbd2df42ee3851a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DarkHealerBasicAttackPrefab: {fileID: 2783819019849837299, guid: 12a69f335242af148bbf4b20857c0966,
+    type: 3}
+  damageRadius: 4
+  animationDelay: 2
 --- !u!50 &843159897424399992
 Rigidbody2D:
   serializedVersion: 4
@@ -193,20 +210,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &563414976920067662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256569818235868055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02122204c3b2f84ea69899c7942a9d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healBasicAction: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
-    type: 3}
 --- !u!114 &2151344588884086231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,8 +652,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7797850761372023185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: -0.57, z: 0}
-  m_LocalScale: {x: 5.0305, y: 5.0305, z: 5.0305}
+  m_LocalPosition: {x: 0.9, y: 0.52, z: 0}
+  m_LocalScale: {x: 0.9534988, y: 0.9534988, z: 0.9534988}
   m_Children: []
   m_Father: {fileID: 2748628100524330409}
   m_RootOrder: 0
@@ -693,8 +696,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5cff08235bdc9b84cad0cb1ed31c47b9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 33c95d51cd8777445b8b3868f4f4cd77, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8039216}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

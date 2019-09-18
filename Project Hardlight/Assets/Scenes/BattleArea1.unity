@@ -338,6 +338,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 718098516, guid: 40cf737905425b246afb4017393ec8b7, type: 3}
+      propertyPath: lightPrisonPrefab
+      value: 
+      objectReference: {fileID: 7039968626089030771, guid: 4118df666498ef44dab023b0e2546f8b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40cf737905425b246afb4017393ec8b7, type: 3}
 --- !u!1001 &817516500
@@ -1374,6 +1379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Healer
       objectReference: {fileID: 0}
+    - target: {fileID: 3061916897697390927, guid: fca533348c17797469b1f0143a71bad5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2545175618986722355, guid: fca533348c17797469b1f0143a71bad5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1964,6 +1974,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1488590415717222120}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6191104539560666773
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 111863882295428768, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_Name
+      value: DarkPrison
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.6814847
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.98011106
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959331961040305254, guid: 042983ed13e121d449a72998f0d26377,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 042983ed13e121d449a72998f0d26377, type: 3}
 --- !u!1001 &7806574064815622561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2575,6 +2654,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040583921784389790, guid: 8441d7bb0bc05424a8343c480f158358,
+        type: 3}
+      propertyPath: healer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270942199044395875, guid: 8441d7bb0bc05424a8343c480f158358,
+        type: 3}
+      propertyPath: damageRadius
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8441d7bb0bc05424a8343c480f158358, type: 3}
