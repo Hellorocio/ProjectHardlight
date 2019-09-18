@@ -15,16 +15,12 @@ public class BattleManager :  MonoBehaviour
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
 
-    private CommandsUIHandler commandsUI;
+    public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
 
     public void Start()
     {
-        GameObject commandsUIObj = GameObject.Find("CommandsUI");
-        if (commandsUIObj != null)
-        {
-            commandsUI = commandsUIObj.GetComponent<CommandsUIHandler>();
-        }
+        
         inputState = InputState.NothingSelected;
     }
 
@@ -251,6 +247,8 @@ public class BattleManager :  MonoBehaviour
 
         selectedHero = hero;
         selectedHero.SetSelectedUI(true);
+
+        Debug.Log(hero.name);
         commandsUI.EnableUI(hero.gameObject);
         commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.fighterStats.maxMana);
         OnSwitchTargetEvent();
