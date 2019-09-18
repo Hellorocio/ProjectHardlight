@@ -20,7 +20,11 @@ public class BattleManager :  MonoBehaviour
 
     public void Start()
     {
-        
+        GameObject enemyParent = GameObject.Find("Enemies");
+        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
+        {
+            f.enabled = false;
+        }
         inputState = InputState.NothingSelected;
     }
 

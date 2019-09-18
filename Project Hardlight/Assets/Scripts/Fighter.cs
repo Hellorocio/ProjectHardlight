@@ -9,7 +9,7 @@ public class Fighter : MonoBehaviour
 {
     public string characterName = "defaultCharacterName";
     public CombatInfo.Team team;
-
+    public List<CombatInfo.TargetPreference> targetPrefs;
     public GameObject healthUI;
     public GameObject manaUI;
     public GameObject maxManaUI;
@@ -64,7 +64,7 @@ public class Fighter : MonoBehaviour
     void Start()
     {
         InitBoosts();
-
+        
         //initialize temp stats
         //get max health based on soul boost if there is one
         if (soul != null)
@@ -112,6 +112,11 @@ public class Fighter : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        DefaultAI();
+    }
+
+    private void DefaultAI()
     {
         // Basic AI
         // TODO(Don't stop movement if player issued the Move command)
@@ -350,16 +355,90 @@ public class Fighter : MonoBehaviour
     }
 
     /// <summary>
-    /// Searches enemies or players gameObject for the closest thing to attack and sets currentTarget
+    /// Searches enemies or players gameObject for a target to attack and sets currentTarget
     /// Sets currentTarget to null if there are no more things to attack
+    /// Will use targetprefs list if provided, otherwise will default to closest algorithm
     /// </summary>
     void SetCurrentTarget()
     {
-        if (!healer)
+        //This code chuck below checks if any enemies are active in the scene before calling a targeting function
+        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        bool boolTMP = false;
+        
+        for (int i = 0; i < enemyListTMP.Length; i++)
         {
-            SetClosestAttackTarget();
+            if (enemyListTMP[i].gameObject.activeSelf)
+            {
+                boolTMP = true;
+                i = enemyListTMP.Length;
+            }
         }
-        else
+
+        bool newTargetWasSelected = false;
+        if (!healer && boolTMP)
+        {
+            //Default if no preferences exist
+            if(targetPrefs.Count == 0)
+            {
+                SetClosestAttackTarget();
+            } else
+            {
+                for (int i = 0; i < targetPrefs.Count; i++)
+                {
+                    if (targetPrefs[i] == CombatInfo.TargetPreference.Strongest)
+                    {
+                        SetStrongesttAttackTarget();
+                        i = targetPrefs.Count;
+                        newTargetWasSelected = true;
+                    }
+                    else if (targetPrefs[i] == CombatInfo.TargetPreference.Weakest)
+                    {
+                        SetWeakestAttackTarget();
+                        i = targetPrefs.Count;
+                        newTargetWasSelected = true;
+                    }
+                    else if (targetPrefs[i] == CombatInfo.TargetPreference.Closest)
+                    {
+                        SetClosestAttackTarget();
+                        i = targetPrefs.Count;
+                        newTargetWasSelected = true;
+                    }
+                    else if (targetPrefs[i] == CombatInfo.TargetPreference.Melee)
+                    {
+                        if (SetMeleeAttackTarget())
+                        {
+                            i = targetPrefs.Count;
+                            newTargetWasSelected = true;
+                        }
+                    }
+                    else if (targetPrefs[i] == CombatInfo.TargetPreference.Ranged)
+                    {
+                        if (SetRangedAttackTarget())
+                        {
+                            i = targetPrefs.Count;
+                            newTargetWasSelected = true;
+                        }
+                    }
+                    else if(targetPrefs[i] == CombatInfo.TargetPreference.Healer)
+                    {
+                        if (SetHealerAttackTarget())
+                        {
+                            i = targetPrefs.Count;
+                            newTargetWasSelected = true;
+                        }
+                    }
+                    
+                }
+
+                if (!newTargetWasSelected)
+                {
+                    SetClosestAttackTarget();
+                }
+            }
+            
+
+        }
+        else if(healer)
         {
             SetOptimalHealingTarget();
         }
@@ -368,6 +447,142 @@ public class Fighter : MonoBehaviour
         {
             OnSwitchTarget();
         }
+    }
+
+    /// <summary>
+    /// Finds the weakest enemy and sets current target
+    /// </summary>
+    void SetWeakestAttackTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float hp = 100000000;
+        int index = 0;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                if(currentTargets[i].GetHealth() < hp)
+                {
+                    hp = currentTargets[i].GetHealth();
+                    index = i;
+                }
+            }
+        }
+        currentTarget = currentTargets[index].gameObject;
+    }
+
+    /// <summary>
+    /// Finds the strongest (Most HP) enemy and sets current target
+    /// </summary>
+    void SetStrongesttAttackTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float hp = -1;
+        int index = 0;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                if (currentTargets[i].GetHealth() > hp)
+                {
+                    hp = currentTargets[i].GetHealth();
+                    index = i;
+                }
+            }
+        }
+        currentTarget = currentTargets[index].gameObject;
+    }
+
+    /// <summary>
+    /// Attempts to find a ranged hero to kill
+    /// If one doesn't exist, use next preference
+    /// </summary>
+    bool SetRangedAttackTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float minDist = 1000f;
+        GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
+                if (dist < minDist && currentTargets[i].basicAttackStats.range > 3)
+                {
+                    minDist = dist;
+                    tempcurrentTarget = currentTargets[i].gameObject;
+                }
+            }
+        }
+        if(tempcurrentTarget == null)
+        {
+            return false;
+        }
+        currentTarget = tempcurrentTarget;
+        return true;
+    }
+
+    /// <summary>
+    /// Attempts to find a melee hero to kill
+    /// If one doesn't exist, use next preference
+    /// </summary>
+    bool SetMeleeAttackTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float minDist = 1000f;
+        GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
+                if (dist < minDist && currentTargets[i].basicAttackStats.range < 4)
+                {
+                    minDist = dist;
+                    tempcurrentTarget = currentTargets[i].gameObject;
+                }
+            }
+        }
+        if (tempcurrentTarget == null)
+        {
+            return false;
+        }
+        currentTarget = tempcurrentTarget;
+        return true;
+    }
+
+    /// <summary>
+    /// Attempts to find a healer hero to kill
+    /// If one doesn't exist, use next preference
+    /// </summary>
+    bool SetHealerAttackTarget()
+    {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        float minDist = 1000f;
+        GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
+                if (dist < minDist && currentTargets[i].healer)
+                {
+                    minDist = dist;
+                    tempcurrentTarget = currentTargets[i].gameObject;
+                }
+            }
+        }
+        if (tempcurrentTarget == null)
+        {
+            return false;
+        }
+        currentTarget = tempcurrentTarget;
+        return true;
     }
 
     /// <summary>

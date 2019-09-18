@@ -25,10 +25,7 @@ public class HeroPlacer : MonoBehaviour
     void Start()
     {
         enemyParent = GameObject.Find("Enemies");
-        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
-        {
-            f.enabled = false;
-        }
+        
     }
 
     // Update is called once per frame
