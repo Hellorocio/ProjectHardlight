@@ -92,10 +92,10 @@ GameObject:
   - component: {fileID: 6040583921784389790}
   - component: {fileID: 7270942199044395875}
   - component: {fileID: 843159897424399992}
-  - component: {fileID: 2151344588884086231}
   - component: {fileID: 7824817557037253904}
-  - component: {fileID: 3832263635976369236}
   - component: {fileID: 3832263636368527048}
+  - component: {fileID: 3978024837703019153}
+  - component: {fileID: 626554484465186443}
   m_Layer: 0
   m_Name: DarkHealer
   m_TagString: Player
@@ -168,7 +168,7 @@ MonoBehaviour:
   anim: {fileID: 2748628100524330411}
   fighterStats: {fileID: 11400000, guid: 60827c3fc43bd10468fef28eb8c748bc, type: 2}
   soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
-  healer: 1
+  healer: 0
   basicAttackAction: {fileID: 7270942199044395875}
   basicAttackStats: {fileID: 11400000, guid: 8b48048c9a584a044b76ed0847a3d740, type: 2}
   currentTarget: {fileID: 0}
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DarkHealerBasicAttackPrefab: {fileID: 2783819019849837299, guid: 12a69f335242af148bbf4b20857c0966,
     type: 3}
-  damageRadius: 4
+  damageRadius: 5
   animationDelay: 2
 --- !u!50 &843159897424399992
 Rigidbody2D:
@@ -210,32 +210,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2151344588884086231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256569818235868055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab4a01e5fe164846b7a24f83a65e5a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Healing Aura
-  abilityDescription: Medium heal in small radius
-  targetingType: 2
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 6
-  baseEffectRadius: 2.5
-  baseHealAmt: 13
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  radiusIndicator: {fileID: 0}
 --- !u!114 &7824817557037253904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,32 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 2151344588884086231}
-  - {fileID: 3832263635976369236}
---- !u!114 &3832263635976369236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256569818235868055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a9c4977a98082b4da02dcaa8d785144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Major Heal
-  abilityDescription: Large heal on one unit
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 6
-  baseHealAmt: 22
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  healEffectPrefab: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
-    type: 3}
-  attackTargetUnit: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!82 &3832263636368527048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -371,6 +321,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3978024837703019153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9046bfc0f876a544878393a429e869b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &626554484465186443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: 
+  abilityDescription: 
+  targetingType: 0
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 0
+  baseDamage: 0
+  rangeIndicatorPrefab: {fileID: 0}
+  rangeIndicator: {fileID: 0}
+  attackDebuff: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
+  lightPrisonPrefab: {fileID: 0}
 --- !u!1 &2748628100524330406
 GameObject:
   m_ObjectHideFlags: 0
