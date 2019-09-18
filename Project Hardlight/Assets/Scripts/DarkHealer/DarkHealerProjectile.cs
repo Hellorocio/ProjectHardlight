@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class DarkHealerProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float dmg = 0;
+    GameObject target;
+
+    private void Start()
     {
-        
+        target = GetComponent<ProjectileMovement>().target;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        Fighter hitFighter = other.GetComponent<Fighter>();
+
+        if (hitFighter != null)
+        {
+            if (hitFighter.team == CombatInfo.Team.Hero)
+            {
+                //heal
+                hitFighter.Heal(dmg);
+            }
+            else
+            {
+                // Deal damage
+                hitFighter.TakeDamage(dmg);
+            }
+            
+        }
+
+        if (other.gameObject == target)
+        {
+            Destroy(gameObject);
+        }
     }
 }

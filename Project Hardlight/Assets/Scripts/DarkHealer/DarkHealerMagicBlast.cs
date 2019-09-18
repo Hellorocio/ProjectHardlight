@@ -9,7 +9,6 @@ public class DarkHealerMagicBlast : Ability
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
-    public BuffObj attackDebuff;
 
     public GameObject attackTargetUnit;
     public GameObject magicBlastPrefab;
@@ -55,16 +54,15 @@ public class DarkHealerMagicBlast : Ability
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
-                Debug.Log("Mage Light Prison");
-
-                selectedFighter.TakeDamage(GetDamage());
-                //add debuff
-                selectedFighter.AddTimedBuff(attackDebuff);
+                Debug.Log("Dark healer magic blast");
 
                 //display light prison
-                GameObject blast = Instantiate(magicBlastPrefab, selectedTarget.transform);
-                blast.transform.localPosition = Vector3.zero;
-                blast.transform.localScale = Vector3.one;
+                GameObject blast = Instantiate(magicBlastPrefab);
+                blast.transform.localPosition = transform.position;
+
+                blast.GetComponent<ProjectileMovement>().source = gameObject;
+                blast.GetComponent<ProjectileMovement>().target = selectedTarget;
+                blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
                 return true;
             }
         }
