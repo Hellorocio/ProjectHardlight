@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1585671088267181933}
   - component: {fileID: -1689011901297656257}
   - component: {fileID: 8376644654879710129}
+  - component: {fileID: 7386540188505506300}
   m_Layer: 0
   m_Name: MageBasicAttack
   m_TagString: Untagged
@@ -99,6 +100,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de21235813d1b13449004d657931df39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7386540188505506300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585671088267181929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47f933a5385a8641a2ea0500601992b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 10
+  destroyAfterCooldown: 1
 --- !u!1 &1585671089639683320
 GameObject:
   m_ObjectHideFlags: 0
