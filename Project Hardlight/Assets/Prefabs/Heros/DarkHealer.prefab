@@ -167,7 +167,7 @@ MonoBehaviour:
   maxManaGlow: {fileID: 7797850761372023185}
   anim: {fileID: 2748628100524330411}
   fighterStats: {fileID: 11400000, guid: 60827c3fc43bd10468fef28eb8c748bc, type: 2}
-  soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
+  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   healer: 0
   basicAttackAction: {fileID: 7270942199044395875}
   basicAttackStats: {fileID: 11400000, guid: 8b48048c9a584a044b76ed0847a3d740, type: 2}
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3978024837703019153}
+  - {fileID: 626554484465186443}
 --- !u!82 &3832263636368527048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -333,6 +333,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9046bfc0f876a544878393a429e869b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityName: Dark Blast
+  abilityDescription: Shoots a projectilHarms enemies and heals allies in path of
+    projectile
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 0
+  baseDamage: 0
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
+  magicBlastPrefab: {fileID: 957582598227813440, guid: a1f85932a3e26e541a8ab8bca1263817,
+    type: 3}
 --- !u!114 &626554484465186443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,16 +359,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityDescription: 
-  targetingType: 0
+  abilityName: Dark Prison
+  abilityDescription: Does medium damage and reduces enemy's defense
+  targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 0
   baseDamage: 0
-  rangeIndicatorPrefab: {fileID: 0}
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
   rangeIndicator: {fileID: 0}
-  attackDebuff: {fileID: 0}
+  attackDebuff: {fileID: 11400000, guid: 1ccd863635694be4798be5d765e3130d, type: 2}
   attackTargetUnit: {fileID: 0}
   lightPrisonPrefab: {fileID: 111863882295428768, guid: 042983ed13e121d449a72998f0d26377,
     type: 3}
