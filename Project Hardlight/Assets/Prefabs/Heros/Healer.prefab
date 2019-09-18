@@ -125,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2545175618986722355
 Transform:
   m_ObjectHideFlags: 0
@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Healer
   team: 1
+  targetPrefs: 
   healthUI: {fileID: 6514534628416742980}
   manaUI: {fileID: 7649940830769210190}
   maxManaUI: {fileID: 3245973612284470000}
@@ -189,7 +190,7 @@ MonoBehaviour:
   maxManaGlow: {fileID: 6420277688975706953}
   anim: {fileID: 1372465152858603379}
   fighterStats: {fileID: 11400000, guid: f812af14e64d97b4d8b7fd9b60137040, type: 2}
-  soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
+  soul: {fileID: 11400000, guid: 2d46bb362fb153742a6fcd20cf184397, type: 2}
   healer: 1
   basicAttackAction: {fileID: 3674736732129029270}
   basicAttackStats: {fileID: 11400000, guid: 3abe87aaefce32d4ea3d540f79045fbf, type: 2}
@@ -597,8 +598,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6420277688975706953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: -0.57, z: 0}
-  m_LocalScale: {x: 5.0305, y: 5.0305, z: 5.0305}
+  m_LocalPosition: {x: 0.86, y: 0.08, z: 0}
+  m_LocalScale: {x: 0.9534988, y: 0.9534988, z: 0.9534988}
   m_Children: []
   m_Father: {fileID: 1372465152858603377}
   m_RootOrder: 0
@@ -641,8 +642,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5cff08235bdc9b84cad0cb1ed31c47b9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 33c95d51cd8777445b8b3868f4f4cd77, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9647059}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
