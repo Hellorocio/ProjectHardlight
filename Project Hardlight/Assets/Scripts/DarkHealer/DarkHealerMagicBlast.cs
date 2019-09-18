@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageCurseAbility : Ability
+public class DarkHealerMagicBlast : Ability
 {
     public float baseEffectRange;
     public int baseDamage;
@@ -12,7 +12,7 @@ public class MageCurseAbility : Ability
     public BuffObj attackDebuff;
 
     public GameObject attackTargetUnit;
-    public GameObject lightPrisonPrefab;
+    public GameObject magicBlastPrefab;
 
     private bool targeting;
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlchemistBasicAttackAction : BasicAttackAction
+public class DarkHealerBasicAttackAction : BasicAttackAction
 {
 
-    public GameObject alchemistBasicAttackPrefab;
+    public GameObject DarkHealerBasicAttackPrefab;
     public float damageRadius = 3f;
 
     Fighter thisFighter;
@@ -30,8 +30,8 @@ public class AlchemistBasicAttackAction : BasicAttackAction
         GameObject target = thisFighter.currentTarget;
         if (target != null)
         {
-            GameObject basicAttack = Instantiate(alchemistBasicAttackPrefab);
-            basicAttack.transform.position = target.transform.position;
+            GameObject basicAttack = Instantiate(DarkHealerBasicAttackPrefab);
+            basicAttack.transform.position = transform.position;
             basicAttack.transform.localScale *= 2 * damageRadius;
 
             // Deal damage
