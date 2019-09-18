@@ -81,7 +81,23 @@ public class HeroSelectionMenu2 : MonoBehaviour
         statTextComponents[3].text += hero.basicAttackStats.attackSpeed.ToString();
         statTextComponents[4].text += hero.basicAttackStats.range.ToString();
         statTextComponents[5].text += hero.fighterStats.movementSpeed.ToString();
-        statTextComponents[6].text += hero.fighterStats.name.Substring(0, (hero.fighterStats.name.Length - 5));
+        if(i == 0 || i == 2 || i == 4)
+        {
+            statTextComponents[6].text += hero.fighterStats.name.Substring(0, (hero.fighterStats.name.Length - 5));
+        }
+
+        if(i == 1)
+        {
+            statTextComponents[6].text += "Ninja";
+        }
+        if (i == 3)
+        {
+            statTextComponents[6].text += "Dark Healer";
+        }
+        if (i == 5)
+        {
+            statTextComponents[6].text += "Alchemist";
+        }
         statTextComponents[7].text += hero.fighterStats.maxMana.ToString();
         if(i != 0)
         {
