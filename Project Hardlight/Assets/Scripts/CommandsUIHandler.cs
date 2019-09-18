@@ -9,6 +9,8 @@ public class CommandsUIHandler : MonoBehaviour
     public Text heroNameText;
     public Button ability1Button;
     public Button ability2Button;
+    public Text desc1;
+    public Text desc2;
     public Button targetButton;
     private bool isUIShowing = false;
     private GameObject currentlySelectedHero;
@@ -59,9 +61,12 @@ public class CommandsUIHandler : MonoBehaviour
             heroNameText.text = f.GetComponent<Fighter>().characterName;
             HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
             ability1Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[0]).abilityName;
+            desc1.text = ((Ability)tmpAbilities.abilityList[0]).abilityDescription;
+
             if (tmpAbilities.abilityList.Count > 1)
             {
                 ability2Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[1]).abilityName;
+                desc2.text = ((Ability)tmpAbilities.abilityList[1]).abilityDescription;
             }
         }
 
@@ -75,6 +80,13 @@ public class CommandsUIHandler : MonoBehaviour
         ability1Button.gameObject.SetActive(b);
         ability2Button.gameObject.SetActive(b);
         targetButton.gameObject.SetActive(b);
+
+        //if switching off, make sure we also switch off descriptions
+        if (!b)
+        {
+            desc1.transform.parent.gameObject.SetActive(false);
+            desc2.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     public void SwitchButtonColor (bool activate)
