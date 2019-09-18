@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // All inputs should go int there
-public class BattleManager :  MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
-    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand}
+    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand }
 
     public BattleConfig battleConfig;
 
@@ -37,7 +37,7 @@ public class BattleManager :  MonoBehaviour
             {
                 UpdateClickedHero();
             }
-            
+
         }
         else if (inputState == InputState.HeroSelected)
         {
@@ -65,17 +65,7 @@ public class BattleManager :  MonoBehaviour
             Debug.Log("Input state is casting ability");
             if (Input.GetMouseButtonDown(0))
             {
-                // Select target
-                UpdateSelectedTarget();
-
-                if (selectedAbility.DoAbility())
-                {
-                    // Lose mana
-                    selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
-                    commandsUI.SwitchButtonColor(false);
-                    StopTargeting();
-                    DeselectHero();
-                }
+                TargetSelected();
             }
             else if (Input.GetMouseButtonDown(1))
             {
@@ -96,6 +86,24 @@ public class BattleManager :  MonoBehaviour
                     inputState = InputState.HeroSelected;
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Happens when a player clicks on a target during cast ability or they start targeting for targetInstant abilities
+    /// </summary>
+    void TargetSelected()
+    {
+        // Select target
+        UpdateSelectedTarget();
+
+        if (selectedAbility.DoAbility())
+        {
+            // Lose mana
+            selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
+            commandsUI.SwitchButtonColor(false);
+            StopTargeting();
+            DeselectHero();
         }
     }
 
@@ -140,6 +148,11 @@ public class BattleManager :  MonoBehaviour
                     }
                 }
                 break;
+            case Targeting.Type.Instant:
+                {
+                    selectedAbility.selectedPosition = selectedHero.transform.position;
+                }
+                break;
             default:
                 break;
         }
@@ -147,7 +160,7 @@ public class BattleManager :  MonoBehaviour
     /// <summary>
     /// Sets selected hero to the hero that was justed clicked
     /// </summary>
-    void UpdateClickedHero ()
+    void UpdateClickedHero()
     {
         Vector3 pos = Input.mousePosition;
         Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
@@ -164,8 +177,8 @@ public class BattleManager :  MonoBehaviour
             }
         }
     }
-    
-    public void UseAbility (int abilityNum)
+
+    public void UseAbility(int abilityNum)
     {
         if (selectedHero != null)
         {
@@ -176,7 +189,7 @@ public class BattleManager :  MonoBehaviour
 
             // Clear any existing selected ability
             selectedAbility = null;
-            
+
             Ability ability = (Ability)selectedHero.gameObject.GetComponent<HeroAbilities>().abilityList[abilityNum];
             if (ability != null)
             {
@@ -218,7 +231,9 @@ public class BattleManager :  MonoBehaviour
                 break;
             case Targeting.Type.Instant:
                 // TODO check validity before casting ability
-                break;
+                Debug.Log("TARGETING | Target Instant");
+                TargetSelected();
+                return;
             default:
                 break;
         }
@@ -298,7 +313,7 @@ public class BattleManager :  MonoBehaviour
     /// <summary>
     /// Event that happens when currentHero reaches max mana
     /// </summary>
-    void OnMaxManaEvent ()
+    void OnMaxManaEvent()
     {
         commandsUI.SwitchButtonColor(true);
     }
@@ -307,7 +322,7 @@ public class BattleManager :  MonoBehaviour
     /// Event that happens when the currentHero switches its target
     /// Creates a new battletarget if there isn't one (they will get destroyed when enemy dies)
     /// </summary>
-    void OnSwitchTargetEvent ()
+    void OnSwitchTargetEvent()
     {
         if (battleTarget == null)
         {

@@ -563,10 +563,10 @@ GameObject:
   - component: {fileID: 8867469095062587940}
   - component: {fileID: 3920557006686531490}
   - component: {fileID: 2551397284252665026}
-  - component: {fileID: 8065075115998762952}
+  - component: {fileID: 8370368706987180497}
   - component: {fileID: 8065075115998762966}
-  - component: {fileID: 8065075115998762953}
-  - component: {fileID: 8211867109924223974}
+  - component: {fileID: 3598691643150063936}
+  - component: {fileID: 7810345277815133952}
   - component: {fileID: 8211867109965351344}
   m_Layer: 0
   m_Name: Alchemist
@@ -582,7 +582,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8065075115998762955}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.094803, y: -1.4613411, z: 2}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Mage
+  characterName: Alchemist
   team: 1
   healthUI: {fileID: 2163396033619172427}
   manaUI: {fileID: 6240023073476958974}
@@ -659,14 +659,14 @@ MonoBehaviour:
   selectedUI: {fileID: 9109577280019353254}
   maxManaGlow: {fileID: 5487258466830417321}
   anim: {fileID: 6240023073702742519}
-  fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
+  fighterStats: {fileID: 11400000, guid: 7a48e6a3f9c454843866e824e21e0573, type: 2}
   soul: {fileID: 0}
   healer: 0
-  basicAttackAction: {fileID: 8065075115998762952}
-  basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
+  basicAttackAction: {fileID: 8370368706987180497}
+  basicAttackStats: {fileID: 11400000, guid: 9571733ac1c217344a7ad23f005829b2, type: 2}
   currentTarget: {fileID: 0}
   attackBoost: 0
---- !u!114 &8065075115998762952
+--- !u!114 &8370368706987180497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -675,13 +675,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8065075115998762955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c84fea9525158d48ae67f0927e9e92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
+  alchemistBasicAttackPrefab: {fileID: 4242717506198124470, guid: 7ef8b8ea8bbd7ed4a9127ce3af71d9a4,
     type: 3}
-  spawnPoint: {fileID: 6699951886437213137}
-  animationDelay: 0.7
+  damageRadius: 2
+  animationDelay: 0
 --- !u!114 &8065075115998762966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,9 +695,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 8065075115998762953}
-  - {fileID: 8211867109924223974}
---- !u!114 &8065075115998762953
+  - {fileID: 3598691643150063936}
+  - {fileID: 7810345277815133952}
+--- !u!114 &3598691643150063936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -706,49 +706,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 8065075115998762955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188df771687e3d445947e2babdf68887, type: 3}
+  m_Script: {fileID: 11500000, guid: b63e2cc7f49cff2469d1ebedb7eae673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Light's Extosis
-  abilityDescription: Medium damage on small range
-  targetingType: 2
+  abilityName: Poison Bomb
+  abilityDescription: Blasts large area around the hero with small damage, freezes
+    hit enemies
+  targetingType: 4
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 8
-  baseEffectRadius: 2.5
-  baseDamage: 10
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
-    type: 3}
-  lightBlastPrefab: {fileID: 5489350537540678332, guid: eb9322f9fdb6c504cb2e08b189fa05dd,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  radiusIndicator: {fileID: 0}
---- !u!114 &8211867109924223974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8065075115998762955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Light Prison
-  abilityDescription: Small damage on one enemy, stops them for 10 seconds
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 8
+  baseEffectRadius: 6
   baseDamage: 5
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+  attackDebuff: {fileID: 11400000, guid: 41dc47b5df1be1c4abb8e004d46f26b8, type: 2}
+  poisonBlastPrefab: {fileID: 1212775176318728028, guid: a93645d474aff9b45b241d77988d9efd,
     type: 3}
-  rangeIndicator: {fileID: 0}
-  attackDebuff: {fileID: 11400000, guid: 4d4f208a7a0ced54e9784922f90fe067, type: 2}
-  attackTargetUnit: {fileID: 0}
+--- !u!114 &7810345277815133952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065075115998762955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd735d3fe8002943b40f07436ccd87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Heal Potion
+  abilityDescription: Heal allies surrouding this fighter a small amount and boost
+    their attack
+  targetingType: 4
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRadius: 4
+  baseHealAmt: 8
+  healBuff: {fileID: 11400000, guid: eba4044ea3e381a46a1e59ee4c8bb26c, type: 2}
+  healyCircle: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
+    type: 3}
 --- !u!82 &8211867109965351344
 AudioSource:
   m_ObjectHideFlags: 0
