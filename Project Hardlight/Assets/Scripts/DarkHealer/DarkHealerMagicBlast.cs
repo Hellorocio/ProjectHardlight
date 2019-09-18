@@ -62,9 +62,9 @@ public class DarkHealerMagicBlast : Ability
                 selectedFighter.AddTimedBuff(attackDebuff);
 
                 //display light prison
-                GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
-                lightPrison.transform.localPosition = Vector3.zero;
-                lightPrison.transform.localScale = Vector3.one;
+                GameObject blast = Instantiate(magicBlastPrefab, selectedTarget.transform);
+                blast.transform.localPosition = Vector3.zero;
+                blast.transform.localScale = Vector3.one;
                 return true;
             }
         }
