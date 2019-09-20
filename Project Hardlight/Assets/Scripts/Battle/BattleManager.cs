@@ -5,7 +5,7 @@ using UnityEngine;
 // All inputs should go int there
 public class BattleManager : MonoBehaviour
 {
-    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand }
+    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
     public BattleConfig battleConfig;
 
@@ -18,12 +18,20 @@ public class BattleManager : MonoBehaviour
     public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
 
+    private int numEnemies;
+    private int numHeros = 3; //hardcoded for now, we'll have to change this if we change # of heros in battle
+
+    //called when all enemies or all heros are defeated
+    public delegate void LevelEnd(bool herosWin);
+    public event LevelEnd OnLevelEnd;
+
     public void Start()
     {
         GameObject enemyParent = GameObject.Find("Enemies");
         foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
         {
             f.enabled = false;
+            numEnemies++;
         }
         inputState = InputState.NothingSelected;
     }
@@ -62,7 +70,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (inputState == InputState.CastingAbility)
         {
-            Debug.Log("Input state is casting ability");
+            //Debug.Log("Input state is casting ability");
             if (Input.GetMouseButtonDown(0))
             {
                 TargetSelected();
@@ -336,18 +344,60 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by all fighters when they die
+    /// Determines if this death ends the level, and invokes OnLevelEvent if it does
+    /// </summary>
+    /// <param name="team"></param>
+    public void OnDeath (Fighter fighter)
+    {
+        if (fighter.team == CombatInfo.Team.Hero)
+        {
+            numHeros--;
+            if (numHeros <= 0)
+            {
+                BattleOver(false);
+            }
+            else if (fighter == selectedHero)
+            {
+                //currently selected hero died, so deselect them
+                DeselectHero();
+            }
+        }
+        else
+        {
+            numEnemies--;
+            if (numEnemies <= 0)
+            {
+                BattleOver(true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Invokes levelEnd event, sets state to BattleOver, and disables UI 
+    /// </summary>
+    /// <param name="herosWin"></param>
+    void BattleOver (bool herosWin)
+    {
+        //Invoke levelEnd event so levelManager knows to show dialogue
+        OnLevelEnd?.Invoke(herosWin);
+
+        //cleanup for this script
+        DeselectHero();
+        inputState = InputState.BattleOver;
+    }
+
     void SubscribeHeroEvents()
     {
         selectedHero.OnMaxMana += OnMaxManaEvent;
         selectedHero.OnSwitchTarget += OnSwitchTargetEvent;
-        selectedHero.OnDeath += DeselectHero;
     }
 
     void UnsubscribeHeroEvents()
     {
         selectedHero.OnMaxMana -= OnMaxManaEvent;
         selectedHero.OnSwitchTarget -= OnSwitchTargetEvent;
-        selectedHero.OnDeath += DeselectHero;
     }
 
     private void OnDisable()

@@ -28,6 +28,7 @@ public class Fighter : MonoBehaviour
     private float health;
     private float speed;
     private int mana;
+    private BattleManager battleManager;
 
     private GameObject attackParent;
 
@@ -59,10 +60,6 @@ public class Fighter : MonoBehaviour
     public delegate void SwitchTarget();
     public event SwitchTarget OnSwitchTarget;
 
-    //called on death
-    public delegate void Death();
-    public event Death OnDeath;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +87,12 @@ public class Fighter : MonoBehaviour
         else
         {
             attackParent = GameObject.Find("Players");
+        }
+
+        GameObject battleManagerObj = GameObject.Find("BattleManager");
+        if (battleManagerObj != null)
+        {
+            battleManager = battleManagerObj.GetComponent<BattleManager>();
         }
 
         buffs = new List<BuffObj>();
@@ -292,12 +295,9 @@ public class Fighter : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<LevelManager>().checkFighters();
-            
-            if (OnDeath != null)
-            {
-                OnDeath();
-            }
+
+            //tell battleManager this fighter died so it can keep track of level completion info
+            battleManager.OnDeath(this);
         }
 
         SetHealthUI();
@@ -334,12 +334,10 @@ public class Fighter : MonoBehaviour
         if (prevMana != mana && mana == fighterStats.maxMana)
         {
             Debug.Log("READY TO CAST SPELLS!");
-            if (OnMaxMana != null)
-            {
-                //invoke event
-                OnMaxMana();
-            }
-            
+
+            //invoke onmaxmana event
+            OnMaxMana?.Invoke();
+
             if (maxManaGlow != null)
             {
                 maxManaGlow.SetActive(true);
@@ -450,15 +448,13 @@ public class Fighter : MonoBehaviour
             }
 
         }
-        else if(healer)
+        else if (healer)
         {
             SetOptimalHealingTarget();
         }
 
-        if (OnSwitchTarget != null)
-        {
-            OnSwitchTarget();
-        }
+        //invoke OnSwitchTarget event
+        OnSwitchTarget?.Invoke();
     }
 
     /// <summary>

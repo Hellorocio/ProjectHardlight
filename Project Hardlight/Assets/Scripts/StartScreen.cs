@@ -4,19 +4,8 @@ using UnityEngine;
 
 public class StartScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void StartGame()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void StartGame(){
-        GameManager.Instance.loadScene(1);
+        GameManager.Instance.LoadScene(1);
     }
 }

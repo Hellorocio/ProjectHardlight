@@ -9,48 +9,42 @@ public class GameManager : Singleton<GameManager>
     public bool[] unlockedLevels = {true,false,false};
     public bool[] levelsBeaten = {false,false,false};
     public int currentLevel;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void loadScene(int scene)
+    public void LoadScene(int scene)
     {
         SceneManager.LoadScene(scene);
     }
 
-    public void unlockLevel(int index){
+    public void UnlockLevel(int index)
+    {
         unlockedLevels[index] = true;
     }
 
-    public void levelSelect(int index){
+    public void LevelSelect(int index)
+    {
         currentLevel = index;
     }
-    public void startLevel(){
-        switch(currentLevel){
+    public void StartLevel()
+    {
+        switch(currentLevel)
+        {
             case 0:
-            loadScene(2);
+                LoadScene(2);
                 break;
             case 1:
-            loadScene(3);
+                LoadScene(3);
                 break;
             case 2:
-            loadScene(4);
+                LoadScene(4);
                 break;
         }
     }
 
-    public void winLevel(){
+    public void WinLevel()
+    {
         levelsBeaten[currentLevel] = true;
-        switch(currentLevel){
+        switch(currentLevel)
+        {
             case 0:
                 unlockedLevels[1] = true;
                 break;
@@ -58,8 +52,5 @@ public class GameManager : Singleton<GameManager>
                 unlockedLevels[2] = true;
                 break;
         }
-
     }
-
-
 }

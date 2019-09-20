@@ -5,52 +5,56 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    
-    private int numOfEnemies;
-    private int numOfHeroes;
+    public Text dialoguePanel;
+    public string winText = "We did it!";
+    public string loseText = "Aw man!";
 
-    private GameObject[] enemies;
-    private GameObject[] heroes;
+    private BattleManager battleManager;
 
-    public GameObject DialoguePanel;
-    
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Subscribe to OnLevelEnd event so this script is notified when the level ends
+    /// </summary>
+    private void OnEnable()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        heroes = GameObject.FindGameObjectsWithTag("Player");
-
-        numOfEnemies = enemies.Length;
-        numOfHeroes = heroes.Length;
+        GameObject battleManagerObj = GameObject.Find("BattleManager");
+        if (battleManagerObj != null)
+        {
+            battleManager = battleManagerObj.GetComponent<BattleManager>();
+            battleManager.OnLevelEnd += LevelEndEvent;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Unsubscribe from OnLevelEnd event to avoid memory leaks
+    /// </summary>
+    private void OnDisable()
     {
-        
+        if (battleManager != null)
+        {
+            battleManager.OnLevelEnd -= LevelEndEvent;
+        }
     }
 
-    public void checkFighters(){
-         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        heroes = GameObject.FindGameObjectsWithTag("Player");
-
-        numOfEnemies = enemies.Length;
-        numOfHeroes = heroes.Length;
-
-        if(numOfHeroes <= 0){
-            DialoguePanel.SetActive(true);
-            DialoguePanel.GetComponentInChildren<Text>().text = "Aw man!";
+    /// <summary>
+    /// Called when the level ends, displays ending dialogue popup
+    /// </summary>
+    /// <param name="herosWin"></param>
+    public void LevelEndEvent (bool herosWin)
+    {
+        if (herosWin)
+        {
+            dialoguePanel.text = winText;
+            GameManager.Instance.WinLevel();
         }
-        else if( numOfEnemies <= 0){
-            DialoguePanel.SetActive(true);
-            DialoguePanel.GetComponentInChildren<Text>().text = "We did it!";
-            GameManager.Instance.winLevel();
+        else
+        {
+            dialoguePanel.text = loseText;
         }
-        
+        dialoguePanel.transform.parent.gameObject.SetActive(true);
     }
 
-    public void returnToMap(){
-        GameManager.Instance.loadScene(1);
+    public void ReturnToMap()
+    {
+        GameManager.Instance.LoadScene(1);
     }
 }

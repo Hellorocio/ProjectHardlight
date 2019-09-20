@@ -7,20 +7,17 @@ public class MapManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Node[] nodes;
+    public GameObject Party;
+    public GameObject[] panels;
+    public GameObject dialogueBox;
 
     int currentNode;
 
-    public GameObject Party;
-
-    public GameObject[] panels;
-
-    public GameObject dialogueBox;
-
-
     void Start()
     {
-        if(GameManager.Instance.levelsBeaten[2] == true){
-            loadScene(5);
+        if(GameManager.Instance.levelsBeaten[2] == true)
+        {
+            GameManager.Instance.LoadScene(5);
         }
 
         for(int i = 0; i < nodes.Length;i++){
@@ -112,10 +109,6 @@ public class MapManager : MonoBehaviour
         updatePanel();
 
     }
-
-    public void loadScene(int index){
-        GameManager.Instance.loadScene(index);
-    }
     
     public void updatePanel(){
         if(GameManager.Instance.levelsBeaten[currentNode] == true){
@@ -139,10 +132,11 @@ public class MapManager : MonoBehaviour
                 dialogueBox.GetComponentInChildren<Text>().text = "This is it!";
                 break;
         }
-        GameManager.Instance.levelSelect(index);
+        GameManager.Instance.LevelSelect(index);
     }
 
-    public void startLevel(){
-        GameManager.Instance.startLevel();
-            }
+    public void startLevel()
+    {
+        GameManager.Instance.StartLevel();
+     }
 }
