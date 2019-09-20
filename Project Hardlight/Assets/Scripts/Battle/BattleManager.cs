@@ -105,7 +105,7 @@ public class BattleManager : MonoBehaviour
         // Select target
         UpdateSelectedTarget();
 
-        if (selectedAbility.DoAbility())
+        if (selectedHero != null && selectedAbility.DoAbility())
         {
             // Lose mana
             selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
