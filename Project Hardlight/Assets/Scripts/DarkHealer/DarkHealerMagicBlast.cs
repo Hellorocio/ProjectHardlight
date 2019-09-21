@@ -35,6 +35,7 @@ public class DarkHealerMagicBlast : Ability
         targeting = true;
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
+        print("show range");
         rangeIndicator.name = "Range";
         rangeIndicator.transform.localScale *= 2 * GetRange();
 
@@ -43,8 +44,8 @@ public class DarkHealerMagicBlast : Ability
 
     public override void StopTargeting()
     {
-        Destroy(rangeIndicator);
         targeting = false;
+        Destroy(rangeIndicator);
     }
 
     public override bool DoAbility()
