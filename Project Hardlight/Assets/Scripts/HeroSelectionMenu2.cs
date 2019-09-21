@@ -171,6 +171,7 @@ public class HeroSelectionMenu2 : MonoBehaviour
         currentlyDisplayedSoul = soulStats[i-1];
         currentlyDisplayedSoulIcon = soulIcons[i-1];
         soulSelection.SetActive(false);
+        AddHeroToLineup();
         
     }
 
@@ -225,7 +226,16 @@ public class HeroSelectionMenu2 : MonoBehaviour
     private void updateLineUp()
     {
         int count = 0;
-        startButton.GetComponentInChildren<Text>().text = lineupSoulIcons.Count + "/3 Heroes Selected";
+        if(lineupSoulIcons.Count == 3)
+        {
+            startButton.GetComponentInChildren<Text>().text = "Go!";
+            startButton.GetComponent<Image>().color = Color.yellow;
+        } else
+        {
+            startButton.GetComponentInChildren<Text>().text = lineupSoulIcons.Count + "/3 Heroes Selected";
+            startButton.GetComponent<Image>().color = Color.white;
+        }
+        
         foreach(Button but in lineup.GetComponentsInChildren<Button>())
         {
             if (but.name == "Hero1" || but.name == "Hero2" || but.name == "Hero3")
