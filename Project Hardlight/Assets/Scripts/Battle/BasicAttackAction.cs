@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class BasicAttackAction : MonoBehaviour
 {
-    public abstract void DoBasicAttack();
+    public abstract void DoBasicAttack(GameObject target);
 }

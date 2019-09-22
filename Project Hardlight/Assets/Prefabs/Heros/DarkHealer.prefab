@@ -1,84 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1739212665287610408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2924546258205551873}
-  - component: {fileID: 7507037742902192542}
-  - component: {fileID: 6006207779250827654}
-  m_Layer: 5
-  m_Name: MaxMana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2924546258205551873
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739212665287610408}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03910922, y: 0.03910922, z: 0.03910922}
-  m_Children: []
-  m_Father: {fileID: 2734323699785245597}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.01, y: -2.23}
-  m_SizeDelta: {x: 29.3076, y: 27.4734}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7507037742902192542
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739212665287610408}
-  m_CullTransparentMesh: 0
---- !u!114 &6006207779250827654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739212665287610408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: /MP
 --- !u!1 &2256569818235868055
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,12 +11,14 @@ GameObject:
   - component: {fileID: 1620355528756934379}
   - component: {fileID: 5103854422192811006}
   - component: {fileID: 6040583921784389790}
+  - component: {fileID: 7543505179402891404}
   - component: {fileID: 7270942199044395875}
   - component: {fileID: 843159897424399992}
   - component: {fileID: 7824817557037253904}
   - component: {fileID: 3832263636368527048}
   - component: {fileID: 3978024837703019153}
   - component: {fileID: 626554484465186443}
+  - component: {fileID: 6536905676106359982}
   m_Layer: 0
   m_Name: DarkHealer
   m_TagString: Player
@@ -159,20 +82,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Dark Healer
   team: 1
-  targetPrefs: 
   healthUI: {fileID: 8018282843746014364}
   manaUI: {fileID: 6846847879002493334}
-  maxManaUI: {fileID: 1739212665287610408}
   selectedUI: {fileID: 6518751420555252193}
   maxManaGlow: {fileID: 7797850761372023185}
   anim: {fileID: 2748628100524330411}
+  maxHealth: 90
+  maxMana: 20
+  speed: 1
   fighterStats: {fileID: 11400000, guid: 60827c3fc43bd10468fef28eb8c748bc, type: 2}
   soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
-  healer: 0
+  battleManager: {fileID: 0}
+--- !u!114 &7543505179402891404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac357efacce8884aa6966befece17ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPrefs: 
   basicAttackAction: {fileID: 7270942199044395875}
   basicAttackStats: {fileID: 11400000, guid: 8b48048c9a584a044b76ed0847a3d740, type: 2}
   currentTarget: {fileID: 0}
-  attackBoost: 0
 --- !u!114 &7270942199044395875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +308,19 @@ MonoBehaviour:
   attackTargetUnit: {fileID: 0}
   lightPrisonPrefab: {fileID: 111863882295428768, guid: 042983ed13e121d449a72998f0d26377,
     type: 3}
+--- !u!114 &6536905676106359982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testing: 0
 --- !u!1 &2748628100524330406
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +769,6 @@ RectTransform:
   - {fileID: 1367065770576661947}
   - {fileID: 6138185243201612181}
   - {fileID: 3427501576358480907}
-  - {fileID: 2924546258205551873}
   m_Father: {fileID: 1620355528756934379}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

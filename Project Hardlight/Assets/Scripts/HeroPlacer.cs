@@ -43,8 +43,8 @@ public class HeroPlacer : MonoBehaviour
 
                 //Debug.Log(h.GetComponent<Fighter>().soul);
                 
-                heroScripts[heroScripts.Count - 1].enabled = false;
-                h.GetComponent<Fighter>().enabled = false;
+                //heroScripts[heroScripts.Count - 1].enabled = false;
+                //h.GetComponent<Fighter>().enabled = false;
                 Destroy(tmpInstance);
                 numHeroesLeftToPlace--;
                 index++;
@@ -93,16 +93,11 @@ public class HeroPlacer : MonoBehaviour
             {
                 tmpPrefab.SetActive(false);
             }
-            foreach(Fighter f in heroScripts)
-            {
-                f.enabled = true;
-            }
 
-            foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
-            {
-                f.enabled = true;
-            }
             gameObject.SetActive(false);
+
+            BattleManager battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+            battleManager.StartBattle();
         }
 
     }

@@ -14,12 +14,12 @@ public class MageBasicAttackAction : BasicAttackAction
     {
     }
 
-    public override void DoBasicAttack()
+    public override void DoBasicAttack(GameObject target)
     {
-        StartCoroutine("BasicAttackWithAnimationDelay");
+        StartCoroutine(BasicAttackWithAnimationDelay(target));
     }
     
-    IEnumerator BasicAttackWithAnimationDelay()
+    IEnumerator BasicAttackWithAnimationDelay(GameObject target)
     {
         // TODO(mchi) scale animation delay to attack speed changes
         yield return new WaitForSeconds(animationDelay);
@@ -28,9 +28,9 @@ public class MageBasicAttackAction : BasicAttackAction
         mageBasicAttack.transform.position = spawnPoint.transform.position;
         mageBasicAttack.GetComponent<ProjectileMovement>().source = gameObject;
 
-        if (GetComponent<Fighter>().currentTarget != null)
+        if (target != null)
         {
-            mageBasicAttack.GetComponent<ProjectileMovement>().target = GetComponent<Fighter>().currentTarget.gameObject;
+            mageBasicAttack.GetComponent<ProjectileMovement>().target = target;
         }
         yield break;
     }

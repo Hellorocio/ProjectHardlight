@@ -60,7 +60,7 @@ public class MercSurvivalAbility : Ability
 
                 // heal this fighter
                 Fighter thisFighter = gameObject.GetComponent<Fighter>();
-                if (thisFighter.GetHealth() <= thisFighter.fighterStats.maxHealth * 0.5f)
+                if (thisFighter.GetHealth() <= thisFighter.maxHealth * 0.5f)
                 {
                     thisFighter.Heal(GetDamage());
                 }
@@ -80,7 +80,7 @@ public class MercSurvivalAbility : Ability
     public float GetDamage()
     {
         Fighter thisFighter = gameObject.GetComponent<Fighter>();
-        if (thisFighter.GetHealth() <= thisFighter.fighterStats.maxHealth * 0.5f)
+        if (thisFighter.GetHealth() <= thisFighter.maxHealth * 0.5f)
         {
             return baseDamage * 3;
         }

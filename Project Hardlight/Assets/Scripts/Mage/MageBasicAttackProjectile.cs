@@ -13,7 +13,7 @@ public class MageBasicAttackProjectile : MonoBehaviour
             Fighter sourceFighter = GetComponent<ProjectileMovement>().source.GetComponent<Fighter>();
 
             // Deal damage
-            float damage = sourceFighter.basicAttackStats.damage + sourceFighter.basicAttackStats.damage * sourceFighter.attackBoost;
+            float damage = sourceFighter.GetBasicAttackDamage();
             target.GetComponent<Fighter>().TakeDamage(damage);
 
             // Gain mana

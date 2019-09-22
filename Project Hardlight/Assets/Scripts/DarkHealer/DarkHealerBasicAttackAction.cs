@@ -17,17 +17,15 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
         thisFighter = GetComponent<Fighter>();
     }
 
-    public override void DoBasicAttack()
+    public override void DoBasicAttack(GameObject target)
     {
-        StartCoroutine("BasicAttackWithAnimationDelay");
+        StartCoroutine(BasicAttackWithAnimationDelay(target));
     }
 
-    IEnumerator BasicAttackWithAnimationDelay()
+    IEnumerator BasicAttackWithAnimationDelay(GameObject target)
     {
         // TODO(mchi) scale animation delay to attack speed changes
         yield return new WaitForSeconds(animationDelay);
-
-        GameObject target = thisFighter.currentTarget;
         if (target != null)
         {
             GameObject basicAttack = Instantiate(DarkHealerBasicAttackPrefab);
@@ -35,7 +33,7 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
             basicAttack.transform.localScale *= 2 * damageRadius;
 
             // Deal damage
-            float damage = thisFighter.basicAttackStats.damage + thisFighter.basicAttackStats.damage * thisFighter.attackBoost;
+            float damage = thisFighter.GetBasicAttackDamage();
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(basicAttack.transform.position, damageRadius);
             foreach (Collider2D collider in hitColliders)
             {

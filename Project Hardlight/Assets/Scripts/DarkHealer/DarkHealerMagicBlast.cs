@@ -35,7 +35,6 @@ public class DarkHealerMagicBlast : Ability
         targeting = true;
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
-        print("show range");
         rangeIndicator.name = "Range";
         rangeIndicator.transform.localScale *= 2 * GetRange();
 

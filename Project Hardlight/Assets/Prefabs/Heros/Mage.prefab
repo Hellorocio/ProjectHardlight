@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 790941970616263062}
   - component: {fileID: 5160831000964121616}
   - component: {fileID: 5953208878818963312}
+  - component: {fileID: 5418164188714808710}
+  - component: {fileID: 2581082074096872479}
   - component: {fileID: 2169203085962951802}
   - component: {fileID: 2169203085962951780}
   - component: {fileID: 2169203085962951803}
@@ -257,20 +259,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Mage
   team: 1
-  targetPrefs: 
   healthUI: {fileID: 8066937154966550521}
   manaUI: {fileID: 2841606766618718540}
-  maxManaUI: {fileID: 6283568529366187445}
   selectedUI: {fileID: 1125286265050604820}
   maxManaGlow: {fileID: 447801641650790171}
   anim: {fileID: 2841606765839737413}
+  maxHealth: 80
+  maxMana: 30
+  speed: 1
   fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
   soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
-  healer: 0
+  battleManager: {fileID: 0}
+--- !u!114 &5418164188714808710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169203085962951801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac357efacce8884aa6966befece17ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPrefs: 
   basicAttackAction: {fileID: 2169203085962951802}
   basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
-  attackBoost: 0
+--- !u!114 &2581082074096872479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169203085962951801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testing: 1
 --- !u!114 &2169203085962951802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +724,6 @@ RectTransform:
   - {fileID: 2172105245934743921}
   - {fileID: 2841606766618718539}
   - {fileID: 1125286265050604821}
-  - {fileID: 7751300710477601866}
   m_Father: {fileID: 1672757653819103493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -765,85 +792,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &6283568529366187445
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7751300710477601866}
-  - component: {fileID: 6483793248871128388}
-  - component: {fileID: 1033004807014844330}
-  m_Layer: 5
-  m_Name: MaxMana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7751300710477601866
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6283568529366187445}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03910922, y: 0.03910922, z: 0.03910922}
-  m_Children: []
-  m_Father: {fileID: 7247589394789687798}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.01, y: -2.23}
-  m_SizeDelta: {x: 29.3076, y: 27.4734}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6483793248871128388
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6283568529366187445}
-  m_CullTransparentMesh: 0
---- !u!114 &1033004807014844330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6283568529366187445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: /MP
 --- !u!1 &8066937154966550521
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,85 +79,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: HP
---- !u!1 &2793869945828775431
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1901732136737732600}
-  - component: {fileID: 2886075342277605110}
-  - component: {fileID: 9197355147806010392}
-  m_Layer: 5
-  m_Name: MaxMana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1901732136737732600
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793869945828775431}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03910922, y: 0.03910922, z: 0.03910922}
-  m_Children: []
-  m_Father: {fileID: 1541063984246000196}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.01, y: -2.23}
-  m_SizeDelta: {x: 29.3076, y: 27.4734}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2886075342277605110
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793869945828775431}
-  m_CullTransparentMesh: 0
---- !u!114 &9197355147806010392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2793869945828775431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: /MP
 --- !u!1 &4235927494942188421
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +112,6 @@ RectTransform:
   - {fileID: 8057704540771818179}
   - {fileID: 6240023073476958969}
   - {fileID: 9109577280019353255}
-  - {fileID: 1901732136737732600}
   m_Father: {fileID: 7404126255719019191}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -563,11 +483,13 @@ GameObject:
   - component: {fileID: 8867469095062587940}
   - component: {fileID: 3920557006686531490}
   - component: {fileID: 2551397284252665026}
+  - component: {fileID: -7381153233368542808}
   - component: {fileID: 8370368706987180497}
   - component: {fileID: 8065075115998762966}
   - component: {fileID: 3598691643150063936}
   - component: {fileID: 7810345277815133952}
   - component: {fileID: 8211867109965351344}
+  - component: {fileID: 7301222697203587702}
   m_Layer: 0
   m_Name: Alchemist
   m_TagString: Player
@@ -653,20 +575,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Alchemist
   team: 1
-  targetPrefs: 
   healthUI: {fileID: 2163396033619172427}
   manaUI: {fileID: 6240023073476958974}
-  maxManaUI: {fileID: 2793869945828775431}
   selectedUI: {fileID: 9109577280019353254}
   maxManaGlow: {fileID: 5487258466830417321}
   anim: {fileID: 6240023073702742519}
+  maxHealth: 100
+  maxMana: 30
+  speed: 1
   fighterStats: {fileID: 11400000, guid: 7a48e6a3f9c454843866e824e21e0573, type: 2}
-  soul: {fileID: 0}
-  healer: 0
+  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
+  battleManager: {fileID: 0}
+--- !u!114 &-7381153233368542808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065075115998762955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac357efacce8884aa6966befece17ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPrefs: 
   basicAttackAction: {fileID: 8370368706987180497}
   basicAttackStats: {fileID: 11400000, guid: 9571733ac1c217344a7ad23f005829b2, type: 2}
   currentTarget: {fileID: 0}
-  attackBoost: 0
 --- !u!114 &8370368706987180497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +775,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7301222697203587702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065075115998762955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testing: 0
 --- !u!1 &9109577280019353254
 GameObject:
   m_ObjectHideFlags: 0

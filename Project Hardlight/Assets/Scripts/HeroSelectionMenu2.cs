@@ -76,14 +76,14 @@ public class HeroSelectionMenu2 : MonoBehaviour
         currentlyDisplayedPrefab = hero.gameObject;
         currentlyDisplayedHeroSprite = heroSprites[i];
         statTextComponents[0].text += hero.characterName;
-        statTextComponents[1].text += hero.fighterStats.maxHealth.ToString();
-        statTextComponents[2].text += hero.basicAttackStats.damage.ToString();
-        statTextComponents[3].text += hero.basicAttackStats.attackSpeed.ToString();
-        statTextComponents[4].text += hero.basicAttackStats.range.ToString();
-        statTextComponents[5].text += hero.fighterStats.movementSpeed.ToString();
+        statTextComponents[1].text += hero.maxHealth.ToString();
+        statTextComponents[2].text += hero.GetBasicAttackDamage();
+        statTextComponents[3].text += hero.GetComponent<FighterAttack>().basicAttackStats.attackSpeed;
+        statTextComponents[4].text += hero.GetComponent<FighterAttack>().basicAttackStats.range;
+        statTextComponents[5].text += hero.speed.ToString();
         if(i == 0 || i == 2 || i == 4)
         {
-            statTextComponents[6].text += hero.fighterStats.name.Substring(0, (hero.fighterStats.name.Length - 5));
+            statTextComponents[6].text += hero.characterName;
         }
 
         if(i == 1)
@@ -98,10 +98,10 @@ public class HeroSelectionMenu2 : MonoBehaviour
         {
             statTextComponents[6].text += "Alchemist";
         }
-        statTextComponents[7].text += hero.fighterStats.maxMana.ToString();
+        statTextComponents[7].text += hero.maxMana.ToString();
         if(i != 0)
         {
-            statTextComponents[8].text += hero.basicAttackStats.attackSpeed.ToString();
+            statTextComponents[8].text += hero.GetSpeed().ToString();
         }
         else
         {

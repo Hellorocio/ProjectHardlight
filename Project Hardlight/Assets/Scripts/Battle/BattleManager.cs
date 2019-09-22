@@ -21,6 +21,10 @@ public class BattleManager : MonoBehaviour
     private int numEnemies;
     private int numHeros = 3; //hardcoded for now, we'll have to change this if we change # of heros in battle
 
+    //called when the level starts (when all heros have been placed)
+    public delegate void LevelStart();
+    public event LevelStart OnLevelStart;
+
     //called when all enemies or all heros are defeated
     public delegate void LevelEnd(bool herosWin);
     public event LevelEnd OnLevelEnd;
@@ -30,7 +34,7 @@ public class BattleManager : MonoBehaviour
         GameObject enemyParent = GameObject.Find("Enemies");
         foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
         {
-            f.enabled = false;
+            //f.enabled = false;
             numEnemies++;
         }
         inputState = InputState.NothingSelected;
@@ -90,7 +94,7 @@ public class BattleManager : MonoBehaviour
                 {
                     //Updates the current target
                     Fighter tmp = hitCollider.GetComponent<Fighter>();
-                    selectedHero.SetIssuedCurrentTarget(tmp);
+                    selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
                     inputState = InputState.HeroSelected;
                 }
             }
@@ -108,7 +112,7 @@ public class BattleManager : MonoBehaviour
         if (selectedHero != null && selectedAbility.DoAbility())
         {
             // Lose mana
-            selectedHero.LoseMana(selectedHero.fighterStats.maxMana);
+            selectedHero.LoseMana((int)selectedHero.maxMana);
             commandsUI.SwitchButtonColor(false);
             StopTargeting();
             DeselectHero();
@@ -202,7 +206,7 @@ public class BattleManager : MonoBehaviour
             if (ability != null)
             {
                 // Check has enough mana
-                if (selectedHero.GetCurrentMana() >= selectedHero.fighterStats.maxMana)
+                if (selectedHero.GetCurrentMana() >= selectedHero.maxMana)
                 {
                     selectedAbility = ability;
 
@@ -287,7 +291,7 @@ public class BattleManager : MonoBehaviour
 
         Debug.Log(hero.name);
         commandsUI.EnableUI(hero.gameObject);
-        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.fighterStats.maxMana);
+        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.maxMana);
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
     }
@@ -319,6 +323,14 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Invokes the OnLevelStart event (called by heroPlacer when all heros have been placed)
+    /// </summary>
+    public void StartBattle ()
+    {
+        OnLevelStart?.Invoke();
+    }
+
+    /// <summary>
     /// Event that happens when currentHero reaches max mana
     /// </summary>
     void OnMaxManaEvent()
@@ -337,9 +349,10 @@ public class BattleManager : MonoBehaviour
             battleTarget = Instantiate(battleTargetPrefab);
         }
 
-        if (selectedHero.currentTarget != null)
+        GameObject ct = selectedHero.GetComponent<FighterAttack>().currentTarget;
+        if (ct != null)
         {
-            battleTarget.transform.parent = selectedHero.currentTarget.transform;
+            battleTarget.transform.parent = ct.transform;
             battleTarget.transform.localPosition = Vector3.zero;
         }
     }
@@ -391,13 +404,13 @@ public class BattleManager : MonoBehaviour
     void SubscribeHeroEvents()
     {
         selectedHero.OnMaxMana += OnMaxManaEvent;
-        selectedHero.OnSwitchTarget += OnSwitchTargetEvent;
+        selectedHero.GetComponent<FighterAttack>().OnSwitchTarget += OnSwitchTargetEvent;
     }
 
     void UnsubscribeHeroEvents()
     {
         selectedHero.OnMaxMana -= OnMaxManaEvent;
-        selectedHero.OnSwitchTarget -= OnSwitchTargetEvent;
+        selectedHero.GetComponent<FighterAttack>().OnSwitchTarget -= OnSwitchTargetEvent;
     }
 
     private void OnDisable()

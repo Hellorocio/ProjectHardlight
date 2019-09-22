@@ -1,84 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1281447385
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1281447386}
-  - component: {fileID: 1281447388}
-  - component: {fileID: 1281447387}
-  m_Layer: 5
-  m_Name: Mana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1281447386
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281447385}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03911271, y: 0.03911271, z: 0.03911271}
-  m_Children: []
-  m_Father: {fileID: 3228730841961174305}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.28, y: -1.22}
-  m_SizeDelta: {x: 29.3076, y: 27.4734}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1281447388
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281447385}
-  m_CullTransparentMesh: 0
---- !u!114 &1281447387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281447385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: MP
 --- !u!1 &1317324162
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +113,8 @@ GameObject:
   - component: {fileID: 6417920846059879946}
   - component: {fileID: 6417920846059879940}
   - component: {fileID: -3343916218713961539}
+  - component: {fileID: 584283511866937370}
+  - component: {fileID: 447116477623801756}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -276,20 +199,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy Three
   team: 2
-  targetPrefs: 
   healthUI: {fileID: 6547534737224929194}
-  manaUI: {fileID: 1281447385}
-  maxManaUI: {fileID: 0}
+  manaUI: {fileID: 0}
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
-  fighterStats: {fileID: 11400000, guid: 111b6f5f5f854614eb45a2fd767ed27e, type: 2}
+  maxHealth: 50
+  maxMana: 0
+  speed: 1
   soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
-  healer: 0
-  basicAttackAction: {fileID: -3343916218713961539}
-  basicAttackStats: {fileID: 11400000, guid: 8aaaa2e14d37b114e88adce05b1f0886, type: 2}
-  currentTarget: {fileID: 0}
-  attackBoost: 0
+  battleManager: {fileID: 0}
 --- !u!114 &-3343916218713961539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +221,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &584283511866937370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295596027026680896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac357efacce8884aa6966befece17ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPrefs: 
+  basicAttackAction: {fileID: -3343916218713961539}
+  basicAttackStats: {fileID: 11400000, guid: 8aaaa2e14d37b114e88adce05b1f0886, type: 2}
+  currentTarget: {fileID: 0}
+--- !u!114 &447116477623801756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295596027026680896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testing: 0
 --- !u!1 &6547534737224929194
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +360,6 @@ RectTransform:
   m_LocalScale: {x: 0.11919399, y: 0.11919399, z: 0.11919399}
   m_Children:
   - {fileID: 4341052714299764119}
-  - {fileID: 1281447386}
   m_Father: {fileID: 952073211779320124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -92,11 +92,13 @@ GameObject:
   - component: {fileID: 3171901982325591323}
   - component: {fileID: 3171901982325591322}
   - component: {fileID: 3171901982325591325}
+  - component: {fileID: 6339831964682229067}
   - component: {fileID: 3171901982325591320}
   - component: {fileID: 382628994}
   - component: {fileID: 382628995}
   - component: {fileID: 6846174989839160682}
   - component: {fileID: 2140528132}
+  - component: {fileID: 8408443354361399997}
   m_Layer: 0
   m_Name: Mercenary
   m_TagString: Player
@@ -160,20 +162,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Mercenary
   team: 1
-  targetPrefs: 
   healthUI: {fileID: 4084005942054778077}
   manaUI: {fileID: 6700864860148531391}
-  maxManaUI: {fileID: 8745408472231120292}
   selectedUI: {fileID: 8391061737092288432}
   maxManaGlow: {fileID: 1500819775139704844}
   anim: {fileID: 3171901983355281951}
+  maxHealth: 150
+  maxMana: 40
+  speed: 1
   fighterStats: {fileID: 11400000, guid: 31544656542b2ea49a29830cd2c12b66, type: 2}
-  soul: {fileID: 11400000, guid: 6b52baf90587f044dab691a69373fbfc, type: 2}
-  healer: 0
-  basicAttackAction: {fileID: 3171901982325591320}
-  basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
-  currentTarget: {fileID: 0}
-  attackBoost: 0
+  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
+  battleManager: {fileID: 0}
 --- !u!50 &3171901982325591325
 Rigidbody2D:
   serializedVersion: 4
@@ -195,6 +194,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6339831964682229067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171901982325591327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac357efacce8884aa6966befece17ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPrefs: 
+  basicAttackAction: {fileID: 3171901982325591320}
+  basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
+  currentTarget: {fileID: 0}
 --- !u!114 &3171901982325591320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,6 +379,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8408443354361399997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171901982325591327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testing: 1
 --- !u!1 &3171901983355281936
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +606,6 @@ RectTransform:
   - {fileID: 5767744371320235012}
   - {fileID: 8734313145259287317}
   - {fileID: 376934148613687669}
-  - {fileID: 8843825293821900216}
   m_Father: {fileID: 3171901982325591324}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -801,82 +828,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8745408472231120292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8843825293821900216}
-  - component: {fileID: 1396391993716358907}
-  - component: {fileID: 1627451747462023778}
-  m_Layer: 5
-  m_Name: MaxMana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8843825293821900216
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745408472231120292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03910922, y: 0.03910922, z: 0.03910922}
-  m_Children: []
-  m_Father: {fileID: 2683594874416333860}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.01, y: -2.23}
-  m_SizeDelta: {x: 29.3076, y: 27.4734}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1396391993716358907
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745408472231120292}
-  m_CullTransparentMesh: 0
---- !u!114 &1627451747462023778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745408472231120292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.08552865, g: 0.16926432, b: 0.5849056, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: /MP
