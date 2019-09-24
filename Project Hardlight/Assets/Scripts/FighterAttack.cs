@@ -151,7 +151,7 @@ public class FighterAttack : MonoBehaviour
     /// Sets currentTarget to null if there are no more things to attack
     /// Will use targetprefs list if provided, otherwise will default to closest algorithm
     /// </summary>
-    void SetCurrentTarget()
+    public void SetCurrentTarget()
     {
         //make sure everything has been initialized
         if (attackParent == null)

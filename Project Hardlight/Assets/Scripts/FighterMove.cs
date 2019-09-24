@@ -10,6 +10,7 @@ public class FighterMove : MonoBehaviour
     private Fighter fighter;
     private FighterAttack fighterAttack;
     public bool testing;
+    public bool followingMoveOrder;
 
     private Transform target;
     private bool moveFighter;
@@ -36,7 +37,14 @@ public class FighterMove : MonoBehaviour
             }
             else
             {
-                StopMoving();
+                if (followingMoveOrder)
+                {
+                    StopMovingCommandHandle();
+                } else
+                {
+                    StopMoving();
+                }
+                
             }
         }
     }
@@ -46,7 +54,25 @@ public class FighterMove : MonoBehaviour
     /// </summary>
     public void StartMoving (Transform t)
     {
-        //make sure everything has been initialized
+        if (!followingMoveOrder)
+        {
+            //Debug.Log("Recieved Start Moving Transform: " + t.name);
+            //make sure everything has been initialized
+            if (fighter == null)
+            {
+                Start();
+            }
+
+            target = t;
+            moveFighter = true;
+        }
+    }
+
+    public void StartMovingCommandHandle(Transform t)
+    {
+
+        followingMoveOrder = true;
+
         if (fighter == null)
         {
             Start();
@@ -54,6 +80,7 @@ public class FighterMove : MonoBehaviour
 
         target = t;
         moveFighter = true;
+
     }
 
     /// <summary>
@@ -63,5 +90,12 @@ public class FighterMove : MonoBehaviour
     {
         moveFighter = false;
         fighterAttack.StartBasicAttacking();
+    }
+
+    public void StopMovingCommandHandle()
+    {
+        followingMoveOrder = false;
+        moveFighter = false;
+        fighterAttack.SetCurrentTarget();
     }
 }

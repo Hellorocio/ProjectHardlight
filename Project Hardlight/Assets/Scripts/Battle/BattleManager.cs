@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
     public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
+    public GameObject moveLoc;
 
     public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
@@ -42,6 +43,7 @@ public class BattleManager : MonoBehaviour
 
     public void Update()
     {
+        //Debug.Log("Input state is " + inputState);
         /////////////////// Idle
         if (inputState == InputState.NothingSelected)
         {
@@ -53,14 +55,20 @@ public class BattleManager : MonoBehaviour
         }
         else if (inputState == InputState.HeroSelected)
         {
+            Debug.Log("Current state is Hero Selected");
             if (Input.GetMouseButtonDown(0))
             {
                 UpdateClickedHero();
             }
             if (Input.GetMouseButtonDown(1))
             {
+                // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
+                // Also find bug where heroes disappear
                 //Set state to move or update target
-
+                //Debug.Log("Ordered a move");
+                //Vector3 pos = Input.mousePosition;
+                //moveLoc.transform.position = Camera.main.ScreenToWorldPoint(pos);
+                //selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
             }
 
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
@@ -288,6 +296,7 @@ public class BattleManager : MonoBehaviour
 
         selectedHero = hero;
         selectedHero.SetSelectedUI(true);
+        inputState = InputState.HeroSelected;
 
         Debug.Log(hero.name);
         commandsUI.EnableUI(hero.gameObject);
