@@ -10,14 +10,9 @@ public class ProjectileMovement: MonoBehaviour
     public float speed = 1.0f;
     public GameObject source;
     public GameObject target;
+    Vector3 movementVector;
 
     IEnumerator moveLoop;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -39,12 +34,27 @@ public class ProjectileMovement: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Move projectile in a straight line towards target (and past target, if it misses)
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MoveLoop()
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.position += movementVector * speed * Time.deltaTime;
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// Sets the projectile's targetPosition based on the given target and calculates movementVector
+    /// </summary>
+    public void SetTarget (GameObject s, GameObject t)
+    {
+        source = s;
+        target = t;
+
+        movementVector = (t.transform.position - transform.position).normalized;
     }
 }

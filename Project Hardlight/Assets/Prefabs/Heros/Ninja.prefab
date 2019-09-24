@@ -450,11 +450,11 @@ GameObject:
   - component: {fileID: 6390960235825343899}
   - component: {fileID: 2953940653181175102}
   - component: {fileID: 6390960235825343902}
-  - component: {fileID: 8409799907490501636}
   - component: {fileID: 8409799907490501637}
-  - component: {fileID: 3150236689488492012}
   - component: {fileID: 8409799906034597506}
   - component: {fileID: 7624953586639980297}
+  - component: {fileID: 7415763268338591919}
+  - component: {fileID: 376086159}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Player
@@ -523,11 +523,10 @@ MonoBehaviour:
   selectedUI: {fileID: 55897265517752118}
   maxManaGlow: {fileID: 6946353648948383882}
   anim: {fileID: 6390960234732733081}
-  maxHealth: 100
-  maxMana: 30
-  speed: 1
-  fighterStats: {fileID: 11400000, guid: 31544656542b2ea49a29830cd2c12b66, type: 2}
-  soul: {fileID: 0}
+  maxHealth: 120
+  maxMana: 50
+  speed: 4
+  soul: {fileID: 11400000, guid: 2d46bb362fb153742a6fcd20cf184397, type: 2}
   battleManager: {fileID: 0}
 --- !u!50 &6390960235825343899
 Rigidbody2D:
@@ -578,29 +577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8409799907490501636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390960235825343897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faffece20e2456040a40ea87e404f3b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Execute
-  abilityDescription: Medium damage on one unit
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 3
-  baseDamage: 11
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  attackTargetUnit: {fileID: 0}
 --- !u!114 &8409799907490501637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,31 +590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 8409799907490501636}
-  - {fileID: 3150236689488492012}
---- !u!114 &3150236689488492012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390960235825343897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33da7796f9ffe7943810bafeee28a484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Survival
-  abilityDescription: Small damage on one unit, large damage if greatly injured
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 10
-  baseDamage: 6
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  attackTargetUnit: {fileID: 0}
+  - {fileID: 7415763268338591919}
+  - {fileID: 376086159}
 --- !u!82 &8409799906034597506
 AudioSource:
   m_ObjectHideFlags: 0
@@ -747,7 +700,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing: 0
+--- !u!114 &7415763268338591919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a536896024dbe4894a82d80476c560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Jump Jutsu
+  abilityDescription: Teleport to a new target and become invicible and stronger for
+    5 seconds
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 10
+  baseDamage: 10
+  attackTargetUnit: {fileID: 0}
+--- !u!114 &376086159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95be29c45d89b842934c0e053abdf3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Healing Jutsu
+  abilityDescription: Throw 3 projectiles, each hit heals Ninja for medium amount
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 8
+  baseDamage: 4
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
+  ninjaProjecilePrefab: {fileID: 7194470031030509519, guid: 91f7fb06d6dd74e47b7a78ec09012f5a,
+    type: 3}
 --- !u!1 &6946353648948383882
 GameObject:
   m_ObjectHideFlags: 0
