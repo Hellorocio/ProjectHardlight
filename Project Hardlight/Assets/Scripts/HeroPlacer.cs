@@ -68,7 +68,9 @@ public class HeroPlacer : MonoBehaviour
     {
         heroes = prefabs;
         numHeroesLeftToPlace = prefabs.Count;
+        //Debug.Log("COunt is " + prefabs.Count);
         NextHeroPlacement();
+        
 
 
     }
@@ -78,6 +80,7 @@ public class HeroPlacer : MonoBehaviour
     {
         if (numHeroesLeftToPlace > 0)
         {
+            //Debug.Log("Heores left ot place" + numHeroesLeftToPlace);
             tmpInstance = Instantiate(tmpPrefab);
             tmpInstance.GetComponent<SpriteRenderer>().sprite = heroes[index].GetComponentInChildren<SpriteRenderer>().sprite;
             tmpInstance.GetComponent<SpriteRenderer>().color = heroes[index].GetComponentInChildren<SpriteRenderer>().color;

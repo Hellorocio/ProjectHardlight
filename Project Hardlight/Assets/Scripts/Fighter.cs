@@ -247,7 +247,7 @@ public class Fighter : MonoBehaviour
 
         if (prevMana != mana && mana == maxMana)
         {
-            Debug.Log("READY TO CAST SPELLS!");
+            //Debug.Log("READY TO CAST SPELLS!");
 
             //invoke onmaxmana event
             OnMaxMana?.Invoke(this);

@@ -30,7 +30,7 @@ public class FighterMove : MonoBehaviour
                 collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
         {
             moveState = MoveState.paused;
-            print("moving: paused");
+            //print("moving: paused");
         }
     }
 
@@ -118,7 +118,7 @@ public class FighterMove : MonoBehaviour
     {
         followingMoveOrder = false;
         moveState = MoveState.stopped;
-        Debug.Log("Deleting " + target.gameObject.name);
+        //Debug.Log("Deleting " + target.gameObject.name);
         Destroy(target.gameObject);
         target = null;
         fighterAttack.SetCurrentTarget();

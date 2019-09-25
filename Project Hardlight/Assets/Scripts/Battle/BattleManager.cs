@@ -55,7 +55,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (inputState == InputState.HeroSelected)
         {
-            Debug.Log("Current state is Hero Selected");
+            //Debug.Log("Current state is Hero Selected");
             if (Input.GetMouseButtonDown(0))
             {
                 UpdateClickedHero();
@@ -134,7 +134,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     void UpdateSelectedTarget()
     {
-        Debug.Log("In Update Selected Target");
+        //Debug.Log("In Update Selected Target");
         switch (selectedAbility.targetingType)
         {
             case Targeting.Type.TargetPosition:
@@ -163,7 +163,7 @@ public class BattleManager : MonoBehaviour
 
                     if (clickedFighter != null)
                     {
-                        Debug.Log("Clicked fighter: " + clickedFighter);
+                        //Debug.Log("Clicked fighter: " + clickedFighter);
 
                         //moved check for team into ability so it works with healing target unit abilities
                         selectedAbility.selectedTarget = clickedFighter.gameObject;
@@ -225,7 +225,7 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Not enough mana");
+                    //Debug.Log("Not enough mana");
                     if (notEnoughManaUI != null)
                     {
                         notEnoughManaUI.SetActive(true);
@@ -237,23 +237,23 @@ public class BattleManager : MonoBehaviour
 
     public void StartTargeting()
     {
-        Debug.Log("TARGETING | Started");
+        //Debug.Log("TARGETING | Started");
 
         inputState = InputState.CastingAbility;
         switch (selectedAbility.targetingType)
         {
             case Targeting.Type.TargetPosition:
-                Debug.Log("TARGETING | Target Position");
+                //Debug.Log("TARGETING | Target Position");
                 SetCursor(battleConfig.targetPositionCursor);
                 break;
             case Targeting.Type.TargetUnit:
-                Debug.Log("TARGETING | Target Unit");
+                //Debug.Log("TARGETING | Target Unit");
                 SetCursor(battleConfig.targetUnitCursor);
                 // TODO change cursor
                 break;
             case Targeting.Type.Instant:
                 // TODO check validity before casting ability
-                Debug.Log("TARGETING | Target Instant");
+                //Debug.Log("TARGETING | Target Instant");
                 TargetSelected();
                 return;
             default:
@@ -266,7 +266,7 @@ public class BattleManager : MonoBehaviour
 
     public void StopTargeting()
     {
-        Debug.Log("TARGETING | Stopped");
+        //Debug.Log("TARGETING | Stopped");
 
         selectedAbility.StopTargeting();
         selectedAbility.selectedTarget = null;
