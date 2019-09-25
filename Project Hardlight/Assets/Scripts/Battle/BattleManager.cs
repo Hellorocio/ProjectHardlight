@@ -66,9 +66,10 @@ public class BattleManager : MonoBehaviour
                 // Also find bug where heroes disappear
                 //Set state to move or update target
                 //Debug.Log("Ordered a move");
-                //Vector3 pos = Input.mousePosition;
-                //moveLoc.transform.position = Camera.main.ScreenToWorldPoint(pos);
-                //selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
+                Vector3 pos = Input.mousePosition;
+                pos = Camera.main.ScreenToWorldPoint(pos);
+                moveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+                selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
             }
 
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
