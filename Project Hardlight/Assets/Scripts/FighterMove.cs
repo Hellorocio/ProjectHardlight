@@ -7,19 +7,40 @@ using UnityEngine;
 /// </summary>
 public class FighterMove : MonoBehaviour
 {
+    public enum MoveState {stopped, moving, paused}
+    MoveState moveState = MoveState.stopped;
     private Fighter fighter;
     private FighterAttack fighterAttack;
     public bool testing;
     public bool followingMoveOrder;
 
     private Transform target;
-    private bool moveFighter;
 
     // Start is called before the first frame update
     void Start()
     {
         fighter = GetComponent<Fighter>();
         fighterAttack = GetComponent<FighterAttack>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        print("moving: collided with " + other.gameObject.name);
+        Fighter collidedFighter = other.GetComponent<Fighter>();
+        if (!GlobalSettings.overlapFighters && collidedFighter != null && moveState == MoveState.moving && 
+                collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
+        {
+            moveState = MoveState.paused;
+            print("moving: paused");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (moveState == MoveState.paused)
+        {
+            moveState = MoveState.moving;
+        }
     }
 
     void FixedUpdate()
@@ -29,7 +50,7 @@ public class FighterMove : MonoBehaviour
 
     void MoveFighter ()
     {
-        if (moveFighter)
+        if (moveState == MoveState.moving)
         {
             if (!fighterAttack.InRangeOfTarget())
             {
@@ -64,7 +85,7 @@ public class FighterMove : MonoBehaviour
             }
 
             target = t;
-            moveFighter = true;
+            moveState = MoveState.moving;
         }
     }
 
@@ -79,7 +100,7 @@ public class FighterMove : MonoBehaviour
         }
 
         target = t;
-        moveFighter = true;
+        moveState = MoveState.moving;
 
     }
 
@@ -88,14 +109,37 @@ public class FighterMove : MonoBehaviour
     /// </summary>
     public void StopMoving()
     {
-        moveFighter = false;
+        moveState = MoveState.stopped;
         fighterAttack.StartBasicAttacking();
     }
 
     public void StopMovingCommandHandle()
     {
         followingMoveOrder = false;
-        moveFighter = false;
+        moveState = MoveState.stopped;
         fighterAttack.SetCurrentTarget();
+    }
+
+    /// <summary>
+    /// If a fighter collided with another fighter, returns true if this fighter is in front
+    /// Right now this assumes that enemies always go left and heros always go right, which is always the case
+    /// </summary>
+    /// <returns></returns>
+    bool ShouldFighterWait (Fighter otherFighter)
+    {
+        bool fighterWait = true;
+
+        if (fighter.team == CombatInfo.Team.Hero && fighter.transform.position.x > otherFighter.transform.position.x)
+        {
+            //for heros, don't wait if this fighter's x position is greater
+            fighterWait = false;
+        }
+        else if (fighter.team == CombatInfo.Team.Enemy && fighter.transform.position.x < otherFighter.transform.position.x)
+        {
+            //for enemies, don't wait if this fighter's x position is less
+            fighterWait = false;
+        }
+
+        return fighterWait;
     }
 }
