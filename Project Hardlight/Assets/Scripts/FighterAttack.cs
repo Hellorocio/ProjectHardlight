@@ -80,12 +80,17 @@ public class FighterAttack : MonoBehaviour
         StartCoroutine(BasicAttackLoop());
     }
 
+    public void StopBasicAttacking()
+    {
+        StopCoroutine(BasicAttackLoop());
+    }
+
     IEnumerator BasicAttackLoop()
     {
         while (currentTarget != null && currentTarget.activeSelf)
         {
             //check we are still in range
-            if (!InRangeOfTarget())
+            if (!InRangeOfTarget(currentTarget.transform))
             {
                 fighterMove.StartMoving(currentTarget.transform);
                 break;
@@ -118,9 +123,14 @@ public class FighterAttack : MonoBehaviour
     /// Returns true if this fighter is in range of their currentTarget
     /// </summary>
     /// <returns></returns>
-    public bool InRangeOfTarget ()
+    public bool InRangeOfTarget (Transform t, bool useRange = true)
     {
-        return Vector2.Distance(transform.position, currentTarget.transform.position) < basicAttackStats.range + attackRangeAllowance;
+        bool inRange = Vector2.Distance(transform.position, t.position) < basicAttackStats.range + attackRangeAllowance;
+        if (!useRange)
+        {
+            inRange = Vector2.Distance(transform.position, t.position) < attackRangeAllowance;
+        }
+        return inRange;
     }
 
 
@@ -151,7 +161,7 @@ public class FighterAttack : MonoBehaviour
     /// Sets currentTarget to null if there are no more things to attack
     /// Will use targetprefs list if provided, otherwise will default to closest algorithm
     /// </summary>
-    void SetCurrentTarget()
+    public void SetCurrentTarget()
     {
         //make sure everything has been initialized
         if (attackParent == null)

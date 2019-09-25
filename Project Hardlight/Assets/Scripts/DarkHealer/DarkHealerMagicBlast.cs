@@ -59,9 +59,8 @@ public class DarkHealerMagicBlast : Ability
                 //display light prison
                 GameObject blast = Instantiate(magicBlastPrefab);
                 blast.transform.localPosition = transform.position;
-
-                blast.GetComponent<ProjectileMovement>().source = gameObject;
-                blast.GetComponent<ProjectileMovement>().target = selectedTarget;
+                
+                blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
                 return true;
             }

@@ -14,12 +14,6 @@ public class MercExecuteAbility: Ability
 
     private bool targeting;
 
-    public void Start()
-    {
-        targeting = false;
-        abilityName = "Execute";
-    }
-
     private void Update()
     {
         if (targeting)

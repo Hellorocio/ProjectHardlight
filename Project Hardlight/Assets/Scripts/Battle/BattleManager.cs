@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
     public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
+    public GameObject moveLoc;
 
     public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
@@ -42,6 +43,7 @@ public class BattleManager : MonoBehaviour
 
     public void Update()
     {
+        //Debug.Log("Input state is " + inputState);
         /////////////////// Idle
         if (inputState == InputState.NothingSelected)
         {
@@ -53,14 +55,22 @@ public class BattleManager : MonoBehaviour
         }
         else if (inputState == InputState.HeroSelected)
         {
+            Debug.Log("Current state is Hero Selected");
             if (Input.GetMouseButtonDown(0))
             {
                 UpdateClickedHero();
             }
             if (Input.GetMouseButtonDown(1))
             {
+                // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
+                // Also find bug where heroes disappear
                 //Set state to move or update target
-
+                //Debug.Log("Ordered a move");
+                Vector3 pos = Input.mousePosition;
+                pos = Camera.main.ScreenToWorldPoint(pos);
+                GameObject newMoveLoc = Instantiate(moveLoc);
+                newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+                selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
 
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
@@ -288,6 +298,7 @@ public class BattleManager : MonoBehaviour
 
         selectedHero = hero;
         selectedHero.SetSelectedUI(true);
+        inputState = InputState.HeroSelected;
 
         Debug.Log(hero.name);
         commandsUI.EnableUI(hero.gameObject);
@@ -314,6 +325,7 @@ public class BattleManager : MonoBehaviour
             selectedHero = null;
             commandsUI.DisableUI();
             inputState = InputState.NothingSelected;
+            battleTarget.SetActive(false);
         }
     }
 
@@ -333,7 +345,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Event that happens when currentHero reaches max mana
     /// </summary>
-    void OnMaxManaEvent()
+    void OnMaxManaEvent(Fighter f)
     {
         commandsUI.SwitchButtonColor(true);
     }
@@ -348,10 +360,11 @@ public class BattleManager : MonoBehaviour
         {
             battleTarget = Instantiate(battleTargetPrefab);
         }
-
+        
         GameObject ct = selectedHero.GetComponent<FighterAttack>().currentTarget;
         if (ct != null)
         {
+            battleTarget.SetActive(true);
             battleTarget.transform.parent = ct.transform;
             battleTarget.transform.localPosition = Vector3.zero;
         }

@@ -37,7 +37,8 @@ public class MapPathFollow : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   if(pathChosen){
+    {   if(pathChosen)
+        {
 
             Timer += Time.deltaTime * Speed;
             if(Party.transform.position != CurrentPosition)
@@ -52,25 +53,23 @@ public class MapPathFollow : MonoBehaviour
                     CheckNode();
                 }
 
-                else{
+                else
+                {
                     traveling = false;
                     pathChosen = false;
                 }
             }
         }
     }
-            
-    
-
-    public void travel(int path){
+         
+    public void travel(int path)
+    {
         Nodes = paths[path].GetComponentsInChildren<Node>();
         CurrentNode = 0;
         traveling = true;
         pathChosen = true;
        
     }
-     
-          
 }
     
 

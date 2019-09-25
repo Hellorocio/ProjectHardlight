@@ -43,8 +43,16 @@ public class Fighter : MonoBehaviour
     private float manaGenerationBoost;
 
     //have max mana event
-    public delegate void MaxManaReached();
+    public delegate void MaxManaReached(Fighter fighter);
     public event MaxManaReached OnMaxMana;
+
+    //have death event
+    public delegate void FighterDeath(Fighter fighter);
+    public event FighterDeath OnFighterDeath;
+
+    //have lose mana event (only used by fighterUseAbilityPopup right now)
+    public delegate void FighterLoseMana(Fighter fighter);
+    public event FighterLoseMana OnLoseMana;
 
     // Start is called before the first frame update
     void Start()
@@ -200,6 +208,9 @@ public class Fighter : MonoBehaviour
 
             //tell battleManager this fighter died so it can keep track of level completion info
             battleManager.OnDeath(this);
+
+            //death event
+            OnFighterDeath?.Invoke(this);
         }
 
         SetHealthUI();
@@ -238,7 +249,7 @@ public class Fighter : MonoBehaviour
             Debug.Log("READY TO CAST SPELLS!");
 
             //invoke onmaxmana event
-            OnMaxMana?.Invoke();
+            OnMaxMana?.Invoke(this);
 
             if (maxManaGlow != null)
             {
@@ -258,6 +269,9 @@ public class Fighter : MonoBehaviour
         {
             maxManaGlow.SetActive(false);
         }
+
+        //lose mana event
+        OnLoseMana?.Invoke(this);
 
         SetManaUI();
     }
