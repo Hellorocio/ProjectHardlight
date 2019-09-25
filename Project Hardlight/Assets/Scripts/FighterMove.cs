@@ -134,7 +134,7 @@ public class FighterMove : MonoBehaviour
     {
         bool fighterWait = false;
 
-        if (fighter.team == CombatInfo.Team.Hero && fighter.transform.position.x < otherFighter.transform.position.x)
+        if (fighter.team == CombatInfo.Team.Hero && fighter.transform.position.x < otherFighter.transform.position.x && !followingMoveOrder)
         {
             //for heros,  wait if other fighter's x position is greater
             fighterWait = true;
