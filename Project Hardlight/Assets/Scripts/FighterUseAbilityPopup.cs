@@ -21,6 +21,7 @@ public class FighterUseAbilityPopup : MonoBehaviour
         if (battleManager != null)
         {
             battleManager.OnLevelStart += SubscribeFighterEvents;
+            battleManager.OnLevelEnd += DeactivateAll;
         }
     }
 
@@ -32,6 +33,19 @@ public class FighterUseAbilityPopup : MonoBehaviour
         if (battleManager != null)
         {
             battleManager.OnLevelStart -= SubscribeFighterEvents;
+            battleManager.OnLevelEnd -= DeactivateAll;
+        }
+    }
+
+    /// <summary>
+    /// Turns off all the buttons
+    /// </summary>
+    /// <param name="win"></param>
+    private void DeactivateAll(bool win)
+    {
+        for (int i = 0; i < popupButtons.Length; i++)
+        {
+            popupButtons[i].gameObject.SetActive(false);
         }
     }
 
