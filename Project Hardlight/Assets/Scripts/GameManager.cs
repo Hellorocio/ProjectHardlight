@@ -10,6 +10,18 @@ public class GameManager : Singleton<GameManager>
     public bool[] levelsBeaten = {false,false,false};
     public int currentLevel;
 
+    // TODO Pull out?
+    public List<Soul> souls;
+
+    public void StartCampaign()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Soul soul = SoulManager.Instance.GenerateSoul();
+            souls.Add(soul);
+        }
+    }
+
     public void LoadScene(int scene)
     {
         SceneManager.LoadScene(scene);
