@@ -34,7 +34,7 @@ public class HeroPlacer : MonoBehaviour
         if(numHeroesLeftToPlace != -1)
         {
             Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            tmpInstance.transform.position = new Vector3(worldPoint.x, worldPoint.y, 0);
+            tmpInstance.transform.position = new Vector3(worldPoint.x, worldPoint.y, 5);
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject h = Instantiate(heroes[index], tmpInstance.transform.position, tmpInstance.transform.rotation);

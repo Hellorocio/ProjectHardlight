@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 447116477623801756}
   - component: {fileID: 1160613540}
   m_Layer: 0
-  m_Name: Enemy3
+  m_Name: Slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
-  maxHealth: 50
+  maxHealth: 30
   maxMana: 0
   speed: 1
   soul: {fileID: 11400000, guid: 6941d9a51bac8d14ca8d23edd27ade24, type: 2}
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 0
+  followingMoveOrder: 0
 --- !u!212 &1160613540
 SpriteRenderer:
   m_ObjectHideFlags: 0

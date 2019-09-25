@@ -265,9 +265,8 @@ MonoBehaviour:
   maxManaGlow: {fileID: 447801641650790171}
   anim: {fileID: 2841606765839737413}
   maxHealth: 80
-  maxMana: 30
-  speed: 1
-  fighterStats: {fileID: 11400000, guid: a0f9fc104aec3534f8dbabd4296a7ac6, type: 2}
+  maxMana: 20
+  speed: 2
   soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!114 &5418164188714808710
@@ -299,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 1
+  followingMoveOrder: 0
 --- !u!114 &2169203085962951802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +349,7 @@ MonoBehaviour:
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
   baseEffectRadius: 2.5
-  baseDamage: 10
+  baseDamage: 12
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
@@ -376,7 +376,7 @@ MonoBehaviour:
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
-  baseDamage: 5
+  baseDamage: 6
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}

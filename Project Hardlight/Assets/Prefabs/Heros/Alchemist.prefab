@@ -581,9 +581,8 @@ MonoBehaviour:
   maxManaGlow: {fileID: 5487258466830417321}
   anim: {fileID: 6240023073702742519}
   maxHealth: 100
-  maxMana: 30
+  maxMana: 20
   speed: 1
-  fighterStats: {fileID: 11400000, guid: 7a48e6a3f9c454843866e824e21e0573, type: 2}
   soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!114 &-7381153233368542808
@@ -651,8 +650,8 @@ MonoBehaviour:
   targetingType: 4
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRadius: 6
-  baseDamage: 5
+  baseEffectRadius: 10
+  baseDamage: 8
   attackDebuff: {fileID: 11400000, guid: 41dc47b5df1be1c4abb8e004d46f26b8, type: 2}
   poisonBlastPrefab: {fileID: 1212775176318728028, guid: a93645d474aff9b45b241d77988d9efd,
     type: 3}
@@ -674,7 +673,7 @@ MonoBehaviour:
   targetingType: 4
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRadius: 4
+  baseEffectRadius: 6
   baseHealAmt: 8
   healBuff: {fileID: 11400000, guid: eba4044ea3e381a46a1e59ee4c8bb26c, type: 2}
   healyCircle: {fileID: 8190502954499234717, guid: 160e60196e2d5534c8ee37e949a63c0b,
@@ -788,6 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 0
+  followingMoveOrder: 0
 --- !u!1 &9109577280019353254
 GameObject:
   m_ObjectHideFlags: 0
