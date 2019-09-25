@@ -218,6 +218,7 @@ public class Fighter : MonoBehaviour
 
     IEnumerator HitColorChanger()
     {
+        
         gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
         yield return new WaitForSeconds((float)0.25);
         gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
