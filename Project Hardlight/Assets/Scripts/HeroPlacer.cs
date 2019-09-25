@@ -34,7 +34,7 @@ public class HeroPlacer : MonoBehaviour
         if(numHeroesLeftToPlace != -1)
         {
             Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            tmpInstance.transform.position = new Vector3(worldPoint.x, worldPoint.y, 5);
+            tmpInstance.transform.position = new Vector3(worldPoint.x, worldPoint.y, -1);
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject h = Instantiate(heroes[index], tmpInstance.transform.position, tmpInstance.transform.rotation);
@@ -68,7 +68,9 @@ public class HeroPlacer : MonoBehaviour
     {
         heroes = prefabs;
         numHeroesLeftToPlace = prefabs.Count;
+        //Debug.Log("COunt is " + prefabs.Count);
         NextHeroPlacement();
+        
 
 
     }
@@ -78,6 +80,7 @@ public class HeroPlacer : MonoBehaviour
     {
         if (numHeroesLeftToPlace > 0)
         {
+            //Debug.Log("Heores left ot place" + numHeroesLeftToPlace);
             tmpInstance = Instantiate(tmpPrefab);
             tmpInstance.GetComponent<SpriteRenderer>().sprite = heroes[index].GetComponentInChildren<SpriteRenderer>().sprite;
             tmpInstance.GetComponent<SpriteRenderer>().color = heroes[index].GetComponentInChildren<SpriteRenderer>().color;
