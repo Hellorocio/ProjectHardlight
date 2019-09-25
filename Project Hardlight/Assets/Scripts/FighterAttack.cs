@@ -80,6 +80,11 @@ public class FighterAttack : MonoBehaviour
         StartCoroutine(BasicAttackLoop());
     }
 
+    public void StopBasicAttacking()
+    {
+        StopCoroutine(BasicAttackLoop());
+    }
+
     IEnumerator BasicAttackLoop()
     {
         while (currentTarget != null && currentTarget.activeSelf)

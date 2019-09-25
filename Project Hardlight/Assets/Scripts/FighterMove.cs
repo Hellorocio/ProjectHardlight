@@ -93,7 +93,7 @@ public class FighterMove : MonoBehaviour
     {
 
         followingMoveOrder = true;
-
+        fighterAttack.StopBasicAttacking();
         if (fighter == null)
         {
             Start();
