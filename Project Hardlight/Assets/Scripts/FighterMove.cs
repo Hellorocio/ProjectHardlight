@@ -23,9 +23,8 @@ public class FighterMove : MonoBehaviour
         fighterAttack = GetComponent<FighterAttack>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        print("moving: collided with " + other.gameObject.name);
+    private void OnTriggerStay2D(Collider2D other)
+    { 
         Fighter collidedFighter = other.GetComponent<Fighter>();
         if (!GlobalSettings.overlapFighters && collidedFighter != null && moveState == MoveState.moving && 
                 collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
@@ -34,6 +33,8 @@ public class FighterMove : MonoBehaviour
             print("moving: paused");
         }
     }
+
+    
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -52,7 +53,7 @@ public class FighterMove : MonoBehaviour
     {
         if (moveState == MoveState.moving)
         {
-            if (!fighterAttack.InRangeOfTarget(target))
+            if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
             }
@@ -131,17 +132,17 @@ public class FighterMove : MonoBehaviour
     /// <returns></returns>
     bool ShouldFighterWait (Fighter otherFighter)
     {
-        bool fighterWait = true;
+        bool fighterWait = false;
 
-        if (fighter.team == CombatInfo.Team.Hero && fighter.transform.position.x > otherFighter.transform.position.x)
+        if (fighter.team == CombatInfo.Team.Hero && fighter.transform.position.x < otherFighter.transform.position.x)
         {
-            //for heros, don't wait if this fighter's x position is greater
-            fighterWait = false;
+            //for heros,  wait if other fighter's x position is greater
+            fighterWait = true;
         }
-        else if (fighter.team == CombatInfo.Team.Enemy && fighter.transform.position.x < otherFighter.transform.position.x)
+        else if (fighter.team == CombatInfo.Team.Enemy && fighter.transform.position.x > otherFighter.transform.position.x)
         {
-            //for enemies, don't wait if this fighter's x position is less
-            fighterWait = false;
+            //for enemies, wait if this other fighter's x position is less
+            fighterWait = true;
         }
 
         return fighterWait;
