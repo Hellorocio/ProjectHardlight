@@ -218,6 +218,7 @@ public class Fighter : MonoBehaviour
 
     IEnumerator HitColorChanger()
     {
+        
         gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
         yield return new WaitForSeconds((float)0.25);
         gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
@@ -246,7 +247,7 @@ public class Fighter : MonoBehaviour
 
         if (prevMana != mana && mana == maxMana)
         {
-            Debug.Log("READY TO CAST SPELLS!");
+            //Debug.Log("READY TO CAST SPELLS!");
 
             //invoke onmaxmana event
             OnMaxMana?.Invoke(this);
