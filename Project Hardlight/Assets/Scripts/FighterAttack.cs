@@ -123,9 +123,14 @@ public class FighterAttack : MonoBehaviour
     /// Returns true if this fighter is in range of their currentTarget
     /// </summary>
     /// <returns></returns>
-    public bool InRangeOfTarget (Transform t)
+    public bool InRangeOfTarget (Transform t, bool useRange = true)
     {
-        return Vector2.Distance(transform.position, t.position) < basicAttackStats.range + attackRangeAllowance;
+        bool inRange = Vector2.Distance(transform.position, t.position) < basicAttackStats.range + attackRangeAllowance;
+        if (!useRange)
+        {
+            inRange = Vector2.Distance(transform.position, t.position) < attackRangeAllowance;
+        }
+        return inRange;
     }
 
 

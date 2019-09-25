@@ -52,7 +52,7 @@ public class FighterMove : MonoBehaviour
     {
         if (moveState == MoveState.moving)
         {
-            if (!fighterAttack.InRangeOfTarget(target))
+            if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
             }
