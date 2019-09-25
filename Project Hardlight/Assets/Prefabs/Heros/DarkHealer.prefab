@@ -90,7 +90,6 @@ MonoBehaviour:
   maxHealth: 90
   maxMana: 20
   speed: 1
-  fighterStats: {fileID: 11400000, guid: 60827c3fc43bd10468fef28eb8c748bc, type: 2}
   soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!114 &7543505179402891404
@@ -321,6 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 0
+  followingMoveOrder: 0
 --- !u!1 &2748628100524330406
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,14 +346,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2748628100524330406}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 0.04, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 6912701044027420847}
   m_Father: {fileID: 1620355528756934379}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2748628100524330408
 SpriteRenderer:
   m_ObjectHideFlags: 0

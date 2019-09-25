@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372465152858603390}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 0.04, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 7692209187894067831}
   m_Father: {fileID: 2545175618986722355}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1372465152858603376
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -192,7 +192,6 @@ MonoBehaviour:
   maxHealth: 120
   maxMana: 20
   speed: 1
-  fighterStats: {fileID: 11400000, guid: f812af14e64d97b4d8b7fd9b60137040, type: 2}
   soul: {fileID: 11400000, guid: 2d46bb362fb153742a6fcd20cf184397, type: 2}
   battleManager: {fileID: 0}
 --- !u!50 &4511883402718477472
@@ -420,6 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testing: 0
+  followingMoveOrder: 0
 --- !u!1 &5306958037717864970
 GameObject:
   m_ObjectHideFlags: 0
