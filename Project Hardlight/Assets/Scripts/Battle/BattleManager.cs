@@ -323,6 +323,7 @@ public class BattleManager : MonoBehaviour
             selectedHero = null;
             commandsUI.DisableUI();
             inputState = InputState.NothingSelected;
+            battleTarget.SetActive(false);
         }
     }
 
@@ -342,7 +343,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Event that happens when currentHero reaches max mana
     /// </summary>
-    void OnMaxManaEvent()
+    void OnMaxManaEvent(Fighter f)
     {
         commandsUI.SwitchButtonColor(true);
     }
@@ -357,10 +358,11 @@ public class BattleManager : MonoBehaviour
         {
             battleTarget = Instantiate(battleTargetPrefab);
         }
-
+        
         GameObject ct = selectedHero.GetComponent<FighterAttack>().currentTarget;
         if (ct != null)
         {
+            battleTarget.SetActive(true);
             battleTarget.transform.parent = ct.transform;
             battleTarget.transform.localPosition = Vector3.zero;
         }
