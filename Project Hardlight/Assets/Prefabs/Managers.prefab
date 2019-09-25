@@ -9161,6 +9161,36 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &1944976016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944976017}
+  m_Layer: 0
+  m_Name: MoveLoc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944976017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944976016}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4295151181828603723}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954542789
 GameObject:
   m_ObjectHideFlags: 0
@@ -11104,7 +11134,7 @@ MonoBehaviour:
   notEnoughManaUI: {fileID: 780901988}
   battleTargetPrefab: {fileID: 6391830390797983290, guid: 622767f1e00134f47b9e351508ab8c98,
     type: 3}
-  moveLoc: {fileID: 0}
+  moveLoc: {fileID: 1944976016}
   commandsUI: {fileID: 3265828594970776278}
 --- !u!1 &3265828594505577514
 GameObject:
@@ -14498,6 +14528,7 @@ Transform:
   - {fileID: 2901243947196095768}
   - {fileID: 3265828594473890714}
   - {fileID: 506399426}
+  - {fileID: 1944976017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

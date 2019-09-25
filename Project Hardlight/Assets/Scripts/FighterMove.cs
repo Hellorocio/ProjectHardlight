@@ -52,7 +52,7 @@ public class FighterMove : MonoBehaviour
     {
         if (moveState == MoveState.moving)
         {
-            if (!fighterAttack.InRangeOfTarget())
+            if (!fighterAttack.InRangeOfTarget(target))
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
             }
@@ -117,8 +117,12 @@ public class FighterMove : MonoBehaviour
     {
         followingMoveOrder = false;
         moveState = MoveState.stopped;
+        Debug.Log("Deleting " + target.gameObject.name);
+        Destroy(target.gameObject);
+        target = null;
         fighterAttack.SetCurrentTarget();
     }
+
 
     /// <summary>
     /// If a fighter collided with another fighter, returns true if this fighter is in front

@@ -90,7 +90,7 @@ public class FighterAttack : MonoBehaviour
         while (currentTarget != null && currentTarget.activeSelf)
         {
             //check we are still in range
-            if (!InRangeOfTarget())
+            if (!InRangeOfTarget(currentTarget.transform))
             {
                 fighterMove.StartMoving(currentTarget.transform);
                 break;
@@ -123,9 +123,9 @@ public class FighterAttack : MonoBehaviour
     /// Returns true if this fighter is in range of their currentTarget
     /// </summary>
     /// <returns></returns>
-    public bool InRangeOfTarget ()
+    public bool InRangeOfTarget (Transform t)
     {
-        return Vector2.Distance(transform.position, currentTarget.transform.position) < basicAttackStats.range + attackRangeAllowance;
+        return Vector2.Distance(transform.position, t.position) < basicAttackStats.range + attackRangeAllowance;
     }
 
 

@@ -68,8 +68,9 @@ public class BattleManager : MonoBehaviour
                 //Debug.Log("Ordered a move");
                 Vector3 pos = Input.mousePosition;
                 pos = Camera.main.ScreenToWorldPoint(pos);
-                moveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-                selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
+                GameObject newMoveLoc = Instantiate(moveLoc);
+                newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+                selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
 
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
