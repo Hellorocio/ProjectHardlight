@@ -37,15 +37,26 @@ public class Soul : MonoBehaviour
     public List<StatFocusType> statFocuses;
     public List<AllightAttribute> allightAttributes; 
 
-    // Start is called before the first frame update
-    void Start()
+    public string GetDescription()
     {
-        
-    }
+        string description = "";
+        if (statFocuses.Contains(StatFocusType.HEALTH))
+        {
+            description += "Gives bonus health\n";
+        }
+        if (statFocuses.Contains(StatFocusType.ABILITY))
+        {
+            description += "Gives bonus ability power\n";
+        }
+        if (statFocuses.Contains(StatFocusType.ATTACK))
+        {
+            description += "Gives bonus attack damage\n";
+        }
+        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
+        {
+            description += "Gives bonus attack speed\n";
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return description;
     }
 }

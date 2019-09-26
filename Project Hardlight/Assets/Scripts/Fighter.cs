@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 /// <summary>
-/// This class just stores stat information about the fighter, and has accessors for all these stats
+/// This class controls what a Vessel does in-combat
 /// </summary>
 public class Fighter : MonoBehaviour
 {
