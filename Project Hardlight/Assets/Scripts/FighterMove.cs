@@ -11,6 +11,7 @@ public class FighterMove : MonoBehaviour
     MoveState moveState = MoveState.stopped;
     private Fighter fighter;
     private FighterAttack fighterAttack;
+    private SpriteRenderer sprite;
     public bool testing;
     public bool followingMoveOrder;
 
@@ -21,6 +22,7 @@ public class FighterMove : MonoBehaviour
     {
         fighter = GetComponent<Fighter>();
         fighterAttack = GetComponent<FighterAttack>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -87,6 +89,7 @@ public class FighterMove : MonoBehaviour
 
             target = t;
             moveState = MoveState.moving;
+            TurnToFace();
         }
     }
 
@@ -102,6 +105,7 @@ public class FighterMove : MonoBehaviour
 
         target = t;
         moveState = MoveState.moving;
+        TurnToFace();
 
     }
 
@@ -146,5 +150,13 @@ public class FighterMove : MonoBehaviour
         }
 
         return fighterWait;
+    }
+
+    /// <summary>
+    /// Flips the fighter's appearence based on direction its going
+    /// </summary>
+    public void TurnToFace ()
+    {
+        sprite.flipX = (target.position.x < transform.position.x);
     }
 }
