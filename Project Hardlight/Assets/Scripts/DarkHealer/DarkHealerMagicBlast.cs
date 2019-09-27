@@ -5,7 +5,6 @@ using UnityEngine;
 public class DarkHealerMagicBlast : Ability
 {
     public float baseEffectRange;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -72,10 +71,5 @@ public class DarkHealerMagicBlast : Ability
     public float GetRange()
     {
         return baseEffectRange;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }

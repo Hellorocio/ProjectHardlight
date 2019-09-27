@@ -6,7 +6,6 @@ public class MageAoEBlast : Ability
 {
     public float baseEffectRange;
     public float baseEffectRadius;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject radiusIndicatorPrefab;
@@ -17,12 +16,7 @@ public class MageAoEBlast : Ability
     public GameObject radiusIndicator;
 
     private bool targeting;
-
-    public void Start()
-    {
-        targeting = false;
-    }
-
+    
     public void Update()
     {
         if (targeting)
@@ -101,10 +95,5 @@ public class MageAoEBlast : Ability
     public float GetRadius()
     {
         return baseEffectRadius;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class MercExecuteAbility: Ability
 {
     public float baseEffectRange;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -61,10 +60,5 @@ public class MercExecuteAbility: Ability
     public float GetRange()
     {
         return baseEffectRange;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }

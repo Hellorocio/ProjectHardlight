@@ -7,6 +7,8 @@ public class Ability : MonoBehaviour
     public string abilityName;
     public string abilityDescription;
 
+    public int baseDamage = 0;
+
     public Targeting.Type targetingType;
     public Vector3 selectedPosition;
     public GameObject selectedTarget;
@@ -26,5 +28,10 @@ public class Ability : MonoBehaviour
     {
         Debug.Log("Default DoAbility()");
         return true;
+    }
+
+    public virtual float GetDamage()
+    {
+        return GetComponent<Fighter>().GetDamage(baseDamage);
     }
 }

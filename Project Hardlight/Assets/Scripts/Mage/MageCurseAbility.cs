@@ -5,7 +5,6 @@ using UnityEngine;
 public class MageCurseAbility : Ability
 {
     public float baseEffectRange;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -15,11 +14,7 @@ public class MageCurseAbility : Ability
     public GameObject lightPrisonPrefab;
 
     private bool targeting;
-
-    public void Start()
-    {
-        targeting = false;
-    }
+   
 
     private void Update()
     {
@@ -75,10 +70,5 @@ public class MageCurseAbility : Ability
     public float GetRange()
     {
         return baseEffectRange;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }

@@ -267,7 +267,6 @@ MonoBehaviour:
   maxHealth: 80
   maxMana: 20
   speed: 2
-  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!114 &5418164188714808710
 MonoBehaviour:
@@ -344,12 +343,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Light's Extosis
   abilityDescription: Medium damage on small range
+  baseDamage: 12
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
   baseEffectRadius: 2.5
-  baseDamage: 12
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
@@ -372,11 +371,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Light Prison
   abilityDescription: Small damage on one enemy, stops them for 10 seconds
+  baseDamage: 6
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
-  baseDamage: 6
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}

@@ -5,7 +5,6 @@ using UnityEngine;
 public class NinjaHealingAbility : Ability
 {
     public float baseEffectRange;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -89,10 +88,5 @@ public class NinjaHealingAbility : Ability
     public float GetRange()
     {
         return baseEffectRange;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }

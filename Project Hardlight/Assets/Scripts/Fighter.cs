@@ -6,7 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 /// <summary>
-/// This class controls what a Vessel does in-combat
+/// Just stores stat information about a Fighter (Vessel or Enemy) and has accessors for all these stats, seriously
+/// See FighterAttack for a Fighter's basic attack implementation
+/// See FighterMove for a Fighter's movement implementation
 /// </summary>
 public class Fighter : MonoBehaviour
 {
@@ -22,7 +24,7 @@ public class Fighter : MonoBehaviour
     public float maxHealth = 100;
     public float maxMana = 30;
     public float speed = 1;
-    public SoulStats soul;
+    private Soul soul;
 
     private Color defaultColor;
     private Color hitColor;
@@ -39,7 +41,8 @@ public class Fighter : MonoBehaviour
     private float movementSpeedBoost;
     private float attackSpeedBoost;
     private float defenseBoost;
-    private float attackBoost;
+    private float attackBoost; //this is for basic attacks only
+    private float abilityAttackBoost; //this is the attack boost for abilities
     private float manaGenerationBoost;
 
     //have max mana event
@@ -77,19 +80,33 @@ public class Fighter : MonoBehaviour
     }
 
     /// <summary>
-    /// Initializes boost amounts based on soul boosts
+    /// Initializes boost amounts based on soul stat focus types
     /// </summary>
     void InitBoosts ()
     {
+        soul = GetComponent<Soul>();
         if (soul != null)
         {
-            movementSpeedBoost += soul.movementSpeedBoost;
-            attackSpeedBoost += soul.attackSpeedBoost;
-            defenseBoost += soul.defenseBoost;
-            attackBoost += soul.attackBoost;
-            manaGenerationBoost += soul.manaGenerationBoost;
-
-            maxHealth = maxHealth + maxHealth * soul.healthBoost;
+            foreach (StatFocusType statFocus in soul.statFocuses)
+            {
+                switch (statFocus)
+                {
+                    case StatFocusType.HEALTH:
+                        maxHealth += 10 * soul.level;
+                        break;
+                    case StatFocusType.ATTACK:
+                        attackBoost += 0.1f * soul.level;
+                        break;
+                    case StatFocusType.ABILITY:
+                        abilityAttackBoost += 0.1f * soul.level;
+                        break;
+                    case StatFocusType.ATTACKSPEED:
+                        attackSpeedBoost += 0.1f * soul.level;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 
@@ -167,12 +184,12 @@ public class Fighter : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns this fighter's damage based on buffs
+    /// Returns this fighter's damage for a based on buffs (used for abilities)
     /// </summary>
     /// <returns></returns>
     public float GetDamage(float dmg)
     {
-        return dmg + dmg * attackBoost;
+        return dmg + dmg * abilityAttackBoost;
     }
 
     /// <summary>
@@ -181,7 +198,8 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetBasicAttackDamage ()
     {
-        return GetDamage(GetComponent<FighterAttack>().basicAttackStats.damage);
+        float dmg = GetComponent<FighterAttack>().basicAttackStats.damage;
+        return dmg + dmg * GetAttackBoost();
     }
 
     /// <summary>

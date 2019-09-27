@@ -108,14 +108,14 @@ public class HeroSelectionMenu2 : MonoBehaviour
             statTextComponents[8].text += "0";
         }
         
-        if (hero.soul != null)
-        {
-            statTextComponents[9].text += hero.soul.defenseBoost.ToString();
-        }
-        else
-        {
+        //if (hero.soul != null)
+        //{
+        //    statTextComponents[9].text += hero.soul.defenseBoost.ToString();
+        //}
+        //else
+        //{
             statTextComponents[9].text += "0";
-        }
+        //}
         for (int c = 0; c < statTextComponents.Length; c++)
         {
             statTextPreSoul[c] = statTextComponents[c].text;
@@ -212,7 +212,7 @@ public class HeroSelectionMenu2 : MonoBehaviour
     {
         if(currentlyDisplayedSoulIcon != null && lineupInstantiatables.Count < 3)
         {
-            currentlyDisplayedHero.soul = currentlyDisplayedSoul;
+            //currentlyDisplayedHero.soul = currentlyDisplayedSoul;
             currentlyDisplayedPrefab = currentlyDisplayedHero.gameObject;
             lineupInstantiatables.Add(currentlyDisplayedPrefab);
             lineupSoulIcons.Add(currentlyDisplayedSoulIcon);

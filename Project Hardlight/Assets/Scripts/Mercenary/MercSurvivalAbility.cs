@@ -5,7 +5,6 @@ using UnityEngine;
 public class MercSurvivalAbility : Ability
 {
     public float baseEffectRange;
-    public int baseDamage;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -16,7 +15,6 @@ public class MercSurvivalAbility : Ability
 
     public void Start()
     {
-        targeting = false;
         abilityName = "Survive";
     }
 
@@ -77,13 +75,14 @@ public class MercSurvivalAbility : Ability
         return baseEffectRange;
     }
 
-    public float GetDamage()
+    public override float GetDamage()
     {
         Fighter thisFighter = gameObject.GetComponent<Fighter>();
+        float dmg = thisFighter.GetDamage(baseDamage);
         if (thisFighter.GetHealth() <= thisFighter.maxHealth * 0.5f)
         {
-            return baseDamage * 3;
+            return dmg * 3;
         }
-        return baseDamage;
+        return dmg;
     }
 }

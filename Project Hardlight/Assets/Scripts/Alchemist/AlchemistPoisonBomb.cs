@@ -5,7 +5,6 @@ using UnityEngine;
 public class AlchemistPoisonBomb : Ability
 {
     public float baseEffectRadius;
-    public int baseDamage;
     public BuffObj attackDebuff;
 
     public GameObject poisonBlastPrefab;
@@ -60,10 +59,5 @@ public class AlchemistPoisonBomb : Ability
     public float GetRadius()
     {
         return baseEffectRadius;
-    }
-
-    public float GetDamage()
-    {
-        return baseDamage;
     }
 }
