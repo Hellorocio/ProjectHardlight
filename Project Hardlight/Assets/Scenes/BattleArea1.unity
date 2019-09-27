@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 1315239620}
   - component: {fileID: 1315239619}
   - component: {fileID: 1315239622}
+  - component: {fileID: 1315239623}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -956,6 +957,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1315239623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315239618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e43c5d89080fd4686622a7095c2a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCamMoving: 0
+  zoomMax: 30
+  zoomMin: 5
+  minPanSpeed: 3
+  maxPanSpeed: 10
+  screenBufferSize: 60
 --- !u!1001 &1365658037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2332,6 +2351,10 @@ PrefabInstance:
     - target: {fileID: 944339849, guid: c90d0e7b638374d4baff32ba0f7cb210, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703620193, guid: c90d0e7b638374d4baff32ba0f7cb210, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.9000244
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c90d0e7b638374d4baff32ba0f7cb210, type: 3}
