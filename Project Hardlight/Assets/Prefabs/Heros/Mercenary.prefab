@@ -170,7 +170,6 @@ MonoBehaviour:
   maxHealth: 150
   maxMana: 40
   speed: 1
-  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!50 &3171901982325591325
 Rigidbody2D:
@@ -235,11 +234,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Execute
   abilityDescription: Medium damage on one unit
+  baseDamage: 11
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 3
-  baseDamage: 11
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}
@@ -273,11 +272,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Survival
   abilityDescription: Small damage on one unit, large damage if greatly injured
+  baseDamage: 6
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 10
-  baseDamage: 6
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}
@@ -633,7 +632,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &6798085246728342857
 MonoBehaviour:

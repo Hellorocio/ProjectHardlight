@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public Text dialoguePanel;
     public string winText = "We did it!";
     public string loseText = "Aw man!";
+    public AudioClip loseMusic;
 
     private BattleManager battleManager;
 
@@ -49,6 +50,14 @@ public class LevelManager : MonoBehaviour
         else
         {
             dialoguePanel.text = loseText;
+
+            //play lose music
+            AudioSource camera = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+            if (camera != null && loseMusic != null)
+            {
+                camera.clip = loseMusic;
+                camera.Play();
+            }
         }
         dialoguePanel.transform.parent.gameObject.SetActive(true);
     }
