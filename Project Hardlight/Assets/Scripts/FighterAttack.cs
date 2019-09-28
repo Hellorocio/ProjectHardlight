@@ -256,6 +256,8 @@ public class FighterAttack : MonoBehaviour
         OnSwitchTarget?.Invoke();
 
         //start moving toward target
+
+        //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (currentTarget == null));
         if (currentTarget != null)
         {
             fighterMove.StartMoving(currentTarget.transform);

@@ -35,6 +35,8 @@ public class BattleManager : MonoBehaviour
         GameObject enemyParent = GameObject.Find("Enemies");
         foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
         {
+            //f.gameObject.GetComponent<FighterAttack>().enabled = false;
+            //f.gameObject.GetComponent<FighterMove>().enabled = false;
             //f.enabled = false;
             numEnemies++;
         }

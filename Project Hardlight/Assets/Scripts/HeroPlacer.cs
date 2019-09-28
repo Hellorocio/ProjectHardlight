@@ -42,9 +42,12 @@ public class HeroPlacer : MonoBehaviour
                 heroScripts.Add(h.GetComponent<Fighter>());
 
                 //Debug.Log(h.GetComponent<Fighter>().soul);
-                
+
                 //heroScripts[heroScripts.Count - 1].enabled = false;
+                //h.GetComponent<FighterAttack>().enabled = false;
+                //h.GetComponent<FighterMove>().enabled = false;
                 //h.GetComponent<Fighter>().enabled = false;
+
                 Destroy(tmpInstance);
                 numHeroesLeftToPlace--;
                 index++;
