@@ -70,14 +70,6 @@ public class FighterMove : MonoBehaviour
                 {
                     StopMoving();
                 }
-                
-            }
-        } else
-        {
-            // Attempting to keep the enemy listening if all heroes spawn outside of range
-            if(fighterAttack.currentTarget == null)
-            {
-                fighterAttack.SetCurrentTarget();
             }
         }
     }
