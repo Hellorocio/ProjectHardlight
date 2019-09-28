@@ -270,7 +270,7 @@ public class FighterAttack : MonoBehaviour
     void SetWeakestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float hp = 100000000;
+        float hp = float.MaxValue;
         int index = 0;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -317,7 +317,7 @@ public class FighterAttack : MonoBehaviour
     bool SetRangedAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -347,7 +347,7 @@ public class FighterAttack : MonoBehaviour
     bool SetMeleeAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -377,7 +377,7 @@ public class FighterAttack : MonoBehaviour
     bool SetHealerAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -406,7 +406,7 @@ public class FighterAttack : MonoBehaviour
     void SetClosestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -429,7 +429,7 @@ public class FighterAttack : MonoBehaviour
     void SetOptimalHealingTarget()
     {
         Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
-        float maxHealth = 1000f;
+        float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
