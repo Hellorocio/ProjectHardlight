@@ -20,7 +20,11 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     float slope;
 
     Vector2 lastPos;
-    public float mouseSensitivity;
+    public float maxMouseSensitivity;
+    public float minMouseSensitivity;
+    private float mouseSensitivity;
+
+    float mouseSlope;
 
     public int screenBufferSize;
 
@@ -32,6 +36,7 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         screenHeight = Screen.height;
         myCam = gameObject.GetComponent<Camera>();
         slope = (maxPanSpeed - minPanSpeed) / (zoomMax - zoomMin);
+        mouseSlope = (maxMouseSensitivity - minMouseSensitivity) / (zoomMax - zoomMin);
     }
 
     // Update is called once per frame
@@ -83,19 +88,19 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         //panSpeed = (myCam.orthographicSize) * ((minPanSpeed / (maxPanSpeed - minPanSpeed)));
 
         panSpeed = slope * (myCam.orthographicSize - zoomMin) + minPanSpeed;
-
+        mouseSensitivity = mouseSlope * (myCam.orthographicSize - zoomMin) + minMouseSensitivity;
         //Debug.Log(panSpeed);
         Vector3 camPos = transform.position;
 
         if (Input.GetMouseButtonDown(2)) // Pan if the user hold down the scroll wheel
         {
-            lastPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            lastPos = Input.mousePosition;
         }
 
         if (Input.GetMouseButton(2))
         {
             //Debug.Log("Panning");
-            Vector2 tmp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 tmp = Input.mousePosition;
             tmp -= lastPos;
 
             if (Mathf.Abs(tmp.x) < .01)
@@ -112,7 +117,7 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
             //Vector3 adjusted = new Vector3(transform.position.x + (tmp.x * mouseSensitivity), transform.position.y + (tmp.y * mouseSensitivity), transform.position.z);
             camPos.x -= tmp.x * mouseSensitivity;
             camPos.y -= tmp.y * mouseSensitivity;
-            lastPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            lastPos = Input.mousePosition;
 
         }
         else
