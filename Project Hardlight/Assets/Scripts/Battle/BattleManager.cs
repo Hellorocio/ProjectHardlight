@@ -302,7 +302,7 @@ public class BattleManager : MonoBehaviour
         selectedHero.SetSelectedUI(true);
         inputState = InputState.HeroSelected;
 
-        Debug.Log(hero.name);
+        //Debug.Log(hero.name);
         commandsUI.EnableUI(hero.gameObject);
         commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.maxMana);
         OnSwitchTargetEvent();

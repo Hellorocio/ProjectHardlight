@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IPointerClickHandler
 {
 
     int screenWidth;
@@ -37,6 +38,20 @@ public class CameraController : MonoBehaviour
         ZoomCam();
     }
 
+
+    /// <summary>
+    /// Handles double-clicking on UI elements (maybe only in the gameobject/children UI components?)
+    /// Right now only seems to respond to minimap double-clicks but this could be incorrect
+    /// </summary>
+    /// <param name="eventData"></param>
+    public virtual void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.clickCount == 2)
+        {
+            Debug.Log("double click");
+        }
+    }
+
     void ZoomCam()
     {
         float currentScrollDelta = Input.mouseScrollDelta.y * -1;
@@ -66,7 +81,7 @@ public class CameraController : MonoBehaviour
 
         panSpeed = slope * (myCam.orthographicSize - zoomMin) + minPanSpeed;
 
-        Debug.Log(panSpeed);
+        //Debug.Log(panSpeed);
         Vector3 camPos = transform.position;
         if (Input.mousePosition.x > screenWidth - screenBufferSize)
         {
