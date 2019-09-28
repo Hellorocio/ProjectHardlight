@@ -30,6 +30,11 @@ public class BattleManager : MonoBehaviour
     public delegate void LevelEnd(bool herosWin);
     public event LevelEnd OnLevelEnd;
 
+    public CameraController camController;
+    private float doubleClickTimer;
+    private bool doubleClickPrimer;
+    private float doubleClickTimeLimit = 0.3f;
+
     public void Start()
     {
         GameObject enemyParent = GameObject.Find("Enemies");
@@ -47,6 +52,17 @@ public class BattleManager : MonoBehaviour
     {
         //Debug.Log("Input state is " + inputState);
         /////////////////// Idle
+
+        
+
+        if(doubleClickTimer <= doubleClickTimeLimit)
+        {
+            doubleClickTimer += Time.deltaTime;
+        } else
+        {
+            doubleClickPrimer = false;
+        }
+
         if (inputState == InputState.NothingSelected)
         {
             if (Input.GetMouseButtonDown(0))
@@ -193,7 +209,29 @@ public class BattleManager : MonoBehaviour
             Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
             {
-                SetSelectedHero(clickedFighter);
+                
+                if (clickedFighter.Equals(selectedHero))
+                {
+                    //If the player double-clicks on a hero then we should focus on that hero
+                    if (doubleClickPrimer && doubleClickTimer <= doubleClickTimeLimit)
+                    {
+                        //Debug.Log("Double-clicked Hero");
+                        if(camController != null) //Safety check to avoid breaking other scenes while testing
+                        {
+                            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            worldPoint.z = camController.transform.position.z;
+                            camController.transform.position = worldPoint;
+                            camController.gameObject.GetComponent<Camera>().orthographicSize = camController.zoomMin;
+                        }
+                    }
+                    
+
+                } else
+                {
+                    SetSelectedHero(clickedFighter);
+                }
+                doubleClickPrimer = true;
+                doubleClickTimer = 0;
             }
             else
             {
