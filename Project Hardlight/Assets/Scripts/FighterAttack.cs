@@ -57,7 +57,7 @@ public class FighterAttack : MonoBehaviour
 
         if (battleManager != null)
         {
-            battleManager.OnLevelStart += SetCurrentTarget;
+            battleManager.OnLevelStart += LevelStart;
         }
     }
 
@@ -68,7 +68,26 @@ public class FighterAttack : MonoBehaviour
     {
         if (fighter.battleManager != null)
         {
-            fighter.battleManager.OnLevelStart -= SetCurrentTarget;
+            fighter.battleManager.OnLevelStart -= LevelStart;
+        }
+    }
+
+    /// <summary>
+    /// Called when the fighter gets the signal that the battle has started
+    /// Sets targets for heroes, but not enemies
+    /// </summary>
+    private void LevelStart ()
+    {
+        //make sure everything has been initialized
+        if (fighter == null)
+        {
+            Start();
+        }
+
+        //only start attacking right away if a hero or a fighter with no enemyTrigger
+        if (fighter.team == CombatInfo.Team.Hero || (fighter.team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
+        {
+            SetCurrentTarget();
         }
     }
 
@@ -163,12 +182,6 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     public void SetCurrentTarget()
     {
-        //make sure everything has been initialized
-        if (attackParent == null)
-        {
-            Start();
-        }
-
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
         bool enemiesActive = false;
