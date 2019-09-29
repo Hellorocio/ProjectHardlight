@@ -19,6 +19,13 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     float panSpeed;
     float slope;
 
+    Vector2 lastPos;
+    public float maxMouseSensitivity;
+    public float minMouseSensitivity;
+    private float mouseSensitivity;
+
+    float mouseSlope;
+
     public int screenBufferSize;
 
     Camera myCam;
@@ -29,6 +36,7 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         screenHeight = Screen.height;
         myCam = gameObject.GetComponent<Camera>();
         slope = (maxPanSpeed - minPanSpeed) / (zoomMax - zoomMin);
+        mouseSlope = (maxMouseSensitivity - minMouseSensitivity) / (zoomMax - zoomMin);
     }
 
     // Update is called once per frame
@@ -73,40 +81,73 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    
+
 
     void MoveCam()
     {
         //panSpeed = (myCam.orthographicSize) * ((minPanSpeed / (maxPanSpeed - minPanSpeed)));
 
         panSpeed = slope * (myCam.orthographicSize - zoomMin) + minPanSpeed;
-
+        mouseSensitivity = mouseSlope * (myCam.orthographicSize - zoomMin) + minMouseSensitivity;
         //Debug.Log(panSpeed);
         Vector3 camPos = transform.position;
-        if (Input.mousePosition.x > screenWidth - screenBufferSize)
+
+        if (Input.GetMouseButtonDown(2)) // Pan if the user hold down the scroll wheel
         {
-            isCamMoving = true;
-            camPos.x += panSpeed * Time.deltaTime;
-        }
-        else if (Input.mousePosition.x < screenBufferSize)
-        {
-            isCamMoving = true;
-            camPos.x -= panSpeed * Time.deltaTime;
+            lastPos = Input.mousePosition;
         }
 
-        else if (Input.mousePosition.y > screenHeight - screenBufferSize)
+        if (Input.GetMouseButton(2))
         {
-            isCamMoving = true;
-            camPos.y += panSpeed * Time.deltaTime;
-        }
-        else if (Input.mousePosition.y < screenBufferSize)
-        {
-            isCamMoving = true;
-            camPos.y -= panSpeed * Time.deltaTime;
+            //Debug.Log("Panning");
+            Vector2 tmp = Input.mousePosition;
+            tmp -= lastPos;
+
+            if (Mathf.Abs(tmp.x) < .01)
+            {
+                tmp.x = 0;
+            }
+            if (Mathf.Abs(tmp.y) < .01)
+            {
+                tmp.y = 0;
+            }
+            // Debug.Log("Current: " + gameObject.transform.position.x + " | " + gameObject.transform.position.y);
+            //Debug.Log("New: " + tmp.x + " | " + tmp.y);
+            // Debug.Log("Cumulative: " + transform.position.x + (tmp.x * mouseSensitivity) + " " + transform.position.y + (tmp.y * mouseSensitivity));
+            //Vector3 adjusted = new Vector3(transform.position.x + (tmp.x * mouseSensitivity), transform.position.y + (tmp.y * mouseSensitivity), transform.position.z);
+            camPos.x -= tmp.x * mouseSensitivity;
+            camPos.y -= tmp.y * mouseSensitivity;
+            lastPos = Input.mousePosition;
+
         }
         else
         {
-            isCamMoving = false;
+            if (Input.mousePosition.x > screenWidth - screenBufferSize)
+            {
+                isCamMoving = true;
+                camPos.x += panSpeed * Time.deltaTime;
+            }
+            else if (Input.mousePosition.x < screenBufferSize)
+            {
+                isCamMoving = true;
+                camPos.x -= panSpeed * Time.deltaTime;
+            }
+
+            else if (Input.mousePosition.y > screenHeight - screenBufferSize)
+            {
+                isCamMoving = true;
+                camPos.y += panSpeed * Time.deltaTime;
+            }
+            else if (Input.mousePosition.y < screenBufferSize)
+            {
+                isCamMoving = true;
+                camPos.y -= panSpeed * Time.deltaTime;
+            }
+            else
+            {
+                isCamMoving = false;
+            }
+            
         }
         gameObject.transform.position = camPos;
     }
