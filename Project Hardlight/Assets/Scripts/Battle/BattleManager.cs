@@ -206,12 +206,12 @@ public class BattleManager : MonoBehaviour
     {
         Vector3 pos = Input.mousePosition;
         Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-        if (hitCollider != null && hitCollider.gameObject.layer != 9) // if click hit the commandUI element, don't do anything
+        if (hitCollider != null) // if click hit the commandUI element, don't do anything
         {
+            Debug.Log("Update clicked hero go name: " + hitCollider.gameObject.name);
             Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
             {
-                
                 if (clickedFighter.Equals(selectedHero))
                 {
                     //If the player double-clicks on a hero then we should focus on that hero
@@ -226,8 +226,6 @@ public class BattleManager : MonoBehaviour
                             camController.gameObject.GetComponent<Camera>().orthographicSize = camController.zoomMin;
                         }
                     }
-                    
-
                 } else
                 {
                     SetSelectedHero(clickedFighter);
