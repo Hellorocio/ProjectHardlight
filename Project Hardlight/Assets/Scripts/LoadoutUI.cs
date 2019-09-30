@@ -11,7 +11,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public GameObject soulIconPrefab;
     public GameObject soulGrid;
 
-    public void Initialize()
+    public void Refresh()
     {
         PopulateVesselGrid();
         PopulateSoulGrid();

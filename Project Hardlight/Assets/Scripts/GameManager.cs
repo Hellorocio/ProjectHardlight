@@ -21,10 +21,6 @@ public class GameManager : Singleton<GameManager>
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
-
-        // UI init
-        LoadoutUI.Instance.PopulateVesselGrid();
-        LoadoutUI.Instance.PopulateSoulGrid();
     }
 
     public void LoadScene(int scene)
