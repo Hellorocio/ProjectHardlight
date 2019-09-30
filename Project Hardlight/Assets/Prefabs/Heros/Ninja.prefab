@@ -214,7 +214,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &3090097126807104975
 MonoBehaviour:
@@ -526,7 +526,6 @@ MonoBehaviour:
   maxHealth: 120
   maxMana: 50
   speed: 4
-  soul: {fileID: 11400000, guid: 2d46bb362fb153742a6fcd20cf184397, type: 2}
   battleManager: {fileID: 0}
 --- !u!50 &6390960235825343899
 Rigidbody2D:
@@ -717,11 +716,11 @@ MonoBehaviour:
   abilityName: Jump Jutsu
   abilityDescription: Teleport to a new target and become invicible and stronger for
     5 seconds
+  baseDamage: 10
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 10
-  baseDamage: 10
   attackTargetUnit: {fileID: 0}
 --- !u!114 &376086159
 MonoBehaviour:
@@ -737,11 +736,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Healing Jutsu
   abilityDescription: Throw 3 projectiles, each hit heals Ninja for medium amount
+  baseDamage: 4
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
-  baseDamage: 4
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}

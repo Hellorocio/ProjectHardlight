@@ -139,7 +139,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1539414102493604805
 MonoBehaviour:
@@ -583,7 +583,6 @@ MonoBehaviour:
   maxHealth: 100
   maxMana: 20
   speed: 1
-  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!114 &-7381153233368542808
 MonoBehaviour:
@@ -647,11 +646,11 @@ MonoBehaviour:
   abilityName: Poison Bomb
   abilityDescription: Blasts large area around the hero with small damage, freezes
     hit enemies
+  baseDamage: 8
   targetingType: 4
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRadius: 10
-  baseDamage: 8
   attackDebuff: {fileID: 11400000, guid: 41dc47b5df1be1c4abb8e004d46f26b8, type: 2}
   poisonBlastPrefab: {fileID: 1212775176318728028, guid: a93645d474aff9b45b241d77988d9efd,
     type: 3}
@@ -670,6 +669,7 @@ MonoBehaviour:
   abilityName: Heal Potion
   abilityDescription: Heal allies surrouding this fighter a small amount and boost
     their attack
+  baseDamage: 0
   targetingType: 4
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}

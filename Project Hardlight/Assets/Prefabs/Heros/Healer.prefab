@@ -192,7 +192,6 @@ MonoBehaviour:
   maxHealth: 120
   maxMana: 20
   speed: 3
-  soul: {fileID: 11400000, guid: ce390fd8f0434274facaa82c3d25bbab, type: 2}
   battleManager: {fileID: 0}
 --- !u!50 &4511883402718477472
 Rigidbody2D:
@@ -259,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Healing Aura
   abilityDescription: Medium heal in small radius
+  baseDamage: 0
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
@@ -300,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Major Heal
   abilityDescription: Large heal on one unit
+  baseDamage: 0
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
@@ -480,7 +481,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &997027031370801227
 MonoBehaviour:

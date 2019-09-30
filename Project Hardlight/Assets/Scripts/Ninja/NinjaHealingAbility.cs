@@ -55,6 +55,27 @@ public class NinjaHealingAbility : Ability
             {
                 Debug.Log("Ninja projectile + heal");
 
+                //do something different based on allight values
+                Soul soul = GetComponent<Soul>();
+                if (soul != null)
+                {
+                    foreach (AllightAttribute allight in soul.allightAttributes)
+                    {
+                        switch (allight.allightType)
+                        {
+                            case AllightType.SUNLIGHT:
+                                //remember to scale based on allight.baseValue
+                                break;
+                            case AllightType.MOONLIGHT:
+                                break;
+                            case AllightType.STARLIGHT:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
                 //create projectiles
                 Vector3 blastPos = transform.position;
                 GameObject blast = Instantiate(ninjaProjecilePrefab);

@@ -57,7 +57,7 @@ public class FighterAttack : MonoBehaviour
 
         if (battleManager != null)
         {
-            battleManager.OnLevelStart += SetCurrentTarget;
+            battleManager.OnLevelStart += LevelStart;
         }
     }
 
@@ -68,7 +68,26 @@ public class FighterAttack : MonoBehaviour
     {
         if (fighter.battleManager != null)
         {
-            fighter.battleManager.OnLevelStart -= SetCurrentTarget;
+            fighter.battleManager.OnLevelStart -= LevelStart;
+        }
+    }
+
+    /// <summary>
+    /// Called when the fighter gets the signal that the battle has started
+    /// Sets targets for heroes, but not enemies
+    /// </summary>
+    private void LevelStart ()
+    {
+        //make sure everything has been initialized
+        if (fighter == null)
+        {
+            Start();
+        }
+
+        //only start attacking right away if a hero or a fighter with no enemyTrigger
+        if (fighter.team == CombatInfo.Team.Hero || (fighter.team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
+        {
+            SetCurrentTarget();
         }
     }
 
@@ -163,12 +182,6 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     public void SetCurrentTarget()
     {
-        //make sure everything has been initialized
-        if (attackParent == null)
-        {
-            Start();
-        }
-
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
         bool enemiesActive = false;
@@ -256,6 +269,8 @@ public class FighterAttack : MonoBehaviour
         OnSwitchTarget?.Invoke();
 
         //start moving toward target
+
+        //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (currentTarget == null));
         if (currentTarget != null)
         {
             fighterMove.StartMoving(currentTarget.transform);
@@ -268,7 +283,7 @@ public class FighterAttack : MonoBehaviour
     void SetWeakestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float hp = 100000000;
+        float hp = float.MaxValue;
         int index = 0;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -315,7 +330,7 @@ public class FighterAttack : MonoBehaviour
     bool SetRangedAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -345,7 +360,7 @@ public class FighterAttack : MonoBehaviour
     bool SetMeleeAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -375,7 +390,7 @@ public class FighterAttack : MonoBehaviour
     bool SetHealerAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -404,7 +419,7 @@ public class FighterAttack : MonoBehaviour
     void SetClosestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        float minDist = 1000f;
+        float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -427,7 +442,7 @@ public class FighterAttack : MonoBehaviour
     void SetOptimalHealingTarget()
     {
         Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
-        float maxHealth = 1000f;
+        float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)

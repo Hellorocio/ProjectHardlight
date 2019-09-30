@@ -31,6 +31,27 @@ public class NinjaJumpAbility : Ability
             FighterAttack thisFighter = GetComponent<FighterAttack>();
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
+                //do something different based on allight values
+                Soul soul = GetComponent<Soul>();
+                if (soul != null)
+                {
+                    foreach (AllightAttribute allight in soul.allightAttributes)
+                    {
+                        switch (allight.allightType)
+                        {
+                            case AllightType.SUNLIGHT:
+                                //remember to scale based on allight.baseValue
+                                break;
+                            case AllightType.MOONLIGHT:
+                                break;
+                            case AllightType.STARLIGHT:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
                 //teleport ninja (play poof of smoke anim)
                 Vector3 newPos = selectedFighter.transform.position;
                 newPos.x -= 0.9f;

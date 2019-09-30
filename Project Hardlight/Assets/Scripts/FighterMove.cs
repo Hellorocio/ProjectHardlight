@@ -53,6 +53,8 @@ public class FighterMove : MonoBehaviour
 
     void MoveFighter ()
     {
+        //Debug.Log("Current obj is " + gameObject.name + " | moveState is " + moveState);
+        //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (fighterAttack.currentTarget == null));
         if (moveState == MoveState.moving)
         {
             if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
@@ -68,7 +70,6 @@ public class FighterMove : MonoBehaviour
                 {
                     StopMoving();
                 }
-                
             }
         }
     }
