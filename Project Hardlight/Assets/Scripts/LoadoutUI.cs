@@ -68,6 +68,17 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
         BasicAttackAction basicAttack = (BasicAttackAction) vesselData.basicAttack;
         basicAttackName.text = basicAttack.title + " (Basic Attack)";
+        basicAttackDesc.text = basicAttack.description;
+        basicAttackRange.text = basicAttack.range.ToString();
+        basicAttackDamage.text = basicAttack.damage.ToString();
+
+        Ability abilityOne = (Ability) vesselData.abilities[0];
+        abilityOneName.text = abilityOne.abilityName;
+        abilityOneDesc.text = abilityOne.abilityDescription;
+
+        Ability abilityTwo = (Ability) vesselData.abilities[1];
+        abilityTwoName.text = abilityTwo.abilityName;
+        abilityTwoDesc.text = abilityTwo.abilityDescription;
     }
 
     public void PopulateVesselGrid()

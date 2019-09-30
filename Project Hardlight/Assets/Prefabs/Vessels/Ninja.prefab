@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 7624953586639980297}
   - component: {fileID: 7415763268338591919}
   - component: {fileID: 376086159}
+  - component: {fileID: 6920598889442749698}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Player
@@ -497,6 +498,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Shank
+  range: 950
+  damage: 950
+  description: Taurin performs a short slash using a knife hidden... somewhere.
 --- !u!114 &8409799907490501637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,6 +673,31 @@ MonoBehaviour:
   attackTargetUnit: {fileID: 0}
   ninjaProjecilePrefab: {fileID: 7194470031030509519, guid: 91f7fb06d6dd74e47b7a78ec09012f5a,
     type: 3}
+--- !u!114 &6920598889442749698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 21300000, guid: f4c8529a3bc734d4c88b0f401bc2e9a8, type: 3}
+  vesselName: Taurin
+  title: Stealthtank
+  description: Taurin grew up as an urchin on the streets of CITY. He has gadgets
+    that help him with his subterfuge.
+  baseHealth: 100
+  baseMana: 100
+  baseAbility: 100
+  baseMovementSpeed: 100
+  basicAttack: {fileID: 6390960235825343902}
+  abilities:
+  - {fileID: 7415763268338591919}
+  - {fileID: 376086159}
 --- !u!1 &6799968679881366909
 GameObject:
   m_ObjectHideFlags: 0
