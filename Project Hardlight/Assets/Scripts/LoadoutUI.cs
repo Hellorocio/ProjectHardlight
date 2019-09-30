@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+using TMPro;
+
 public class LoadoutUI : Singleton<LoadoutUI>
 {
 
@@ -10,6 +13,29 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     public GameObject soulIconPrefab;
     public GameObject soulGrid;
+
+    public GameObject detailPane;
+
+    ////////////// Vessel detail
+    public TextMeshProUGUI nameText;
+    public Image vesselImage;
+
+    public TextMeshProUGUI healthNumber;
+    public TextMeshProUGUI manaNumber;
+    public TextMeshProUGUI abilityNumber;
+    public TextMeshProUGUI speedNumber;
+
+    public TextMeshProUGUI basicAttackName;
+    public TextMeshProUGUI basicAttackDesc;
+    public TextMeshProUGUI basicAttackDamage;
+    public TextMeshProUGUI basicAttackRange;
+
+    public TextMeshProUGUI abilityOneName;
+    public TextMeshProUGUI abilityOneDesc;
+    public TextMeshProUGUI abilityTwoName;
+    public TextMeshProUGUI abilityTwoDesc;
+
+    ///////////////////
 
     public void Refresh()
     {
@@ -26,6 +52,22 @@ public class LoadoutUI : Singleton<LoadoutUI>
     void Update()
     {
         
+    }
+
+    public void SetDetailPane(GameObject vessel)
+    {
+        VesselData vesselData = vessel.GetComponent<VesselData>();
+        
+        nameText.text = vesselData.vesselName;
+        vesselImage.sprite = vesselData.appearance;
+
+        healthNumber.text = vesselData.baseHealth.ToString();
+        manaNumber.text = vesselData.baseMana.ToString();
+        abilityNumber.text = vesselData.baseAbility.ToString();
+        speedNumber.text = vesselData.baseMovementSpeed.ToString();
+
+        BasicAttackAction basicAttack = (BasicAttackAction) vesselData.basicAttack;
+        basicAttackName.text = basicAttack.title + " (Basic Attack)";
     }
 
     public void PopulateVesselGrid()

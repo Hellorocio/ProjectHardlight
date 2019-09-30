@@ -17,4 +17,9 @@ public class VesselIcon : MonoBehaviour
         vesselData = vessel.GetComponent<VesselData>();
         GetComponent<Image>().sprite = vesselData.appearance;
     }
+
+    public void SelectDetail()
+    {
+        LoadoutUI.Instance.SetDetailPane(vessel);
+    }
 }

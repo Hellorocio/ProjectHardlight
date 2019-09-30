@@ -13,6 +13,7 @@ public class VesselData : MonoBehaviour
 
     public int baseHealth = 100;
     public int baseMana = 100;
+    public int baseAbility = 100;
     public int baseMovementSpeed = 100;
 
     public MonoBehaviour basicAttack;
