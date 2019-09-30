@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 7810345277815133952}
   - component: {fileID: 8211867109965351344}
   - component: {fileID: 7301222697203587702}
+  - component: {fileID: 2270324323290784006}
   m_Layer: 0
   m_Name: Alchemist
   m_TagString: Player
@@ -779,6 +780,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c84fea9525158d48ae67f0927e9e92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Vial Toss
+  range: 100
+  damage: 10
+  description: Eoea tosses out small vials that deal damage in a small radius.
   alchemistBasicAttackPrefab: {fileID: 4242717506198124470, guid: 7ef8b8ea8bbd7ed4a9127ce3af71d9a4,
     type: 3}
   damageRadius: 2
@@ -955,6 +960,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testing: 0
   followingMoveOrder: 0
+--- !u!114 &2270324323290784006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065075115998762955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 21300000, guid: bbbd9e56bf16f06448510c65e2fc68e3, type: 3}
+  vesselName: Eoea
+  title: Forest Alchemist
+  description: Eoea's selection of concoctions can provide a mix of damage, utility,
+    and buffing.
+  baseHealth: 90
+  baseMana: 50
+  baseAbility: 100
+  baseMovementSpeed: 100
+  basicAttack: {fileID: 8370368706987180497}
+  abilities:
+  - {fileID: 3598691643150063936}
+  - {fileID: 7810345277815133952}
 --- !u!1 &9109577280019353254
 GameObject:
   m_ObjectHideFlags: 0
