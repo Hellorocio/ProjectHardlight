@@ -49,11 +49,15 @@ public class Fighter : MonoBehaviour
     public delegate void MaxManaReached(Fighter fighter);
     public event MaxManaReached OnMaxMana;
 
-    //have death event
+    //health changed event
+    public delegate void HealthChanged(float health);
+    public event HealthChanged OnHealthChanged;
+
+    //death event
     public delegate void FighterDeath(Fighter fighter);
     public event FighterDeath OnFighterDeath;
 
-    //have lose mana event (only used by fighterUseAbilityPopup right now)
+    //lose mana event (only used by fighterUseAbilityPopup right now)
     public delegate void FighterLoseMana(Fighter fighter);
     public event FighterLoseMana OnLoseMana;
 
@@ -230,8 +234,11 @@ public class Fighter : MonoBehaviour
             //death event
             OnFighterDeath?.Invoke(this);
         }
-
+        
         SetHealthUI();
+
+        //OnHealthChanged event
+        OnHealthChanged?.Invoke(health);
     }
 
     IEnumerator HitColorChanger()
@@ -250,6 +257,9 @@ public class Fighter : MonoBehaviour
             health = maxHealth;
         }
         SetHealthUI();
+
+        //OnHealthChanged event
+        OnHealthChanged?.Invoke(health);
     }
 
     /// <summary>
@@ -310,7 +320,10 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void SetHealthUI()
     {
-        healthUI.GetComponent<Text>().text = ((int)health).ToString();
+        if (healthUI != null)
+        {
+            healthUI.GetComponent<Text>().text = ((int)health).ToString();
+        }
     }
 
     void SetManaUI()
