@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class HeroPlacer : MonoBehaviour
 {
-    public GameObject mercenaryPrefab; // hero 1 or 2
-    public GameObject magePrefab; // hero 3 or 4
-    public GameObject healerPrefab; // hero 5 or 6
     public GameObject tmpPrefab;
     private GameObject tmpInstance;
     private GameObject currentHeroPrefab;
@@ -14,13 +11,8 @@ public class HeroPlacer : MonoBehaviour
     private List<Fighter> heroScripts = new List<Fighter>();
     private int numHeroesLeftToPlace = -1;
     private int index = 0;
-    public SoulStats soul1;
-    public SoulStats soul2;
-    public SoulStats soul3;
-    public SoulStats soul4;
-    public SoulStats soul5;
-    public SoulStats soul6;
     private GameObject enemyParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,16 +30,8 @@ public class HeroPlacer : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject h = Instantiate(heroes[index], tmpInstance.transform.position, tmpInstance.transform.rotation);
-                h.transform.parent = GameObject.Find("Players").transform;
+                h.transform.parent = GameObject.Find("Vessels").transform;
                 heroScripts.Add(h.GetComponent<Fighter>());
-
-                //Debug.Log(h.GetComponent<Fighter>().soul);
-
-                //heroScripts[heroScripts.Count - 1].enabled = false;
-                //h.GetComponent<FighterAttack>().enabled = false;
-                //h.GetComponent<FighterMove>().enabled = false;
-                //h.GetComponent<Fighter>().enabled = false;
-
                 Destroy(tmpInstance);
                 numHeroesLeftToPlace--;
                 index++;
@@ -57,21 +41,10 @@ public class HeroPlacer : MonoBehaviour
         }
     }
 
-
-    //public void StartHeroPlacement(List<Vector2> list)
-    //{
-        //heroes = list;
-        //numHeroesLeftToPlace = list.Count;
-        //NextHeroPlacement();
-        
-
-    //}
-
     public void StartHeroPlacement(List<GameObject> prefabs)
     {
         heroes = prefabs;
         numHeroesLeftToPlace = prefabs.Count;
-        //Debug.Log("COunt is " + prefabs.Count);
         NextHeroPlacement();
         
 
@@ -83,11 +56,9 @@ public class HeroPlacer : MonoBehaviour
     {
         if (numHeroesLeftToPlace > 0)
         {
-            //Debug.Log("Heores left ot place" + numHeroesLeftToPlace);
             tmpInstance = Instantiate(tmpPrefab);
             tmpInstance.GetComponent<SpriteRenderer>().sprite = heroes[index].GetComponentInChildren<SpriteRenderer>().sprite;
             tmpInstance.GetComponent<SpriteRenderer>().color = heroes[index].GetComponentInChildren<SpriteRenderer>().color;
-            //GetHeroPrefabType((int)heroes[index].x);
         } else
         {
             if(tmpInstance != null)
@@ -100,35 +71,12 @@ public class HeroPlacer : MonoBehaviour
                 tmpPrefab.SetActive(false);
             }
 
-            gameObject.SetActive(false);
 
+            numHeroesLeftToPlace = -1;
             BattleManager battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
             battleManager.StartBattle();
+            gameObject.SetActive(false);
         }
 
     }
-
-    /*
-    private void GetHeroPrefabType(int i)
-    {
-        if (i < 3) // hero is a merc
-        {
-            currentHeroPrefab = mercenaryPrefab;
-            tmpInstance.GetComponent<SpriteRenderer>().sprite = mercenaryPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
-            tmpInstance.GetComponent<SpriteRenderer>().color = mercenaryPrefab.GetComponentInChildren<SpriteRenderer>().color;
-        }
-        else if (i < 5) // hero is a mage
-        {
-            currentHeroPrefab = magePrefab;
-            tmpInstance.GetComponent<SpriteRenderer>().sprite = magePrefab.GetComponentInChildren<SpriteRenderer>().sprite;
-            tmpInstance.GetComponent<SpriteRenderer>().color = magePrefab.GetComponentInChildren<SpriteRenderer>().color;
-        }
-        else if (i < 7) // hero is a healer
-        {
-            currentHeroPrefab = healerPrefab;
-            tmpInstance.GetComponent<SpriteRenderer>().sprite = healerPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
-            tmpInstance.GetComponent<SpriteRenderer>().color = healerPrefab.GetComponentInChildren<SpriteRenderer>().color;
-        }
-    }
-    */
 }

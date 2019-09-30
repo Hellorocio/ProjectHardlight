@@ -5,6 +5,9 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     public GameObject loadoutUI;
+    public GameObject loadoutUIButton;
+    public GameObject heroPlacer;
+    public List<GameObject> DEBUGPREFABS; // delete this when no longer needed
 
     public void ToggleLoudoutUI()
     {
@@ -18,5 +21,15 @@ public class UIManager : Singleton<UIManager>
         {
             loadoutUI.GetComponent<LoadoutUI>().Refresh();
         }
+    }
+
+    public void StartHeroPlacementFromLoadout()
+    {
+        loadoutUI.SetActive(false);
+        loadoutUIButton.SetActive(false);
+        heroPlacer.SetActive(true);
+
+        heroPlacer.GetComponent<HeroPlacer>().StartHeroPlacement(DEBUGPREFABS); // This method requires a list of gameobject representing each selected hero
+
     }
 }

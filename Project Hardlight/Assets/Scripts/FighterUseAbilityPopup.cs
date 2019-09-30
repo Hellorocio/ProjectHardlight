@@ -54,7 +54,7 @@ public class FighterUseAbilityPopup : MonoBehaviour
     /// </summary>
     void SubscribeFighterEvents()
     {
-        GameObject playerParent = GameObject.Find("Players");
+        GameObject playerParent = GameObject.Find("Vessels");
         Fighter[] fighters = playerParent.GetComponentsInChildren<Fighter>();
         foreach (Fighter f in fighters)
         {
