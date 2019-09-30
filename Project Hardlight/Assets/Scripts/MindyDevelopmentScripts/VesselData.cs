@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "Battle/Vessel", order = 1)]
-public class VesselData : ScriptableObject
+public class VesselData : MonoBehaviour
 {
     public Sprite appearance;
 

@@ -59,4 +59,10 @@ public class Soul : MonoBehaviour
 
         return description;
     }
+
+    public int GetMaxHealthBonus(int baseMaxHealth)
+    {
+        int bonusHealth = (int) ((level * SoulManager.Instance.flatHealthScale) + (level * SoulManager.Instance.percentHealthScale));
+        return bonusHealth;
+    }
 }

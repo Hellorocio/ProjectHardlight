@@ -325,4 +325,11 @@ public class Fighter : MonoBehaviour
     {
         selectedUI.SetActive(active);
     }
+
+    // TODO finish this
+    public int GetMaxHealth()
+    {
+        int baseHealth = GetComponent<VesselData>().baseHealth;
+        return baseHealth + soul.GetMaxHealthBonus(baseHealth);
+    }
 }

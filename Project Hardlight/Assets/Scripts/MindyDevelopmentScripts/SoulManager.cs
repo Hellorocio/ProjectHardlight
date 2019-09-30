@@ -6,6 +6,19 @@ public class SoulManager : Singleton<SoulManager>
 {
     public List<Sprite> soulAppearances;
 
+    // Adjust per level gains per soul
+    public float flatHealthScale;
+    public float percentHealthScale;
+
+    public float flatAbilityScale;
+    public float percentAbilityScale;
+
+    public float flatAttackDamageScale;
+    public float percentAttackDamgeScale;
+
+    public float flatAttackSpeedScale;
+    public float percentAttackSpeedScale;
+
     public Soul GenerateSoul()
     {
         Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;
@@ -102,5 +115,4 @@ public class SoulManager : Singleton<SoulManager>
 
         return allightAttributes;
     }
-
 }
