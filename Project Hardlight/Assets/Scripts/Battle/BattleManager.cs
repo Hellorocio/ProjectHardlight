@@ -242,6 +242,10 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by the ability buttons to start casting an ability
+    /// </summary>
+    /// <param name="abilityNum"></param>
     public void UseAbility(int abilityNum)
     {
         if (selectedHero != null)
