@@ -205,38 +205,40 @@ public class BattleManager : MonoBehaviour
     void UpdateClickedHero()
     {
         Vector3 pos = Input.mousePosition;
-        Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
-        if (hitCollider != null) // if click hit the commandUI element, don't do anything
+        Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+        Fighter clickedHero = null;
+        foreach (Collider2D collider in colliders)
         {
-            Debug.Log("Update clicked hero go name: " + hitCollider.gameObject.name);
-            Fighter clickedFighter = hitCollider.gameObject.GetComponent<Fighter>();
+            Fighter clickedFighter = collider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
             {
-                if (clickedFighter.Equals(selectedHero))
-                {
-                    //If the player double-clicks on a hero then we should focus on that hero
-                    if (doubleClickPrimer && doubleClickTimer <= doubleClickTimeLimit)
-                    {
-                        //Debug.Log("Double-clicked Hero");
-                        if(camController != null) //Safety check to avoid breaking other scenes while testing
-                        {
-                            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                            worldPoint.z = camController.transform.position.z;
-                            camController.transform.position = worldPoint;
-                            camController.gameObject.GetComponent<Camera>().orthographicSize = camController.zoomMin;
-                        }
-                    }
-                } else
-                {
-                    SetSelectedHero(clickedFighter);
-                }
-                doubleClickPrimer = true;
-                doubleClickTimer = 0;
+                clickedHero = clickedFighter;
+                break;
             }
-            else
+        }
+
+        if (clickedHero != null)
+        {
+            if (clickedHero.Equals(selectedHero))
             {
-                DeselectHero();
+                //If the player double-clicks on a hero then we should focus on that hero
+                if (doubleClickPrimer && doubleClickTimer <= doubleClickTimeLimit)
+                {
+                    //Debug.Log("Double-clicked Hero");
+                    if(camController != null) //Safety check to avoid breaking other scenes while testing
+                    {
+                        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        worldPoint.z = camController.transform.position.z;
+                        camController.transform.position = worldPoint;
+                        camController.gameObject.GetComponent<Camera>().orthographicSize = camController.zoomMin;
+                    }
+                }
+            } else
+            {
+                SetSelectedHero(clickedHero);
             }
+            doubleClickPrimer = true;
+            doubleClickTimer = 0;
         }
     }
 
@@ -341,6 +343,7 @@ public class BattleManager : MonoBehaviour
         inputState = InputState.HeroSelected;
 
         //Debug.Log(hero.name);
+        commandsUI.gameObject.SetActive(true);
         commandsUI.EnableUI(hero.gameObject);
         commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.maxMana);
         OnSwitchTargetEvent();
