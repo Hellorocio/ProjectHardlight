@@ -15,11 +15,16 @@ public class GameManager : Singleton<GameManager>
 
     public void StartCampaign()
     {
+        // Generate 3 random souls
         for (int i = 0; i < 3; i++)
         {
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
+
+        // UI init
+        LoadoutUI.Instance.PopulateVesselGrid();
+        LoadoutUI.Instance.PopulateSoulGrid();
     }
 
     public void LoadScene(int scene)

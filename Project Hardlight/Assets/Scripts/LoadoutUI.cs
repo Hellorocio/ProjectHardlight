@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadoutUI : MonoBehaviour
+public class LoadoutUI : Singleton<LoadoutUI>
 {
 
     public GameObject vesselIconPrefab;
     public GameObject vesselGrid;
 
+    public GameObject soulIconPrefab;
+    public GameObject soulGrid;
+
+    public void Initialize()
+    {
+        PopulateVesselGrid();
+        PopulateSoulGrid();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        PopulateVesselGrid();
     }
 
     // Update is called once per frame
@@ -32,6 +40,21 @@ public class LoadoutUI : MonoBehaviour
             GameObject vesselIcon = Instantiate(vesselIconPrefab);
             vesselIcon.GetComponent<VesselIcon>().SetVessel(vessel);
             vesselIcon.transform.SetParent(vesselGrid.transform);
+        }
+    }
+
+    public void PopulateSoulGrid()
+    {
+        // Destroy existing
+        foreach (Transform child in soulGrid.transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        // Create per vessel
+        foreach (Soul soul in GameManager.Instance.souls) {
+            GameObject soulIcon = Instantiate(soulIconPrefab);
+            soulIcon.GetComponent<SoulIcon>().SetSoul(soul);
+            soulIcon.transform.SetParent(soulGrid.transform);
         }
     }
 }
