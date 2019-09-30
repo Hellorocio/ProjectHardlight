@@ -44,7 +44,7 @@ public class FighterAttack : MonoBehaviour
         }
         else
         {
-            attackParent = GameObject.Find("Players");
+            attackParent = GameObject.Find("Vessels");
         }
     }
 

@@ -35,6 +35,8 @@ public class BattleManager : MonoBehaviour
     private bool doubleClickPrimer;
     private float doubleClickTimeLimit = 0.3f;
 
+    public List<GameObject> selectedVessels;
+
     public void Start()
     {
         GameObject enemyParent = GameObject.Find("Enemies");

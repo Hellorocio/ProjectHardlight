@@ -49,7 +49,7 @@ public class Fighter : MonoBehaviour
     public delegate void MaxManaReached(Fighter fighter);
     public event MaxManaReached OnMaxMana;
 
-    //health changed event
+    //health changed event- used by HealthBar
     public delegate void HealthChanged(float health);
     public event HealthChanged OnHealthChanged;
 
@@ -60,6 +60,11 @@ public class Fighter : MonoBehaviour
     //lose mana event (only used by fighterUseAbilityPopup right now)
     public delegate void FighterLoseMana(Fighter fighter);
     public event FighterLoseMana OnLoseMana;
+
+    //mana changed event- used by ManaBar
+    public delegate void ManaChanged(float mana);
+    public event ManaChanged OnManaChanged;
+
 
     // Start is called before the first frame update
     void Start()
@@ -286,6 +291,9 @@ public class Fighter : MonoBehaviour
             }
         }
 
+        //mana changed event
+        OnManaChanged?.Invoke(mana);
+
         SetManaUI();
     }
 
@@ -301,6 +309,9 @@ public class Fighter : MonoBehaviour
 
         //lose mana event
         OnLoseMana?.Invoke(this);
+
+        //mana changed event
+        OnManaChanged?.Invoke(mana);
 
         SetManaUI();
     }
