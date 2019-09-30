@@ -7,7 +7,7 @@ public class MindyLevelScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       GameManager.Instance.StartCampaign(); 
+       GameManager.Instance.StartCampaign();
     }
 
     // Update is called once per frame

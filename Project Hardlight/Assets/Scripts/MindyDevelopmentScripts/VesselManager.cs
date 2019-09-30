@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VesselManager : MonoBehaviour
+public class VesselManager : Singleton<VesselManager>
 {
+
+    public List<GameObject> vessels;
+
     // Start is called before the first frame update
     void Start()
     {
