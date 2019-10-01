@@ -11,11 +11,6 @@ public class GameManager : Singleton<GameManager>
 
     public GameState gameState;
 
-    [HideInInspector]
-    public bool[] unlockedLevels = {true,false,false};
-    public bool[] levelsBeaten = {false,false,false};
-    public int currentLevel;
-
     public List<Soul> souls;
 
     public string mapSceneName;
@@ -121,19 +116,10 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(scene);
     }
 
-    public void UnlockLevel(int index)
+    public void EnterBattleScene(int level)
     {
-        unlockedLevels[index] = true;
-    }
-
-    public void LevelSelect(int index)
-    {
-        currentLevel = index;
-    }
-    public void EnterBattleScene()
-    {
-        Debug.Log("GameManager | Starting to load level number " + currentLevel);
-        switch(currentLevel)
+        Debug.Log("GameManager | Starting to load level number " + level + " (Not the same as scene number)");
+        switch(level)
         {
             case 0:
                 LoadScene(2);
@@ -143,20 +129,6 @@ public class GameManager : Singleton<GameManager>
                 break;
             case 2:
                 LoadScene(4);
-                break;
-        }
-    }
-
-    public void WinLevel()
-    {
-        levelsBeaten[currentLevel] = true;
-        switch(currentLevel)
-        {
-            case 0:
-                unlockedLevels[1] = true;
-                break;
-            case 1:
-                unlockedLevels[2] = true;
                 break;
         }
     }

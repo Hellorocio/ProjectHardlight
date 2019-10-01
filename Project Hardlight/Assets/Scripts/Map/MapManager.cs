@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
     // Start is called before the first frame update
     public Node[] nodes;
     public GameObject Party;
     public GameObject[] panels;
+    
+    [HideInInspector]
+    public bool[] unlockedLevels = {true,false,false};
+    public bool[] levelsBeaten = {false,false,false};
+    public int currentLevel;
 
     public TextAsset levelStartDialogue;
 
@@ -16,14 +21,14 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance.levelsBeaten[2] == true)
+        if (levelsBeaten[2] == true)
         {
             GameManager.Instance.LoadScene(5);
         }
 
         for (int i = 0; i < nodes.Length; i++)
         {
-            nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
+            nodes[i].unlocked = unlockedLevels[i];
         }
         Party.transform.position = nodes[currentNode].transform.position;
         panels[currentNode].SetActive(true);
@@ -112,7 +117,7 @@ public class MapManager : MonoBehaviour
     }
     
     public void updatePanel(){
-        if(GameManager.Instance.levelsBeaten[currentNode] == true){
+        if(levelsBeaten[currentNode] == true){
             if(panels[currentNode].GetComponentInChildren<Button>()){
             panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
             }
@@ -122,11 +127,35 @@ public class MapManager : MonoBehaviour
 
     public void go(int index){
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
-        GameManager.Instance.LevelSelect(index);
+        LevelSelect(index);
     }
 
     public void startLevel()
     {
-        GameManager.Instance.EnterBattleScene();
+        GameManager.Instance.EnterBattleScene(currentLevel);
+    }
+    
+    public void WinLevel()
+    {
+        levelsBeaten[currentLevel] = true;
+        switch(currentLevel)
+        {
+            case 0:
+                unlockedLevels[1] = true;
+                break;
+            case 1:
+                unlockedLevels[2] = true;
+                break;
+        }
+    }
+    
+    public void UnlockLevel(int index)
+    {
+        unlockedLevels[index] = true;
+    }
+
+    public void LevelSelect(int index)
+    {
+        currentLevel = index;
     }
 }

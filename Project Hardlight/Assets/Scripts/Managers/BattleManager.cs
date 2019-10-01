@@ -45,11 +45,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Update()
     {
-        //Debug.Log("Input state is " + inputState);
-        /////////////////// Idle
-
-        
-
         if(doubleClickTimer <= doubleClickTimeLimit)
         {
             doubleClickTimer += Time.deltaTime;
@@ -375,7 +370,7 @@ public class BattleManager : Singleton<BattleManager>
     }
 
     /// <summary>
-    /// Invokes the OnLevelStart event (called by heroPlacer when all heros have been placed)
+    /// Invokes the OnLevelStart event (StartBattle is called by heroPlacer when all heros have been placed)
     /// </summary>
     public void StartBattle ()
     {
@@ -388,7 +383,6 @@ public class BattleManager : Singleton<BattleManager>
             f.gameObject.SetActive(false);
             f.gameObject.SetActive(true);
         }
-
 
         OnLevelStart?.Invoke();
         battleStarted = true;

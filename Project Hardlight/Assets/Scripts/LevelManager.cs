@@ -45,7 +45,7 @@ public class LevelManager : Singleton<LevelManager>
         if (herosWin)
         {
             dialoguePanel.text = winText;
-            GameManager.Instance.WinLevel();
+            MapManager.Instance.WinLevel();
         }
         else
         {
