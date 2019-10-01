@@ -372,9 +372,7 @@ MonoBehaviour:
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1549314201}
-  maxHealth: 100
-  maxMana: 30
-  speed: 1
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!61 &515426205
 BoxCollider2D:
@@ -414,6 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: 
+  range: 0
+  damage: 0
+  description: 
 --- !u!114 &515426207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2873,6 +2875,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: 
+  range: 0
+  damage: 0
+  description: 
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
     type: 3}
   spawnPoint: {fileID: 0}
@@ -3061,7 +3067,5 @@ MonoBehaviour:
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1903524394}
-  maxHealth: 100
-  maxMana: 30
-  speed: 1
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
