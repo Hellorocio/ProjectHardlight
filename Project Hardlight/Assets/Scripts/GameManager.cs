@@ -45,15 +45,20 @@ public class GameManager : Singleton<GameManager>
 
     public void StartCampaign()
     {
+        GrantRandomSouls(3);
+
+        UIManager.Instance.battleUI.SetActive(false);
+        SceneManager.LoadScene(firstSceneName);
+    }
+
+    public void GrantRandomSouls(int qty)
+    {
         // Generate 3 random souls
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < qty; i++)
         {
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
-
-        UIManager.Instance.battleUI.SetActive(false);
-        SceneManager.LoadScene(firstSceneName);
     }
 
     public void InitializeMap()
