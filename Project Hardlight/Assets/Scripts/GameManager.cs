@@ -18,6 +18,11 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject battleManager;
 
+    public TextAsset levelStartDialogue;
+
+    // Used to load dialogue after something for example
+    int sceneToLoad = -1;
+
     // Map state
     public bool[] unlockedLevels = {true,false,false};
     public bool[] levelsBeaten = {false,false,false};
@@ -41,6 +46,7 @@ public class GameManager : Singleton<GameManager>
     public void Initialize()
     {
         ClearUI();
+        DialogueManager.Instance.Initialize();
         gameState = GameState.START;
     }
 
@@ -105,6 +111,22 @@ public class GameManager : Singleton<GameManager>
         gameState = GameState.FIGHTING;
     }
     
+    public void EndFighting(bool win)
+    {
+        if (win)
+        {
+            Debug.Log("heros win");
+        }
+        else
+        {
+            Debug.Log("heros lose");
+        }
+
+        SetCameraControls(false);
+        ClearUI();
+        LoadScene(mapSceneName);
+    }
+
     public void SetCameraControls(bool on)
     {
         BattleManager.Instance.camController.Initialize();
@@ -127,14 +149,24 @@ public class GameManager : Singleton<GameManager>
         switch(level)
         {
             case 0:
-                LoadScene(2);
+                sceneToLoad = 8;
                 break;
             case 1:
-                LoadScene(3);
+                sceneToLoad = 1;
                 break;
             case 2:
-                LoadScene(4);
+                sceneToLoad = 4;
                 break;
         }
+
+        DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
+        DialogueManager.Instance.StartDialogue(levelStartDialogue);
+    }
+
+    private void LoadSceneAfterDialogue()
+    {
+        ClearUI();
+        gameState = GameState.CUTSCENE;
+        LoadScene(sceneToLoad);
     }
 }

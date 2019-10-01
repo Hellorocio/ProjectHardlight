@@ -29,8 +29,7 @@ public class DialogueManager : Singleton<DialogueManager>
     bool oldRInput;
 
     IEnumerator dialogueLoop = null;
-
-    private void Start()
+    public void Initialize()
     {
         // convert profileDatas -> profileDict
         profileDict = new Dictionary<string, Sprite>();
