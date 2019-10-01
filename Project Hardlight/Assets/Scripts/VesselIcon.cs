@@ -20,6 +20,9 @@ public class VesselIcon : MonoBehaviour
 
     public void SelectDetail()
     {
-        LoadoutUI.Instance.SetDetailPane(vessel);
+        if (vessel != null)
+        {
+            LoadoutUI.Instance.SetDetailPane(vessel);
+        }
     }
 }
