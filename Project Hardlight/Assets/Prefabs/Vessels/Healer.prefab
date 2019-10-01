@@ -287,8 +287,9 @@ GameObject:
   - component: {fileID: 4511883402718477472}
   - component: {fileID: 1920236720357733704}
   - component: {fileID: 3674736732129029270}
-  - component: {fileID: 2951533379305144079}
   - component: {fileID: 6465402585232177096}
+  - component: {fileID: -4652146166418453852}
+  - component: {fileID: 2951533379305144079}
   - component: {fileID: 634472076}
   - component: {fileID: 984710160}
   - component: {fileID: 5407574051919546182}
@@ -363,6 +364,7 @@ MonoBehaviour:
   maxHealth: 120
   maxMana: 20
   speed: 3
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!50 &4511883402718477472
 Rigidbody2D:
@@ -413,8 +415,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02122204c3b2f84ea69899c7942a9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Minor Heal
+  range: 7
+  damage: 10
+  description: Heals a nearby ally a small amount
   healBasicAction: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
     type: 3}
+--- !u!114 &6465402585232177096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061916897697390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fa96d916bf8974f8bcf7ae19d37e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityList:
+  - {fileID: 2951533379305144079}
+  - {fileID: 634472076}
+--- !u!114 &-4652146166418453852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061916897697390927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 21300000, guid: 4d854d9fbdd524123916f07e9ffe6377, type: 3}
+  vesselName: The Best Healer
+  title: Healer
+  description: A Healer
+  baseHealth: 120
+  baseMana: 20
+  baseAbility: 100
+  baseMovementSpeed: 200
+  basicAttack: {fileID: 3674736732129029270}
+  abilities:
+  - {fileID: 2951533379305144079}
+  - {fileID: 634472076}
 --- !u!114 &2951533379305144079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,21 +487,6 @@ MonoBehaviour:
     type: 3}
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
---- !u!114 &6465402585232177096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061916897697390927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09fa96d916bf8974f8bcf7ae19d37e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityList:
-  - {fileID: 2951533379305144079}
-  - {fileID: 634472076}
 --- !u!114 &634472076
 MonoBehaviour:
   m_ObjectHideFlags: 0

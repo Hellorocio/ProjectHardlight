@@ -448,6 +448,7 @@ MonoBehaviour:
   maxHealth: 120
   maxMana: 50
   speed: 4
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!50 &6390960235825343899
 Rigidbody2D:
@@ -690,10 +691,10 @@ MonoBehaviour:
   title: Stealthtank
   description: Taurin grew up as an urchin on the streets of CITY. He has gadgets
     that help him with his subterfuge.
-  baseHealth: 100
-  baseMana: 100
+  baseHealth: 120
+  baseMana: 50
   baseAbility: 100
-  baseMovementSpeed: 100
+  baseMovementSpeed: 400
   basicAttack: {fileID: 6390960235825343902}
   abilities:
   - {fileID: 7415763268338591919}

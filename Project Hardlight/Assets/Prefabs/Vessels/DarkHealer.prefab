@@ -107,9 +107,10 @@ GameObject:
   - component: {fileID: 7270942199044395875}
   - component: {fileID: 843159897424399992}
   - component: {fileID: 7824817557037253904}
-  - component: {fileID: 3832263636368527048}
+  - component: {fileID: 4366446196051425285}
   - component: {fileID: 3978024837703019153}
   - component: {fileID: 626554484465186443}
+  - component: {fileID: 3832263636368527048}
   - component: {fileID: 6536905676106359982}
   m_Layer: 0
   m_Name: DarkHealer
@@ -182,6 +183,7 @@ MonoBehaviour:
   maxHealth: 90
   maxMana: 30
   speed: 1
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!114 &7543505179402891404
 MonoBehaviour:
@@ -211,9 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbe8cb2ef157964cbd2df42ee3851a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Hurtful Aura
+  range: 3
+  damage: 5
+  description: Harms enemies in a radius around the Dark Healer
   DarkHealerBasicAttackPrefab: {fileID: 2783819019849837299, guid: 12a69f335242af148bbf4b20857c0966,
     type: 3}
-  damageRadius: 5
+  damageRadius: 3
   animationDelay: 2
 --- !u!50 &843159897424399992
 Rigidbody2D:
@@ -251,6 +257,81 @@ MonoBehaviour:
   abilityList:
   - {fileID: 3978024837703019153}
   - {fileID: 626554484465186443}
+--- !u!114 &4366446196051425285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 21300000, guid: 00fe7739e5b579e4ab254f2aea9bb4c7, type: 3}
+  vesselName: The Darkest Healer
+  title: Dark Healer
+  description: A Dark Healer
+  baseHealth: 90
+  baseMana: 30
+  baseAbility: 100
+  baseMovementSpeed: 100
+  basicAttack: {fileID: 7270942199044395875}
+  abilities:
+  - {fileID: 3978024837703019153}
+  - {fileID: 626554484465186443}
+--- !u!114 &3978024837703019153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9046bfc0f876a544878393a429e869b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Dark Blast
+  abilityDescription: Harms enemies and heals allies in path of projectile
+  baseDamage: 20
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 10
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
+  magicBlastPrefab: {fileID: 957582598227813440, guid: a1f85932a3e26e541a8ab8bca1263817,
+    type: 3}
+--- !u!114 &626554484465186443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256569818235868055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Dark Prison
+  abilityDescription: Does medium damage and reduces enemy's defense
+  baseDamage: 8
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 8
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackDebuff: {fileID: 11400000, guid: 1ccd863635694be4798be5d765e3130d, type: 2}
+  attackTargetUnit: {fileID: 0}
+  lightPrisonPrefab: {fileID: 111863882295428768, guid: 042983ed13e121d449a72998f0d26377,
+    type: 3}
 --- !u!82 &3832263636368527048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -347,57 +428,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3978024837703019153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256569818235868055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9046bfc0f876a544878393a429e869b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Dark Blast
-  abilityDescription: Harms enemies and heals allies in path of projectile
-  baseDamage: 20
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 10
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  attackTargetUnit: {fileID: 0}
-  magicBlastPrefab: {fileID: 957582598227813440, guid: a1f85932a3e26e541a8ab8bca1263817,
-    type: 3}
---- !u!114 &626554484465186443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256569818235868055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Dark Prison
-  abilityDescription: Does medium damage and reduces enemy's defense
-  baseDamage: 8
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 8
-  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  attackDebuff: {fileID: 11400000, guid: 1ccd863635694be4798be5d765e3130d, type: 2}
-  attackTargetUnit: {fileID: 0}
-  lightPrisonPrefab: {fileID: 111863882295428768, guid: 042983ed13e121d449a72998f0d26377,
-    type: 3}
 --- !u!114 &6536905676106359982
 MonoBehaviour:
   m_ObjectHideFlags: 0

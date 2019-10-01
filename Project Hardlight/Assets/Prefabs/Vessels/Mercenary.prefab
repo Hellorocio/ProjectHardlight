@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3171901982325591322}
   - component: {fileID: 3171901982325591325}
   - component: {fileID: 6339831964682229067}
+  - component: {fileID: -6285409649584999982}
   - component: {fileID: 3171901982325591320}
   - component: {fileID: 382628994}
   - component: {fileID: 382628995}
@@ -170,6 +171,7 @@ MonoBehaviour:
   maxHealth: 150
   maxMana: 40
   speed: 1
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!50 &3171901982325591325
 Rigidbody2D:
@@ -208,6 +210,30 @@ MonoBehaviour:
   basicAttackAction: {fileID: 3171901982325591320}
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
+--- !u!114 &-6285409649584999982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171901982325591327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 21300000, guid: 98dcd6523ab3f4292b3e84c467290509, type: 3}
+  vesselName: Strong Boi
+  title: Mercenary
+  description: A Mercenary
+  baseHealth: 150
+  baseMana: 40
+  baseAbility: 100
+  baseMovementSpeed: 100
+  basicAttack: {fileID: 3171901982325591320}
+  abilities:
+  - {fileID: 6846174989839160682}
+  - {fileID: 382628994}
 --- !u!114 &3171901982325591320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +246,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Strike
+  range: 2
+  damage: 6
+  description: Strikes a nearby enemy for a small amount of damage
 --- !u!114 &382628994
 MonoBehaviour:
   m_ObjectHideFlags: 0
