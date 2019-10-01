@@ -9,11 +9,6 @@ public class MapManager : Singleton<MapManager>
     public Node[] nodes;
     public GameObject Party;
     public GameObject[] panels;
-    
-    [HideInInspector]
-    public bool[] unlockedLevels = {true,false,false};
-    public bool[] levelsBeaten = {false,false,false};
-    public int currentLevel;
 
     public TextAsset levelStartDialogue;
 
@@ -21,14 +16,14 @@ public class MapManager : Singleton<MapManager>
 
     void Start()
     {
-        if (levelsBeaten[2] == true)
+        if (GameManager.Instance.levelsBeaten[2] == true)
         {
             GameManager.Instance.LoadScene(5);
         }
 
         for (int i = 0; i < nodes.Length; i++)
         {
-            nodes[i].unlocked = unlockedLevels[i];
+            nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
         }
         Party.transform.position = nodes[currentNode].transform.position;
         panels[currentNode].SetActive(true);
@@ -117,7 +112,7 @@ public class MapManager : Singleton<MapManager>
     }
     
     public void updatePanel(){
-        if(levelsBeaten[currentNode] == true){
+        if(GameManager.Instance.levelsBeaten[currentNode] == true){
             if(panels[currentNode].GetComponentInChildren<Button>()){
             panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
             }
@@ -132,30 +127,30 @@ public class MapManager : Singleton<MapManager>
 
     public void startLevel()
     {
-        GameManager.Instance.EnterBattleScene(currentLevel);
+        GameManager.Instance.EnterBattleScene(GameManager.Instance.currentLevel);
     }
     
     public void WinLevel()
     {
-        levelsBeaten[currentLevel] = true;
-        switch(currentLevel)
+        GameManager.Instance.levelsBeaten[GameManager.Instance.currentLevel] = true;
+        switch(GameManager.Instance.currentLevel)
         {
             case 0:
-                unlockedLevels[1] = true;
+                GameManager.Instance.unlockedLevels[1] = true;
                 break;
             case 1:
-                unlockedLevels[2] = true;
+                GameManager.Instance.unlockedLevels[2] = true;
                 break;
         }
     }
     
     public void UnlockLevel(int index)
     {
-        unlockedLevels[index] = true;
+        GameManager.Instance.unlockedLevels[index] = true;
     }
 
     public void LevelSelect(int index)
     {
-        currentLevel = index;
+        GameManager.Instance.currentLevel = index;
     }
 }

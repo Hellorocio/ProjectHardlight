@@ -18,6 +18,11 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject battleManager;
 
+    // Map state
+    public bool[] unlockedLevels = {true,false,false};
+    public bool[] levelsBeaten = {false,false,false};
+    public int currentLevel;
+
     public void Start()
     {
         // Destroy self if already exists
