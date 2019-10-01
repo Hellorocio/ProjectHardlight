@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // All inputs should go int there
-public class BattleManager : MonoBehaviour
+public class BattleManager : Singleton<BattleManager>
 {
     public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour
 
     public List<GameObject> selectedVessels;
 
-    public void Start()
+    public void Initialize()
     {
         GameObject enemyParent = GameObject.Find("Enemies");
         foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())

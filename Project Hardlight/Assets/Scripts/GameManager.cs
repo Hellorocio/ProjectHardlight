@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -13,6 +14,22 @@ public class GameManager : Singleton<GameManager>
     // TODO Pull out?
     public List<Soul> souls;
 
+    public string firstSceneName;
+
+    public void Start()
+    {
+        // Destroy self if already exists
+        if (GameManager.Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void NewCampaign()
+    {
+        StartCampaign();
+    }
+
     public void StartCampaign()
     {
         // Generate 3 random souls
@@ -21,6 +38,10 @@ public class GameManager : Singleton<GameManager>
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
+
+        DialogueManager.Instance.HideAll();
+        
+        SceneManager.LoadScene(firstSceneName);
     }
 
     public void LoadScene(int scene)
@@ -51,6 +72,16 @@ public class GameManager : Singleton<GameManager>
                 LoadScene(4);
                 break;
         }
+    }
+
+    public void InitializeBattle()
+    {
+        Debug.Log("init battle");
+        UIManager.Instance.SetLoadoutUI(false);
+        UIManager.Instance.loadoutUIButton.SetActive(true);
+        UIManager.Instance.battleUI.SetActive(true);
+        
+        BattleManager.Instance.Initialize();
     }
 
     public void WinLevel()

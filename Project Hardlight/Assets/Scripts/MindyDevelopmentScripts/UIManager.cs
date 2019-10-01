@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    public GameObject battleUI;
     public GameObject loadoutUI;
     public GameObject loadoutUIButton;
+
+    public GameObject commandsUI;
+
     public GameObject heroPlacer;
     public List<GameObject> DEBUGPREFABS; // delete this when no longer needed
 
-    public void ToggleLoudoutUI()
+    public void ToggleLoadoutUI()
     {
         SetLoadoutUI(!loadoutUI.active);
     }
