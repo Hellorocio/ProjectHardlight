@@ -43,11 +43,6 @@ public class DialogueManager : Singleton<DialogueManager>
         ShowImage(false);
     }
 
-    public void HideAll()
-    {
-        EndDialogue();
-    }
-
     private void Update()
     {
         rInput = Input.GetAxisRaw("Submit") > 0;

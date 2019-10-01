@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour, IPointerClickHandler
 {
+    public bool enabled;
 
     int screenWidth;
     int screenHeight;
@@ -32,9 +33,11 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
+        enabled = false;
+
         screenWidth = Screen.width;
         screenHeight = Screen.height;
-        myCam = gameObject.GetComponent<Camera>();
+        myCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         slope = (maxPanSpeed - minPanSpeed) / (zoomMax - zoomMin);
         mouseSlope = (maxMouseSensitivity - minMouseSensitivity) / (zoomMax - zoomMin);
     }
@@ -42,8 +45,11 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        MoveCam();
-        ZoomCam();
+        if (enabled)
+        {
+            MoveCam();
+            ZoomCam();
+        }
     }
 
 
@@ -81,8 +87,6 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
-
     void MoveCam()
     {
         //panSpeed = (myCam.orthographicSize) * ((minPanSpeed / (maxPanSpeed - minPanSpeed)));
@@ -90,7 +94,7 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         panSpeed = slope * (myCam.orthographicSize - zoomMin) + minPanSpeed;
         mouseSensitivity = mouseSlope * (myCam.orthographicSize - zoomMin) + minMouseSensitivity;
         //Debug.Log(panSpeed);
-        Vector3 camPos = transform.position;
+        Vector3 camPos = myCam.gameObject.transform.position;
 
         if (Input.GetMouseButtonDown(2)) // Pan if the user hold down the scroll wheel
         {
@@ -149,6 +153,6 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
             }
             
         }
-        gameObject.transform.position = camPos;
+        myCam.gameObject.transform.position = camPos;
     }
 }

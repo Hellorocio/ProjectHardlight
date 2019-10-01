@@ -53,7 +53,7 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        BattleManager battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        BattleManager battleManager = BattleManager.Instance;
 
         if (battleManager != null)
         {

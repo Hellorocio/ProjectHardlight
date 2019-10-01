@@ -4,17 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, BATTLE, OTHER };
+
 public class GameManager : Singleton<GameManager>
 {
+
+    public GameState gameState;
+
     [HideInInspector]
     public bool[] unlockedLevels = {true,false,false};
     public bool[] levelsBeaten = {false,false,false};
     public int currentLevel;
 
-    // TODO Pull out?
     public List<Soul> souls;
 
     public string firstSceneName;
+
+    public GameObject battleManager;
 
     public void Start()
     {
@@ -23,6 +29,13 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(gameObject);
         }
+    }
+
+    public void ClearUI()
+    {
+        // Turn things off
+        UIManager.Instance.battleUI.SetActive(false);
+        UIManager.Instance.miniDialogueUI.SetActive(false);
     }
 
     public void NewCampaign()
@@ -39,9 +52,36 @@ public class GameManager : Singleton<GameManager>
             souls.Add(soul);
         }
 
-        DialogueManager.Instance.HideAll();
-        
+        UIManager.Instance.battleUI.SetActive(false);
         SceneManager.LoadScene(firstSceneName);
+    }
+
+    public void InitializeMap()
+    {
+        ClearUI();
+
+        Debug.Log("init map");
+        gameState = GameState.MAP;
+    }
+
+    public void InitializeBattle()
+    {
+        ClearUI();
+
+        Debug.Log("init battle");
+        UIManager.Instance.SetLoadoutUI(false);
+        UIManager.Instance.loadoutUIButton.SetActive(true);
+        UIManager.Instance.battleUI.SetActive(true);
+        
+        battleManager.SetActive(true);
+        BattleManager.Instance.Initialize();
+
+        gameState = GameState.PREBATTLE;
+    }
+
+    public void SetCameraControls(bool on)
+    {
+        BattleManager.Instance.camController.enabled = on;
     }
 
     public void LoadScene(int scene)
@@ -72,16 +112,6 @@ public class GameManager : Singleton<GameManager>
                 LoadScene(4);
                 break;
         }
-    }
-
-    public void InitializeBattle()
-    {
-        Debug.Log("init battle");
-        UIManager.Instance.SetLoadoutUI(false);
-        UIManager.Instance.loadoutUIButton.SetActive(true);
-        UIManager.Instance.battleUI.SetActive(true);
-        
-        BattleManager.Instance.Initialize();
     }
 
     public void WinLevel()
