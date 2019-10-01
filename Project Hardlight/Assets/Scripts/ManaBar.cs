@@ -14,14 +14,17 @@ public class ManaBar : MonoBehaviour
 
     private void OnEnable()
     {
-        maxBarWidth = manaBar.GetComponent<RectTransform>().sizeDelta.x;
-
+        //only set once
+        if (maxBarWidth == 0)
+        {
+            maxBarWidth = manaBar.GetComponent<RectTransform>().sizeDelta.x;
+        }
 
         fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
             maxMana = fighter.GetMaxMana();
-            UpdateManaBar(maxMana);
+            UpdateManaBar(0);
 
 
             fighter.OnManaChanged += UpdateManaBar;
