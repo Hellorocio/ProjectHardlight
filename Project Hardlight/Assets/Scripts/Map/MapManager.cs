@@ -9,18 +9,20 @@ public class MapManager : MonoBehaviour
     public Node[] nodes;
     public GameObject Party;
     public GameObject[] panels;
-    public GameObject dialogueBox;
+
+    public TextAsset levelStartDialogue;
 
     int currentNode;
 
     void Start()
     {
-        if(GameManager.Instance.levelsBeaten[2] == true)
+        if (GameManager.Instance.levelsBeaten[2] == true)
         {
             GameManager.Instance.LoadScene(5);
         }
 
-        for(int i = 0; i < nodes.Length;i++){
+        for (int i = 0; i < nodes.Length; i++)
+        {
             nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
         }
         Party.transform.position = nodes[currentNode].transform.position;
@@ -28,7 +30,6 @@ public class MapManager : MonoBehaviour
         updatePanel();
         GetComponent<MapPathFollow>().StartPosition = Party.transform.position;
         GetComponent<MapPathFollow>().CurrentPosition = Party.transform.position;
-
     }
 
     void checkPos(){
@@ -120,18 +121,7 @@ public class MapManager : MonoBehaviour
     }
 
     public void go(int index){
-        dialogueBox.SetActive(true);
-        switch(index){
-            case 0:
-                dialogueBox.GetComponentInChildren<Text>().text = "Let's do this!";
-                break;
-            case 1:
-                dialogueBox.GetComponentInChildren<Text>().text = "Here we go!";
-                break;
-            case 2:
-                dialogueBox.GetComponentInChildren<Text>().text = "This is it!";
-                break;
-        }
+        DialogueManager.Instance.StartDialogue(levelStartDialogue);
         GameManager.Instance.LevelSelect(index);
     }
 

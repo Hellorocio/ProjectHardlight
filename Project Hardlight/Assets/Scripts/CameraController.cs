@@ -37,9 +37,13 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
 
         screenWidth = Screen.width;
         screenHeight = Screen.height;
-        myCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         slope = (maxPanSpeed - minPanSpeed) / (zoomMax - zoomMin);
         mouseSlope = (maxMouseSensitivity - minMouseSensitivity) / (zoomMax - zoomMin);
+    }
+
+    public void Initialize()
+    {
+        myCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame

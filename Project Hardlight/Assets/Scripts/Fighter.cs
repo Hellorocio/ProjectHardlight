@@ -24,7 +24,7 @@ public class Fighter : MonoBehaviour
     public float maxHealth = 100;
     public float maxMana = 30;
     public float speed = 1;
-    private Soul soul;
+    public Soul soul;
 
     private Color defaultColor;
     private Color hitColor;
@@ -93,7 +93,10 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void InitBoosts ()
     {
-        soul = GetComponent<Soul>();
+        if (soul == null)
+        {
+            soul = GetComponent<Soul>();
+        }
         if (soul != null)
         {
             foreach (StatFocusType statFocus in soul.statFocuses)

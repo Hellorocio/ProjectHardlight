@@ -150,6 +150,17 @@ public class DraggableIcon : MonoBehaviour
 
             //remove icon from what this was dragged from
             draggable.GetComponent<Image>().enabled = false;
+            switch (iconType)
+            {
+                case IconType.vessel:
+                    draggable.GetComponent<VesselIcon>().Clear();
+                    break;
+                case IconType.soul:
+                    draggable.GetComponent<SoulIcon>().Clear();
+                    break;
+                default:
+                    break;
+            }
             draggable.replaceObj = null;
             draggable.StopDragging();
         }

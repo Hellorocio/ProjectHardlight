@@ -12,10 +12,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject loadoutUIButton;
     public GameObject commandsUI;
 
-    public GameObject miniDialogueUI;
-
     public GameObject heroPlacer;
-    public List<GameObject> DEBUGPREFABS; // delete this when no longer needed
 
     public void ToggleLoadoutUI()
     {
@@ -28,7 +25,7 @@ public class UIManager : Singleton<UIManager>
         if (isActive)
         {
             // Refresh what's displayed
-            loadoutUI.GetComponent<LoadoutUI>().Refresh();
+            LoadoutUI.Instance.Refresh();
             // Disable camera controls
             if (GameManager.Instance.gameState == GameState.PREBATTLE)
             {
@@ -45,13 +42,12 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void StartHeroPlacementFromLoadout()
+    public void StartVesselPlacement(List<GameObject> objs)
     {
-        loadoutUI.SetActive(false);
+        SetLoadoutUI(false);
         loadoutUIButton.SetActive(false);
         heroPlacer.SetActive(true);
-
-        heroPlacer.GetComponent<HeroPlacer>().StartHeroPlacement(DEBUGPREFABS); // This method requires a list of gameobject representing each selected hero
+        heroPlacer.GetComponent<HeroPlacer>().StartHeroPlacement(objs); // This method requires a list of gameobject representing each selected hero
 
     }
 }

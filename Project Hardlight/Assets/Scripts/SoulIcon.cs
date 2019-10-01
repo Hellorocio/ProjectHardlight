@@ -15,4 +15,9 @@ public class SoulIcon : MonoBehaviour
         soul = inSoul;
         GetComponent<Image>().sprite = soul.appearance;
     }
+
+    public void Clear()
+    {
+        soul = null;
+    }
 }

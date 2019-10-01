@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StartScreen : MonoBehaviour
 {
-    public void StartGame()
+    public void Start()
     {
-        GameManager.Instance.LoadScene(1);
+        GameManager.Instance.Initialize();
     }
 }

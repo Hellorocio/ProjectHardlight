@@ -18,6 +18,12 @@ public class VesselIcon : MonoBehaviour
         GetComponent<Image>().sprite = vesselData.appearance;
     }
 
+    public void Clear()
+    {
+        vessel = null;
+        vesselData = null;
+    }
+
     public void SelectDetail()
     {
         if (vessel != null)

@@ -7,7 +7,12 @@ using TMPro;
 
 public class LoadoutUI : Singleton<LoadoutUI>
 {
+    public int requiredVessels = 3;
 
+    public bool loadoutCreated = false;
+    public GameObject loadoutSlotPrefab;
+    public GameObject loadoutSlots;
+    
     public GameObject vesselIconPrefab;
     public GameObject vesselGrid;
 
@@ -35,10 +40,18 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public TextMeshProUGUI abilityTwoName;
     public TextMeshProUGUI abilityTwoDesc;
 
+    public List<VesselIcon> loadoutVesselIcons;
+    public List<SoulIcon> loadoutSoulIcons;
+
     ///////////////////
 
     public void Refresh()
     {
+        if (!loadoutCreated)
+        {
+            loadoutCreated = true;
+            CreateLoadoutSlots();
+        }
         PopulateVesselGrid();
         PopulateSoulGrid();
     }
@@ -81,6 +94,23 @@ public class LoadoutUI : Singleton<LoadoutUI>
         abilityTwoDesc.text = abilityTwo.abilityDescription;
     }
 
+    public void CreateLoadoutSlots()
+    {
+        // Destroy existing
+        loadoutVesselIcons.Clear();
+        loadoutSoulIcons.Clear();
+        foreach (Transform child in loadoutSlots.transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        // Create per required slot
+        for (int i = 0; i < requiredVessels; i++) {
+            GameObject loadoutSlot = Instantiate(loadoutSlotPrefab, loadoutSlots.transform, true);
+            loadoutVesselIcons.Add(loadoutSlot.GetComponentInChildren<VesselIcon>());
+            loadoutSoulIcons.Add(loadoutSlot.GetComponentInChildren<SoulIcon>());
+        }
+    }
+
     public void PopulateVesselGrid()
     {
         // Destroy existing
@@ -90,9 +120,8 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
         // Create per vessel
         foreach (GameObject vessel in VesselManager.Instance.vessels) {
-            GameObject vesselIcon = Instantiate(vesselIconPrefab);
+            GameObject vesselIcon = Instantiate(vesselIconPrefab, vesselGrid.transform, true);
             vesselIcon.GetComponent<VesselIcon>().SetVessel(vessel);
-            vesselIcon.transform.SetParent(vesselGrid.transform);
         }
     }
 
@@ -109,5 +138,45 @@ public class LoadoutUI : Singleton<LoadoutUI>
             soulIcon.GetComponent<SoulIcon>().SetSoul(soul);
             soulIcon.transform.SetParent(soulGrid.transform);
         }
+    }
+
+    public void ClickGoButton()
+    {
+        if (TrySettingLoadout())
+        {
+            GameManager.Instance.StartVesselPlacement();
+        }
+    }
+    public bool TrySettingLoadout()
+    {
+        // Validate Vessels
+        for (int i = 0; i < requiredVessels; i++)
+        {
+            GameObject slotVessel = loadoutVesselIcons[i].vessel;
+            Soul slotSoul = loadoutSoulIcons[i].soul;
+            if (slotVessel == null)
+            {
+                Debug.Log("Slot " + i + " missing Vessel");
+                return false;
+            }
+            if (slotSoul == null)
+            {
+                Debug.Log("Slot " + i + " missing Soul");
+                return false;
+            }
+        }
+        
+        // Nice! Create them. TODO(mchi) put these GOs somewhere sane
+        for (int i = 0; i < requiredVessels; i++)
+        {
+            GameObject slotVessel = loadoutVesselIcons[i].vessel;
+            Soul slotSoul = loadoutSoulIcons[i].soul;
+
+            GameObject selectedVessel = Instantiate(slotVessel);
+            selectedVessel.GetComponent<Fighter>().soul = slotSoul;
+            BattleManager.Instance.selectedVessels.Add(selectedVessel);
+        }
+
+        return true;
     }
 }

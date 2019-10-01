@@ -35,7 +35,12 @@ public class GameManager : Singleton<GameManager>
     {
         // Turn things off
         UIManager.Instance.battleUI.SetActive(false);
-        UIManager.Instance.miniDialogueUI.SetActive(false);
+    }
+
+    public void Initialize()
+    {
+        ClearUI();
+        gameState = GameState.START;
     }
 
     public void NewCampaign()
@@ -74,6 +79,9 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
 
         Debug.Log("init battle");
+        // Set to create loadout
+        LoadoutUI.Instance.loadoutCreated = false;
+        // Toggle correct UIs
         UIManager.Instance.SetLoadoutUI(false);
         UIManager.Instance.loadoutUIButton.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
@@ -84,8 +92,14 @@ public class GameManager : Singleton<GameManager>
         gameState = GameState.PREBATTLE;
     }
 
+    public void StartVesselPlacement()
+    {
+        UIManager.Instance.StartVesselPlacement(BattleManager.Instance.selectedVessels);
+    }
+    
     public void SetCameraControls(bool on)
     {
+        BattleManager.Instance.camController.Initialize();
         BattleManager.Instance.camController.enabled = on;
     }
 
