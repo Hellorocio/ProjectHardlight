@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, BATTLE, OTHER };
+public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, OTHER };
 
 public class GameManager : Singleton<GameManager>
 {
@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 
     public List<Soul> souls;
 
+    public string mapSceneName;
     public string firstSceneName;
 
     public GameObject battleManager;
@@ -96,6 +97,13 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Instance.StartVesselPlacement(BattleManager.Instance.selectedVessels);
     }
+
+    public void StartFighting()
+    {
+        BattleManager.Instance.StartBattle();
+
+        gameState = GameState.FIGHTING;
+    }
     
     public void SetCameraControls(bool on)
     {
@@ -104,6 +112,11 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+    
+    public void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }
@@ -117,8 +130,9 @@ public class GameManager : Singleton<GameManager>
     {
         currentLevel = index;
     }
-    public void StartLevel()
+    public void EnterBattleScene()
     {
+        Debug.Log("GameManager | Starting to load level number " + currentLevel);
         switch(currentLevel)
         {
             case 0:

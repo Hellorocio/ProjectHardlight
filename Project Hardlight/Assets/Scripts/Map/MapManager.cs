@@ -127,6 +127,6 @@ public class MapManager : MonoBehaviour
 
     public void startLevel()
     {
-        GameManager.Instance.StartLevel();
-     }
+        GameManager.Instance.EnterBattleScene();
+    }
 }

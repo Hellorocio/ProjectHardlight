@@ -31,11 +31,15 @@ public class HeroPlacer : MonoBehaviour
             currentObj.SetActive(true);
         } else
         {
-            numHeroesLeftToPlace = 0;
-            BattleManager battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-            battleManager.StartBattle();
-            gameObject.SetActive(false);
+            EndHeroPlacement();
         }
+    }
+
+    private void EndHeroPlacement()
+    {
+        numHeroesLeftToPlace = 0;
+        GameManager.Instance.StartFighting();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -48,6 +48,5 @@ public class UIManager : Singleton<UIManager>
         loadoutUIButton.SetActive(false);
         heroPlacer.SetActive(true);
         heroPlacer.GetComponent<HeroPlacer>().StartHeroPlacement(objs); // This method requires a list of gameobject representing each selected hero
-
     }
 }

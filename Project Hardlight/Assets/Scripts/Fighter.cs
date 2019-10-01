@@ -359,11 +359,18 @@ public class Fighter : MonoBehaviour
     // TODO finish this
     public int GetMaxHealth()
     {
-        int baseHealth = GetComponent<VesselData>().baseHealth;
-        if (soul != null)
+        int baseHealth = 2;
+
+        if (soul != null && GetComponent<VesselData>() != null)
         {
+            baseHealth = GetComponent<VesselData>().baseHealth;
             baseHealth += soul.GetMaxHealthBonus(baseHealth);
         }
+        else
+        {
+            baseHealth = 100;
+        }
+
         return baseHealth;
     }
 
