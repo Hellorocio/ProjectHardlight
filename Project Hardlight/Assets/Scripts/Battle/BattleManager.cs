@@ -19,7 +19,7 @@ public class BattleManager : Singleton<BattleManager>
     public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
 
-    private int numEnemies;
+    public int numEnemies;
     private int numHeros = 3; //hardcoded for now, we'll have to change this if we change # of heros in battle
 
     //called when the level starts (when all heros have been placed)
@@ -36,17 +36,10 @@ public class BattleManager : Singleton<BattleManager>
     private float doubleClickTimeLimit = 0.3f;
 
     public List<GameObject> selectedVessels;
+    bool battleStarted;
 
     public void Initialize()
     {
-        GameObject enemyParent = GameObject.Find("Enemies");
-        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
-        {
-            //f.gameObject.GetComponent<FighterAttack>().enabled = false;
-            //f.gameObject.GetComponent<FighterMove>().enabled = false;
-            //f.enabled = false;
-            numEnemies++;
-        }
         inputState = InputState.NothingSelected;
     }
 
@@ -139,7 +132,7 @@ public class BattleManager : Singleton<BattleManager>
         // Select target
         UpdateSelectedTarget();
 
-        if (selectedHero != null && selectedAbility.DoAbility())
+        if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
         {
             // Lose mana
             selectedHero.LoseMana((int)selectedHero.maxMana);
@@ -386,7 +379,19 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void StartBattle ()
     {
+        //fix weird issue where enemy events not triggering by unsubscribing and resubscribing the events menu
+        GameObject enemyParent = GameObject.Find("Enemies");
+        numEnemies = 0;
+        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
+        {
+            numEnemies++;
+            f.gameObject.SetActive(false);
+            f.gameObject.SetActive(true);
+        }
+
+
         OnLevelStart?.Invoke();
+        battleStarted = true;
     }
 
     /// <summary>
@@ -403,6 +408,11 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     void OnSwitchTargetEvent()
     {
+        if (!battleStarted)
+        {
+            return;
+        }
+
         if (battleTarget == null)
         {
             battleTarget = Instantiate(battleTargetPrefab);

@@ -54,7 +54,7 @@ public class FighterAttack : MonoBehaviour
     private void OnEnable()
     {
         BattleManager battleManager = BattleManager.Instance;
-
+        
         if (battleManager != null)
         {
             battleManager.OnLevelStart += LevelStart;
@@ -66,7 +66,7 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        if (fighter.battleManager != null)
+        if (fighter != null && fighter.battleManager != null)
         {
             fighter.battleManager.OnLevelStart -= LevelStart;
         }
@@ -83,10 +83,11 @@ public class FighterAttack : MonoBehaviour
         {
             Start();
         }
-
+        
         //only start attacking right away if a hero or a fighter with no enemyTrigger
         if (fighter.team == CombatInfo.Team.Hero || (fighter.team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
         {
+            
             SetCurrentTarget();
         }
     }

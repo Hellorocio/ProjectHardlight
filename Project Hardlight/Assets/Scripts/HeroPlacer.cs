@@ -12,6 +12,12 @@ public class HeroPlacer : MonoBehaviour
 
     public void StartHeroPlacement(List<GameObject> objs)
     {
+        //hide all heros before we place them
+        foreach (GameObject vessel in objs)
+        {
+            vessel.SetActive(false);
+        }
+
         heroes = objs;
         numHeroesLeftToPlace = objs.Count;
         NextHeroPlacement();
@@ -22,6 +28,7 @@ public class HeroPlacer : MonoBehaviour
         if (numHeroesLeftToPlace > 0)
         {
             currentObj = heroes[index];
+            currentObj.SetActive(true);
         } else
         {
             numHeroesLeftToPlace = 0;
