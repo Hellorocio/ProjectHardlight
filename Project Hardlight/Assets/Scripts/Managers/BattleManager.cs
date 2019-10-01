@@ -360,7 +360,10 @@ public class BattleManager : Singleton<BattleManager>
             selectedHero = null;
             commandsUI.DisableUI();
             inputState = InputState.NothingSelected;
-            battleTarget.SetActive(false);
+            if (battleTarget != null)
+            {
+                battleTarget.SetActive(false);
+            }
         }
     }
 
@@ -463,6 +466,8 @@ public class BattleManager : Singleton<BattleManager>
         //cleanup for this script
         DeselectHero();
         inputState = InputState.BattleOver;
+
+        GameManager.Instance.EndFighting(true);
     }
 
     void SubscribeHeroEvents()

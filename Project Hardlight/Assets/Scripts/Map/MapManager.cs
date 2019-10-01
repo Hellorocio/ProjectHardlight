@@ -10,8 +10,6 @@ public class MapManager : Singleton<MapManager>
     public GameObject Party;
     public GameObject[] panels;
 
-    public TextAsset levelStartDialogue;
-
     int currentNode;
 
     void Start()
@@ -121,7 +119,6 @@ public class MapManager : Singleton<MapManager>
     }
 
     public void go(int index){
-        DialogueManager.Instance.StartDialogue(levelStartDialogue);
         LevelSelect(index);
     }
 
