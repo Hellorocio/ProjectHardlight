@@ -80,6 +80,18 @@ public class DraggableIcon : MonoBehaviour
                 replaceObj.GetComponent<Image>().enabled = true;
                 GetComponent<Image>().enabled = false;
                 replaceObj = null;
+
+                switch (iconType)
+                {
+                    case IconType.vessel:
+                        GetComponent<VesselIcon>().Clear();
+                        break;
+                    case IconType.soul:
+                        GetComponent<SoulIcon>().Clear();
+                        break;
+                    default:
+                        break;
+                }
             }
 
             transform.position = startPos;
@@ -140,27 +152,29 @@ public class DraggableIcon : MonoBehaviour
             if (draggable.replaceObj != null)
             {
                 replaceObj = draggable.replaceObj;
-                print("replace obj * = " + draggable.replaceObj.gameObject.name);
             }
             else
             {
-                print("replace obj = " + draggable.gameObject.name);
                 replaceObj = draggable;
             }
 
             //remove icon from what this was dragged from
             draggable.GetComponent<Image>().enabled = false;
-            switch (iconType)
+            if (draggable.allowReplacement)
             {
-                case IconType.vessel:
-                    draggable.GetComponent<VesselIcon>().Clear();
-                    break;
-                case IconType.soul:
-                    draggable.GetComponent<SoulIcon>().Clear();
-                    break;
-                default:
-                    break;
+                switch (iconType)
+                {
+                    case IconType.vessel:
+                        draggable.GetComponent<VesselIcon>().Clear();
+                        break;
+                    case IconType.soul:
+                        draggable.GetComponent<SoulIcon>().Clear();
+                        break;
+                    default:
+                        break;
+                }
             }
+            
             draggable.replaceObj = null;
             draggable.StopDragging();
         }
