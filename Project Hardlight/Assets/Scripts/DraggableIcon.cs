@@ -8,6 +8,9 @@ public class DraggableIcon : MonoBehaviour
     public bool allowReplacement;
     private DraggableIcon replaceObj;
 
+    [HideInInspector]
+    public DraggableIcon dropLocation; 
+
     private Vector3 startPos;
     private bool dragging;
 
@@ -73,10 +76,16 @@ public class DraggableIcon : MonoBehaviour
         if (dragging)
         {
             dragging = false;
-            
-            //if distance is large and this is a selection box, snap back to grid
+
+            //check if there's a draggable to set
+            if (dropLocation != null)
+            {
+                dropLocation.DropDraggable(this);
+            }
+            else         
             if ((transform.position - startPos).magnitude > 50 && replaceObj != null)
             {
+                //if distance is large and this is a selection box, snap back to grid
                 replaceObj.GetComponent<Image>().enabled = true;
                 GetComponent<Image>().enabled = false;
                 replaceObj = null;
@@ -93,7 +102,6 @@ public class DraggableIcon : MonoBehaviour
                         break;
                 }
             }
-
             transform.position = startPos;
         }
     }
@@ -103,7 +111,27 @@ public class DraggableIcon : MonoBehaviour
         DraggableIcon draggable = collision.GetComponent<DraggableIcon>();
         if (allowReplacement && draggable != null && draggable.dragging && draggable.iconType == iconType)
         {
-            DropDraggable(draggable);
+            
+            if (IsIconReady())
+            {
+                //if this is not empty, then wait to drop until drag ends
+                draggable.dropLocation = this;
+            }
+            else
+            {
+                //otherwise drop right now
+                DropDraggable(draggable);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        DraggableIcon draggable = collision.GetComponent<DraggableIcon>();
+        if (draggable != null && draggable.dropLocation == this)
+        {
+            //draggable was moved away, so don't auto place here when drag ends
+            draggable.dropLocation = null;
         }
     }
 
