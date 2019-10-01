@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
-            maxHealth = fighter.maxHealth;
+            maxHealth = fighter.GetMaxHealth();
             UpdateHealthBar(maxHealth);
 
 

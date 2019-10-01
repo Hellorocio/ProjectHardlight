@@ -20,7 +20,7 @@ public class ManaBar : MonoBehaviour
         fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
-            maxMana = fighter.maxMana;
+            maxMana = fighter.GetMaxMana();
             UpdateManaBar(maxMana);
 
 

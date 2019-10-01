@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 6319453887266477201}
   - component: {fileID: 6319453887266477199}
   - component: {fileID: 5307979667884133097}
+  - component: {fileID: 9083643267675095253}
   m_Layer: 0
   m_Name: Onion
   m_TagString: Enemy
@@ -282,9 +283,7 @@ MonoBehaviour:
   selectedUI: {fileID: 5058785412828220927}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 7982297388972968622}
-  maxHealth: 40
-  maxMana: 0
-  speed: 2
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!114 &187063202631966061
 MonoBehaviour:
@@ -328,6 +327,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: 
+  range: 0
+  damage: 0
+  description: 
   mageBasicAttackPrefab: {fileID: 7356860677731073783, guid: 290373216d7ff644386a7ad82837f65a,
     type: 3}
   spawnPoint: {fileID: 7252150532717174920}
@@ -441,6 +444,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9083643267675095253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319453887266477202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 0}
+  vesselName: Tony Slimeslayer
+  title: Basic Fighter
+  description: 
+  baseHealth: 50
+  baseMana: 0
+  baseAbility: 100
+  baseMovementSpeed: 100
+  basicAttack: {fileID: 6319453887266477201}
+  abilities: []
 --- !u!1 &6467042140215818731
 GameObject:
   m_ObjectHideFlags: 0

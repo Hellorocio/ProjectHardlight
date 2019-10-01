@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 205179122}
   - component: {fileID: 8680636418704861795}
   - component: {fileID: 7094492070759052052}
+  - component: {fileID: -8435489496767234783}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Enemy
@@ -195,9 +196,7 @@ MonoBehaviour:
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
-  maxHealth: 200
-  maxMana: 0
-  speed: 0.5
+  soul: {fileID: 0}
   battleManager: {fileID: 0}
 --- !u!114 &205179122
 MonoBehaviour:
@@ -211,6 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: 
+  range: 0
+  damage: 0
+  description: 
 --- !u!114 &8680636418704861795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +244,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testing: 0
   followingMoveOrder: 0
+--- !u!114 &-8435489496767234783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295596027026680896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearance: {fileID: 0}
+  vesselName: Tony Slimeslayer
+  title: Basic Fighter
+  description: 
+  baseHealth: 120
+  baseMana: 0
+  baseAbility: 100
+  baseMovementSpeed: 1
+  basicAttack: {fileID: 8680636418704861795}
+  abilities: []
 --- !u!1 &4037550738124259913
 GameObject:
   m_ObjectHideFlags: 0

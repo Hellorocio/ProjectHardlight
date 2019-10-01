@@ -21,9 +21,9 @@ public class Fighter : MonoBehaviour
     public GameObject maxManaGlow;
     public Animator anim;
 
-    public float maxHealth = 100;
-    public float maxMana = 30;
-    public float speed = 1;
+    private float maxHealth;
+    private float maxMana;
+    private float speed = 1;
     public Soul soul;
 
     private Color defaultColor;
@@ -73,8 +73,11 @@ public class Fighter : MonoBehaviour
 
         defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
         hitColor = new Color(1f, .5235f, .6194f);
-        
-        health = maxHealth;        
+
+        maxHealth = GetMaxHealth();
+        health = maxHealth;
+        maxMana = GetMaxMana();
+        speed = GetMovementSpeed();
 
         GameObject battleManagerObj = GameObject.Find("BattleManager");
         if (battleManagerObj != null)
@@ -104,7 +107,7 @@ public class Fighter : MonoBehaviour
                 switch (statFocus)
                 {
                     case StatFocusType.HEALTH:
-                        maxHealth += 10 * soul.level;
+                        //I think we're doing this in soul now?
                         break;
                     case StatFocusType.ATTACK:
                         attackBoost += 0.1f * soul.level;
@@ -357,6 +360,22 @@ public class Fighter : MonoBehaviour
     public int GetMaxHealth()
     {
         int baseHealth = GetComponent<VesselData>().baseHealth;
-        return baseHealth + soul.GetMaxHealthBonus(baseHealth);
+        if (soul != null)
+        {
+            baseHealth += soul.GetMaxHealthBonus(baseHealth);
+        }
+        return baseHealth;
+    }
+
+    public int GetMaxMana ()
+    {
+        int baseMana = GetComponent<VesselData>().baseMana;
+        return baseMana;
+    }
+
+    public int GetMovementSpeed()
+    {
+        int baseSpeed = GetComponent<VesselData>().baseMovementSpeed / 100;
+        return baseSpeed;
     }
 }

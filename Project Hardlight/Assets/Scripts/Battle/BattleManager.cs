@@ -135,7 +135,7 @@ public class BattleManager : Singleton<BattleManager>
         if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
         {
             // Lose mana
-            selectedHero.LoseMana((int)selectedHero.maxMana);
+            selectedHero.LoseMana(selectedHero.GetMaxMana());
             commandsUI.SwitchButtonColor(false);
             StopTargeting();
             DeselectHero();
@@ -255,7 +255,7 @@ public class BattleManager : Singleton<BattleManager>
             if (ability != null)
             {
                 // Check has enough mana
-                if (selectedHero.GetCurrentMana() >= selectedHero.maxMana)
+                if (selectedHero.GetCurrentMana() >= selectedHero.GetMaxMana())
                 {
                     selectedAbility = ability;
 
@@ -342,7 +342,7 @@ public class BattleManager : Singleton<BattleManager>
         //Debug.Log(hero.name);
         commandsUI.gameObject.SetActive(true);
         commandsUI.EnableUI(hero.gameObject);
-        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.maxMana);
+        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.GetMaxMana());
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
     }
