@@ -29,7 +29,7 @@ public class FighterMove : MonoBehaviour
     { 
         Fighter collidedFighter = other.GetComponent<Fighter>();
         if (!GlobalSettings.overlapFighters && collidedFighter != null && moveState == MoveState.moving && 
-                collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
+                collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter) && fighter.team == CombatInfo.Team.Enemy)
         {
             moveState = MoveState.paused;
             //print("moving: paused");
