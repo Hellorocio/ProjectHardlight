@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class StartScreen : MonoBehaviour
 {
-    public void Start()
-    {
-        GameManager.Instance.Initialize();
-    }
 }

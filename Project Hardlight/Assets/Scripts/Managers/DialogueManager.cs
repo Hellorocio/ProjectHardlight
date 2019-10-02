@@ -28,8 +28,10 @@ public class DialogueManager : Singleton<DialogueManager>
     bool rInput;
     bool oldRInput;
 
-    IEnumerator dialogueLoop = null;
-    public void Initialize()
+    private bool initialized = false;
+    
+    private IEnumerator dialogueLoop = null;
+    public void InitializeDialogueManager()
     {
         // convert profileDatas -> profileDict
         profileDict = new Dictionary<string, Sprite>();
@@ -40,6 +42,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
         ShowBox(false);
         ShowImage(false);
+
+        initialized = true;
     }
 
     private void Update()
@@ -54,6 +58,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(TextAsset inputScript)
     {
+        Debug.Log("starting dialogue");
+        if (!initialized)
+        {
+            InitializeDialogueManager();
+        }
+        
         script = inputScript;
         ShowBox(true);
 
@@ -155,6 +165,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     private void ShowBox(bool shouldShow)
     {
+        Debug.Log(shouldShow);
         if (!shouldShow && dialogueLoop != null)
         {
             StopCoroutine(dialogueLoop);

@@ -1,31 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class CutsceneLevel : MonoBehaviour
 { 
     public TextAsset cutsceneText;
+    
+    public UnityEvent onCutsceneEnd;
 
-    void OnEnable()
+    void Start()
     {
-    //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
-        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+        StartCoroutine(StartCutsceneWithDelay());
     }
 
-    void OnDisable()
+    IEnumerator StartCutsceneWithDelay()
     {
-    //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-    }
-
-    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
-    {
-
-        Debug.Log("Level Loaded");
-        // TODO add end of dialogue event
-        GameManager.Instance.ClearUI();
+        yield return new WaitForSeconds(0.5f);
+        
+        Debug.Log("Cutscene Level | Starting Cutscene");
+        DialogueManager.Instance.onDialogueEnd.AddListener(CutsceneEnded);
         DialogueManager.Instance.StartDialogue(cutsceneText);
+    }
+
+    private void CutsceneEnded() 
+    {
+        onCutsceneEnd.Invoke();
+        DialogueManager.Instance.onDialogueEnd.RemoveListener(CutsceneEnded);
+    }
+
+    public void EnterMap()
+    {
+        GameManager.Instance.EnterMap();
+    }
+
+    public void EnterTutorialBattle()
+    {
+        GameManager.Instance.EnterTutorialBattle();
     }
 }

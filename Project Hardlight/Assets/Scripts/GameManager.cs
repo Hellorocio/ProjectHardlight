@@ -15,7 +15,8 @@ public class GameManager : Singleton<GameManager>
 
     public string mapSceneName;
     public string firstSceneName;
-
+    public string tutorialBattleSceneName;
+    
     public GameObject battleManager;
 
     public TextAsset levelStartDialogue;
@@ -43,26 +44,27 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.battleUI.SetActive(false);
     }
 
-    public void Initialize()
+    public void InitializeGame()
     {
         ClearUI();
-        DialogueManager.Instance.Initialize();
         gameState = GameState.START;
     }
 
+    // Here in case we want to do Continue Campaign in the future
     public void NewCampaign()
     {
+        InitializeGame();
         StartCampaign();
     }
-
+    
+    // Initialized everything needed in a new game
     public void StartCampaign()
     {
+        Debug.Log("GameManager | Starting Campaign");
         GrantRandomSouls(3);
-
-        UIManager.Instance.battleUI.SetActive(false);
         SceneManager.LoadScene(firstSceneName);
     }
-
+    
     public void GrantRandomSouls(int qty)
     {
         // Generate 3 random souls
@@ -73,12 +75,13 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void InitializeMap()
+    public void EnterMap()
     {
         ClearUI();
 
         Debug.Log("init map");
         gameState = GameState.MAP;
+        LoadScene(mapSceneName);
     }
 
     public void InitializeBattle()
@@ -161,6 +164,11 @@ public class GameManager : Singleton<GameManager>
 
         DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
+    }
+
+    public void EnterTutorialBattle()
+    {
+        LoadScene(tutorialBattleSceneName);
     }
 
     private void LoadSceneAfterDialogue()
