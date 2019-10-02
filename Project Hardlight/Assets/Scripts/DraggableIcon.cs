@@ -101,6 +101,9 @@ public class DraggableIcon : MonoBehaviour
                     default:
                         break;
                 }
+
+                //let loadoutUI know that selection has changed
+                LoadoutUI.Instance.LoadoutUpdated();
             }
             transform.position = startPos;
         }
@@ -205,6 +208,12 @@ public class DraggableIcon : MonoBehaviour
             
             draggable.replaceObj = null;
             draggable.StopDragging();
+
+            //if this is a selectionWindow, check if everything has been set
+            if (allowReplacement)
+            {
+                LoadoutUI.Instance.LoadoutUpdated();
+            }
         }
     }
 }

@@ -21,6 +21,9 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     public GameObject detailPane;
 
+    public GameObject goButton;
+    public TextMeshProUGUI missingPopupText;
+
     ////////////// Vessel detail
     public TextMeshProUGUI nameText;
     public Image vesselImage;
@@ -128,12 +131,30 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     public void ClickGoButton()
     {
-        if (TrySettingLoadout())
+        if (IsLoadoutValid(true))
         {
+            // Create vessels based on player's selected loadout. TODO(mchi) put these GOs somewhere sane
+            foreach (Transform child in loadoutSlots.transform)
+            {
+                GameObject loadoutSlot = child.gameObject;
+                GameObject slotVessel = loadoutSlot.GetComponentInChildren<VesselIcon>().vessel;
+                Soul slotSoul = loadoutSlot.GetComponentInChildren<SoulIcon>().soul;
+
+                GameObject selectedVessel = Instantiate(slotVessel);
+                selectedVessel.GetComponent<Fighter>().soul = slotSoul;
+                BattleManager.Instance.selectedVessels.Add(selectedVessel);
+            }
+
+            // Start placing newly created vessels
             GameManager.Instance.StartVesselPlacement();
         }
     }
-    public bool TrySettingLoadout()
+
+    /// <summary>
+    /// Returns true if loadout is valid, false otherwise
+    /// </summary>
+    /// <returns></returns>
+    bool IsLoadoutValid (bool printMissing = false)
     {
         // Validate Vessels
         foreach (Transform child in loadoutSlots.transform)
@@ -144,27 +165,42 @@ public class LoadoutUI : Singleton<LoadoutUI>
             if (slotVessel == null)
             {
                 Debug.Log("Slot missing Vessel");
+
+                if (printMissing && missingPopupText != null)
+                {
+                    missingPopupText.text = "Missing Vessel!";
+                    missingPopupText.transform.parent.gameObject.SetActive(true);
+                }
+
                 return false;
             }
             if (slotSoul == null)
             {
                 Debug.Log("Slot missing Soul");
+
+                if (printMissing && missingPopupText != null)
+                {
+                    missingPopupText.text = "Missing Soul!";
+                    missingPopupText.transform.parent.gameObject.SetActive(true);
+                }
+
                 return false;
             }
         }
-        
-        // Nice! Create them. TODO(mchi) put these GOs somewhere sane
-        foreach (Transform child in loadoutSlots.transform)
-        {
-            GameObject loadoutSlot = child.gameObject;
-            GameObject slotVessel = loadoutSlot.GetComponentInChildren<VesselIcon>().vessel;
-            Soul slotSoul = loadoutSlot.GetComponentInChildren<SoulIcon>().soul;
-
-            GameObject selectedVessel = Instantiate(slotVessel);
-            selectedVessel.GetComponent<Fighter>().soul = slotSoul;
-            BattleManager.Instance.selectedVessels.Add(selectedVessel);
-        }
 
         return true;
+    }
+
+    /// <summary>
+    /// Change GO button between gray and orange depending on if loudout is set
+    /// Called on every change to selection icons
+    /// </summary>
+    public void LoadoutUpdated ()
+    {
+        ActivateButton goButtonActivate = goButton.GetComponent<ActivateButton>();
+        if (goButtonActivate != null)
+        {
+            goButtonActivate.SetButtonActivation(IsLoadoutValid(false));
+        }
     }
 }
