@@ -31,6 +31,7 @@ public class NinjaJumpAbility : Ability
             FighterAttack thisFighter = GetComponent<FighterAttack>();
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
+                
                 //do something different based on allight values
                 Soul soul = GetComponent<Soul>();
                 if (soul != null)
@@ -62,7 +63,11 @@ public class NinjaJumpAbility : Ability
 
                 //enemy takes tamage
                 selectedFighter.TakeDamage(GetDamage());
-
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+                {
+                    Debug.Log("Ability1 anim is played");
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+                }
                 return true;
             }
         }

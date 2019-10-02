@@ -54,7 +54,10 @@ public class NinjaHealingAbility : Ability
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
                 Debug.Log("Ninja projectile + heal");
-
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
+                {
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability2");
+                }
                 //do something different based on allight values
                 Soul soul = GetComponent<Soul>();
                 if (soul != null)

@@ -90,6 +90,15 @@ public class FighterMove : MonoBehaviour
 
             target = t;
             moveState = MoveState.moving;
+            /*
+             * && (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
+                fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
+             * */
+            if (fighter.anim.HasState(0, Animator.StringToHash("Walk")))
+            {
+                fighter.anim.Play("Walk");
+            }
+            
             TurnToFace();
         }
     }
@@ -106,6 +115,16 @@ public class FighterMove : MonoBehaviour
 
         target = t;
         moveState = MoveState.moving;
+        if (fighter.anim.HasState(0, Animator.StringToHash("Walk")))
+        {
+            fighter.anim.Play("Walk");
+        }
+
+       // if (fighter.anim.HasState(0, Animator.StringToHash("Walk")))
+       // {
+         //   fighter.anim.Play("Walk");
+       // }
+        
         TurnToFace();
 
     }
@@ -116,6 +135,10 @@ public class FighterMove : MonoBehaviour
     public void StopMoving()
     {
         moveState = MoveState.stopped;
+        if (fighter.anim.HasState(0, Animator.StringToHash("Idle")))
+        {
+            fighter.anim.Play("Idle");
+        }
         fighterAttack.StartBasicAttacking();
     }
 
@@ -123,6 +146,10 @@ public class FighterMove : MonoBehaviour
     {
         followingMoveOrder = false;
         moveState = MoveState.stopped;
+        if (fighter.anim.HasState(0, Animator.StringToHash("Idle")))
+        {
+            fighter.anim.Play("Idle");
+        }
         //Debug.Log("Deleting " + target.gameObject.name);
         Destroy(target.gameObject);
         target = null;
