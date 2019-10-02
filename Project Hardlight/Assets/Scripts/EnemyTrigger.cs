@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         Fighter fighter = other.GetComponent<Fighter>();
-        if (fighter != null && fighter.team == CombatInfo.Team.Hero)
+        if (GameManager.Instance.gameState == GameState.FIGHTING && fighter != null && fighter.team == CombatInfo.Team.Hero)
         {
             foreach (FighterAttack fighterAttack in GetComponentsInChildren<FighterAttack>())
             {
