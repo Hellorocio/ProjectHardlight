@@ -361,8 +361,8 @@ public class GameManager : Singleton<GameManager>
         LoadoutUI.Instance.PopulateVesselGrid();
         LoadoutUI.Instance.Refresh();
         
-        // Start loadout tutorial dialogue
-        DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
+        // Start loadout tutorial dialogue- Removed for now to prevent repeat dialogue
+        //DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
     }
 
 }

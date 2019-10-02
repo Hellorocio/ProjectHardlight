@@ -75,8 +75,9 @@ public class FighterAttack : MonoBehaviour
     /// <summary>
     /// Called when the fighter gets the signal that the battle has started
     /// Sets targets for heroes, but not enemies
+    /// (UPDATE) Now called directly by BattleManager, not by event because the events were causing problems
     /// </summary>
-    private void LevelStart ()
+    public void LevelStart ()
     {
         //make sure everything has been initialized
         if (fighter == null)

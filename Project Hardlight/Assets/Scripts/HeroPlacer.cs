@@ -12,6 +12,7 @@ public class HeroPlacer : MonoBehaviour
 
     public void StartHeroPlacement(List<GameObject> objs)
     {
+        index = 0;
         heroes.Clear();
         heroes = objs;
         //hide all heros before we place them

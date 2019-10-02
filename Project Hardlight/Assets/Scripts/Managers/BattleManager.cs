@@ -385,21 +385,29 @@ public class BattleManager : Singleton<BattleManager>
     }
 
     /// <summary>
-    /// Invokes the OnLevelStart event (StartBattle is called by heroPlacer when all heros have been placed)
+    /// (USED TO) Invokes the OnLevelStart event (StartBattle is called by heroPlacer when all heros have been placed)
+    /// (NOW) Just calls levelstart manually on all vessels and enemies, because we were getting tons of bugs with the events
     /// </summary>
     public void StartBattle ()
     {
-        //fix weird issue where enemy events not triggering by unsubscribing and resubscribing the events menu
-        GameObject enemyParent = GameObject.Find("Enemies");
-        numEnemies = 0;
-        foreach (Fighter f in enemyParent.GetComponentsInChildren<Fighter>())
+        //call levelStart on vessels
+        foreach (GameObject v in selectedVessels)
         {
             numEnemies++;
-            f.gameObject.SetActive(false);
-            f.gameObject.SetActive(true);
+            v.GetComponent<FighterAttack>().LevelStart();
         }
 
-        OnLevelStart?.Invoke();
+        //call levelStart on enemies
+        GameObject enemyParent = GameObject.Find("Enemies");
+        numEnemies = 0;
+        foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
+        {
+            numEnemies++;
+            f.LevelStart();
+        }
+        
+        //This event was causing tons of problems, so we're getting rid of it for now
+        //OnLevelStart?.Invoke();
         battleStarted = true;
     }
 
@@ -478,7 +486,9 @@ public class BattleManager : Singleton<BattleManager>
 
         //cleanup for this script
         DeselectHero();
+        battleStarted = false;
         inputState = InputState.BattleOver;
+        selectedVessels = new List<GameObject>();
 
         GameManager.Instance.EndFighting(herosWin);
     }
