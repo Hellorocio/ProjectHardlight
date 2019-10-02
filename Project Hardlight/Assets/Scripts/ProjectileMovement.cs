@@ -56,5 +56,14 @@ public class ProjectileMovement: MonoBehaviour
         target = t;
 
         movementVector = (t.transform.position - transform.position).normalized;
+        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (target.transform.position.x < transform.position.x);
     }
+
+    /*
+    public void TurnToFace()
+    {
+        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (target.transform.position.x < transform.position.x);
+    }
+
+    */
 }
