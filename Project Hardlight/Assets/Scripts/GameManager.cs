@@ -14,7 +14,8 @@ public class GameManager : Singleton<GameManager>
     public List<Soul> souls;
 
     public string mapSceneName;
-    public string firstSceneName;
+    public string cutsceneSceneName;
+    public CutsceneLevel currentCutscene;
     
     public GameObject battleManager;
 
@@ -35,6 +36,8 @@ public class GameManager : Singleton<GameManager>
     public bool[] unlockedLevels = {true,false,false};
     public bool[] levelsBeaten = {false,false,false};
     public int currentLevel;
+
+    public DialogueBoxController topDialogue;
 
     public void Start()
     {
@@ -69,7 +72,47 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("GameManager | Starting Campaign");
         GrantRandomSouls(3);
-        SceneManager.LoadScene(firstSceneName);
+        StartCutscene("TaurinIntroCutscene");
+    }
+
+    public void StartCutscene(string name)
+    {
+        if (currentCutscene != null)
+        {
+            Debug.Log("WARNING: Trying to StartCutscene() when currentCutscene is not empty, is a cutscene already playing?");
+        }
+        // TODO Find the cutscene in CutsceneList
+        Transform cutsceneList = transform.Find("CutsceneList");
+        foreach (CutsceneLevel cutsceneLevel in cutsceneList.GetComponentsInChildren(typeof(CutsceneLevel)))
+        {
+            if (cutsceneLevel.cutsceneName == name)
+            {
+                currentCutscene = cutsceneLevel;
+                break;
+            }
+        }
+
+        if (currentCutscene != null)
+        {
+            // Load Cutscene Scene
+            LoadScene(cutsceneSceneName);
+        
+            DialogueManager.Instance.onDialogueEnd.AddListener(EndCutscene);
+            DialogueManager.Instance.StartDialogue(currentCutscene.cutsceneText);
+        }
+        else
+        {
+            // Didn't find cutscene with this name
+            Debug.Log("WARNING: Couldn't find cutscene with name " + name);
+            return;
+        }
+    }
+
+    private void EndCutscene()
+    {
+        currentCutscene.onCutsceneEnd.Invoke();
+        DialogueManager.Instance.onDialogueEnd.RemoveListener(EndCutscene);
+        currentCutscene = null;
     }
     
     public void GrantRandomSouls(int qty)
@@ -84,6 +127,8 @@ public class GameManager : Singleton<GameManager>
 
     public void EnterMap()
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveListener(EnterMap);
+
         ClearUI();
 
         Debug.Log("init map");
@@ -138,6 +183,7 @@ public class GameManager : Singleton<GameManager>
         // Tutorial end of battle stuff
         if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
         {
+            topDialogue.PopupDialogue("hello!");
             TutorialManager.Instance.inTutorialBattle = false;
             DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
         }
@@ -190,6 +236,8 @@ public class GameManager : Singleton<GameManager>
 
     public void EnterTutorialBattle()
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveListener(EnterTutorialBattle);
+
         TutorialManager.Instance.inTutorialBattle = true;
         
         LoadScene(tutorialBattleSceneName);
