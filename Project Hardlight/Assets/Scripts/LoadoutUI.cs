@@ -100,15 +100,20 @@ public class LoadoutUI : Singleton<LoadoutUI>
     // Create the icons in the grid based on the VesselManager
     public void PopulateVesselGrid()
     {
+        Debug.Log("Populating VesselGrid");
         // Destroy existing
         foreach (Transform child in vesselGrid.transform) {
             GameObject.Destroy(child.gameObject);
         }
 
         // Create per vessel
-        foreach (GameObject vessel in VesselManager.Instance.vessels) {
-            GameObject vesselIcon = Instantiate(vesselIconPrefab, vesselGrid.transform, true);
-            vesselIcon.GetComponent<VesselIcon>().SetVessel(vessel);
+        foreach (VesselCatalogEntry entry in VesselManager.Instance.vesselCatalog) {
+            if (entry.enabled)
+            {
+                Debug.Log("Adding " + entry.vesselId);
+                GameObject vesselIcon = Instantiate(vesselIconPrefab, vesselGrid.transform, true);
+                vesselIcon.GetComponent<VesselIcon>().SetVessel(entry.vessel);
+            }
         }
     }
     

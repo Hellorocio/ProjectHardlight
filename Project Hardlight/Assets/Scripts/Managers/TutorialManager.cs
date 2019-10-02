@@ -7,4 +7,6 @@ public class TutorialManager : Singleton<TutorialManager>
 {
 
     public bool tutorialEnabled = true;
+
+    public bool inTutorialBattle = false;
 }

@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class BattleTutorialLevel : MonoBehaviour
 {
-    public TextAsset loadoutTutorialDialogue;
     
     void Start()
     {
-        UIManager.Instance.SetLoadoutUI(true);
-        DialogueManager.Instance.StartDialogue(loadoutTutorialDialogue);
     }
 }

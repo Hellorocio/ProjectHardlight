@@ -206,6 +206,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b9b8573b395266048a04c4d150395396, type: 3}
   - name: Wizard
     sprite: {fileID: 21300000, guid: 33856910865174d37b0800917029e2ac, type: 3}
+  - name: Taurin
+    sprite: {fileID: 21300000, guid: bc4e317d9e293d04c91fa0a8908df499, type: 3}
   commandPrefix: '>>'
 --- !u!1 &1093829139
 GameObject:
@@ -303,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialEnabled: 1
+  inTutorialBattle: 0
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4401064956470136689}
   - component: {fileID: 4401064956470136694}
+  - component: {fileID: 3548933517126354349}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -413,12 +417,30 @@ MonoBehaviour:
   souls: []
   mapSceneName: Map
   firstSceneName: TaurinIntroCutscene
-  tutorialBattleSceneName: TutorialBattle
   battleManager: {fileID: 6321964353752999066}
   levelStartDialogue: {fileID: 4900000, guid: 5812fa6b4d00a02459ad32481283cb2c, type: 3}
+  fightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6, type: 3}
+  defaultFightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6,
+    type: 3}
+  tutorialBattleSceneName: TutorialBattle
+  loadoutTutorialDialogue: {fileID: 4900000, guid: 505facac16e011348b65f60bd9208842,
+    type: 3}
   unlockedLevels: 010000
   levelsBeaten: 000000
   currentLevel: 0
+--- !u!114 &3548933517126354349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401064956470136692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84173d266c0f23947b5f7530484fb9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 0}
 --- !u!1 &4401064956782455407
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,13 +572,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946c13bdd36e4874db8b5e66008241db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vessels:
-  - {fileID: 2169203085962951801, guid: 40cf737905425b246afb4017393ec8b7, type: 3}
-  - {fileID: 8065075115998762955, guid: 026049a4b57facf4b8007f983fe70a9d, type: 3}
-  - {fileID: 6390960235825343897, guid: af8bd6e0b985f6c4ba1a551a7478725d, type: 3}
-  - {fileID: 3061916897697390927, guid: fca533348c17797469b1f0143a71bad5, type: 3}
-  - {fileID: 2256569818235868055, guid: 8441d7bb0bc05424a8343c480f158358, type: 3}
-  - {fileID: 3171901982325591327, guid: bcc49c09777713b488bea3617dbfaa97, type: 3}
+  vesselCatalog:
+  - vesselId: Mage
+    enabled: 1
+    vessel: {fileID: 2169203085962951801, guid: 40cf737905425b246afb4017393ec8b7,
+      type: 3}
+  - vesselId: Alchemis
+    enabled: 1
+    vessel: {fileID: 8065075115998762955, guid: 026049a4b57facf4b8007f983fe70a9d,
+      type: 3}
+  - vesselId: Taurin
+    enabled: 1
+    vessel: {fileID: 6390960235825343897, guid: af8bd6e0b985f6c4ba1a551a7478725d,
+      type: 3}
+  - vesselId: Healer
+    enabled: 1
+    vessel: {fileID: 3061916897697390927, guid: fca533348c17797469b1f0143a71bad5,
+      type: 3}
+  - vesselId: DarkHealer
+    enabled: 1
+    vessel: {fileID: 2256569818235868055, guid: 8441d7bb0bc05424a8343c480f158358,
+      type: 3}
+  - vesselId: Mercenary
+    enabled: 1
+    vessel: {fileID: 3171901982325591327, guid: bcc49c09777713b488bea3617dbfaa97,
+      type: 3}
 --- !u!1 &6321964353752999066
 GameObject:
   m_ObjectHideFlags: 0

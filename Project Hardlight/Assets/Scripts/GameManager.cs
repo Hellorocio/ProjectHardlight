@@ -15,11 +15,18 @@ public class GameManager : Singleton<GameManager>
 
     public string mapSceneName;
     public string firstSceneName;
-    public string tutorialBattleSceneName;
     
     public GameObject battleManager;
 
     public TextAsset levelStartDialogue;
+    // You can change this in runtime
+    public TextAsset fightingEndDialogue;
+    // Pls don't change this in runtime
+    public TextAsset defaultFightingEndDialogue;
+    
+    // Tutorial stuff
+    public string tutorialBattleSceneName;
+    public TextAsset loadoutTutorialDialogue;
 
     // Used to load dialogue after something for example
     int sceneToLoad = -1;
@@ -127,7 +134,20 @@ public class GameManager : Singleton<GameManager>
 
         SetCameraControls(false);
         ClearUI();
-        LoadScene(mapSceneName);
+
+        // Tutorial end of battle stuff
+        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        {
+            TutorialManager.Instance.inTutorialBattle = false;
+            DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
+        }
+        else
+        {
+            // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
+            DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+        }
+        
+        DialogueManager.Instance.StartDialogue(fightingEndDialogue);
     }
 
     public void SetCameraControls(bool on)
@@ -164,11 +184,36 @@ public class GameManager : Singleton<GameManager>
 
         DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
+        
+        GameManager.Instance.InitializeBattle();
     }
 
     public void EnterTutorialBattle()
     {
+        TutorialManager.Instance.inTutorialBattle = true;
+        
         LoadScene(tutorialBattleSceneName);
+        
+        // Init battle, THEN do special stuff
+        GameManager.Instance.InitializeBattle();
+        
+        // Open the Loadout by default
+        UIManager.Instance.SetLoadoutUI(true);
+        
+        // Disable other vessels for now
+        VesselManager.Instance.SetAllVesselEnabledTo(false);
+        VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
+
+        // For tutorial, only need Taurin
+        LoadoutUI.Instance.requiredVessels = 1;
+        LoadoutUI.Instance.CreateLoadoutSlots();
+        
+        // Refresh for Loadout
+        LoadoutUI.Instance.PopulateVesselGrid();
+        LoadoutUI.Instance.Refresh();
+        
+        // Start loadout tutorial dialogue
+        DialogueManager.Instance.StartDialogue(loadoutTutorialDialogue);
     }
 
     private void LoadSceneAfterDialogue()

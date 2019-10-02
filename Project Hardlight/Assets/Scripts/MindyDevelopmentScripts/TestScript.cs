@@ -11,4 +11,9 @@ public class TestScript : MonoBehaviour
     {
         DialogueManager.Instance.StartDialogue(dialogue);
     }
+
+    public void TestVesselManagerStuff()
+    {
+        VesselManager.Instance.SetAllVesselEnabledTo(false);
+    }
 }

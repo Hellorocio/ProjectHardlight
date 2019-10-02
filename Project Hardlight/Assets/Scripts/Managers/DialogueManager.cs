@@ -165,7 +165,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     private void ShowBox(bool shouldShow)
     {
-        Debug.Log(shouldShow);
         if (!shouldShow && dialogueLoop != null)
         {
             StopCoroutine(dialogueLoop);
