@@ -28,6 +28,8 @@ public class SoulManager : Singleton<SoulManager>
 
         soul.statFocuses = GetRandomStatFocuses();
         soul.allightAttributes = GetRandomAllightTypes();
+        
+        LoadoutUI.Instance.Refresh();
 
         return soul;
     }

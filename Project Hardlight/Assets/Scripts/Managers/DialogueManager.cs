@@ -58,20 +58,19 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(TextAsset inputScript)
     {
-        Debug.Log("starting dialogue");
         if (!initialized)
         {
             InitializeDialogueManager();
         }
+        // Check for already started dialogues
+        if (dialogueLoop != null)
+        {
+            Debug.Log("Dialogue already playing. Stopping it now. This is bad. Going to unsubscribe other events for you too.");
+            EndDialogue();
+        }
         
         script = inputScript;
         ShowBox(true);
-
-        if (dialogueLoop != null)
-        {
-            StopCoroutine(dialogueLoop);
-            dialogueLoop = null;
-        }
 
         dialogueLoop = RunDialogue();
         StartCoroutine(dialogueLoop);
@@ -89,6 +88,7 @@ public class DialogueManager : Singleton<DialogueManager>
         }
         dialogueLoop = null;
         onDialogueEnd.Invoke();
+        onDialogueEnd.RemoveAllListeners();
     }
 
     IEnumerator RunDialogue()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeroPlacer : MonoBehaviour
 {
-    public List<GameObject> heroes = new List<GameObject>();
+    public List<GameObject> heroes;
     public int numHeroesLeftToPlace = -1;
     public int index = 0;
 
@@ -12,13 +12,14 @@ public class HeroPlacer : MonoBehaviour
 
     public void StartHeroPlacement(List<GameObject> objs)
     {
+        heroes.Clear();
+        heroes = objs;
         //hide all heros before we place them
         foreach (GameObject vessel in objs)
         {
             vessel.SetActive(false);
         }
 
-        heroes = objs;
         numHeroesLeftToPlace = objs.Count;
         NextHeroPlacement();
     }

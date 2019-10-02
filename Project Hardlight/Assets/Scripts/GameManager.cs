@@ -28,6 +28,7 @@ public class GameManager : Singleton<GameManager>
     // Tutorial stuff
     public string tutorialBattleSceneName;
     public TextAsset loadoutTutorialDialogue;
+    public TextAsset tutorialMeetupPrebattleDialogue;
 
     // Used to load dialogue after something for example
     int sceneToLoad = -1;
@@ -113,7 +114,6 @@ public class GameManager : Singleton<GameManager>
     private void EndCutscene()
     {
         currentCutscene.onCutsceneEnd.Invoke();
-        DialogueManager.Instance.onDialogueEnd.RemoveListener(EndCutscene);
         currentCutscene = null;
     }
     
@@ -129,8 +129,6 @@ public class GameManager : Singleton<GameManager>
 
     public void EnterMap()
     {
-        DialogueManager.Instance.onDialogueEnd.RemoveListener(EnterMap);
-
         ClearUI();
 
         Debug.Log("init map");
@@ -158,9 +156,16 @@ public class GameManager : Singleton<GameManager>
 
     public void StartVesselPlacement()
     {
-        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        if (TutorialManager.Instance.tutorialEnabled)
         {
-            SayTop("Click to place each character before the battle. You can navigate the map with the scroll wheel and middle mouse.", 10);
+            if (TutorialManager.Instance.inTutorialBattle)
+            {
+                SayTop("Click to place each character before the battle. You can navigate the map with the scroll wheel and middle mouse.", 10);
+            }
+            else
+            {
+                SayTop("Healer: Hey! You better put me out of harm's way or we're all in trouble.");
+            }
         }
         
         UIManager.Instance.StartVesselPlacement(BattleManager.Instance.selectedVessels);
@@ -168,9 +173,16 @@ public class GameManager : Singleton<GameManager>
 
     public void StartFighting()
     {
-        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        if (TutorialManager.Instance.tutorialEnabled)
         {
-            SayTop("Characters start fighting automatically. As they deal damage with basic attacks, they gain mana.", 10);
+            if (TutorialManager.Instance.inTutorialBattle)
+            {
+                SayTop("Characters start fighting automatically. They gain mana based on the damage they deal with basic attacks.", 10);
+            }
+            else if (TutorialManager.Instance.inMeetupBattle)
+            {
+                SayTop("Mage: I have a powerful area attack called Light's Extosis, and Healer has Major Heal. You'll need them.", 10);
+            }
         }
         
         BattleManager.Instance.StartBattle();
@@ -193,28 +205,47 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
         
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
-        if (!TutorialManager.Instance.tutorialEnabled || !TutorialManager.Instance.inTutorialBattle)
+        if (!TutorialManager.Instance.tutorialEnabled)
         {
             DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
         }
         else
         {
-            // Tutorial end of battle stuff
-            TutorialManager.Instance.inTutorialBattle = false;
-            if (win)
+            if (TutorialManager.Instance.inTutorialBattle)
             {
-                // TODO continue tutorial
+                // Tutorial end of battle stuff
+                if (win)
+                {
+                    // Go to next cutscene
+                    TutorialManager.Instance.inTutorialBattle = false;
+                    StartCutscene("TaurinMeetsFriends");
+                }
+                else
+                {
+                    // Restart tutorial battle
+                    TutorialManager.Instance.usedAbility = false;
+                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
+                    DialogueManager.Instance.StartDialogue(new TextAsset("I've been defeated by a mere slime )-: Maybe I should try harder."));
+                }
             }
-            else
+            else if (TutorialManager.Instance.inMeetupBattle)
             {
-                // Restart tutorial battle
-                DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
-                // Give you tutorial stuff again
-                TutorialManager.Instance.usedAbility = false;
+                // Meetup end of battle
+                if (win)
+                {
+                    TutorialManager.Instance.inMeetupBattle	 = false;
+                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+                    DialogueManager.Instance.StartDialogue(new TextAsset("We did it! Let's check out the rest of the forest."));
+                }
+                else
+                {
+                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialMultibattle);
+                    DialogueManager.Instance.StartDialogue(new TextAsset("Ow ow ow! Let's go heal up and try and get past these slimes again."));
+                }
+                
             }
         }
         
-        DialogueManager.Instance.StartDialogue(fightingEndDialogue);
     }
 
     public void SayTop(string text)
@@ -265,10 +296,18 @@ public class GameManager : Singleton<GameManager>
         GameManager.Instance.InitializeBattle();
     }
 
+    private void LoadSceneAfterDialogue()
+    {
+        ClearUI();
+        gameState = GameState.CUTSCENE;
+        LoadScene(sceneToLoad);
+    }
+    
+    ////////// Tutorial fun
+    // Can pull out into TutorialManager if it gets too unwieldy
+    // Battle with just Taurin, basics
     public void EnterTutorialBattle()
     {
-        DialogueManager.Instance.onDialogueEnd.RemoveListener(EnterTutorialBattle);
-
         TutorialManager.Instance.inTutorialBattle = true;
         
         LoadScene(tutorialBattleSceneName);
@@ -295,10 +334,35 @@ public class GameManager : Singleton<GameManager>
         DialogueManager.Instance.StartDialogue(loadoutTutorialDialogue);
     }
 
-    private void LoadSceneAfterDialogue()
+    // Battle with multiple units
+    public void EnterTutorialMultibattle()
     {
-        ClearUI();
-        gameState = GameState.CUTSCENE;
-        LoadScene(sceneToLoad);
+        TutorialManager.Instance.inMeetupBattle	= true;
+        
+        LoadScene("TutorialMeetupBattle");
+        
+        // Init battle, THEN do special stuff
+        GameManager.Instance.InitializeBattle();
+        
+        // Open the Loadout by default
+        UIManager.Instance.SetLoadoutUI(true);
+        
+        // Disable other vessels for now
+        VesselManager.Instance.SetAllVesselEnabledTo(false);
+        VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
+        VesselManager.Instance.GetVesselEntryById("Mage").enabled = true;
+        VesselManager.Instance.GetVesselEntryById("Healer").enabled = true;
+
+        // For tutorial, only need Taurin
+        LoadoutUI.Instance.requiredVessels = 3;
+        LoadoutUI.Instance.CreateLoadoutSlots();
+        
+        // Refresh for Loadout
+        LoadoutUI.Instance.PopulateVesselGrid();
+        LoadoutUI.Instance.Refresh();
+        
+        // Start loadout tutorial dialogue
+        DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
     }
+
 }

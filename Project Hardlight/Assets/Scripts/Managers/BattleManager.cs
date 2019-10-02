@@ -471,7 +471,7 @@ public class BattleManager : Singleton<BattleManager>
     /// Invokes levelEnd event, sets state to BattleOver, and disables UI 
     /// </summary>
     /// <param name="herosWin"></param>
-    void BattleOver (bool herosWin)
+    public void BattleOver (bool herosWin)
     {
         //Invoke levelEnd event so levelManager knows to show dialogue
         OnLevelEnd?.Invoke(herosWin);
@@ -480,7 +480,7 @@ public class BattleManager : Singleton<BattleManager>
         DeselectHero();
         inputState = InputState.BattleOver;
 
-        GameManager.Instance.EndFighting(true);
+        GameManager.Instance.EndFighting(herosWin);
     }
 
     void SubscribeHeroEvents()

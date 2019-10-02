@@ -373,7 +373,7 @@ public class Fighter : MonoBehaviour
         }
         else
         {
-            baseHealth = 100;
+            baseHealth = GetComponent<VesselData>().baseHealth;
         }
 
         return baseHealth;

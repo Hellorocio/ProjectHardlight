@@ -13,4 +13,6 @@ public class TutorialManager : Singleton<TutorialManager>
     public bool inTutorialBattle = false;
     public bool usedAbility = false;
 
+    public bool inMeetupBattle = false;
+
 }
