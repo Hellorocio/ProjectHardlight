@@ -119,14 +119,12 @@ public class FighterAttack : MonoBehaviour
 
             //attack
             attack.DoBasicAttack(currentTarget);
-            if (fighter.anim != null && (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
-                fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2"))
+            //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
+            //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
+            if (fighter.anim != null )
             {
                 
                 fighter.anim.Play("Attack");
-            } else
-            {
-                Debug.Log("Ability is playing");
             }
 
             AudioSource audioSource = gameObject.GetComponent<AudioSource>();
