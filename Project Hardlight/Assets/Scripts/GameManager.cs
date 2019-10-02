@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
     // Map state
     public bool[] unlockedLevels = {true,false,false};
     public bool[] levelsBeaten = {false,false,false};
-    public int currentLevel;
+    public int currentLevel = 3;
 
     public DialogueBoxController topDialogue;
 
@@ -144,8 +144,9 @@ public class GameManager : Singleton<GameManager>
         // Set to create loadout
         LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
-        UIManager.Instance.SetLoadoutUI(false);
-        UIManager.Instance.loadoutUIButton.SetActive(true);
+        UIManager.Instance.SetLoadoutUI(true);
+
+        UIManager.Instance.loadoutUI.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
 
         battleManager.SetActive(true);
@@ -194,7 +195,22 @@ public class GameManager : Singleton<GameManager>
     {
         if (win)
         {
-            Debug.Log("heros win");
+            Debug.Log("heros win level " + currentLevel);
+            
+
+            if (!TutorialManager.Instance.tutorialEnabled)
+            {
+                currentLevel++;
+
+                if (currentLevel == 6)
+                {
+                    print("hey, we should go to fin level now");
+                    UIManager.Instance.battleUI.SetActive(false);
+                    SceneManager.LoadScene(5);
+                    return;
+                }
+            }
+            
         }
         else
         {
@@ -207,7 +223,8 @@ public class GameManager : Singleton<GameManager>
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
         if (!TutorialManager.Instance.tutorialEnabled)
         {
-            DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+            //DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+            EnterMap();
         }
         else
         {
@@ -290,6 +307,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case 3:
                 TutorialManager.Instance.tutorialEnabled = false;
+                VesselManager.Instance.SetAllVesselEnabledTo(true);
                 sceneToLoad = 2;
                 break;
             case 4:

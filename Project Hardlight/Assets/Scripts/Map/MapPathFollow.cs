@@ -30,9 +30,9 @@ public class MapPathFollow : MonoBehaviour
 
     void CheckNode()
     {
-            StartPosition = Party.transform.position;
-            Timer = 0;
-            CurrentPosition = Nodes[CurrentNode].transform.position;       
+        StartPosition = Party.transform.position;
+        Timer = 0;
+        CurrentPosition = Nodes[CurrentNode].transform.position;       
     }
 
     // Update is called once per frame

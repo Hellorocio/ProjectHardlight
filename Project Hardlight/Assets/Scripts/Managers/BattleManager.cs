@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // All inputs should go int there
 // BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
@@ -412,6 +413,15 @@ public class BattleManager : Singleton<BattleManager>
         //call levelStart on enemies
         GameObject enemyParent = GameObject.Find("Enemies");
         numEnemies = 0;
+        if (SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            numHeros = 1;
+        }
+        else
+        {
+            numHeros = 3;
+        }
+        
         foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
         {
             numEnemies++;

@@ -14,6 +14,8 @@ public class MapManager : Singleton<MapManager>
 
     void Start()
     {
+        currentNode = GameManager.Instance.currentLevel - 3;
+        print("MapManager (start): " + currentNode);
         if (GameManager.Instance.levelsBeaten[2] == true)
         {
             GameManager.Instance.LoadScene(5);
@@ -24,6 +26,7 @@ public class MapManager : Singleton<MapManager>
             nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
         }
         Party.transform.position = nodes[currentNode].transform.position;
+        
         panels[currentNode].SetActive(true);
         updatePanel();
         GetComponent<MapPathFollow>().StartPosition = Party.transform.position;
@@ -53,22 +56,27 @@ public class MapManager : Singleton<MapManager>
     public void goRight()
     {
         currentNode += 1;
-        if(currentNode > 2){
+        if(currentNode > 2)
+        {
             currentNode = 2;
         }
         //checkPos();
     }
 
-    public void travel(int destination){
-        if(nodes[destination].unlocked == false || destination == currentNode || GetComponent<MapPathFollow>().traveling){
+    public void travel(int destination)
+    {
+        if(nodes[destination].unlocked == false || destination == currentNode || GetComponent<MapPathFollow>().traveling)
+        {
             return;
         }
-        foreach(GameObject p in panels){
+        foreach(GameObject p in panels)
+        {
             p.SetActive(false);
         }
         
 
-        switch(currentNode){
+        switch(currentNode)
+        {
             case 0:
                 if(destination == 1){
                     goRight();
@@ -109,20 +117,25 @@ public class MapManager : Singleton<MapManager>
 
     }
     
-    public void updatePanel(){
-        if(GameManager.Instance.levelsBeaten[currentNode] == true){
-            if(panels[currentNode].GetComponentInChildren<Button>()){
-            panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
+    public void updatePanel()
+    {
+        if(GameManager.Instance.levelsBeaten[currentNode] == true)
+        {
+            if(panels[currentNode].GetComponentInChildren<Button>())
+            {
+                panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
             }
         }
         
     }
 
-    public void go(int index){
-        LevelSelect(index);
+    public void go(int index)
+    {
+        //LevelSelect(index);
+        StartLevel();
     }
 
-    public void startLevel()
+    public void StartLevel()
     {
         GameManager.Instance.EnterBattleScene(GameManager.Instance.currentLevel);
     }
@@ -148,6 +161,7 @@ public class MapManager : Singleton<MapManager>
 
     public void LevelSelect(int index)
     {
+        print("MapManager (LevelSelect): set " + GameManager.Instance.currentLevel + " currentLevel to " + index);
         GameManager.Instance.currentLevel = index;
     }
 }

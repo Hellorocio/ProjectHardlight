@@ -253,6 +253,7 @@ MonoBehaviour:
   tutorialEnabled: 1
   inTutorialBattle: 0
   usedAbility: 0
+  inMeetupBattle: 0
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,11 +739,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6268777530897172787}
-    - target: {fileID: 2627770806986864191, guid: 3fbea0904b702924089f4f66c5d98218,
+    - target: {fileID: 3815757853332763065, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6268777530897172787}
+      objectReference: {fileID: 4401064956470136694}
+    - target: {fileID: 3815757853332763065, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GrantRandomSouls
+      objectReference: {fileID: 0}
     - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -763,6 +769,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: TaurinMeetsFriends
       objectReference: {fileID: 0}
+    - target: {fileID: 2627770806986864191, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6268777530897172787}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
 --- !u!224 &4401064957614275520 stripped
