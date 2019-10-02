@@ -22,7 +22,7 @@ public class Fighter : MonoBehaviour
     public Animator anim;
 
     private float maxHealth;
-    private float maxMana;
+    private int maxMana;
     private float speed = 1;
     public Soul soul;
 
@@ -30,7 +30,7 @@ public class Fighter : MonoBehaviour
     private Color hitColor;
     
     private float health;
-    private float mana = 0;
+    private int mana = 0;
 
     [HideInInspector]
     public BattleManager battleManager;
@@ -221,9 +221,9 @@ public class Fighter : MonoBehaviour
     /// Returns this fighter's mana regeneration based on buffs and soul stat
     /// </summary>
     /// <returns></returns>
-    public float GetManaGeneration (float manaGained)
+    public int GetManaGeneration (int manaGained)
     {
-        return manaGained + manaGained * manaGenerationBoost;
+        return (int) (manaGained + manaGained * manaGenerationBoost);
     }
 
     /// <summary>
@@ -279,7 +279,7 @@ public class Fighter : MonoBehaviour
     /// <param name="manaGained"></param>
     public void GainMana(int manaGained)
     {
-        float prevMana = mana;
+        int prevMana = mana;
 
         mana += GetManaGeneration(manaGained);
         mana = Mathf.Clamp(mana, 0, maxMana);
@@ -290,6 +290,11 @@ public class Fighter : MonoBehaviour
 
             //invoke onmaxmana event
             OnMaxMana?.Invoke(this);
+            
+            if (TutorialManager.Instance.tutorialEnabled && !TutorialManager.Instance.usedAbility)
+            {
+                GameManager.Instance.SayTop("When a hero hits max mana, you can click it to cast one of its abilities.", 10);
+            }
 
             if (maxManaGlow != null)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // All inputs should go int there
+// BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
 public class BattleManager : Singleton<BattleManager>
 {
     public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
@@ -45,6 +46,12 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Update()
     {
+        // Don't do BattleManager updates if not fighting
+        if (GameManager.Instance.gameState != GameState.FIGHTING)
+        {
+            return;
+        }
+        
         if(doubleClickTimer <= doubleClickTimeLimit)
         {
             doubleClickTimer += Time.deltaTime;
@@ -236,6 +243,11 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="abilityNum"></param>
     public void UseAbility(int abilityNum)
     {
+        if (!TutorialManager.Instance.usedAbility)
+        {
+            TutorialManager.Instance.usedAbility = true;
+        }
+        
         if (selectedHero != null)
         {
             if (selectedAbility != null)
@@ -396,6 +408,7 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     void OnMaxManaEvent(Fighter f)
     {
+        Debug.Log("MANAAA");
         commandsUI.SwitchButtonColor(true);
     }
 

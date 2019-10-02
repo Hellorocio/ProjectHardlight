@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, OTHER };
+public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING};
 
 public class GameManager : Singleton<GameManager>
 {
@@ -106,6 +106,8 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("WARNING: Couldn't find cutscene with name " + name);
             return;
         }
+
+        gameState = GameState.CUTSCENE;
     }
 
     private void EndCutscene()
@@ -132,8 +134,8 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
 
         Debug.Log("init map");
-        gameState = GameState.MAP;
         LoadScene(mapSceneName);
+        gameState = GameState.MAP;
     }
 
     public void InitializeBattle()
@@ -156,11 +158,21 @@ public class GameManager : Singleton<GameManager>
 
     public void StartVesselPlacement()
     {
+        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        {
+            SayTop("Click to place each character before the battle. You can navigate the map with the scroll wheel and middle mouse.", 10);
+        }
+        
         UIManager.Instance.StartVesselPlacement(BattleManager.Instance.selectedVessels);
     }
 
     public void StartFighting()
     {
+        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        {
+            SayTop("Characters start fighting automatically. As they deal damage with basic attacks, they gain mana.", 10);
+        }
+        
         BattleManager.Instance.StartBattle();
 
         gameState = GameState.FIGHTING;
@@ -179,23 +191,42 @@ public class GameManager : Singleton<GameManager>
 
         SetCameraControls(false);
         ClearUI();
-
-        // Tutorial end of battle stuff
-        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.inTutorialBattle)
+        
+        // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
+        if (!TutorialManager.Instance.tutorialEnabled || !TutorialManager.Instance.inTutorialBattle)
         {
-            topDialogue.PopupDialogue("hello!");
-            TutorialManager.Instance.inTutorialBattle = false;
-            DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
+            DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
         }
         else
         {
-            // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
-            DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+            // Tutorial end of battle stuff
+            TutorialManager.Instance.inTutorialBattle = false;
+            if (win)
+            {
+                // TODO continue tutorial
+            }
+            else
+            {
+                // Restart tutorial battle
+                DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
+                // Give you tutorial stuff again
+                TutorialManager.Instance.usedAbility = false;
+            }
         }
         
         DialogueManager.Instance.StartDialogue(fightingEndDialogue);
     }
 
+    public void SayTop(string text)
+    {
+        topDialogue.PopupDialogue(text);
+    }
+    
+    public void SayTop(string text, float duration)
+    {
+        topDialogue.PopupDialogue(text, duration);
+    }
+    
     public void SetCameraControls(bool on)
     {
         BattleManager.Instance.camController.Initialize();
