@@ -147,7 +147,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.SetLoadoutUI(false);
         UIManager.Instance.loadoutUIButton.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
-        
+
         battleManager.SetActive(true);
         BattleManager.Instance.Initialize();
 
@@ -288,12 +288,22 @@ public class GameManager : Singleton<GameManager>
             case 2:
                 sceneToLoad = 4;
                 break;
+            case 3:
+                TutorialManager.Instance.tutorialEnabled = false;
+                sceneToLoad = 2;
+                break;
+            case 4:
+                TutorialManager.Instance.tutorialEnabled = false;
+                sceneToLoad = 3;
+                break;
+            case 5:
+                TutorialManager.Instance.tutorialEnabled = false;
+                sceneToLoad = 4;
+                break;
         }
 
         DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
-        
-        GameManager.Instance.InitializeBattle();
     }
 
     private void LoadSceneAfterDialogue()
@@ -301,6 +311,7 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
         gameState = GameState.CUTSCENE;
         LoadScene(sceneToLoad);
+        GameManager.Instance.InitializeBattle();
     }
     
     ////////// Tutorial fun
