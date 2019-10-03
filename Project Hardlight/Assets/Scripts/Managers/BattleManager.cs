@@ -20,8 +20,8 @@ public class BattleManager : Singleton<BattleManager>
     public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
 
-    public int numEnemies;
-    private int numHeros = 3; //hardcoded for now, we'll have to change this if we change # of heros in battle
+    private int numEnemies;
+    private int numHeros;
 
     //called when the level starts (when all heros have been placed)
     public delegate void LevelStart();
@@ -411,6 +411,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //call levelStart on enemies
         GameObject enemyParent = GameObject.Find("Enemies");
+        numHeros = selectedVessels.Count;
         numEnemies = 0;
         foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
         {
