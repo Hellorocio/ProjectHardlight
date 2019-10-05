@@ -51,8 +51,30 @@ public class BattleManager : Singleton<BattleManager>
         {
             return;
         }
-        
-        if(doubleClickTimer <= doubleClickTimeLimit)
+
+        if ((Input.GetKeyDown(KeyCode.Alpha1)))
+        {
+            if (selectedVessels[0].activeSelf)
+            {
+                SetSelectedHero(selectedVessels[0].GetComponent<Fighter>());
+            }
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha2)))
+        {
+            if (selectedVessels[1].activeSelf)
+            {
+                SetSelectedHero(selectedVessels[1].GetComponent<Fighter>());
+            }
+        } else if ((Input.GetKeyDown(KeyCode.Alpha3)))
+        {
+            if (selectedVessels[2].activeSelf)
+            {
+                SetSelectedHero(selectedVessels[2].GetComponent<Fighter>());
+            }
+        }
+
+
+        if (doubleClickTimer <= doubleClickTimeLimit)
         {
             doubleClickTimer += Time.deltaTime;
         } else
@@ -88,6 +110,15 @@ public class BattleManager : Singleton<BattleManager>
                 selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
 
+            if ((Input.GetKeyDown(KeyCode.Q)))
+            {
+                UseAbility(0);
+            }
+            else if ((Input.GetKeyDown(KeyCode.W)))
+            {
+                UseAbility(1);
+            }
+            /* Commented out to avoid conflict with hardcoded hot keys
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
             {
                 UseAbility(0);
@@ -96,6 +127,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 UseAbility(1);
             }
+            */
         }
         else if (inputState == InputState.CastingAbility)
         {
