@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317324162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.071502924, y: 0.059177782, z: -0.3959938}
+  m_LocalPosition: {x: 0.071502924, y: -0.38, z: -0.3959938}
   m_LocalScale: {x: 0.16000001, y: 0.16000001, z: 0.2}
   m_Children: []
   m_Father: {fileID: 952073211779320124}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1919405786577806409, guid: 626095bd789111c42ab5b97aa9cad809,
+  m_Sprite: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -92,7 +92,7 @@ Animator:
   m_GameObject: {fileID: 1317324162}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e0986ee2a11c341918d631970ac36d98, type: 2}
+  m_Controller: {fileID: 9100000, guid: e45335bc355f1aa448822eb6d3058dfb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 
   range: 0
-  damage: 0
+  damage: 12
   description: 
 --- !u!114 &8680636418704861795
 MonoBehaviour:
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPrefs: 
   basicAttackAction: {fileID: 205179122}
-  basicAttackStats: {fileID: 11400000, guid: 8aaaa2e14d37b114e88adce05b1f0886, type: 2}
+  basicAttackStats: {fileID: 11400000, guid: ff4b795f369ed4df3ba315414ff31589, type: 2}
   currentTarget: {fileID: 0}
 --- !u!114 &7094492070759052052
 MonoBehaviour:
@@ -256,14 +256,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appearance: {fileID: 0}
+  appearance: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
+    type: 3}
   vesselName: Tony Slimeslayer
   title: Basic Fighter
   description: 
   baseHealth: 120
   baseMana: 0
   baseAbility: 100
-  baseMovementSpeed: 1
+  baseMovementSpeed: 160
   basicAttack: {fileID: 8680636418704861795}
   abilities: []
 --- !u!1 &4037550738124259913

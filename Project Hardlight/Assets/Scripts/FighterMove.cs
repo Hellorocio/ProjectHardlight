@@ -32,6 +32,7 @@ public class FighterMove : MonoBehaviour
                 collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
         {
             moveState = MoveState.paused;
+
             //print("moving: paused");
         }
     }
@@ -57,8 +58,10 @@ public class FighterMove : MonoBehaviour
         //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (fighterAttack.currentTarget == null));
         if (moveState == MoveState.moving)
         {
+
             if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
             {
+
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
             }
             else
@@ -81,6 +84,7 @@ public class FighterMove : MonoBehaviour
     {
         if (!followingMoveOrder)
         {
+
             //Debug.Log("Recieved Start Moving Transform: " + t.name);
             //make sure everything has been initialized
             if (fighter == null)
@@ -164,6 +168,7 @@ public class FighterMove : MonoBehaviour
     /// <returns></returns>
     bool ShouldFighterWait (Fighter otherFighter)
     {
+        
         bool fighterWait = false;
 
         if ((!sprite.flipX && fighter.transform.position.x < otherFighter.transform.position.x) ||

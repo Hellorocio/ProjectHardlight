@@ -195,6 +195,7 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetSpeed()
     {
+
         return speed + speed * movementSpeedBoost;
     }
 
@@ -388,6 +389,12 @@ public class Fighter : MonoBehaviour
     public int GetMovementSpeed()
     {
         int baseSpeed = GetComponent<VesselData>().baseMovementSpeed / 100;
+
+        //if(baseSpeed <= 0)
+        //{
+            
+        //    return 1;
+        //}
         return baseSpeed;
     }
 }
