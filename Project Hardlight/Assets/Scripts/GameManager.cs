@@ -31,11 +31,11 @@ public class GameManager : Singleton<GameManager>
     public TextAsset tutorialMeetupPrebattleDialogue;
 
     // Used to load dialogue after something for example
-    int sceneToLoad = -1;
+    string sceneToLoad = "";
 
     // Map state
-    public bool[] unlockedLevels = {true,false,false};
-    public bool[] levelsBeaten = {false,false,false};
+    [HideInInspector]
+    public MapNode.NodeStatus[] levelStatuses;
     public int currentLevel;
 
     public DialogueBoxController topDialogue;
@@ -208,6 +208,7 @@ public class GameManager : Singleton<GameManager>
         if (!TutorialManager.Instance.tutorialEnabled)
         {
             DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+            DialogueManager.Instance.StartDialogue(new TextAsset("We did it!"));
         }
         else
         {
@@ -274,34 +275,12 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(scene);
     }
 
-    public void EnterBattleScene(int level)
+    public void EnterBattleScene(string levelName)
     {
-        Debug.Log("GameManager | Starting to load level number " + level + " (Not the same as scene number)");
-        switch(level)
-        {
-            case 0:
-                sceneToLoad = 8;
-                break;
-            case 1:
-                sceneToLoad = 1;
-                break;
-            case 2:
-                sceneToLoad = 4;
-                break;
-            case 3:
-                TutorialManager.Instance.tutorialEnabled = false;
-                sceneToLoad = 2;
-                break;
-            case 4:
-                TutorialManager.Instance.tutorialEnabled = false;
-                sceneToLoad = 3;
-                break;
-            case 5:
-                TutorialManager.Instance.tutorialEnabled = false;
-                sceneToLoad = 4;
-                break;
-        }
+        TutorialManager.Instance.tutorialEnabled = false;
 
+        Debug.Log("GameManager | Starting to load level " + levelName);
+        sceneToLoad = levelName;
         DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
     }

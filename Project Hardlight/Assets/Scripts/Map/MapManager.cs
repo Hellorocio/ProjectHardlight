@@ -3,151 +3,112 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapManager : Singleton<MapManager>
+public class MapManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Node[] nodes;
-    public GameObject Party;
-    public GameObject[] panels;
+    public GameObject party;
+    public MapPopoverController popOver;
 
-    int currentNode;
+    //colors for nodes (replace with images?)
+    public Color locked;
+    public Color battle;
+    public Color hub;
+    public Color boss;
+
+    private MapNode[] nodes;
+    private MapNode currentNode;
 
     void Start()
     {
-        if (GameManager.Instance.levelsBeaten[2] == true)
+        //init nodes
+        nodes = GetComponentsInChildren<MapNode>();
+
+        //init level statuses
+        if (GameManager.Instance.levelStatuses.Length == 0)
         {
-            GameManager.Instance.LoadScene(5);
+            MapNode.NodeStatus[] statuses = new MapNode.NodeStatus[nodes.Length];
+            for (int i = 0; i < statuses.Length; i++)
+            {
+                statuses[i] = nodes[i].status;
+            }
+            GameManager.Instance.levelStatuses = statuses;
         }
 
+        SetNodeAppearances();
+
+        //set party location
+        SetPartyLocation(nodes[GameManager.Instance.currentLevel].transform.position, true);
+    }
+
+    /// <summary>
+    /// Called by node on button click
+    /// Moves party to the clicked node and turns on GO button if node isn't locked
+    /// </summary>
+    public void ClickNode (MapNode node)
+    {
+        if (node.status != MapNode.NodeStatus.LOCKED)
+        {
+            //move party to node
+            SetPartyLocation(node.transform.position, false);
+
+            //activate go button
+            party.SetActive(true);
+
+            currentNode = node;
+        }
+    }
+
+    /// <summary>
+    /// Set appearence for each node based on the values saved in GameManager
+    /// </summary>
+    private void SetNodeAppearances ()
+    {
         for (int i = 0; i < nodes.Length; i++)
         {
-            nodes[i].unlocked = GameManager.Instance.unlockedLevels[i];
+            MapNode.NodeStatus status = GameManager.Instance.levelStatuses[i];
+            nodes[i].SetStatus(status, GetNodeAppearance(status, nodes[i].type));
         }
-        Party.transform.position = nodes[currentNode].transform.position;
-        panels[currentNode].SetActive(true);
-        updatePanel();
-        GetComponent<MapPathFollow>().StartPosition = Party.transform.position;
-        GetComponent<MapPathFollow>().CurrentPosition = Party.transform.position;
     }
 
-    void checkPos(){
-        Party.transform.position = nodes[currentNode].transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Get the color for a node based on its status and type
+    /// </summary>
+    /// <param name="status"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Color GetNodeAppearance (MapNode.NodeStatus status, MapNode.NodeType type)
     {
-        
-    }
-    
-    public void goLeft()
-    {
-        currentNode -= 1;
-        if (currentNode < 0)
+        if (status == MapNode.NodeStatus.LOCKED)
         {
-            currentNode = 0;   
+            return locked;
         }
-        //checkPos();
-    }
-
-    public void goRight()
-    {
-        currentNode += 1;
-        if(currentNode > 2){
-            currentNode = 2;
-        }
-        //checkPos();
-    }
-
-    public void travel(int destination){
-        if(nodes[destination].unlocked == false || destination == currentNode || GetComponent<MapPathFollow>().traveling){
-            return;
-        }
-        foreach(GameObject p in panels){
-            p.SetActive(false);
-        }
-        
-
-        switch(currentNode){
-            case 0:
-                if(destination == 1){
-                    goRight();
-                    GetComponent<MapPathFollow>().travel(0);
-                }
-                else{
-                    goRight();
-                    goRight();
-                    GetComponent<MapPathFollow>().travel(2);
-                }
-                
-                break;
-            case 1:
-                if(destination == 0){
-                    GetComponent<MapPathFollow>().travel(3);
-                    goLeft();
-                }
-                else{
-                    GetComponent<MapPathFollow>().travel(1);
-                    goRight();
-                }
-                 break;
-
-            case 2:
-                if(destination == 1){
-                    GetComponent<MapPathFollow>().travel(4);
-                    goLeft();
-                }
-                else{
-                    GetComponent<MapPathFollow>().travel(5);
-                    goLeft();
-                    goLeft();
-                }
-                break;
-        }
-        panels[currentNode].SetActive(true);
-        updatePanel();
-
-    }
-    
-    public void updatePanel(){
-        if(GameManager.Instance.levelsBeaten[currentNode] == true){
-            if(panels[currentNode].GetComponentInChildren<Button>()){
-            panels[currentNode].GetComponentInChildren<Button>().gameObject.SetActive(false);
+        else
+        {
+            if (type == MapNode.NodeType.BATTLE)
+            {
+                return battle;
+            }
+            else
+            if (type == MapNode.NodeType.BOSS)
+            {
+                return boss;
+            }
+            else
+            {
+                return hub;
             }
         }
-        
     }
 
-    public void go(int index){
-        LevelSelect(index);
-    }
-
-    public void startLevel()
+    void SetPartyLocation (Vector3 nodePos, bool snapToLocation)
     {
-        GameManager.Instance.EnterBattleScene(GameManager.Instance.currentLevel);
+        Vector3 tempPos = nodePos;
+        tempPos.y += 50f;
+        party.transform.position = tempPos;
+    }
+
+    public void PressFightButton ()
+    {
+        GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
     }
     
-    public void WinLevel()
-    {
-        GameManager.Instance.levelsBeaten[GameManager.Instance.currentLevel] = true;
-        switch(GameManager.Instance.currentLevel)
-        {
-            case 0:
-                GameManager.Instance.unlockedLevels[1] = true;
-                break;
-            case 1:
-                GameManager.Instance.unlockedLevels[2] = true;
-                break;
-        }
-    }
-    
-    public void UnlockLevel(int index)
-    {
-        GameManager.Instance.unlockedLevels[index] = true;
-    }
-
-    public void LevelSelect(int index)
-    {
-        GameManager.Instance.currentLevel = index;
-    }
 }
