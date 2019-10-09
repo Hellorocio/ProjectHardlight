@@ -49,6 +49,10 @@ public class DialogueManager : Singleton<DialogueManager>
     private void Update()
     {
         rInput = Input.GetAxisRaw("Submit") > 0;
+        if (!rInput)
+        {
+            rInput = Input.GetKeyDown(KeyCode.Mouse0);
+        }
 
         if (Input.GetKeyDown("escape"))
         {
@@ -140,6 +144,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     bool CheckRPressed()
     {
+        
         bool result = rInput && !oldRInput;
         oldRInput = rInput;
         return result;
