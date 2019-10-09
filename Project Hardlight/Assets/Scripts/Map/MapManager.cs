@@ -109,6 +109,7 @@ public class MapManager : MonoBehaviour
     public void PressFightButton ()
     {
         GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
+        party.SetActive(false);
     }
     
 }
