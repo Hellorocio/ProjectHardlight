@@ -253,6 +253,7 @@ MonoBehaviour:
   tutorialEnabled: 1
   inTutorialBattle: 0
   usedAbility: 0
+  inMeetupBattle: 0
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,8 +377,7 @@ MonoBehaviour:
     type: 3}
   tutorialMeetupPrebattleDialogue: {fileID: 4900000, guid: f262dd741f8d4fd48031bf5c5a7e196f,
     type: 3}
-  unlockedLevels: 010000
-  levelsBeaten: 000000
+  levelStatuses: 
   currentLevel: 0
   topDialogue: {fileID: 2750734401340295608}
 --- !u!114 &3548933517126354349
@@ -603,7 +603,6 @@ MonoBehaviour:
     type: 3}
   moveLoc: {fileID: 4401064956782455407}
   commandsUI: {fileID: 1171275166896226857}
-  numEnemies: 0
   camController: {fileID: 1093829141}
   selectedVessels: []
 --- !u!1001 &3856169872641792672
@@ -723,6 +722,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4401064956470136694}
+    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartCutscene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: TaurinMeetsFriends
+      objectReference: {fileID: 0}
     - target: {fileID: 2720995091273029684, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -743,25 +762,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6268777530897172787}
-    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+    - target: {fileID: 9001829539300122412, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4401064956470136694}
-    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
+    - target: {fileID: 9001829539300122412, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartCutscene
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651480486049076252, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: TaurinMeetsFriends
+      value: GrantRandomSouls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
