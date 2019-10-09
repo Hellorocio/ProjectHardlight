@@ -130,23 +130,23 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            if (Input.mousePosition.x > screenWidth - screenBufferSize)
+            if (Input.mousePosition.x > screenWidth - screenBufferSize || Input.GetKey(KeyCode.RightArrow))
             {
                 isCamMoving = true;
                 camPos.x += panSpeed * Time.deltaTime;
             }
-            else if (Input.mousePosition.x < screenBufferSize)
+            else if (Input.mousePosition.x < screenBufferSize || Input.GetKey(KeyCode.LeftArrow))
             {
                 isCamMoving = true;
                 camPos.x -= panSpeed * Time.deltaTime;
             }
 
-            else if (Input.mousePosition.y > screenHeight - screenBufferSize)
+            else if (Input.mousePosition.y > screenHeight - screenBufferSize || Input.GetKey(KeyCode.UpArrow))
             {
                 isCamMoving = true;
                 camPos.y += panSpeed * Time.deltaTime;
             }
-            else if (Input.mousePosition.y < screenBufferSize)
+            else if (Input.mousePosition.y < screenBufferSize || Input.GetKey(KeyCode.DownArrow))
             {
                 isCamMoving = true;
                 camPos.y -= panSpeed * Time.deltaTime;
