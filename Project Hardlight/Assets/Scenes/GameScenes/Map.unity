@@ -509,7 +509,7 @@ MonoBehaviour:
   status: 1
   levelName: Beach
   levelDescription: Beach
-  sceneToLoad: BattleArea6
+  sceneToLoad: BeachBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   levelDescription: 'Big Town
 
 '
-  sceneToLoad: BattleArea6
+  sceneToLoad: BigTownHub
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -1362,7 +1362,7 @@ MonoBehaviour:
   status: 1
   levelName: University
   levelDescription: University
-  sceneToLoad: BattleArea6
+  sceneToLoad: UniversityHub
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   levelName: Ruins
   levelDescription: The ruins of an ancient temple dedicated to the elements. Rumor
     has it some people still dwell here...
-  sceneToLoad: BattleArea6
+  sceneToLoad: RuinsBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -2416,7 +2416,7 @@ MonoBehaviour:
   status: 1
   levelName: Orchard
   levelDescription: Orchard
-  sceneToLoad: BattleArea6
+  sceneToLoad: OrchardBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -2622,7 +2622,7 @@ MonoBehaviour:
   levelDescription: 'Plains
 
 '
-  sceneToLoad: BattleArea6
+  sceneToLoad: PlainsBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -2813,6 +2813,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagers
       objectReference: {fileID: 0}
+    - target: {fileID: 4401064956470136694, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: firstSceneName
+      value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171275168667800131, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4401064956470136689, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2871,26 +2881,6 @@ PrefabInstance:
     - target: {fileID: 4401064957614275520, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1171275168667800131, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947497689243060632, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856169872413885789, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064956944383647, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1731112010653629881, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
@@ -3953,46 +3943,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 35
       objectReference: {fileID: 0}
-    - target: {fileID: 4401064957614275524, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064957614275521, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064957614275523, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: battleUI
-      value: 
-      objectReference: {fileID: 200247264}
-    - target: {fileID: 6321964353752999066, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856169871413490433, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856169872539017057, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064956470136694, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: firstSceneName
-      value: Map
-      objectReference: {fileID: 0}
-    - target: {fileID: 6268777530897172787, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2009267818313226922, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -4533,6 +4483,56 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -51.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6321964353752999066, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401064957614275524, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268777530897172787, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401064957614275521, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401064957614275523, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: battleUI
+      value: 
+      objectReference: {fileID: 200247264}
+    - target: {fileID: 3856169872539017057, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947497689243060632, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856169871413490433, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856169872413885789, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401064956944383647, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1010593559, guid: c9d1c6b6c4b03f244ae1bf2d912625dc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4734,7 +4734,7 @@ MonoBehaviour:
   status: 1
   levelName: Mountain Village
   levelDescription: Mountain village
-  sceneToLoad: BattleArea6
+  sceneToLoad: MountainVillageHub
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -5253,7 +5253,7 @@ MonoBehaviour:
   levelDescription: 'Plains
 
 '
-  sceneToLoad: BattleArea6
+  sceneToLoad: CAveBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -5690,7 +5690,7 @@ MonoBehaviour:
   status: 1
   levelName: Old Grove
   levelDescription: Old Grove
-  sceneToLoad: BattleArea6
+  sceneToLoad: OldGroveBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -6079,7 +6079,7 @@ MonoBehaviour:
   status: 1
   levelName: Council Chambers
   levelDescription: Council
-  sceneToLoad: BattleArea6
+  sceneToLoad: CouncilBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -6893,7 +6893,7 @@ GameObject:
   - component: {fileID: 2004092314}
   - component: {fileID: 2004092313}
   m_Layer: 5
-  m_Name: ForestHubNode
+  m_Name: NewGroveNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6980,12 +6980,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   status: 1
-  levelName: ForestHub
+  levelName: New Grove
   levelDescription: 'A relatively new grove of trees. It is usually too dangergous
     to go to the center. Thick trees and forest sprites guard the core.
 
-'
-  sceneToLoad: BattleArea6
+    F'
+  sceneToLoad: NewGroveHub
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -7143,7 +7143,7 @@ MonoBehaviour:
   levelName: Bridge
   levelDescription: Are there trolls under this bridge? We don't think so, but probably
     it'd be a good idea to check.
-  sceneToLoad: BattleArea6
+  sceneToLoad: BridgeBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
@@ -7394,7 +7394,7 @@ MonoBehaviour:
   status: 1
   levelName: Mine
   levelDescription: ' Mine '
-  sceneToLoad: BattleArea6
+  sceneToLoad: MineBattleArea
   adjacentNodes:
   - {fileID: 5760628}
   - {fileID: 105875714}
