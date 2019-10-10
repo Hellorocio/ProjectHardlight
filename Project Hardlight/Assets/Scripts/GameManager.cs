@@ -144,7 +144,7 @@ public class GameManager : Singleton<GameManager>
         // Set to create loadout
         LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
-        UIManager.Instance.SetLoadoutUI(false);
+        UIManager.Instance.SetLoadoutUI(true);
         UIManager.Instance.loadoutUIButton.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
 
@@ -208,7 +208,14 @@ public class GameManager : Singleton<GameManager>
         if (!TutorialManager.Instance.tutorialEnabled)
         {
             DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
-            DialogueManager.Instance.StartDialogue(new TextAsset("We did it!"));
+            if (win)
+            {
+                DialogueManager.Instance.StartDialogue(new TextAsset("We did it!"));
+            }
+            else
+            {
+                DialogueManager.Instance.StartDialogue(new TextAsset("Shoot! Let's try this again."));
+            }
         }
         else
         {

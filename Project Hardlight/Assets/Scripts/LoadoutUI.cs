@@ -94,6 +94,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         // Create per required slot
         for (int i = 0; i < requiredVessels; i++) {
             GameObject loadoutSlot = Instantiate(loadoutSlotPrefab, loadoutSlots.transform, true);
+            loadoutSlot.transform.localScale = Vector3.one;
         }
     }
 
@@ -111,6 +112,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
             {
                 GameObject vesselIcon = Instantiate(vesselIconPrefab, vesselGrid.transform, true);
                 vesselIcon.GetComponent<VesselIcon>().SetVessel(entry.vessel);
+                vesselIcon.transform.localScale = Vector3.one;
             }
         }
     }
@@ -129,6 +131,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
             GameObject soulIcon = Instantiate(soulIconPrefab);
             soulIcon.GetComponent<SoulIcon>().SetSoul(soul);
             soulIcon.transform.SetParent(soulGrid.transform);
+            soulIcon.transform.localScale = Vector3.one;
         }
     }
 
