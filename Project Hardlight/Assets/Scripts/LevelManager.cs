@@ -40,7 +40,7 @@ public class LevelManager : Singleton<LevelManager>
     /// Called when the level ends, displays ending dialogue popup
     /// </summary>
     /// <param name="herosWin"></param>
-    public void LevelEndEvent (bool herosWin)
+    public void LevelEndEvent(bool herosWin)
     {
         if (herosWin)
         {
@@ -60,10 +60,5 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         dialoguePanel.transform.parent.gameObject.SetActive(true);
-    }
-
-    public void ReturnToMap()
-    {
-        GameManager.Instance.LoadScene(1);
     }
 }

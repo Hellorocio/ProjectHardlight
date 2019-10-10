@@ -114,17 +114,8 @@ public class DraggableIcon : MonoBehaviour
         DraggableIcon draggable = collision.GetComponent<DraggableIcon>();
         if (allowReplacement && draggable != null && draggable.dragging && draggable.iconType == iconType)
         {
-            
-            if (IsIconReady())
-            {
-                //if this is not empty, then wait to drop until drag ends
-                draggable.dropLocation = this;
-            }
-            else
-            {
-                //otherwise drop right now
-                DropDraggable(draggable);
-            }
+
+            draggable.dropLocation = this;
         }
     }
 

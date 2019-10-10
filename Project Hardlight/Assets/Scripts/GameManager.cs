@@ -30,6 +30,10 @@ public class GameManager : Singleton<GameManager>
     public TextAsset loadoutTutorialDialogue;
     public TextAsset tutorialMeetupPrebattleDialogue;
 
+    // Audio stuff
+    public AudioClip UIMusic;
+    public AudioClip battleMusic;
+
     // Used to load dialogue after something for example
     string sceneToLoad = "";
 
@@ -152,6 +156,19 @@ public class GameManager : Singleton<GameManager>
         BattleManager.Instance.Initialize();
 
         gameState = GameState.PREBATTLE;
+
+        //switch music
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        if (camera != null && UIMusic != null)
+        {
+            AudioSource audioSource = camera.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+                audioSource.clip = UIMusic;
+                audioSource.Play();
+            }
+        }
     }
 
     public void StartVesselPlacement()
@@ -188,8 +205,20 @@ public class GameManager : Singleton<GameManager>
         BattleManager.Instance.StartBattle();
 
         gameState = GameState.FIGHTING;
+
+        //switch music
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        if (camera != null && battleMusic != null)
+        {
+            AudioSource audioSource = camera.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.clip = battleMusic;
+                audioSource.Play();
+            }
+        }
     }
-    
+
     public void EndFighting(bool win)
     {
         if (win)
@@ -272,16 +301,22 @@ public class GameManager : Singleton<GameManager>
         BattleManager.Instance.camController.enabled = on;
     }
 
-    public void LoadScene(int scene)
+    /// <summary>
+    /// Loads the given scene
+    /// If initBattle is true, battle will start when scene finishes loading
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="initBattle"></param>
+    public void LoadScene(string scene, bool initBattle = false)
     {
-        SceneManager.LoadScene(scene);
-    }
-    
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
+        StartCoroutine(LoadNewScene(scene, initBattle));
+        //SceneManager.LoadScene(scene);
     }
 
+    /// <summary>
+    /// Called when FIGHT! button is pressed on the map
+    /// </summary>
+    /// <param name="levelName"></param>
     public void EnterBattleScene(string levelName)
     {
         TutorialManager.Instance.tutorialEnabled = false;
@@ -292,14 +327,36 @@ public class GameManager : Singleton<GameManager>
         DialogueManager.Instance.StartDialogue(levelStartDialogue);
     }
 
+    /// <summary>
+    /// Triggered after DialogueManager calls Dialogue End
+    /// </summary>
     private void LoadSceneAfterDialogue()
     {
         ClearUI();
         gameState = GameState.CUTSCENE;
-        LoadScene(sceneToLoad);
-        GameManager.Instance.InitializeBattle();
+        LoadScene(sceneToLoad, true);
     }
-    
+
+    // Ref: https://blog.teamtreehouse.com/make-loading-screen-unity
+    // TODO: Add loading screen stuff 
+    IEnumerator LoadNewScene(string scene, bool initBattle)
+    {
+        // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+
+        // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+
+        if (initBattle)
+        {
+            print("wait to init battle");
+            InitializeBattle();
+        }
+    }
+
     ////////// Tutorial fun
     // Can pull out into TutorialManager if it gets too unwieldy
     // Battle with just Taurin, basics
@@ -307,14 +364,8 @@ public class GameManager : Singleton<GameManager>
     {
         TutorialManager.Instance.inTutorialBattle = true;
         
-        LoadScene(tutorialBattleSceneName);
-        
-        // Init battle, THEN do special stuff
-        GameManager.Instance.InitializeBattle();
-        
-        // Open the Loadout by default
-        UIManager.Instance.SetLoadoutUI(true);
-        
+        LoadScene(tutorialBattleSceneName, true);
+                
         // Disable other vessels for now
         VesselManager.Instance.SetAllVesselEnabledTo(false);
         VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
@@ -336,13 +387,7 @@ public class GameManager : Singleton<GameManager>
     {
         TutorialManager.Instance.inMeetupBattle	= true;
         
-        LoadScene("TutorialMeetupBattle");
-        
-        // Init battle, THEN do special stuff
-        GameManager.Instance.InitializeBattle();
-        
-        // Open the Loadout by default
-        UIManager.Instance.SetLoadoutUI(true);
+        LoadScene("TutorialMeetupBattle", true);
         
         // Disable other vessels for now
         VesselManager.Instance.SetAllVesselEnabledTo(false);
@@ -359,7 +404,7 @@ public class GameManager : Singleton<GameManager>
         LoadoutUI.Instance.Refresh();
         
         // Start loadout tutorial dialogue- Removed for now to prevent repeat dialogue
-        //DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
+        DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
     }
 
 }
