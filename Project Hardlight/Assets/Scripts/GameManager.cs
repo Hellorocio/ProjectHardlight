@@ -40,7 +40,10 @@ public class GameManager : Singleton<GameManager>
     // Map state
     [HideInInspector]
     public MapNode.NodeStatus[] levelStatuses;
+    [HideInInspector]
     public int currentLevel;
+    private string battleEndCutscene = "";
+    private int[] nodesToUnlock;
 
     public DialogueBoxController topDialogue;
 
@@ -103,7 +106,7 @@ public class GameManager : Singleton<GameManager>
         {
             // Load Cutscene Scene
             LoadScene(cutsceneSceneName);
-        
+            
             DialogueManager.Instance.onDialogueEnd.AddListener(EndCutscene);
             DialogueManager.Instance.StartDialogue(currentCutscene.cutsceneText);
         }
@@ -117,10 +120,13 @@ public class GameManager : Singleton<GameManager>
         gameState = GameState.CUTSCENE;
     }
 
-    private void EndCutscene()
+    public void EndCutscene()
     {
-        currentCutscene.onCutsceneEnd.Invoke();
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        CutsceneLevel cutscene = currentCutscene;
         currentCutscene = null;
+        cutscene.onCutsceneEnd.Invoke();
+        
     }
     
     public void GrantRandomSouls(int qty)
@@ -137,6 +143,7 @@ public class GameManager : Singleton<GameManager>
     {
         ClearUI();
 
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         Debug.Log("init map");
         LoadScene(mapSceneName);
         gameState = GameState.MAP;
@@ -221,6 +228,16 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Plays a cutscene after the battle
+    /// </summary>
+    public void StartAfterBattleCutscene ()
+    {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        StartCutscene(battleEndCutscene);
+        battleEndCutscene = "";
+    }
+
     public void EndFighting(bool win)
     {
         if (win)
@@ -234,17 +251,28 @@ public class GameManager : Singleton<GameManager>
 
         SetCameraControls(false);
         ClearUI();
-        
+
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
         if (!TutorialManager.Instance.tutorialEnabled)
         {
-            DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
             if (win)
             {
+                if (battleEndCutscene != "")
+                {
+                    DialogueManager.Instance.onDialogueEnd.AddListener(StartAfterBattleCutscene);
+                }
+                else
+                {
+                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+                }
                 DialogueManager.Instance.StartDialogue(new TextAsset("We did it!"));
+
+                //unlock levels
+                UnlockLevels();
             }
             else
             {
+                DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
                 DialogueManager.Instance.StartDialogue(new TextAsset("Shoot! Let's try this again."));
             }
         }
@@ -321,12 +349,16 @@ public class GameManager : Singleton<GameManager>
     /// <param name="levelName"></param>
     public void EnterBattleScene(string levelName)
     {
+        //disable tutorial stuff
         TutorialManager.Instance.tutorialEnabled = false;
+        VesselManager.Instance.SetAllVesselEnabledTo(true);
 
+        //load battle
         Debug.Log("GameManager | Starting to load level " + levelName);
         sceneToLoad = levelName;
-        DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
-        DialogueManager.Instance.StartDialogue(levelStartDialogue);
+        LoadScene(sceneToLoad, true);
+        //DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
+        //DialogueManager.Instance.StartDialogue(levelStartDialogue);
     }
 
     /// <summary>
@@ -354,7 +386,6 @@ public class GameManager : Singleton<GameManager>
 
         if (initBattle)
         {
-            print("wait to init battle");
             InitializeBattle();
         }
     }
@@ -379,8 +410,9 @@ public class GameManager : Singleton<GameManager>
         // Refresh for Loadout
         LoadoutUI.Instance.PopulateVesselGrid();
         LoadoutUI.Instance.Refresh();
-        
+
         // Start loadout tutorial dialogue
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         DialogueManager.Instance.StartDialogue(loadoutTutorialDialogue);
     }
 
@@ -404,9 +436,36 @@ public class GameManager : Singleton<GameManager>
         // Refresh for Loadout
         LoadoutUI.Instance.PopulateVesselGrid();
         LoadoutUI.Instance.Refresh();
-        
+
         // Start loadout tutorial dialogue- Removed for now to prevent repeat dialogue
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
+    }
+
+    /// <summary>
+    /// Called by MapNode, sets some info about levels
+    /// </summary>
+    public void SetCurrentLevelInfo (int current, int[] unlock, string cutscene = "")
+    {
+        currentLevel = current;
+        nodesToUnlock = unlock;
+        battleEndCutscene = cutscene;
+    }
+
+    public void UnlockLevels ()
+    {
+        //set level that was just beaten to discovered
+        levelStatuses[currentLevel] = MapNode.NodeStatus.DISCOVERED;
+
+        //set all levels that the beaten level unlocks to undiscovered
+        if (nodesToUnlock != null)
+        {
+            for (int i = 0; i < nodesToUnlock.Length; i++)
+            {
+                levelStatuses[nodesToUnlock[i]] = MapNode.NodeStatus.UNDISCOVERED;
+            }
+        }
+        nodesToUnlock = null;
     }
 
 }
