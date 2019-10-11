@@ -17,7 +17,8 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
 
-    public CommandsUIHandler commandsUI;
+    public PortraitHotKeyManager portraitHotKeyManager;
+    //public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
 
     private int numEnemies;
@@ -182,7 +183,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             // Lose mana
             selectedHero.LoseMana(selectedHero.GetMaxMana());
-            commandsUI.SwitchButtonColor(false);
+            //commandsUI.SwitchButtonColor(false);
             StopTargeting();
             DeselectHero();
         }
@@ -371,6 +372,10 @@ public class BattleManager : Singleton<BattleManager>
     {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
+    public void SetSelectedHeroButtonHandler(int i)
+    {
+        SetSelectedHero(selectedVessels[i].GetComponent<Fighter>());
+    }
 
     public void SetSelectedHero(Fighter hero)
     {
@@ -391,9 +396,10 @@ public class BattleManager : Singleton<BattleManager>
         inputState = InputState.HeroSelected;
 
         //Debug.Log(hero.name);
-        commandsUI.gameObject.SetActive(true);
-        commandsUI.EnableUI(hero.gameObject);
-        commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.GetMaxMana());
+        //commandsUI.gameObject.SetActive(true);
+        //commandsUI.EnableUI(hero.gameObject);
+        //commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.GetMaxMana());
+        portraitHotKeyManager.LoadNewlySelectedHero(hero);
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
     }
@@ -410,11 +416,11 @@ public class BattleManager : Singleton<BattleManager>
             {
                 StopTargeting();
             }
-
+            portraitHotKeyManager.DeselectedHero();
             selectedHero.SetSelectedUI(false);
             UnsubscribeHeroEvents();
             selectedHero = null;
-            commandsUI.DisableUI();
+            //commandsUI.DisableUI();
             inputState = InputState.NothingSelected;
             if (battleTarget != null)
             {
@@ -450,9 +456,10 @@ public class BattleManager : Singleton<BattleManager>
             numEnemies++;
             f.LevelStart();
         }
-        
+
         //This event was causing tons of problems, so we're getting rid of it for now
         //OnLevelStart?.Invoke();
+        portraitHotKeyManager.InitBattlerUI(selectedVessels);
         battleStarted = true;
     }
 
@@ -462,7 +469,7 @@ public class BattleManager : Singleton<BattleManager>
     void OnMaxManaEvent(Fighter f)
     {
         Debug.Log("MANAAA");
-        commandsUI.SwitchButtonColor(true);
+        //commandsUI.SwitchButtonColor(true);
     }
 
     /// <summary>
@@ -531,6 +538,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //cleanup for this script
         DeselectHero();
+        portraitHotKeyManager.AllUISwitch(false);
         battleStarted = false;
         inputState = InputState.BattleOver;
         selectedVessels = new List<GameObject>();

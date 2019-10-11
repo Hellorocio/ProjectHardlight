@@ -69,20 +69,20 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero1ManaFullImage = hero1.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero1BackgroundImage = hero1.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero1Image = hero1.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<GameObject>();
-        hero1ManaBar = hero1.transform.Find("ManaBar").gameObject.GetComponent<GameObject>();
+        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject;
+        hero1ManaBar = hero1.transform.Find("ManaBar").gameObject;
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero2BackgroundImage = hero2.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero2Image = hero2.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero2HealthBar = hero2.transform.Find("HealthBar").gameObject.GetComponent<GameObject>();
-        hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<GameObject>();
+        hero2HealthBar = hero2.transform.Find("HealthBar").gameObject;
+        hero2ManaBar = hero2.transform.Find("ManaBar").gameObject;
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero3BackgroundImage = hero3.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero3Image = hero3.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<GameObject>();
-        hero3ManaBar = hero3.transform.Find("ManaBar").gameObject.GetComponent<GameObject>();
+        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject;
+        hero3ManaBar = hero3.transform.Find("ManaBar").gameObject;
 
         //Getting all the ability/order components
         GameObject abilitiesPanel = hotKeyPanel.transform.Find("AbilitiesPanel").gameObject;
@@ -123,7 +123,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     /// <summary>
     /// Turns off both the commands and portraits
     /// </summary>
-    void AllUISwitch(bool s)
+    public void AllUISwitch(bool s)
     {
         HeroPortraitSwitch(s);
         HotKeyPanelSwitch(s);
@@ -152,19 +152,51 @@ public class PortraitHotKeyManager : MonoBehaviour
     /// </summary>
     public void InitBattlerUI(List<GameObject> partyList)
     {
-        hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
-        hero2Image.sprite = partyList[1].GetComponent<VesselData>().appearance;
-        hero3Image.sprite = partyList[2].GetComponent<VesselData>().appearance;
+        if (partyList.Count > 2)
+        {
+            hero2.SetActive(true);
+            hero3.SetActive(true);
+            Start();
+            hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
+            hero2Image.sprite = partyList[1].GetComponent<VesselData>().appearance;
+            hero3Image.sprite = partyList[2].GetComponent<VesselData>().appearance;
 
-        hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
-        hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
+            hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
+            hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
 
-        hero2HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[1].GetComponent<Fighter>());
-        hero2ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[1].GetComponent<Fighter>());
+            hero2HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[1].GetComponent<Fighter>());
+            hero2ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[1].GetComponent<Fighter>());
 
-        hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
-        hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
+            hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
+            hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
+            
+            HeroPortraitSwitch(true);
+        } else if(partyList.Count == 1)
+        {
+            Start();
+            hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
+            hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
+            hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
+            hero2.SetActive(false);
+            hero3.SetActive(false);
+            HeroPortraitSwitch(true);
+        }
 
-        HeroPortraitSwitch(true);
     }
+
+    public void LoadNewlySelectedHero(Fighter f)
+    {
+
+        ability1Name.text = ((Ability)f.gameObject.GetComponent<HeroAbilities>().abilityList[0]).abilityName.Replace(' ', '\n');
+        ability2Name.text = ((Ability)f.gameObject.GetComponent<HeroAbilities>().abilityList[1]).abilityName.Replace(' ', '\n');
+        HotKeyPanelSwitch(true);
+    }
+
+    public void DeselectedHero()
+    {
+        HotKeyPanelSwitch(false);
+    }
+
+
+
 }
