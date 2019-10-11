@@ -370,7 +370,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetCursor(Texture2D cursorTexture)
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
     public void SetSelectedHeroButtonHandler(int i)
     {

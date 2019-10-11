@@ -51,6 +51,8 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(gameObject);
         }
+
+        BattleManager.Instance.SetCursor(BattleManager.Instance.battleConfig.defaultCursor);
     }
 
     public void ClearUI()
