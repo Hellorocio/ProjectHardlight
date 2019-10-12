@@ -19,9 +19,14 @@ public class MapNode : MonoBehaviour
     public string levelName;
     [TextArea(5,5)]
     public string levelDescription;
-    public string sceneToLoad;
+    public string sceneToLoad; //note that this will only load if there is not a cutscene before the battle
 
     public MapNode[] adjacentNodes;
+
+    [Header("Quest Details")]
+    public MapNode[] unlockNodes; //nodes that unlock once this node has been discovered
+    public string cutsceneBefore = "";
+    public string cutsceneAfter = "";
 
     [Header("Battle Details")]
     public Difficulty difficulty;

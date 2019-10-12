@@ -22,9 +22,18 @@ public class MapManager : MonoBehaviour
         //init nodes
         nodes = GetComponentsInChildren<MapNode>();
 
-        //init level statuses
-        if (GameManager.Instance.levelStatuses.Length == 0)
+        
+        if (GameManager.Instance.levelStatuses.Length != 0)
         {
+            //set level statuses
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                nodes[i].status = GameManager.Instance.levelStatuses[i];
+            }
+        }
+        else
+        {
+            //init level statuses
             MapNode.NodeStatus[] statuses = new MapNode.NodeStatus[nodes.Length];
             for (int i = 0; i < statuses.Length; i++)
             {
@@ -32,6 +41,8 @@ public class MapManager : MonoBehaviour
             }
             GameManager.Instance.levelStatuses = statuses;
         }
+
+        
 
         SetNodeAppearances();
 
@@ -106,10 +117,44 @@ public class MapManager : MonoBehaviour
         party.transform.position = tempPos;
     }
 
+    /// <summary>
+    /// Enters battle if the node does not have a cutscene, otherwise load beforeCutscene
+    /// </summary>
     public void PressFightButton ()
     {
-        GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
+        GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode.cutsceneAfter);
+        if (currentNode.cutsceneBefore != "")
+        {
+            GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);
+        }
+        else
+        {
+            GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
+        }
         party.SetActive(false);
     }
-    
+
+    public int GetIndexFromNode (MapNode node)
+    {
+        int index = -1;
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            if  (nodes[i] == node)
+            {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int[] GetLevelsToUnlock (MapNode[] unlockLevels)
+    {
+        int[] returnLevels = new int[unlockLevels.Length];
+        for (int i = 0; i < returnLevels.Length; i++)
+        {
+            returnLevels[i] = GetIndexFromNode(unlockLevels[i]);
+        }
+        return returnLevels;
+    }
 }
