@@ -8,6 +8,8 @@ public class PortraitManaBar : MonoBehaviour
     public Text manaText;
     public Image manaBar;
 
+    public bool hasMaxMana = false;
+
     Fighter fighter;
     float maxMana;
     float maxBarWidth;
@@ -56,7 +58,7 @@ public class PortraitManaBar : MonoBehaviour
     void UpdateManaBar(float mana)
     {
         manaText.text = mana + "/" + maxMana;
-
+        hasMaxMana = maxMana == mana;
         Vector2 sizeDelta = manaBar.GetComponent<RectTransform>().sizeDelta;
         sizeDelta.x = (mana * maxBarWidth) / maxMana;
         manaBar.GetComponent<RectTransform>().sizeDelta = sizeDelta;

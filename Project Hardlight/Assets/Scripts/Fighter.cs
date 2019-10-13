@@ -238,6 +238,8 @@ public class Fighter : MonoBehaviour
         StartCoroutine(colorThing);
         if (health <= 0)
         {
+            LoseMana(mana);
+            SetManaUI();
             gameObject.SetActive(false);
 
             //tell battleManager this fighter died so it can keep track of level completion info

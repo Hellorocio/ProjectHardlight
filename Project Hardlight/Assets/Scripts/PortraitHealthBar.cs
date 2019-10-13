@@ -7,6 +7,7 @@ public class PortraitHealthBar : MonoBehaviour
 {
     public Text healthText;
     public Image healthBar;
+    public bool isDead;
 
     Fighter fighter;
     float maxHealth;
@@ -55,7 +56,7 @@ public class PortraitHealthBar : MonoBehaviour
     void UpdateHealthBar(float health)
     {
         healthText.text = health + "/" + maxHealth;
-
+        isDead = health <= 0;
         Vector2 sizeDelta = healthBar.GetComponent<RectTransform>().sizeDelta;
         sizeDelta.x = (health * maxBarWidth) / maxHealth;
         healthBar.GetComponent<RectTransform>().sizeDelta = sizeDelta;

@@ -14,24 +14,24 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image hero1ManaFullImage;
     private Image hero1BackgroundImage;
     private Image hero1Image;
-    private GameObject hero1HealthBar;
-    private GameObject hero1ManaBar;
+    private PortraitHealthBar hero1HealthBar;
+    private PortraitManaBar hero1ManaBar;
 
     //Hero2 components
     private GameObject hero2;
     private Image hero2ManaFullImage;
     private Image hero2BackgroundImage;
     private Image hero2Image;
-    private GameObject hero2HealthBar;
-    private GameObject hero2ManaBar;
+    private PortraitHealthBar hero2HealthBar;
+    private PortraitManaBar hero2ManaBar;
 
     //Hero3 components
     private GameObject hero3;
     private Image hero3ManaFullImage;
     private Image hero3BackgroundImage;
     private Image hero3Image;
-    private GameObject hero3HealthBar;
-    private GameObject hero3ManaBar;
+    private PortraitHealthBar hero3HealthBar;
+    private PortraitManaBar hero3ManaBar;
 
     //Ability1 components
     private GameObject ability1;
@@ -69,20 +69,20 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero1ManaFullImage = hero1.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero1BackgroundImage = hero1.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero1Image = hero1.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject;
-        hero1ManaBar = hero1.transform.Find("ManaBar").gameObject;
+        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
+        hero1ManaBar = hero1.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero2BackgroundImage = hero2.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero2Image = hero2.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero2HealthBar = hero2.transform.Find("HealthBar").gameObject;
-        hero2ManaBar = hero2.transform.Find("ManaBar").gameObject;
+        hero2HealthBar = hero2.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
+         hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero3BackgroundImage = hero3.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero3Image = hero3.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject;
-        hero3ManaBar = hero3.transform.Find("ManaBar").gameObject;
+        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
+        hero3ManaBar = hero3.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
         //Getting all the ability/order components
         GameObject abilitiesPanel = hotKeyPanel.transform.Find("AbilitiesPanel").gameObject;
@@ -117,7 +117,36 @@ public class PortraitHotKeyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateManaProcs();
+        UpdateDeathState();
+    }
+
+    /// <summary>
+    /// Checks to see if the heroes have full mana and enables/disables the ManaFullImage GameObject
+    /// </summary>
+    void UpdateManaProcs()
+    {
+        hero1ManaFullImage.gameObject.SetActive(hero1ManaBar.hasMaxMana);
+
+        hero2ManaFullImage.gameObject.SetActive(hero2ManaBar.hasMaxMana);
+
+        hero3ManaFullImage.gameObject.SetActive(hero3ManaBar.hasMaxMana);
+    }
+
+    void UpdateDeathState()
+    {
+        if (hero1HealthBar.isDead)
+        {
+            hero1.transform.Find("Button").gameObject.SetActive(false);
+        }
+        if (hero2HealthBar.isDead)
+        {
+            hero2.transform.Find("Button").gameObject.SetActive(false);
+        }
+        if (hero3HealthBar.isDead)
+        {
+            hero3.transform.Find("Button").gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

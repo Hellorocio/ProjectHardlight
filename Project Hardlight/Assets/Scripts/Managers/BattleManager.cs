@@ -506,6 +506,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (fighter.team == CombatInfo.Team.Hero)
         {
+            
             numHeros--;
             if (numHeros <= 0)
             {
