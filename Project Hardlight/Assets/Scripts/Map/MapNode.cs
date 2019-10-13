@@ -34,6 +34,9 @@ public class MapNode : MonoBehaviour
 
     private Text nameText;
 
+    [HideInInspector]
+    public List<MapNode> history; //this is just used for node searching (see GetNodePath in MapManager)
+
     private void Start()
     {
         nameText = GetComponentInChildren<Text>();

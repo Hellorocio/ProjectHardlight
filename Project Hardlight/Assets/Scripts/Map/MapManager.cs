@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MapManager : MonoBehaviour
 {
     public GameObject party;
+    public GameObject enterButton;
     public MapPopoverController popOver;
 
     //colors for nodes (replace with images?)
@@ -16,6 +17,7 @@ public class MapManager : MonoBehaviour
 
     private MapNode[] nodes;
     private MapNode currentNode;
+    
 
     void Start()
     {
@@ -47,7 +49,8 @@ public class MapManager : MonoBehaviour
         SetNodeAppearances();
 
         //set party location
-        SetPartyLocation(nodes[GameManager.Instance.currentLevel].transform.position, true);
+        party.transform.position = nodes[GameManager.Instance.currentLevel].transform.position;
+        currentNode = nodes[GameManager.Instance.currentLevel];
     }
 
     /// <summary>
@@ -59,10 +62,14 @@ public class MapManager : MonoBehaviour
         if (node.status != MapNode.NodeStatus.LOCKED)
         {
             //move party to node
-            SetPartyLocation(node.transform.position, false);
+            StopAllCoroutines();
+            StartCoroutine(MoveParty(currentNode, node));
 
             //activate go button
-            party.SetActive(true);
+            Vector3 tempPos = node.transform.position;
+            tempPos.y -= 40f;
+            enterButton.transform.position = tempPos;
+            enterButton.SetActive(true);
 
             currentNode = node;
         }
@@ -110,11 +117,75 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void SetPartyLocation (Vector3 nodePos, bool snapToLocation)
+    /// <summary>
+    /// Moves the party on a path from start node to end node
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    IEnumerator MoveParty (MapNode start, MapNode end)
     {
-        Vector3 tempPos = nodePos;
-        tempPos.y += 50f;
-        party.transform.position = tempPos;
+        List<MapNode> path = GetNodePath(start, end);
+        if (path != null)
+        {
+            foreach (MapNode node in path)
+            {
+                while (Vector2.Distance(party.transform.position, node.transform.position) > 0.1f)
+                {
+                    party.transform.position = Vector3.MoveTowards(party.transform.position, node.transform.position, 1f);
+                    yield return null;
+                }
+            }
+        }
+        
+    }
+
+    /// <summary>
+    /// Uses a depth first search to find a route from one node to the next
+    /// Ref: https://gist.github.com/hermesespinola/15cf66af8edf059df9f38c6c879db0cb
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    List<MapNode> GetNodePath (MapNode start, MapNode end)
+    {
+        Stack<MapNode> work = new Stack<MapNode>();
+        List<MapNode> visited = new List<MapNode>();
+
+        work.Push(start);
+        visited.Add(start);
+        start.history = new List<MapNode>();
+
+        while (work.Count > 0)
+        {
+
+            MapNode current = work.Pop();
+            if (current == end)
+            {
+                List<MapNode> result = current.history;
+                result.Add(current);
+                return result;
+            }
+            else
+            {
+
+                for (int i = 0; i < current.adjacentNodes.Length; i++)
+                {
+
+                    MapNode currentChild = current.adjacentNodes[i];
+                    if (!visited.Contains(currentChild))
+                    {
+
+                        work.Push(currentChild);
+                        visited.Add(currentChild);
+                        currentChild.history = new List<MapNode>(current.history);
+                        currentChild.history.Add(current);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
