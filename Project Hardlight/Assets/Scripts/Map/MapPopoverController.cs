@@ -25,7 +25,7 @@ public class MapPopoverController : MonoBehaviour
     }
 
     /// <summary>
-    /// Called by node on mouse hover
+    /// Called by node on mouse hover and by mapmanager
     /// Sets title and description in panel
     /// If a battle node, also displays difficulty level and allight drops
     /// </summary>
@@ -42,8 +42,9 @@ public class MapPopoverController : MonoBehaviour
 
         titleText.text = node.levelName;
         descriptionText.text = node.levelDescription;
+        ResetAllightDropImages();
 
-        if (node.type == MapNode.NodeType.BATTLE)
+        if (node.type != MapNode.NodeType.HUB)
         {
             //add difficulty to description
             descriptionText.text += "\nDifficulty: " + node.difficulty.ToString().ToLower();
@@ -62,8 +63,18 @@ public class MapPopoverController : MonoBehaviour
         {
             saveParent = transform.parent;
         }
+
+        
         transform.parent = node.transform;
-        transform.localPosition = new Vector3(50, 0, 0);
+        if (node.transform.localPosition.x > 100)
+        {
+            transform.localPosition = new Vector3(-180, 0, 0);
+        }
+        else
+        {
+            transform.localPosition = new Vector3(180, 0, 0);
+        }
+        
         transform.parent = saveParent;
         gameObject.SetActive(true);
     }

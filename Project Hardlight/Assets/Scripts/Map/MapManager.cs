@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour
     public GameObject party;
     public GameObject enterButton;
     public MapPopoverController popOver;
+    public MapPopoverController currentNodePopOver;
 
     //colors for nodes (replace with images?)
     public Color locked;
@@ -44,13 +45,19 @@ public class MapManager : MonoBehaviour
             GameManager.Instance.levelStatuses = statuses;
         }
 
-        
-
         SetNodeAppearances();
 
         //set party location
         party.transform.position = nodes[GameManager.Instance.currentLevel].transform.position;
         currentNode = nodes[GameManager.Instance.currentLevel];
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1) && currentNodePopOver != null)
+        {
+            currentNodePopOver.HidePopover();
+        }
     }
 
     /// <summary>
@@ -64,6 +71,12 @@ public class MapManager : MonoBehaviour
             //move party to node
             StopAllCoroutines();
             StartCoroutine(MoveParty(currentNode, node));
+
+            //show popover
+            if (currentNodePopOver != null)
+            {
+                currentNodePopOver.ShowPopover(node);
+            }
 
             //activate go button
             if (node.type == MapNode.NodeType.HUB)
@@ -83,7 +96,7 @@ public class MapManager : MonoBehaviour
             currentNode = node;
         }
     }
-
+    
     /// <summary>
     /// Set appearence for each node based on the values saved in GameManager
     /// </summary>
