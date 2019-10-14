@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING};
+public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB };
 
 public class GameManager : Singleton<GameManager>
 {
@@ -142,11 +142,20 @@ public class GameManager : Singleton<GameManager>
     public void EnterMap()
     {
         ClearUI();
+        SetCameraControls(false);
 
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         Debug.Log("init map");
         LoadScene(mapSceneName);
         gameState = GameState.MAP;
+    }
+
+    public void EnterHub (string sceneName)
+    {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+
+        LoadScene(sceneName);
+        gameState = GameState.HUB;
     }
 
     public void InitializeBattle()

@@ -17,7 +17,7 @@ public class MapManager : MonoBehaviour
 
     private MapNode[] nodes;
     private MapNode currentNode;
-    
+    private MapNode currentTraveralNode;
 
     void Start()
     {
@@ -66,6 +66,15 @@ public class MapManager : MonoBehaviour
             StartCoroutine(MoveParty(currentNode, node));
 
             //activate go button
+            if (node.type == MapNode.NodeType.HUB)
+            {
+                enterButton.GetComponentInChildren<Text>().text = "ENTER";
+            }
+            else
+            {
+                enterButton.GetComponentInChildren<Text>().text = "FIGHT";
+            }
+
             Vector3 tempPos = node.transform.position;
             tempPos.y -= 40f;
             enterButton.transform.position = tempPos;
@@ -125,23 +134,30 @@ public class MapManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator MoveParty (MapNode start, MapNode end)
     {
+        if (currentTraveralNode != null)
+        {
+            start = currentTraveralNode;
+        }
+
         List<MapNode> path = GetNodePath(start, end);
         if (path != null)
         {
             foreach (MapNode node in path)
             {
+                currentTraveralNode = node;
                 while (Vector2.Distance(party.transform.position, node.transform.position) > 0.1f)
                 {
-                    party.transform.position = Vector3.MoveTowards(party.transform.position, node.transform.position, 1f);
+                    party.transform.position = Vector3.MoveTowards(party.transform.position, node.transform.position, 2f);
                     yield return null;
                 }
             }
         }
+        currentTraveralNode = null;
         
     }
 
     /// <summary>
-    /// Uses a depth first search to find a route from one node to the next
+    /// Uses a breadth first search to find a route from one node to the next
     /// Ref: https://gist.github.com/hermesespinola/15cf66af8edf059df9f38c6c879db0cb
     /// </summary>
     /// <param name="start"></param>
@@ -149,22 +165,25 @@ public class MapManager : MonoBehaviour
     /// <returns></returns>
     List<MapNode> GetNodePath (MapNode start, MapNode end)
     {
-        Stack<MapNode> work = new Stack<MapNode>();
+        Queue<MapNode> work = new Queue<MapNode>();
         List<MapNode> visited = new List<MapNode>();
 
-        work.Push(start);
+        work.Enqueue(start);
         visited.Add(start);
         start.history = new List<MapNode>();
 
         while (work.Count > 0)
         {
 
-            MapNode current = work.Pop();
+            MapNode current = work.Dequeue();
+
             if (current == end)
             {
+                // we found a solution!!
                 List<MapNode> result = current.history;
                 result.Add(current);
                 return result;
+
             }
             else
             {
@@ -176,15 +195,17 @@ public class MapManager : MonoBehaviour
                     if (!visited.Contains(currentChild))
                     {
 
-                        work.Push(currentChild);
+                        work.Enqueue(currentChild);
                         visited.Add(currentChild);
                         currentChild.history = new List<MapNode>(current.history);
                         currentChild.history.Add(current);
                     }
+
                 }
             }
         }
 
+        // No availabe path
         return null;
     }
 
@@ -198,9 +219,13 @@ public class MapManager : MonoBehaviour
         {
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);
         }
-        else
+        else if (currentNode.type == MapNode.NodeType.BATTLE)
         {
             GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
+        }
+        else if (currentNode.type == MapNode.NodeType.HUB)
+        {
+            GameManager.Instance.EnterHub(currentNode.sceneToLoad);
         }
         party.SetActive(false);
     }
