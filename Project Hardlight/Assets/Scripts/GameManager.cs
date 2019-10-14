@@ -139,6 +139,27 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Used to ease battle testing pain, uses random souls and first 3 vessels
+    /// </summary>
+    public void AutoGenerateLoadout ()
+    {
+        if (souls.Count < 3)
+        {
+            GrantRandomSouls(3);
+        }
+
+        for (int i = 0; i < 3; i ++)
+        {
+            GameObject selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[i].vessel);
+            selectedVessel.GetComponent<Fighter>().soul = souls[i];
+            BattleManager.Instance.selectedVessels.Add(selectedVessel);
+        }
+
+        SetCameraControls(true);
+        StartVesselPlacement();
+    }
+
     public void EnterMap()
     {
         ClearUI();
