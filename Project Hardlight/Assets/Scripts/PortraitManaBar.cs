@@ -12,7 +12,7 @@ public class PortraitManaBar : MonoBehaviour
 
     Fighter fighter;
     float maxMana;
-    float maxBarWidth;
+    public float maxBarWidth;
 
     public void InitHero(Fighter f)
     {
@@ -32,7 +32,7 @@ public class PortraitManaBar : MonoBehaviour
         //only set once
         if (maxBarWidth == 0)
         {
-            maxBarWidth = manaBar.GetComponent<RectTransform>().sizeDelta.x;
+            //maxBarWidth = manaBar.GetComponent<RectTransform>().sizeDelta.x;
         }
 
         //fighter = transform.parent.parent.GetComponent<Fighter>();

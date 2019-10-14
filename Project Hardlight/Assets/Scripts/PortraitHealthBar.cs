@@ -11,7 +11,7 @@ public class PortraitHealthBar : MonoBehaviour
 
     Fighter fighter;
     float maxHealth;
-    float maxBarWidth;
+    public float maxBarWidth;
 
 
     public void InitHero(Fighter f)
@@ -29,7 +29,7 @@ public class PortraitHealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        maxBarWidth = healthBar.GetComponent<RectTransform>().sizeDelta.x;
+        //maxBarWidth = healthBar.GetComponent<RectTransform>().sizeDelta.x;
 
 
 
