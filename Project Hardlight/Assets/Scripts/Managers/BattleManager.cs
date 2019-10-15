@@ -146,27 +146,27 @@ public class BattleManager : Singleton<BattleManager>
         {
             if (Input.GetMouseButtonDown(0))
             {
+                //select new target
                 Vector3 pos = Input.mousePosition;
                 Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
-                foreach(Collider2D hit in hitCollider)
+                foreach (Collider2D hit in hitCollider)
                 {
                     Fighter tmp = hit.GetComponent<Fighter>();
                     if (tmp != null)
                     {
-                        
+
                         selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
                         inputState = InputState.HeroSelected;
                     }
                 }
-                /*
-                if (hitCollider != null && hitCollider)
-                {
-                    //Updates the current target
-                    Fighter tmp = hitCollider.GetComponent<Fighter>();
-                    selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
-                    inputState = InputState.HeroSelected;
-                }
-                */
+
+                SetCursor(battleConfig.defaultCursor);
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                //cancel action
+                inputState = InputState.HeroSelected;
+                SetCursor(battleConfig.defaultCursor);
             }
         }
     }
@@ -432,6 +432,7 @@ public class BattleManager : Singleton<BattleManager>
     public void SetStateToUpdateTarget()
     {
         inputState = InputState.UpdatingTarget;
+        SetCursor(battleConfig.changeTargetCursor);
     }
 
     /// <summary>
