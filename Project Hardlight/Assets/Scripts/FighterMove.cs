@@ -109,7 +109,13 @@ public class FighterMove : MonoBehaviour
 
     public void StartMovingCommandHandle(Transform t)
     {
+        //remove any old targets
+        if (followingMoveOrder)
+        {
+            Destroy(target.gameObject);
+        }
 
+        //set new target
         followingMoveOrder = true;
         fighterAttack.StopBasicAttacking();
         if (fighter == null)

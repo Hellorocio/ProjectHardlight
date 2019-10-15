@@ -107,6 +107,7 @@ public class BattleManager : Singleton<BattleManager>
                 Vector3 pos = Input.mousePosition;
                 pos = Camera.main.ScreenToWorldPoint(pos);
                 GameObject newMoveLoc = Instantiate(moveLoc);
+                newMoveLoc.SetActive(true);
                 newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
                 selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
@@ -444,7 +445,6 @@ public class BattleManager : Singleton<BattleManager>
         //call levelStart on vessels
         foreach (GameObject v in selectedVessels)
         {
-            numEnemies++;
             v.GetComponent<FighterAttack>().LevelStart();
         }
 
