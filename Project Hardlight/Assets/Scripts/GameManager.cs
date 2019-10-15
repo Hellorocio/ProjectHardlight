@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.UI;
 
 public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB };
 
@@ -13,9 +14,12 @@ public class GameManager : Singleton<GameManager>
 
     public List<Soul> souls;
 
+    // TODO Pull all this and cutscene logic to a Cutscene Manager
     public string mapSceneName;
     public string cutsceneSceneName;
     public CutsceneLevel currentCutscene;
+    public GameObject cutsceneUI;
+    public GameObject cutsceneBG;
     
     public GameObject battleManager;
 
@@ -26,6 +30,7 @@ public class GameManager : Singleton<GameManager>
     public TextAsset defaultFightingEndDialogue;
     
     // Tutorial stuff
+    public string firstCutsceneName;
     public string tutorialBattleSceneName;
     public TextAsset loadoutTutorialDialogue;
     public TextAsset tutorialMeetupPrebattleDialogue;
@@ -62,6 +67,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Turn things off
         UIManager.Instance.battleUI.SetActive(false);
+        cutsceneUI.SetActive(false);
     }
 
     public void InitializeGame()
@@ -82,7 +88,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("GameManager | Starting Campaign");
         GrantRandomSouls(3);
-        StartCutscene("TaurinIntroCutscene");
+        StartCutscene(firstCutsceneName);
     }
 
     public void StartCutscene(string name)
@@ -107,6 +113,9 @@ public class GameManager : Singleton<GameManager>
             // Load Cutscene Scene
             LoadScene(cutsceneSceneName);
             
+            cutsceneUI.SetActive(true);
+            cutsceneBG.GetComponent<Image>().sprite = currentCutscene.bgImage;
+            
             DialogueManager.Instance.onDialogueEnd.AddListener(EndCutscene);
             DialogueManager.Instance.StartDialogue(currentCutscene.cutsceneText);
         }
@@ -122,11 +131,12 @@ public class GameManager : Singleton<GameManager>
 
     public void EndCutscene()
     {
-        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
-        CutsceneLevel cutscene = currentCutscene;
+        // This order is important to being able to chain cutscenes
+        CutsceneLevel endingCutscene = currentCutscene;
         currentCutscene = null;
-        cutscene.onCutsceneEnd.Invoke();
-        
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        cutsceneUI.SetActive(false);
+        endingCutscene.onCutsceneEnd.Invoke();
     }
     
     public void GrantRandomSouls(int qty)
