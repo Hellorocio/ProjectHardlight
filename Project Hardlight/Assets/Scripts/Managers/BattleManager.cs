@@ -104,11 +104,21 @@ public class BattleManager : Singleton<BattleManager>
                 // Also find bug where heroes disappear
                 //Set state to move or update target
                 //Debug.Log("Ordered a move");
+
+               //init moveloc
                 Vector3 pos = Input.mousePosition;
                 pos = Camera.main.ScreenToWorldPoint(pos);
                 GameObject newMoveLoc = Instantiate(moveLoc);
                 newMoveLoc.SetActive(true);
                 newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                //init line
+                LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                line.positionCount = 2;
+                line.SetPosition(0, newMoveLoc.transform.position);
+                line.SetPosition(1, selectedHero.transform.position);
+
+                //start moving hero
                 selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
 
