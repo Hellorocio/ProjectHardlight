@@ -39,6 +39,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<GameObject> selectedVessels;
     bool battleStarted;
+    bool draggingSelection;
 
     public void Initialize()
     {
@@ -85,19 +86,21 @@ public class BattleManager : Singleton<BattleManager>
 
         if (inputState == InputState.NothingSelected)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                UpdateClickedHero();
-            }
+            //Replaced with an invisible button behind all the UI (see SelectNonBattleButton())
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //UpdateClickedHero();
+            //}
 
         }
         else if (inputState == InputState.HeroSelected)
         {
             //Debug.Log("Current state is Hero Selected");
-            if (Input.GetMouseButtonDown(0))
-            {
-                UpdateClickedHero();
-            }
+            //Replaced left mouse detection here with invisible button- See SelectNonBattleButton()
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    UpdateClickedHero();
+            //}
             if (Input.GetMouseButtonDown(1))
             {
                 // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
@@ -253,7 +256,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <summary>
     /// Sets selected hero to the hero that was justed clicked
     /// </summary>
-    void UpdateClickedHero()
+    bool UpdateClickedHero()
     {
         Vector3 pos = Input.mousePosition;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
@@ -291,6 +294,7 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = true;
             doubleClickTimer = 0;
         }
+        return clickedHero != null;
     }
 
     /// <summary>
@@ -437,6 +441,43 @@ public class BattleManager : Singleton<BattleManager>
             {
                 battleTarget.SetActive(false);
             }
+        }
+    }
+
+    /// <summary>
+    /// Called by an invisible button on behind all the other UI
+    /// Used to prevent race conditions between button clicking and Input.OnMouseDown
+    /// </summary>
+    public void SelectNonBattleButton ()
+    {
+        //print("select non battle button");
+        if (GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
+        {
+            if (!draggingSelection)
+            {
+                if (!UpdateClickedHero())
+                {
+                    DeselectHero();
+                }
+            }
+            else
+            {
+                //end drag
+                draggingSelection = false;
+            }
+            
+        }
+    }
+
+    /// <summary>
+    /// Called when invisible button in the background is clicked and dragged
+    /// </summary>
+    public void StartDraggingSelection ()
+    {
+        //print("select multiple");
+        if (GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
+        {
+            draggingSelection = true;
         }
     }
 
