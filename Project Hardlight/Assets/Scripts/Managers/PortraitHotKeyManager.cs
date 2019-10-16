@@ -14,6 +14,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image hero1ManaFullImage;
     private Image hero1BackgroundImage;
     private Image hero1Image;
+    private Text hero1Name;
     private PortraitHealthBar hero1HealthBar;
     private PortraitManaBar hero1ManaBar;
 
@@ -22,6 +23,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image hero2ManaFullImage;
     private Image hero2BackgroundImage;
     private Image hero2Image;
+    private Text hero2Name;
     private PortraitHealthBar hero2HealthBar;
     private PortraitManaBar hero2ManaBar;
 
@@ -30,6 +32,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image hero3ManaFullImage;
     private Image hero3BackgroundImage;
     private Image hero3Image;
+    private Text hero3Name;
     private PortraitHealthBar hero3HealthBar;
     private PortraitManaBar hero3ManaBar;
 
@@ -69,18 +72,21 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero1ManaFullImage = hero1.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero1BackgroundImage = hero1.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero1Image = hero1.transform.Find("HeroImage").gameObject.GetComponent<Image>();
+        hero1Name = hero1.transform.Find("Name").gameObject.GetComponent<Text>();
         hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
         hero1ManaBar = hero1.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero2BackgroundImage = hero2.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero2Image = hero2.transform.Find("HeroImage").gameObject.GetComponent<Image>();
+        hero2Name = hero2.transform.Find("Name").gameObject.GetComponent<Text>();
         hero2HealthBar = hero2.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
-         hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
+        hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero3BackgroundImage = hero3.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
         hero3Image = hero3.transform.Find("HeroImage").gameObject.GetComponent<Image>();
+        hero3Name = hero3.transform.Find("Name").gameObject.GetComponent<Text>();
         hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
         hero3ManaBar = hero3.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
 
@@ -195,6 +201,10 @@ public class PortraitHotKeyManager : MonoBehaviour
             hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
             hero2Image.sprite = partyList[1].GetComponent<VesselData>().appearance;
             hero3Image.sprite = partyList[2].GetComponent<VesselData>().appearance;
+
+            hero1Name.text = partyList[0].GetComponent<VesselData>().vesselName.ToUpper();
+            hero2Name.text = partyList[1].GetComponent<VesselData>().vesselName.ToUpper();
+            hero3Name.text = partyList[2].GetComponent<VesselData>().vesselName.ToUpper();
 
             hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
