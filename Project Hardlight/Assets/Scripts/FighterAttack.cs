@@ -118,7 +118,7 @@ public class FighterAttack : MonoBehaviour
             }
 
             //attack
-            attack.DoBasicAttack(currentTarget);
+            attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
             //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
             //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
             if (fighter.anim != null )

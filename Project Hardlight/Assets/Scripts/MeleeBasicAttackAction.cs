@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class MeleeBasicAttackAction : BasicAttackAction
 {
-    public override void DoBasicAttack(GameObject target)
+    public override void DoBasicAttack(Fighter sourceFighter, GameObject target)
     {
-        Fighter thisFighter = GetComponent<Fighter>();
-        float damage = thisFighter.GetBasicAttackDamage();
+        float damage = sourceFighter.GetBasicAttackDamage();
         target.GetComponent<Fighter>().TakeDamage(damage);
 
-        if (thisFighter.team == CombatInfo.Team.Hero)
+        if (sourceFighter.team == CombatInfo.Team.Hero)
         {
-            thisFighter.GainMana(10);
+            sourceFighter.GainMana(10);
         }
     }
 }

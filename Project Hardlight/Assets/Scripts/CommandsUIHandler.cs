@@ -58,7 +58,7 @@ public class CommandsUIHandler : MonoBehaviour
 
             UISwitch(true);
             currentlySelectedHero = f;
-            heroNameText.text = f.GetComponent<Fighter>().characterName;
+            heroNameText.text = f.GetComponent<VesselData>().vesselName;
             HeroAbilities tmpAbilities = f.GetComponent<HeroAbilities>();
             ability1Button.GetComponentInChildren<Text>().text = ((Ability)tmpAbilities.abilityList[0]).abilityName;
             desc1.text = ((Ability)tmpAbilities.abilityList[0]).abilityDescription;

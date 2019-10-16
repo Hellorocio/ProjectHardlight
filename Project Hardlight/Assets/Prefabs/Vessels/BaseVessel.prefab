@@ -184,7 +184,7 @@ RectTransform:
   - {fileID: 6533009199522726384}
   - {fileID: 2129186814897316015}
   m_Father: {fileID: 6390960235825343898}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -361,7 +361,7 @@ Transform:
   m_Children:
   - {fileID: 8214742803668735277}
   m_Father: {fileID: 6390960235825343898}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6390960234732733080
 SpriteRenderer:
@@ -401,7 +401,7 @@ SpriteRenderer:
   m_SortingLayerID: -384906397
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b502210835003ca4b80969309535424d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -441,19 +441,18 @@ GameObject:
   m_Component:
   - component: {fileID: 6390960235825343898}
   - component: {fileID: 6390960235825343901}
-  - component: {fileID: 6390960235825343900}
   - component: {fileID: 6390960235825343899}
+  - component: {fileID: 6390960235825343900}
   - component: {fileID: 2953940653181175102}
-  - component: {fileID: 6390960235825343902}
-  - component: {fileID: 8409799907490501637}
   - component: {fileID: 8409799906034597506}
   - component: {fileID: 7624953586639980297}
-  - component: {fileID: 7415763268338591919}
-  - component: {fileID: 376086159}
   - component: {fileID: 6920598889442749698}
   - component: {fileID: 743599957097044493}
+  - component: {fileID: 7314596986426577828}
+  - component: {fileID: 1502405149423524159}
+  - component: {fileID: 3866378144017540731}
   m_Layer: 0
-  m_Name: Ninja
+  m_Name: BaseVessel
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,7 +469,6 @@ Transform:
   m_LocalPosition: {x: -5.29, y: -2.77, z: 1.979969}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
-  - {fileID: 8767214057997073190}
   - {fileID: 6390960234732733079}
   - {fileID: 5875956322033132706}
   m_Father: {fileID: 0}
@@ -502,27 +500,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.49266148, y: 0.6614839}
   m_EdgeRadius: 0
---- !u!114 &6390960235825343900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390960235825343897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Ninja
-  team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
-  selectedUI: {fileID: 55897265517752118}
-  maxManaGlow: {fileID: 6946353648948383882}
-  anim: {fileID: 6390960234732733081}
-  soul: {fileID: 0}
-  battleManager: {fileID: 0}
 --- !u!50 &6390960235825343899
 Rigidbody2D:
   serializedVersion: 4
@@ -544,6 +521,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6390960235825343900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: DefaultVessel
+  team: 1
+  healthUI: {fileID: 0}
+  manaUI: {fileID: 0}
+  selectedUI: {fileID: 55897265517752118}
+  maxManaGlow: {fileID: 6946353648948383882}
+  anim: {fileID: 6390960234732733081}
+  soul: {fileID: 0}
+  battleManager: {fileID: 0}
 --- !u!114 &2953940653181175102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,40 +555,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 6390960235825343902}
+  basicAttackAction: {fileID: 3866378144017540731}
   basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
---- !u!114 &6390960235825343902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390960235825343897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: Shank
-  range: 950
-  damage: 950
-  description: Taurin performs a short slash using a knife hidden... somewhere.
---- !u!114 &8409799907490501637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390960235825343897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09fa96d916bf8974f8bcf7ae19d37e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityList:
-  - {fileID: 7415763268338591919}
-  - {fileID: 376086159}
 --- !u!82 &8409799906034597506
 AudioSource:
   m_ObjectHideFlags: 0
@@ -701,7 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testing: 0
   followingMoveOrder: 0
---- !u!114 &7415763268338591919
+--- !u!114 &6920598889442749698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -710,19 +677,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 6390960235825343897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a536896024dbe4894a82d80476c560, type: 3}
+  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Jump Jutsu
-  abilityDescription: Teleport to a new target and become invicible and stronger for
-    5 seconds
-  baseDamage: 10
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRange: 10
-  attackTargetUnit: {fileID: 0}
---- !u!114 &376086159
+  appearance: {fileID: 21300000, guid: b502210835003ca4b80969309535424d, type: 3}
+  vesselName: DefaultVessel
+  title: The base vessel class
+  description: Should probably fill this out
+  baseHealth: 100
+  baseMana: 50
+  baseAbility: 100
+  baseMovementSpeed: 400
+  basicAttack: {fileID: 3866378144017540731}
+  abilities:
+  - {fileID: 1502405149423524159}
+  - {fileID: 7314596986426577828}
+--- !u!114 &743599957097044493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3305a6f460e5fdf4c936de67a0ea04a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlight: 0
+  appearence: {fileID: 6390960234732733080}
+--- !u!114 &7314596986426577828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,7 +731,7 @@ MonoBehaviour:
   attackTargetUnit: {fileID: 0}
   ninjaProjecilePrefab: {fileID: 7194470031030509519, guid: 91f7fb06d6dd74e47b7a78ec09012f5a,
     type: 3}
---- !u!114 &6920598889442749698
+--- !u!114 &1502405149423524159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -756,23 +740,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6390960235825343897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327266afd405c8444b4940bf33aa8154, type: 3}
+  m_Script: {fileID: 11500000, guid: 39a536896024dbe4894a82d80476c560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appearance: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520, type: 3}
-  vesselName: Taurin
-  title: Stealthtank
-  description: Taurin grew up as an urchin on the streets of CITY. He has gadgets
-    that help him with his subterfuge.
-  baseHealth: 120
-  baseMana: 50
-  baseAbility: 100
-  baseMovementSpeed: 400
-  basicAttack: {fileID: 6390960235825343902}
-  abilities:
-  - {fileID: 7415763268338591919}
-  - {fileID: 376086159}
---- !u!114 &743599957097044493
+  abilityName: Jump Jutsu
+  abilityDescription: Teleport to a new target and become invicible and stronger for
+    5 seconds
+  baseDamage: 10
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  baseEffectRange: 10
+  attackTargetUnit: {fileID: 0}
+--- !u!114 &3866378144017540731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -781,11 +761,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6390960235825343897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3305a6f460e5fdf4c936de67a0ea04a6, type: 3}
+  m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: 0
-  appearence: {fileID: 6390960234732733080}
+  title: Shank
+  range: 950
+  damage: 950
+  description: Taurin performs a short slash using a knife hidden... somewhere.
 --- !u!1 &6799968679881366909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,36 +1094,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 5287124241120495979}
   healthBar: {fileID: 201312620692860932}
---- !u!1 &7546608527794543409
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8767214057997073190}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8767214057997073190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7546608527794543409}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6390960235825343898}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8759626529991039121
 GameObject:
   m_ObjectHideFlags: 0

@@ -325,7 +325,7 @@ public class BattleManager : Singleton<BattleManager>
             // Clear any existing selected ability
             selectedAbility = null;
 
-            Ability ability = (Ability)selectedHero.gameObject.GetComponent<HeroAbilities>().abilityList[abilityNum];
+            Ability ability = (Ability)selectedHero.gameObject.GetComponent<VesselData>().abilities[abilityNum];
             if (ability != null)
             {
                 // Check has enough mana
