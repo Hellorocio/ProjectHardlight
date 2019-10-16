@@ -91,16 +91,7 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = false;
         }
 
-        if (inputState == InputState.NothingSelected)
-        {
-            //Replaced with an invisible button behind all the UI (see SelectNonBattleButton())
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //UpdateClickedHero();
-            //}
-
-        }
-        else if (inputState == InputState.HeroSelected)
+        if (inputState == InputState.HeroSelected)
         {
             //Debug.Log("Current state is Hero Selected");
             //Replaced left mouse detection here with invisible button- See SelectNonBattleButton()
@@ -108,51 +99,6 @@ public class BattleManager : Singleton<BattleManager>
             //{
             //    UpdateClickedHero();
             //}
-            if (Input.GetMouseButtonDown(1))
-            {
-                // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
-                // Also find bug where heroes disappear
-                //Set state to move or update target
-                //Debug.Log("Ordered a move");
-                
-                Vector3 pos = Input.mousePosition;
-                pos = Camera.main.ScreenToWorldPoint(pos);
-
-                //start moving hero
-                if (selectedHero != null)
-                {
-                    //init moveloc
-                    GameObject newMoveLoc = Instantiate(moveLoc);
-                    newMoveLoc.SetActive(true);
-                    newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                    //init line
-                    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                    line.positionCount = 2;
-                    line.SetPosition(0, newMoveLoc.transform.position);
-                    line.SetPosition(1, selectedHero.transform.position);
-                    selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                }
-                else if (multiSelectedHeros.Count > 0)
-                {
-                    //move multiple heroes
-                    foreach (Fighter f in multiSelectedHeros)
-                    {
-                        //init moveloc
-                        GameObject newMoveLoc = Instantiate(moveLoc);
-                        newMoveLoc.SetActive(true);
-                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                        //init line
-                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                        line.positionCount = 2;
-                        line.SetPosition(0, newMoveLoc.transform.position);
-                        line.SetPosition(1, multiSelectedHeros[0].transform.position);
-                        f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                    }
-                }
-                
-            }
 
             if ((Input.GetKeyDown(KeyCode.Q)))
             {
@@ -177,55 +123,6 @@ public class BattleManager : Singleton<BattleManager>
             }
             */
         }
-        else if (inputState == InputState.CastingAbility)
-        {
-            //Debug.Log("Input state is casting ability");
-            if (Input.GetMouseButtonDown(0))
-            {
-                TargetSelected();
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                StopTargeting();
-            }
-        }
-        else if (inputState == InputState.UpdatingTarget)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //select new target
-                Vector3 pos = Input.mousePosition;
-                Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
-                foreach (Collider2D hit in hitCollider)
-                {
-                    Fighter tmp = hit.GetComponent<Fighter>();
-                    if (tmp != null)
-                    {
-                        if (selectedHero != null)
-                        {
-                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
-                        }
-                        else if (multiSelectedHeros.Count > 0)
-                        {
-                            //set target for multiple heroes
-                            foreach (Fighter f in multiSelectedHeros)
-                            {
-                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
-                            }
-                        }
-                        inputState = InputState.HeroSelected;
-                    }
-                }
-
-                SetCursor(battleConfig.defaultCursor);
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                //cancel action
-                inputState = InputState.HeroSelected;
-                SetCursor(battleConfig.defaultCursor);
-            }
-        }
     }
 
     /// <summary>
@@ -242,7 +139,7 @@ public class BattleManager : Singleton<BattleManager>
             selectedHero.LoseMana(selectedHero.GetMaxMana());
             //commandsUI.SwitchButtonColor(false);
             StopTargeting();
-            DeselectHero();
+            //DeselectHero();
         }
     }
 
@@ -484,6 +381,12 @@ public class BattleManager : Singleton<BattleManager>
             {
                 StopTargeting();
             }
+
+            if (inputState == InputState.UpdatingTarget)
+            {
+                SetCursor(battleConfig.defaultCursor);
+            }
+
             portraitHotKeyManager.DeselectedHero();
             selectedHero.SetSelectedUI(false);
             UnsubscribeHeroEvents();
@@ -513,16 +416,105 @@ public class BattleManager : Singleton<BattleManager>
     /// Called by an invisible button on behind all the other UI
     /// Used to prevent race conditions between button clicking and Input.OnMouseDown
     /// </summary>
-    public void SelectNonBattleButton ()
+    public void SelectNonBattleButton (BaseEventData data)
     {
-        //print("select non battle button");
+        PointerEventData pointerData = data as PointerEventData;
         if (GameManager.Instance.gameState == GameState.FIGHTING)
         {
-            if (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected)
+            if (pointerData.button == PointerEventData.InputButton.Left && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
             {
                 if (!UpdateClickedHero())
                 {
                     DeselectHero();
+                }
+            }
+            else if (inputState == InputState.HeroSelected && pointerData.button == PointerEventData.InputButton.Right)
+            {
+                //move fighter
+                // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
+                // Also find bug where heroes disappear
+                //Set state to move or update target
+                //Debug.Log("Ordered a move");
+
+                Vector3 pos = Input.mousePosition;
+                pos = Camera.main.ScreenToWorldPoint(pos);
+
+                //start moving hero
+                if (selectedHero != null)
+                {
+                    //init moveloc
+                    GameObject newMoveLoc = Instantiate(moveLoc);
+                    newMoveLoc.SetActive(true);
+                    newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                    //init line
+                    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                    line.positionCount = 2;
+                    line.SetPosition(0, newMoveLoc.transform.position);
+                    line.SetPosition(1, selectedHero.transform.position);
+                    selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                }
+                else if (multiSelectedHeros.Count > 0)
+                {
+                    //move multiple heroes
+                    foreach (Fighter f in multiSelectedHeros)
+                    {
+                        //init moveloc
+                        GameObject newMoveLoc = Instantiate(moveLoc);
+                        newMoveLoc.SetActive(true);
+                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                        //init line
+                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                        line.positionCount = 2;
+                        line.SetPosition(0, newMoveLoc.transform.position);
+                        line.SetPosition(1, multiSelectedHeros[0].transform.position);
+                        f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                    }
+                }
+
+            }
+            else if (inputState == InputState.UpdatingTarget)
+            {
+                if (pointerData.button == PointerEventData.InputButton.Left)
+                {
+                    //select new target
+                    Vector3 pos = Input.mousePosition;
+                    Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+                    foreach (Collider2D hit in hitCollider)
+                    {
+                        Fighter tmp = hit.GetComponent<Fighter>();
+                        if (tmp != null)
+                        {
+                            if (selectedHero != null)
+                            {
+                                selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                            }
+                            else if (multiSelectedHeros.Count > 0)
+                            {
+                                //set target for multiple heroes
+                                foreach (Fighter f in multiSelectedHeros)
+                                {
+                                    f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //called on left or right mouse button click (this is what disables selection on right click)
+                inputState = InputState.HeroSelected;
+                SetCursor(battleConfig.defaultCursor);
+            }
+            else if (inputState == InputState.CastingAbility)
+            {
+                if (pointerData.button == PointerEventData.InputButton.Left)
+                {
+                    TargetSelected();
+                }
+                else if (pointerData.button == PointerEventData.InputButton.Right)
+                {
+                    StopTargeting();
                 }
             }
         }
