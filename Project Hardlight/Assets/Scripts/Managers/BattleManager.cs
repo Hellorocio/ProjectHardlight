@@ -7,13 +7,13 @@ using UnityEngine.EventSystems;
 // BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
 public class BattleManager : Singleton<BattleManager>
 {
-    public enum InputState { NothingSelected, HeroSelected, MultiHeroSelected, DraggingSelect, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
+    public enum InputState { NothingSelected, HeroSelected, DraggingSelect, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
     public BattleConfig battleConfig;
 
     private Fighter selectedHero;
     [HideInInspector]
-    public List<Fighter> muliSelectedHeros; //keeping this separate for now, maybe refactor later?
+    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
     public GameObject notEnoughManaUI;
@@ -114,22 +114,44 @@ public class BattleManager : Singleton<BattleManager>
                 // Also find bug where heroes disappear
                 //Set state to move or update target
                 //Debug.Log("Ordered a move");
-
-               //init moveloc
+                
                 Vector3 pos = Input.mousePosition;
                 pos = Camera.main.ScreenToWorldPoint(pos);
-                GameObject newMoveLoc = Instantiate(moveLoc);
-                newMoveLoc.SetActive(true);
-                newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                //init line
-                LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                line.positionCount = 2;
-                line.SetPosition(0, newMoveLoc.transform.position);
-                line.SetPosition(1, selectedHero.transform.position);
 
                 //start moving hero
-                selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                if (selectedHero != null)
+                {
+                    //init moveloc
+                    GameObject newMoveLoc = Instantiate(moveLoc);
+                    newMoveLoc.SetActive(true);
+                    newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                    //init line
+                    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                    line.positionCount = 2;
+                    line.SetPosition(0, newMoveLoc.transform.position);
+                    line.SetPosition(1, selectedHero.transform.position);
+                    selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                }
+                else if (multiSelectedHeros.Count > 0)
+                {
+                    //move multiple heroes
+                    foreach (Fighter f in multiSelectedHeros)
+                    {
+                        //init moveloc
+                        GameObject newMoveLoc = Instantiate(moveLoc);
+                        newMoveLoc.SetActive(true);
+                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                        //init line
+                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                        line.positionCount = 2;
+                        line.SetPosition(0, newMoveLoc.transform.position);
+                        line.SetPosition(1, multiSelectedHeros[0].transform.position);
+                        f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                    }
+                }
+                
             }
 
             if ((Input.GetKeyDown(KeyCode.Q)))
@@ -175,8 +197,18 @@ public class BattleManager : Singleton<BattleManager>
                     Fighter tmp = hit.GetComponent<Fighter>();
                     if (tmp != null)
                     {
-
-                        selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                        if (selectedHero != null)
+                        {
+                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                        }
+                        else if (multiSelectedHeros.Count > 0)
+                        {
+                            //set target for multiple heroes
+                            foreach (Fighter f in multiSelectedHeros)
+                            {
+                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                            }
+                        }
                         inputState = InputState.HeroSelected;
                     }
                 }
@@ -412,6 +444,15 @@ public class BattleManager : Singleton<BattleManager>
 
             UnsubscribeHeroEvents();
         }
+        else if (multiSelectedHeros.Count > 0)
+        {
+            //deselect all multi selected heros
+            foreach (Fighter f in multiSelectedHeros)
+            {
+                f.SetSelectedUI(false);
+            }
+            multiSelectedHeros.Clear();
+        }
 
         selectedHero = hero;
         selectedHero.SetSelectedUI(true);
@@ -450,6 +491,18 @@ public class BattleManager : Singleton<BattleManager>
                 battleTarget.SetActive(false);
             }
         }
+        else if (multiSelectedHeros.Count > 0)
+        {
+            portraitHotKeyManager.DeselectedHero();
+
+            //deselect all multi selected heros
+            foreach (Fighter f in multiSelectedHeros)
+            {
+                f.SetSelectedUI(false);
+            }
+            inputState = InputState.NothingSelected;
+            multiSelectedHeros.Clear();
+        }
     }
 
     /// <summary>
@@ -468,13 +521,32 @@ public class BattleManager : Singleton<BattleManager>
                     DeselectHero();
                 }
             }
-            else if (inputState == InputState.DraggingSelect)
+        }
+    }
+
+    public void StopDraggingSelection ()
+    {
+        if (inputState == InputState.DraggingSelect)
+        {
+            //TODO: end drag- select multiple if multiple selected, select 1 if 1 selected, otherwise deselect
+            inputState = InputState.NothingSelected;
+            if (multiSelectedHeros.Count == 0)
             {
-                //TODO: end drag- select multiple if multiple selected, select 1 if 1 selected, otherwise deselect
                 inputState = InputState.NothingSelected;
-                multiSelectionBox.gameObject.SetActive(false);
             }
-            
+            else if (multiSelectedHeros.Count == 1)
+            {
+                inputState = InputState.HeroSelected;
+                SetSelectedHero(multiSelectedHeros[0]);
+            }
+            else
+            {
+                //selected multiple heros, show multi-selected hero menu
+                inputState = InputState.HeroSelected;
+                portraitHotKeyManager.LoadMultiSelectedHeros();
+
+            }
+            multiSelectionBox.gameObject.SetActive(false);
         }
     }
 
@@ -485,9 +557,11 @@ public class BattleManager : Singleton<BattleManager>
     {
         //print("select multiple");
         PointerEventData pointerData = data as PointerEventData;
-        if (pointerData.button == PointerEventData.InputButton.Left && GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
+        if (pointerData.button == PointerEventData.InputButton.Left && GameManager.Instance.gameState == GameState.FIGHTING && 
+            (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
         {
             DeselectHero();
+            multiSelectedHeros.Clear();
 
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20);
             Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -505,7 +579,6 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (inputState == InputState.DraggingSelect)
         {
-           // print("dragging");
             Vector3 size = multiSelectionBox.transform.localScale;
 
             size.x = (Input.mousePosition.x - startX) * sizingFactor * 0.5f * Camera.main.orthographicSize;

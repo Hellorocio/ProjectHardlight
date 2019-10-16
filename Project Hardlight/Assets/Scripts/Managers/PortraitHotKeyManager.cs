@@ -7,7 +7,7 @@ public class PortraitHotKeyManager : MonoBehaviour
 {
     public GameObject HeroPortraitPanel;
     public GameObject hotKeyPanel;
-
+    public GameObject multiSelectHotKeyPanel;
 
     //Hero1 components
     private GameObject hero1;
@@ -173,6 +173,12 @@ public class PortraitHotKeyManager : MonoBehaviour
     void HotKeyPanelSwitch(bool s)
     {
         hotKeyPanel.SetActive(s);
+
+        //turns off multiselect panel if regular panel is being activated
+        if (s)
+        {
+            multiSelectHotKeyPanel.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -221,9 +227,19 @@ public class PortraitHotKeyManager : MonoBehaviour
         HotKeyPanelSwitch(true);
     }
 
+    /// <summary>
+    /// Turns off regular hotkey panel and opens the muli hotkey panel
+    /// </summary>
+    public void LoadMultiSelectedHeros ()
+    {
+        HotKeyPanelSwitch(false);
+        multiSelectHotKeyPanel.SetActive(true);
+    }
+
     public void DeselectedHero()
     {
         HotKeyPanelSwitch(false);
+        multiSelectHotKeyPanel.SetActive(false);
     }
 
 
