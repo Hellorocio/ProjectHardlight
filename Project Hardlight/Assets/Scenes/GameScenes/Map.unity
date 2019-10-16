@@ -163,7 +163,7 @@ MonoBehaviour:
   - {fileID: 493087516}
   - {fileID: 235359948}
   unlockNodes:
-  - {fileID: 164966521}
+  - {fileID: 493087516}
   cutsceneBefore: 
   cutsceneAfter: 
   difficulty: 1
@@ -276,7 +276,7 @@ RectTransform:
   m_Children:
   - {fileID: 221316814}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -661,9 +661,9 @@ MonoBehaviour:
   - {fileID: 493087516}
   - {fileID: 2022742729}
   unlockNodes:
-  - {fileID: 2022742729}
-  cutsceneBefore: 
-  cutsceneAfter: 
+  - {fileID: 235359948}
+  cutsceneBefore: FarmBattleBefore
+  cutsceneAfter: FarmBattleAfter
   difficulty: 1
   allightDrops: 0000000002000000
   history: []
@@ -774,7 +774,7 @@ RectTransform:
   m_Children:
   - {fileID: 654297741}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1808,7 +1808,7 @@ RectTransform:
   m_Children:
   - {fileID: 2076315631}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1875,14 +1875,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  status: 1
+  status: 0
   levelName: Ruins
   levelDescription: The ruins of an ancient temple dedicated to the elements. Rumor
     has it some people still dwell here...
-  sceneToLoad: BattleArea5
+  sceneToLoad: ForestBattle2
   adjacentNodes:
   - {fileID: 5760628}
-  unlockNodes: []
+  unlockNodes:
+  - {fileID: 164966521}
   cutsceneBefore: 
   cutsceneAfter: 
   difficulty: 2
@@ -2591,11 +2592,11 @@ RectTransform:
   m_Children:
   - {fileID: 431012501}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -224.8, y: -140}
+  m_AnchoredPosition: {x: -201.2, y: -140}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &493087515
@@ -2658,7 +2659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  status: 1
+  status: 0
   levelName: Pebble Woods
   levelDescription: 
   sceneToLoad: PebbleWoodsBattleArea
@@ -3125,7 +3126,7 @@ MonoBehaviour:
   status: 0
   levelName: Orchard
   levelDescription: Orchard
-  sceneToLoad: ForestBattle2
+  sceneToLoad: BattleArea5
   adjacentNodes:
   - {fileID: 2022742729}
   - {fileID: 223337306}
@@ -5202,6 +5203,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -51.25
       objectReference: {fileID: 0}
+    - target: {fileID: 7947497689243060632, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401064956944383647, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6321964353752999066, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_IsActive
@@ -5227,12 +5238,12 @@ PrefabInstance:
       propertyPath: battleUI
       value: 
       objectReference: {fileID: 200247264}
-    - target: {fileID: 3856169872539017057, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+    - target: {fileID: 4401064957614275523, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947497689243060632, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+      propertyPath: debugUI
+      value: 
+      objectReference: {fileID: 1724191515}
+    - target: {fileID: 3856169872539017057, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5243,11 +5254,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3856169872413885789, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064956944383647, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7707,6 +7713,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680641280}
   m_CullTransparentMesh: 0
+--- !u!1 &1724191515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1515078305181584588, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 728077353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843555946
 GameObject:
   m_ObjectHideFlags: 0
@@ -7734,12 +7746,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.84893, y: 0.84893, z: 0.84893}
   m_Children:
+  - {fileID: 2004092312}
   - {fileID: 5760632}
   - {fileID: 493087514}
   - {fileID: 105875718}
   - {fileID: 2022742728}
   - {fileID: 235359946}
-  - {fileID: 2004092312}
   - {fileID: 164966519}
   - {fileID: 1362080752}
   - {fileID: 643709304}
@@ -7874,7 +7886,7 @@ RectTransform:
   m_Children:
   - {fileID: 1128315923}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7940,13 +7952,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43eae60832b0e3c4f92dfc28eaea2564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  status: 0
+  type: 1
+  status: 2
   levelName: New Grove
   levelDescription: 'A relatively new grove of trees. It is usually too dangergous
     to go to the center. Thick trees and forest sprites guard the core.
 
-    F'
+'
   sceneToLoad: NewGroveHub
   adjacentNodes:
   - {fileID: 5760628}
@@ -8084,7 +8096,7 @@ RectTransform:
   m_Children:
   - {fileID: 1680641281}
   m_Father: {fileID: 1843555947}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
