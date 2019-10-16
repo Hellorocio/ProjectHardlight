@@ -162,6 +162,10 @@ public class BattleManager : Singleton<BattleManager>
             {
                 UseAbility(1);
             }
+            else if ((Input.GetKeyDown(KeyCode.A)))
+            {
+                SetStateToUpdateTarget();
+            }
             /* Commented out to avoid conflict with hardcoded hot keys
             if ((Input.GetKeyDown(KeyCode.Alpha1)))
             {
@@ -682,6 +686,10 @@ public class BattleManager : Singleton<BattleManager>
             {
                 //currently selected hero died, so deselect them
                 DeselectHero();
+            }
+            else if (multiSelectedHeros.Contains(fighter))
+            {
+                multiSelectedHeros.Remove(fighter);
             }
         }
         else

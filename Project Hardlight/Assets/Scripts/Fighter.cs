@@ -233,6 +233,14 @@ public class Fighter : MonoBehaviour
         if (health <= 0)
         {
             LoseMana(mana);
+
+            //remove moveLoc if following a move command
+            if (GetComponent<FighterMove>().followingMoveOrder)
+            {
+                GetComponent<FighterMove>().StopMovingCommandHandle();
+            }
+           
+
             gameObject.SetActive(false);
 
             //tell battleManager this fighter died so it can keep track of level completion info
