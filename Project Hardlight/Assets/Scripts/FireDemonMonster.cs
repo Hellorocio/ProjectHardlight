@@ -25,10 +25,13 @@ public class FireDemonMonster : MonoBehaviour
 
     public enum MoveState {stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking}
     MoveState moveState = MoveState.stopped;
-
+    public enum PatrolType {none, looping, reverse, random}
 
     public List<CombatInfo.TargetPreference> targetPrefs;
 
+    public PatrolType patrolType;
+    public List<Transform> patrolRoute;
+    
 
     public BasicAttackStats basicAttackStats;
 
@@ -58,6 +61,11 @@ public class FireDemonMonster : MonoBehaviour
         return (target != null && target.activeSelf);
     }
 
+
+    /// <summary>
+    /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
+    /// </summary>
+    /// <returns></returns>
     List<Fighter> GetValidTargets()
     {
         List<Fighter> fighters = new List<Fighter>();
@@ -105,6 +113,7 @@ public class FireDemonMonster : MonoBehaviour
                 
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed * Time.deltaTime);
             moveState = MoveState.moving;
+
         } else
         {
             moveState = MoveState.stopped;
