@@ -189,7 +189,8 @@ public class FighterMove : MonoBehaviour
         if ((!sprite.flipX && fighter.transform.position.x < otherFighter.transform.position.x) ||
                (sprite.flipX && fighter.transform.position.x > otherFighter.transform.position.x))
         {
-            if ((fighter.team == CombatInfo.Team.Hero && !followingMoveOrder) || fighter.team == CombatInfo.Team.Enemy)
+            //if ((fighter.team == CombatInfo.Team.Hero && !followingMoveOrder) || fighter.team == CombatInfo.Team.Enemy)
+            if (fighter.team == CombatInfo.Team.Enemy) //heros never wait
             {
                 fighterWait = true;
             }
