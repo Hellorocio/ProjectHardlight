@@ -9,7 +9,7 @@ public class FireDemonMonster : MonoBehaviour
     public Animator animator;
     public float maxHealth;
     public float maxMana;
-    public float maxAgroRange;
+    public float maxAggroRange;
     public float alertedRange;
     public float moveSpeed;
     public float basicAttackDamage;
@@ -23,7 +23,7 @@ public class FireDemonMonster : MonoBehaviour
     private GameObject attackParent;
 
 
-    public enum MoveState {stopped, moving, interrupted, basicAttacking, advancedAttacking}
+    public enum MoveState {stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking}
     MoveState moveState = MoveState.stopped;
 
 
@@ -53,14 +53,28 @@ public class FireDemonMonster : MonoBehaviour
         DecideAttack();
     }
 
-    bool IsValidTarget()
+    bool IsValidTarget(GameObject target)
     {
-        return (currentTarget != null && currentTarget.activeSelf);
+        return (target != null && target.activeSelf);
+    }
+
+    List<Fighter> GetValidTargets()
+    {
+        List<Fighter> fighters = new List<Fighter>();
+        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        for(int i = 0; i < enemyListTMP.Length; i++)
+        {
+            if(IsValidTarget(enemyListTMP[i].gameObject) && InMaxAgroRange(enemyListTMP[i].transform.position))
+            {
+                fighters.Add(enemyListTMP[i]);
+            }
+        }
+        return fighters;
     }
 
     void DecideAttack()
     {
-        if (IsValidTarget())
+        if (IsValidTarget(currentTarget))
         {
             if(moveState == MoveState.stopped)
             {
@@ -68,7 +82,16 @@ public class FireDemonMonster : MonoBehaviour
             }
         } else
         {
-            SetCurrentTarget();
+            //There is noone around to attack
+            if(GetValidTargets().Count == 0)
+            {
+
+            } else
+            {
+                SetCurrentTarget();
+            }
+            
+
         }
     }
 
@@ -77,7 +100,7 @@ public class FireDemonMonster : MonoBehaviour
 
         //Vector3 tmp = monsterAIGrid.WorldToCell(currentTarget.transform.position);
 
-        if (IsValidTarget() && !InBasicRangeOfTarget(currentTarget.transform.position))
+        if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
                 
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed * Time.deltaTime);
@@ -89,17 +112,19 @@ public class FireDemonMonster : MonoBehaviour
         
     }
 
-    public void StartBasicAttacking()
+    void StartBasicAttacking()
     {
+        moveState = MoveState.basicAttacking;
         StartCoroutine(BasicAttack());
     }
 
-    public void StopBasicAttacking()
+   public void StopBasicAttacking()
     {
         StopCoroutine(BasicAttack());
+        moveState = MoveState.stopped;
     }
 
-    public void DoBasicAttack(GameObject target)
+    void DoBasicAttack(GameObject target)
     {
        
         target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
@@ -108,7 +133,7 @@ public class FireDemonMonster : MonoBehaviour
 
     IEnumerator BasicAttack()
     {
-        moveState = MoveState.basicAttacking;
+        
         DoBasicAttack(currentTarget);
 
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
@@ -124,53 +149,35 @@ public class FireDemonMonster : MonoBehaviour
         moveState = MoveState.stopped;
     }
 
-    //IEnumerator BasicAttackLoop()
-    //{
-    //    while (currentTarget != null && currentTarget.activeSelf)
-    //    {
-    //        //check we are still in range
-    //        if (!InBasicRangeOfTarget(currentTarget.transform.position))
-    //        {
-    //            StopBasicAttacking();
-    //            break;
-    //        }
-
-    //        //attack
-    //        DoBasicAttack(currentTarget);
-    //        //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
-    //        //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
-
-    //        AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-    //        if (audioSource != null && basicAttackStats.sfx != null)
-    //        {
-    //            audioSource.clip = basicAttackStats.sfx;
-    //            audioSource.Play();
-    //        }
-    //        yield return new WaitForSeconds(attackSpeed);
-    //    }
-
-    //    //make sure while stopped because currentFighter is gone
-    //    if (currentTarget == null || !currentTarget.activeSelf)
-    //    {
-    //        SetCurrentTarget();
-    //    }
-    //}
 
     /// <summary>
     /// Returns true if this fighter is in range of their currentTarget
     /// </summary>
     /// <returns></returns>
-    public bool InBasicRangeOfTarget(Vector3 t)
+    public bool InBasicRangeOfTarget(Vector3 p)
     {
-        bool inRange = Vector2.Distance(transform.position, t) < basicAttackStats.range;
+        return Vector2.Distance(transform.position, p) < basicAttackStats.range;
         
-        return inRange;
     }
 
+    public bool InMaxAgroRange(Vector3 p)
+    {
+        return Vector2.Distance(transform.position, p) < maxAggroRange;
+    }
+
+    public bool InAlertedRange(Vector3 p)
+    {
+        return Vector2.Distance(transform.position, p) < alertedRange;
+    }
+
+
+    /// <summary>
+    /// Sets the current target, if there is a valid one within maxAggroRange. Uses the preference enums if provided to select a specific type of fighter
+    /// </summary>
     public void SetCurrentTarget()
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
-        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] enemyListTMP = GetValidTargets().ToArray();
         bool enemiesActive = false;
 
         for (int i = 0; i < enemyListTMP.Length; i++)
@@ -259,7 +266,7 @@ public class FireDemonMonster : MonoBehaviour
 
     void SetWeakestAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float hp = float.MaxValue;
         int index = 0;
 
@@ -282,7 +289,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     void SetStrongesttAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float hp = -1;
         int index = 0;
 
@@ -306,7 +313,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     bool SetRangedAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -336,7 +343,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     bool SetMeleeAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -366,7 +373,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     bool SetHealerAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -397,7 +404,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     void SetClosestAttackTarget()
     {
-        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -420,7 +427,7 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     void SetOptimalHealingTarget()
     {
-        Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
+        Fighter[] currentTargets = GetValidTargets().ToArray();
         float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
