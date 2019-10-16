@@ -13,6 +13,23 @@ public class UIManager : Singleton<UIManager>
     public GameObject commandsUI;
 
     public GameObject heroPlacer;
+    public GameObject debugUI;
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            ToggleDebugUI();
+        }
+    }
+    public void ToggleDebugUI ()
+    {
+        if (debugUI != null)
+        {
+            debugUI.SetActive(!debugUI.activeSelf);
+        }
+    }
 
     public void ToggleLoadoutUI()
     {
