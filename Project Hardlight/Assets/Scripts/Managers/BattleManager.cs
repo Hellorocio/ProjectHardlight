@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // All inputs should go int there
 // BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
 public class BattleManager : Singleton<BattleManager>
 {
-    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
+    public enum InputState { NothingSelected, HeroSelected, MultiHeroSelected, DraggingSelect, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
     public BattleConfig battleConfig;
 
     private Fighter selectedHero;
+    [HideInInspector]
+    public List<Fighter> muliSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
+    public GameObject multiSelectionBox;
 
     public PortraitHotKeyManager portraitHotKeyManager;
     //public CommandsUIHandler commandsUI;
@@ -39,6 +43,10 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<GameObject> selectedVessels;
     bool battleStarted;
+
+    private float startX;
+    private float startY;
+    public float sizingFactor = 0.01f;
 
     public void Initialize()
     {
@@ -85,29 +93,42 @@ public class BattleManager : Singleton<BattleManager>
 
         if (inputState == InputState.NothingSelected)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                UpdateClickedHero();
-            }
+            //Replaced with an invisible button behind all the UI (see SelectNonBattleButton())
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //UpdateClickedHero();
+            //}
 
         }
         else if (inputState == InputState.HeroSelected)
         {
             //Debug.Log("Current state is Hero Selected");
-            if (Input.GetMouseButtonDown(0))
-            {
-                UpdateClickedHero();
-            }
+            //Replaced left mouse detection here with invisible button- See SelectNonBattleButton()
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    UpdateClickedHero();
+            //}
             if (Input.GetMouseButtonDown(1))
             {
                 // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
                 // Also find bug where heroes disappear
                 //Set state to move or update target
                 //Debug.Log("Ordered a move");
+
+               //init moveloc
                 Vector3 pos = Input.mousePosition;
                 pos = Camera.main.ScreenToWorldPoint(pos);
                 GameObject newMoveLoc = Instantiate(moveLoc);
+                newMoveLoc.SetActive(true);
                 newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                //init line
+                LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                line.positionCount = 2;
+                line.SetPosition(0, newMoveLoc.transform.position);
+                line.SetPosition(1, selectedHero.transform.position);
+
+                //start moving hero
                 selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
             }
 
@@ -146,27 +167,27 @@ public class BattleManager : Singleton<BattleManager>
         {
             if (Input.GetMouseButtonDown(0))
             {
+                //select new target
                 Vector3 pos = Input.mousePosition;
                 Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
-                foreach(Collider2D hit in hitCollider)
+                foreach (Collider2D hit in hitCollider)
                 {
                     Fighter tmp = hit.GetComponent<Fighter>();
                     if (tmp != null)
                     {
-                        
+
                         selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
                         inputState = InputState.HeroSelected;
                     }
                 }
-                /*
-                if (hitCollider != null && hitCollider)
-                {
-                    //Updates the current target
-                    Fighter tmp = hitCollider.GetComponent<Fighter>();
-                    selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
-                    inputState = InputState.HeroSelected;
-                }
-                */
+
+                SetCursor(battleConfig.defaultCursor);
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                //cancel action
+                inputState = InputState.HeroSelected;
+                SetCursor(battleConfig.defaultCursor);
             }
         }
     }
@@ -242,7 +263,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <summary>
     /// Sets selected hero to the hero that was justed clicked
     /// </summary>
-    void UpdateClickedHero()
+    bool UpdateClickedHero()
     {
         Vector3 pos = Input.mousePosition;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
@@ -280,6 +301,7 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = true;
             doubleClickTimer = 0;
         }
+        return clickedHero != null;
     }
 
     /// <summary>
@@ -303,7 +325,7 @@ public class BattleManager : Singleton<BattleManager>
             // Clear any existing selected ability
             selectedAbility = null;
 
-            Ability ability = (Ability)selectedHero.gameObject.GetComponent<HeroAbilities>().abilityList[abilityNum];
+            Ability ability = (Ability)selectedHero.gameObject.GetComponent<VesselData>().abilities[abilityNum];
             if (ability != null)
             {
                 // Check has enough mana
@@ -403,6 +425,7 @@ public class BattleManager : Singleton<BattleManager>
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
     }
+    
 
     /// <summary>
     /// Deactiates selected hero UI and other things
@@ -429,9 +452,80 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
+    /// <summary>
+    /// Called by an invisible button on behind all the other UI
+    /// Used to prevent race conditions between button clicking and Input.OnMouseDown
+    /// </summary>
+    public void SelectNonBattleButton ()
+    {
+        //print("select non battle button");
+        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        {
+            if (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected)
+            {
+                if (!UpdateClickedHero())
+                {
+                    DeselectHero();
+                }
+            }
+            else if (inputState == InputState.DraggingSelect)
+            {
+                //TODO: end drag- select multiple if multiple selected, select 1 if 1 selected, otherwise deselect
+                inputState = InputState.NothingSelected;
+                multiSelectionBox.gameObject.SetActive(false);
+            }
+            
+        }
+    }
+
+    /// <summary>
+    /// Called when invisible button in the background is clicked and dragged
+    /// </summary>
+    public void StartDraggingSelection (BaseEventData data)
+    {
+        //print("select multiple");
+        PointerEventData pointerData = data as PointerEventData;
+        if (pointerData.button == PointerEventData.InputButton.Left && GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
+        {
+            DeselectHero();
+
+            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20);
+            Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            startX = position.x;
+            startY = position.y;
+            position = Camera.main.ScreenToWorldPoint(position);
+            multiSelectionBox.transform.position = position;
+            multiSelectionBox.transform.localScale = Vector3.zero;
+            multiSelectionBox.gameObject.SetActive(true);
+            inputState = InputState.DraggingSelect;
+        }
+    }
+
+    public void OnDraggingSelection ()
+    {
+        if (inputState == InputState.DraggingSelect)
+        {
+           // print("dragging");
+            Vector3 size = multiSelectionBox.transform.localScale;
+
+            size.x = (Input.mousePosition.x - startX) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+
+            size.y = (Input.mousePosition.y - startY) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+            Vector2 difs = new Vector2(size.x - multiSelectionBox.transform.localScale.x, size.y - multiSelectionBox.transform.localScale.y);
+            multiSelectionBox.transform.localScale = size;
+
+            Vector3 tmpPos = multiSelectionBox.transform.position;
+            tmpPos.x += difs.x * 2.5f;
+            tmpPos.y += difs.y * 2.5f;
+            multiSelectionBox.transform.position = tmpPos;
+        }
+        
+    }
+
     public void SetStateToUpdateTarget()
     {
         inputState = InputState.UpdatingTarget;
+        SetCursor(battleConfig.changeTargetCursor);
     }
 
     /// <summary>
@@ -443,7 +537,6 @@ public class BattleManager : Singleton<BattleManager>
         //call levelStart on vessels
         foreach (GameObject v in selectedVessels)
         {
-            numEnemies++;
             v.GetComponent<FighterAttack>().LevelStart();
         }
 

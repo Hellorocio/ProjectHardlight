@@ -16,6 +16,7 @@ public class FighterMove : MonoBehaviour
     public bool followingMoveOrder;
 
     private Transform target;
+    LineRenderer targetLine;
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +62,14 @@ public class FighterMove : MonoBehaviour
 
             if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
             {
-
+                //update fighter position
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
+                
+                //update line position
+                if (targetLine != null)
+                {
+                    targetLine.SetPosition(1, transform.position);
+                }
             }
             else
             {
@@ -109,7 +116,13 @@ public class FighterMove : MonoBehaviour
 
     public void StartMovingCommandHandle(Transform t)
     {
+        //remove any old targets
+        if (followingMoveOrder)
+        {
+            Destroy(target.gameObject);
+        }
 
+        //set new target
         followingMoveOrder = true;
         fighterAttack.StopBasicAttacking();
         if (fighter == null)
@@ -123,6 +136,8 @@ public class FighterMove : MonoBehaviour
         {
             fighter.anim.Play("Walk");
         }
+
+        targetLine = target.GetComponentInChildren<LineRenderer>();
 
        // if (fighter.anim.HasState(0, Animator.StringToHash("Walk")))
        // {

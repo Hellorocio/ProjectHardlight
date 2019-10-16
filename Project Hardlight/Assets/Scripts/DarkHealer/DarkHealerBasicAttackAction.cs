@@ -12,13 +12,9 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
     // Used for offsetting to match animation
     public float animationDelay;
 
-    public void Start()
+    public override void DoBasicAttack(Fighter sourceFighter, GameObject target)
     {
-        thisFighter = GetComponent<Fighter>();
-    }
-
-    public override void DoBasicAttack(GameObject target)
-    {
+        thisFighter = sourceFighter;
         StartCoroutine(BasicAttackWithAnimationDelay(target));
     }
 

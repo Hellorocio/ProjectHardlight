@@ -91,7 +91,7 @@ public class FighterUseAbilityPopup : MonoBehaviour
     /// <param name="f"></param>
     void ActivateFighterAbilityPopup(Fighter f)
     {
-        popupButtons[numPopupsActive].GetComponentInChildren<Text>().text = f.characterName + " can use an ability!";
+        popupButtons[numPopupsActive].GetComponentInChildren<Text>().text = f.GetComponent<VesselData>().vesselName + " can use an ability!";
         popupButtons[numPopupsActive].gameObject.SetActive(true);
         abilityReadyFighters[numPopupsActive] = f;
         numPopupsActive++;

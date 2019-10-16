@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BasicAttackAction : MonoBehaviour
 {
-    public abstract void DoBasicAttack(GameObject target);
+    public abstract void DoBasicAttack(Fighter sourceFighter, GameObject target);
 
     public string title;
     public int range;

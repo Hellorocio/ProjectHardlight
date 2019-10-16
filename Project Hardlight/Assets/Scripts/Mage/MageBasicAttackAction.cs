@@ -14,7 +14,7 @@ public class MageBasicAttackAction : BasicAttackAction
     {
     }
 
-    public override void DoBasicAttack(GameObject target)
+    public override void DoBasicAttack(Fighter thisFighter, GameObject target)
     {
         StartCoroutine(BasicAttackWithAnimationDelay(target));
     }

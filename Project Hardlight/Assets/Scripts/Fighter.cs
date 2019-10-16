@@ -12,11 +12,8 @@ using UnityEngine.Events;
 /// </summary>
 public class Fighter : MonoBehaviour
 {
-    public string characterName = "defaultCharacterName";
     public CombatInfo.Team team;
     
-    public GameObject healthUI;
-    public GameObject manaUI;
     public GameObject selectedUI;
     public GameObject maxManaGlow;
     public Animator anim;
@@ -86,9 +83,6 @@ public class Fighter : MonoBehaviour
         }
 
         buffs = new List<BuffObj>();
-        
-        SetHealthUI();
-        SetManaUI();
     }
 
     /// <summary>
@@ -239,7 +233,6 @@ public class Fighter : MonoBehaviour
         if (health <= 0)
         {
             LoseMana(mana);
-            SetManaUI();
             gameObject.SetActive(false);
 
             //tell battleManager this fighter died so it can keep track of level completion info
@@ -249,8 +242,6 @@ public class Fighter : MonoBehaviour
             OnFighterDeath?.Invoke(this);
         }
         
-        SetHealthUI();
-
         //OnHealthChanged event
         OnHealthChanged?.Invoke(health);
     }
@@ -270,7 +261,6 @@ public class Fighter : MonoBehaviour
         {
             health = maxHealth;
         }
-        SetHealthUI();
 
         //OnHealthChanged event
         OnHealthChanged?.Invoke(health);
@@ -307,8 +297,6 @@ public class Fighter : MonoBehaviour
 
         //mana changed event
         OnManaChanged?.Invoke(mana);
-
-        SetManaUI();
     }
 
     public void LoseMana (int manaLost)
@@ -326,8 +314,6 @@ public class Fighter : MonoBehaviour
 
         //mana changed event
         OnManaChanged?.Invoke(mana);
-
-        SetManaUI();
     }
 
     public float GetHealth()
@@ -340,28 +326,15 @@ public class Fighter : MonoBehaviour
         return mana;
     }
 
-    /// <summary>
-    /// Right now this sets the HPText, probably change later to a health bar
-    /// </summary>
-    void SetHealthUI()
-    {
-        if (healthUI != null)
-        {
-            healthUI.GetComponent<Text>().text = ((int)health).ToString();
-        }
-    }
-
-    void SetManaUI()
-    {
-        if (manaUI != null)
-        {
-            manaUI.GetComponent<Text>().text = ((int)mana).ToString() + "/" + maxMana.ToString();
-        }
-    }
-
     public void SetSelectedUI(bool active)
     {
         selectedUI.SetActive(active);
+
+        //start switching over to highlighted outline
+        if (GetComponent<HighlightFighter>() != null)
+        {
+            GetComponent<HighlightFighter>().highlight = active;
+        }
     }
 
     // TODO finish this
