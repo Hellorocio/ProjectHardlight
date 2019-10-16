@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // All inputs should go int there
 // BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
 public class BattleManager : Singleton<BattleManager>
 {
-    public enum InputState { NothingSelected, HeroSelected, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
+    public enum InputState { NothingSelected, HeroSelected, MultiHeroSelected, DraggingSelect, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
     public BattleConfig battleConfig;
 
     private Fighter selectedHero;
+    [HideInInspector]
+    public List<Fighter> muliSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
+    public GameObject multiSelectionBox;
 
     public PortraitHotKeyManager portraitHotKeyManager;
     //public CommandsUIHandler commandsUI;
@@ -39,7 +43,10 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<GameObject> selectedVessels;
     bool battleStarted;
-    bool draggingSelection;
+
+    private float startX;
+    private float startY;
+    public float sizingFactor = 0.01f;
 
     public void Initialize()
     {
@@ -418,6 +425,7 @@ public class BattleManager : Singleton<BattleManager>
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
     }
+    
 
     /// <summary>
     /// Deactiates selected hero UI and other things
@@ -451,19 +459,20 @@ public class BattleManager : Singleton<BattleManager>
     public void SelectNonBattleButton ()
     {
         //print("select non battle button");
-        if (GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
+        if (GameManager.Instance.gameState == GameState.FIGHTING)
         {
-            if (!draggingSelection)
+            if (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected)
             {
                 if (!UpdateClickedHero())
                 {
                     DeselectHero();
                 }
             }
-            else
+            else if (inputState == InputState.DraggingSelect)
             {
-                //end drag
-                draggingSelection = false;
+                //TODO: end drag- select multiple if multiple selected, select 1 if 1 selected, otherwise deselect
+                inputState = InputState.NothingSelected;
+                multiSelectionBox.gameObject.SetActive(false);
             }
             
         }
@@ -472,13 +481,45 @@ public class BattleManager : Singleton<BattleManager>
     /// <summary>
     /// Called when invisible button in the background is clicked and dragged
     /// </summary>
-    public void StartDraggingSelection ()
+    public void StartDraggingSelection (BaseEventData data)
     {
         //print("select multiple");
-        if (GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
+        PointerEventData pointerData = data as PointerEventData;
+        if (pointerData.button == PointerEventData.InputButton.Left && GameManager.Instance.gameState == GameState.FIGHTING && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
         {
-            draggingSelection = true;
+            DeselectHero();
+
+            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20);
+            Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            startX = position.x;
+            startY = position.y;
+            position = Camera.main.ScreenToWorldPoint(position);
+            multiSelectionBox.transform.position = position;
+            multiSelectionBox.transform.localScale = Vector3.zero;
+            multiSelectionBox.gameObject.SetActive(true);
+            inputState = InputState.DraggingSelect;
         }
+    }
+
+    public void OnDraggingSelection ()
+    {
+        if (inputState == InputState.DraggingSelect)
+        {
+           // print("dragging");
+            Vector3 size = multiSelectionBox.transform.localScale;
+
+            size.x = (Input.mousePosition.x - startX) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+
+            size.y = (Input.mousePosition.y - startY) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+            Vector2 difs = new Vector2(size.x - multiSelectionBox.transform.localScale.x, size.y - multiSelectionBox.transform.localScale.y);
+            multiSelectionBox.transform.localScale = size;
+
+            Vector3 tmpPos = multiSelectionBox.transform.position;
+            tmpPos.x += difs.x * 2.5f;
+            tmpPos.y += difs.y * 2.5f;
+            multiSelectionBox.transform.position = tmpPos;
+        }
+        
     }
 
     public void SetStateToUpdateTarget()
