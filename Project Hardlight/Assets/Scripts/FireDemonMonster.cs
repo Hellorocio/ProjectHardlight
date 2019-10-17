@@ -12,15 +12,20 @@ public class FireDemonMonster : MonoBehaviour
     public float maxAggroRange;
     public float alertedRange;
     public float moveSpeed;
-    public float basicAttackDamage;
-    public float attackSpeed;
-
+   // public float basicAttackDamage;
+    public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
+    //public float attackSpeed;
+    public AnimationClip basicAttackClip;
+    private Color defaultColor;
+    private Color hitColor;
     private float currentHealth;
     private float currentMana;
+
 
     private GameObject currentTarget;
     //private Grid monsterAIGrid;
     private GameObject attackParent;
+    private bool anyValidTargets;
 
 
     public enum MoveState {stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking}
@@ -42,6 +47,8 @@ public class FireDemonMonster : MonoBehaviour
         currentMana = 0;
         //monsterAIGrid = GameObject.Find("MonsterAIGrid").GetComponent<Grid>();
         attackParent = GameObject.Find("Vessels");
+        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
+        hitColor = new Color(1f, .5235f, .6194f);
     }
 
     // Update is called once per frame
@@ -52,7 +59,7 @@ public class FireDemonMonster : MonoBehaviour
 
     void FixedUpdate()
     {
-        MoveToTarget();
+        UpdateTarget();
         DecideAttack();
     }
 
@@ -77,30 +84,59 @@ public class FireDemonMonster : MonoBehaviour
                 fighters.Add(enemyListTMP[i]);
             }
         }
+        anyValidTargets = fighters.Count > 0;
         return fighters;
+    }
+
+
+    /// <summary>
+    /// Check the monster's current target and if it is not valid then check if there are any valid targets
+    /// </summary>
+    void UpdateTarget()
+    {
+        if (!IsValidTarget(currentTarget)) // Needs to also check if there are multiple enemies in alerted dist
+        {
+            SetCurrentTarget();
+        }
     }
 
     void DecideAttack()
     {
         if (IsValidTarget(currentTarget))
         {
-            if(moveState == MoveState.stopped)
+            if (!InBasicRangeOfTarget(currentTarget.transform.position))
+            {
+                if (moveState != MoveState.moving)
+                {
+                    animator.Play("Walk");
+
+                }
+                transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
+                moveState = MoveState.moving;
+
+
+            }
+            else
             {
                 StartBasicAttacking();
             }
-        } else
+        }
+        else
         {
-            //There is noone around to attack
-            if(GetValidTargets().Count == 0)
-            {
 
-            } else
+            //There is noone around to attack
+            if (GetValidTargets().Count == 0)
+            {
+                moveState = MoveState.stopped;
+
+            }
+            else
             {
                 SetCurrentTarget();
             }
-            
-
         }
+
+        
     }
 
     void MoveToTarget()
@@ -110,12 +146,22 @@ public class FireDemonMonster : MonoBehaviour
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
-                
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed * Time.deltaTime);
+            if(moveState != MoveState.moving)
+            {
+                animator.Play("Walk");
+
+            }   
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed/100 * Time.deltaTime);
             moveState = MoveState.moving;
 
-        } else
+
+        }
+        else
         {
+            if(moveState == MoveState.moving)
+            {
+                animator.Play("Idle");
+            }
             moveState = MoveState.stopped;
         }
         
@@ -123,8 +169,12 @@ public class FireDemonMonster : MonoBehaviour
 
     void StartBasicAttacking()
     {
-        moveState = MoveState.basicAttacking;
-        StartCoroutine(BasicAttack());
+        if(moveState != MoveState.basicAttacking)
+        {
+            moveState = MoveState.basicAttacking;
+            StartCoroutine(BasicAttack());
+        }
+        
     }
 
    public void StopBasicAttacking()
@@ -136,25 +186,31 @@ public class FireDemonMonster : MonoBehaviour
     void DoBasicAttack(GameObject target)
     {
        
-        target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
+        target.GetComponent<Fighter>().TakeDamage(basicAttackStats.damage);
 
     }
 
     IEnumerator BasicAttack()
     {
         
-        DoBasicAttack(currentTarget);
-
+        animator.Play("BasicAttack");
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
         if (audioSource != null && basicAttackStats.sfx != null)
         {
             audioSource.clip = basicAttackStats.sfx;
             audioSource.Play();
         }
-        animator.Play("BasicAttack");
+        else
+        {
+            Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
+        }
+        yield return new WaitForSeconds(basicAttackHitTime);
+        DoBasicAttack(currentTarget);
 
-        Debug.Log("recorder stop time is : " + animator.recorderStopTime);
-        yield return new WaitForSeconds(animator.recorderStopTime);
+        
+        Debug.Log("recorder stop time is : " + (basicAttackClip.length));
+        //Debug.Assert(animator.recorderStopTime - basicAttackHitTime > 0, "basicAttackHitTime must be smaller than recorderStopTime");
+        yield return new WaitForSeconds(basicAttackClip.length - basicAttackHitTime);
         moveState = MoveState.stopped;
     }
 
@@ -165,6 +221,7 @@ public class FireDemonMonster : MonoBehaviour
     /// <returns></returns>
     public bool InBasicRangeOfTarget(Vector3 p)
     {
+        //Debug.Log(Vector2.Distance(transform.position, p).ToString() + " " + basicAttackStats.range);
         return Vector2.Distance(transform.position, p) < basicAttackStats.range;
         
     }
@@ -179,6 +236,33 @@ public class FireDemonMonster : MonoBehaviour
         return Vector2.Distance(transform.position, p) < alertedRange;
     }
 
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        IEnumerator colorThing = HitColorChanger();
+        StartCoroutine(colorThing);
+        if (currentHealth <= 0)
+        {
+            //death
+        }
+    }
+
+    public void OnDeath()
+    {
+
+        //Tell Battle manager that an enemy has died
+
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator HitColorChanger()
+    {
+
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
+        yield return new WaitForSeconds((float)0.25);
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
+    }
 
     /// <summary>
     /// Sets the current target, if there is a valid one within maxAggroRange. Uses the preference enums if provided to select a specific type of fighter
