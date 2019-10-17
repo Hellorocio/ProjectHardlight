@@ -54,7 +54,7 @@ public class DialogueManager : Singleton<DialogueManager>
             rInput = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown(KeyCode.Escape) && dialogueLoop != null)
         {
             EndDialogue();
         }

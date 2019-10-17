@@ -61,25 +61,29 @@ public class BattleManager : Singleton<BattleManager>
             return;
         }
 
-        if ((Input.GetKeyDown(KeyCode.Alpha1)))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (selectedVessels[0].activeSelf)
             {
                 SetSelectedHero(selectedVessels[0].GetComponent<Fighter>());
             }
         }
-        else if ((Input.GetKeyDown(KeyCode.Alpha2)))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (selectedVessels[1].activeSelf)
             {
                 SetSelectedHero(selectedVessels[1].GetComponent<Fighter>());
             }
-        } else if ((Input.GetKeyDown(KeyCode.Alpha3)))
+        } else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (selectedVessels[2].activeSelf)
             {
                 SetSelectedHero(selectedVessels[2].GetComponent<Fighter>());
             }
+        } else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // escape battle
+            BattleOver(false);
         }
 
 
