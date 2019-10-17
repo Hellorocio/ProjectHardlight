@@ -220,6 +220,7 @@ public class PortraitHotKeyManager : MonoBehaviour
         {
             Start();
             hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
+            hero1Name.text = partyList[0].GetComponent<VesselData>().vesselName.ToUpper();
             hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero2.SetActive(false);
