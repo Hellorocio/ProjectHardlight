@@ -12,7 +12,8 @@ public class MapManager : MonoBehaviour
 
     //colors for nodes (replace with images?)
     public Color locked;
-    public Color battle;
+    public Color discoveredBattle;
+    public Color undiscoveredBattle;
     public Color hub;
     public Color boss;
 
@@ -117,15 +118,11 @@ public class MapManager : MonoBehaviour
     /// <returns></returns>
     public Color GetNodeAppearance (MapNode.NodeStatus status, MapNode.NodeType type)
     {
-        if (status == MapNode.NodeStatus.LOCKED)
-        {
-            return locked;
-        }
-        else
+        if (status == MapNode.NodeStatus.UNDISCOVERED)
         {
             if (type == MapNode.NodeType.BATTLE)
             {
-                return battle;
+                return undiscoveredBattle;
             }
             else
             if (type == MapNode.NodeType.BOSS)
@@ -133,10 +130,24 @@ public class MapManager : MonoBehaviour
                 return boss;
             }
             else
+            if (type == MapNode.NodeType.HUB)
             {
                 return hub;
             }
         }
+        else if (status == MapNode.NodeStatus.DISCOVERED)
+        {
+            if (type == MapNode.NodeType.HUB)
+            {
+                return hub;
+            }
+            else
+            {
+                return discoveredBattle;
+            }
+        }
+
+        return locked;
     }
 
     /// <summary>

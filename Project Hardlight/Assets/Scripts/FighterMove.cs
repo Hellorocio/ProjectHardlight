@@ -158,6 +158,7 @@ public class FighterMove : MonoBehaviour
         {
             fighter.anim.Play("Idle");
         }
+
         fighterAttack.StartBasicAttacking();
     }
 
@@ -172,7 +173,11 @@ public class FighterMove : MonoBehaviour
         //Debug.Log("Deleting " + target.gameObject.name);
         Destroy(target.gameObject);
         target = null;
-        fighterAttack.SetCurrentTarget();
+
+        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        {
+            fighterAttack.SetCurrentTarget();
+        }
     }
 
 
