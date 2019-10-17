@@ -91,15 +91,8 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = false;
         }
 
-        if (inputState == InputState.HeroSelected)
+        if (inputState == InputState.HeroSelected || inputState == InputState.CastingAbility || inputState == InputState.UpdatingTarget)
         {
-            //Debug.Log("Current state is Hero Selected");
-            //Replaced left mouse detection here with invisible button- See SelectNonBattleButton()
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    UpdateClickedHero();
-            //}
-
             if ((Input.GetKeyDown(KeyCode.Q)))
             {
                 UseAbility(0);
@@ -112,16 +105,6 @@ public class BattleManager : Singleton<BattleManager>
             {
                 SetStateToUpdateTarget();
             }
-            /* Commented out to avoid conflict with hardcoded hot keys
-            if ((Input.GetKeyDown(KeyCode.Alpha1)))
-            {
-                UseAbility(0);
-            }
-            else if ((Input.GetKeyDown(KeyCode.Alpha2)))
-            {
-                UseAbility(1);
-            }
-            */
         }
     }
 
@@ -254,6 +237,10 @@ public class BattleManager : Singleton<BattleManager>
             {
                 StopTargeting();
             }
+            else if (inputState == InputState.UpdatingTarget)
+            {
+                SetCursor(battleConfig.defaultCursor);
+            }
 
             // Clear any existing selected ability
             selectedAbility = null;
@@ -332,37 +319,21 @@ public class BattleManager : Singleton<BattleManager>
         SetSelectedHero(selectedVessels[i].GetComponent<Fighter>());
     }
 
+    /// <summary>
+    /// Sets the currently selected hero to a single hero (by clicking on the hero or using hotkeys 1-3)
+    /// </summary>
+    /// <param name="hero"></param>
     public void SetSelectedHero(Fighter hero)
     {
-        if (selectedHero != null)
+        if ((selectedHero != null && selectedHero != hero) || multiSelectedHeros.Count > 0)
         {
-            selectedHero.SetSelectedUI(false);
-
-            if (notEnoughManaUI != null)
-            {
-                notEnoughManaUI.SetActive(false);
-            }
-
-            UnsubscribeHeroEvents();
-        }
-        else if (multiSelectedHeros.Count > 0)
-        {
-            //deselect all multi selected heros
-            foreach (Fighter f in multiSelectedHeros)
-            {
-                f.SetSelectedUI(false);
-            }
-            multiSelectedHeros.Clear();
+            DeselectHero();
         }
 
         selectedHero = hero;
         selectedHero.SetSelectedUI(true);
         inputState = InputState.HeroSelected;
 
-        //Debug.Log(hero.name);
-        //commandsUI.gameObject.SetActive(true);
-        //commandsUI.EnableUI(hero.gameObject);
-        //commandsUI.SwitchButtonColor(selectedHero.GetCurrentMana() == selectedHero.GetMaxMana());
         portraitHotKeyManager.LoadNewlySelectedHero(hero);
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
@@ -375,16 +346,16 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void DeselectHero()
     {
+        if (inputState == InputState.UpdatingTarget)
+        {
+            SetCursor(battleConfig.defaultCursor);
+        }
+
         if (selectedHero != null)
         {
             if (inputState == InputState.CastingAbility)
             {
                 StopTargeting();
-            }
-
-            if (inputState == InputState.UpdatingTarget)
-            {
-                SetCursor(battleConfig.defaultCursor);
             }
 
             portraitHotKeyManager.DeselectedHero();
@@ -593,6 +564,11 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetStateToUpdateTarget()
     {
+        if (inputState == InputState.CastingAbility)
+        {
+            StopTargeting();
+        }
+
         inputState = InputState.UpdatingTarget;
         SetCursor(battleConfig.changeTargetCursor);
     }
