@@ -10,6 +10,8 @@ public class MapManager : MonoBehaviour
     public MapPopoverController popOver;
     public MapPopoverController currentNodePopOver;
 
+    public bool showLockedNodes;
+
     //colors for nodes (replace with images?)
     public Color locked;
     public Color discoveredBattle;
@@ -103,10 +105,17 @@ public class MapManager : MonoBehaviour
     /// </summary>
     private void SetNodeAppearances ()
     {
+        // Sets all the node statuses and colors
         for (int i = 0; i < nodes.Length; i++)
         {
             MapNode.NodeStatus status = GameManager.Instance.levelStatuses[i];
-            nodes[i].SetStatus(status, GetNodeAppearance(status, nodes[i].type));
+            nodes[i].SetStatus(status, GetNodeAppearance(status, nodes[i].type), showLockedNodes);
+        }
+        
+        // Sets all the paths for each node (has to come after when all node statuses are set)
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            nodes[i].SetPaths();
         }
     }
 

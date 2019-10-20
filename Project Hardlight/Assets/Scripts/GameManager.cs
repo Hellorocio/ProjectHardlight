@@ -114,7 +114,10 @@ public class GameManager : Singleton<GameManager>
             LoadScene(cutsceneSceneName);
             
             cutsceneUI.SetActive(true);
-            cutsceneBG.GetComponent<Image>().sprite = currentCutscene.bgImage;
+            if (cutsceneBG != null)
+            {
+                cutsceneBG.GetComponent<Image>().sprite = currentCutscene.bgImage;
+            }
             
             DialogueManager.Instance.onDialogueEnd.AddListener(EndCutscene);
             DialogueManager.Instance.StartDialogue(currentCutscene.cutsceneText);
