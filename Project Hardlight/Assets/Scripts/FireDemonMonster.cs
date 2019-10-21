@@ -11,6 +11,7 @@ public class FireDemonMonster : MonoBehaviour
     public float maxMana;
     public float maxAggroRange;
     public float alertedRange;
+    private Vector3 startPos;
     public float moveSpeed;
    // public float basicAttackDamage;
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
@@ -36,6 +37,7 @@ public class FireDemonMonster : MonoBehaviour
 
     public PatrolType patrolType;
     public List<Transform> patrolRoute;
+    private int patrolIndex = -1;
     
 
     public BasicAttackStats basicAttackStats;
@@ -49,6 +51,7 @@ public class FireDemonMonster : MonoBehaviour
         attackParent = GameObject.Find("Vessels");
         defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
         hitColor = new Color(1f, .5235f, .6194f);
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -60,12 +63,20 @@ public class FireDemonMonster : MonoBehaviour
     void FixedUpdate()
     {
         UpdateTarget();
-        DecideAttack();
+        if (anyValidTargets)
+        {
+            DecideAttack();
+        } else
+        {
+            DoPatrol();
+        }
+        
     }
 
     bool IsValidTarget(GameObject target)
     {
-        return (target != null && target.activeSelf);
+        anyValidTargets = (target != null && target.activeSelf && InMaxAgroRange(target.transform.position));
+        return anyValidTargets;
     }
 
 
@@ -96,6 +107,11 @@ public class FireDemonMonster : MonoBehaviour
     {
         if (!IsValidTarget(currentTarget)) // Needs to also check if there are multiple enemies in alerted dist
         {
+            startPos = transform.position;
+            if(moveState == MoveState.moving)
+            {
+                moveState = MoveState.stopped;
+            }
             SetCurrentTarget();
         }
     }
@@ -128,6 +144,7 @@ public class FireDemonMonster : MonoBehaviour
             if (GetValidTargets().Count == 0)
             {
                 moveState = MoveState.stopped;
+
 
             }
             else
@@ -165,6 +182,59 @@ public class FireDemonMonster : MonoBehaviour
             moveState = MoveState.stopped;
         }
         
+    }
+
+    void MoveToPosition(Vector3 pos)
+    {
+        if (!InBodyRangeOfTarget(pos))
+        {
+            if (moveState != MoveState.patrolling)
+            {
+                animator.Play("Walk");
+
+            }
+            //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
+            transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
+            moveState = MoveState.patrolling;
+
+
+        }
+        else
+        {
+            if (moveState == MoveState.patrolling)
+            {
+                animator.Play("Idle");
+            }
+            moveState = MoveState.stopped;
+        }
+    }
+
+    void DoPatrol()
+    {
+        if (patrolType != PatrolType.none && moveState == MoveState.stopped)
+        {
+            
+            if (patrolType == PatrolType.looping)
+            {
+                ++patrolIndex;
+                if(patrolIndex >= patrolRoute.Count)
+                {
+                    patrolIndex = 0;
+                }
+                MoveToPosition(patrolRoute[patrolIndex].position);
+            }
+            else if (patrolType == PatrolType.reverse)
+            {
+
+            }
+            else if (patrolType == PatrolType.random)
+            {
+
+            }
+        } else if(moveState == MoveState.patrolling)
+        {
+            MoveToPosition(patrolRoute[patrolIndex].position);
+        }
     }
 
     void StartBasicAttacking()
@@ -226,9 +296,23 @@ public class FireDemonMonster : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// Returns true if the monster is within "arms-reach" of the target, to be used for detecting proximity
+    /// to patrol nodes for both ranged and melee monsters
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
+    public bool InBodyRangeOfTarget(Vector3 p)
+    {
+        //Debug.Log(Vector2.Distance(transform.position, p).ToString() + " " + basicAttackStats.range);
+        return Vector2.Distance(transform.position, p) < 0.75;
+
+    }
+
     public bool InMaxAgroRange(Vector3 p)
     {
-        return Vector2.Distance(transform.position, p) < maxAggroRange;
+        return Vector2.Distance(startPos, p) < maxAggroRange;
     }
 
     public bool InAlertedRange(Vector3 p)
