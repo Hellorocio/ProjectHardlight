@@ -4,10 +4,11 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class SoulIcon : MonoBehaviour
+public class SoulIcon : BaseIcon
 {
 
     // Set through the function SetSoul to actually update the UI
+    [HideInInspector]
     public Soul soul;
 
     public void SetSoul(Soul inSoul)
@@ -16,8 +17,23 @@ public class SoulIcon : MonoBehaviour
         GetComponent<Image>().sprite = soul.appearance;
     }
 
-    public void Clear()
+    public override void Clear()
     {
         soul = null;
+    }
+
+    public override string GetHoverDesc()
+    {
+        string desc = "";
+        if (soul != null)
+        {
+            desc = soul.GetDescription();
+        }
+        return desc;
+    }
+
+    public override bool IconReady()
+    {
+        return (soul != null);
     }
 }

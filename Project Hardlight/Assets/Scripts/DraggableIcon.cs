@@ -12,10 +12,13 @@ public class DraggableIcon : MonoBehaviour
     public DraggableIcon dropLocation; 
 
     private Vector3 startPos;
-    private bool dragging;
+    [HideInInspector]
+    public bool dragging;
 
     private enum IconType { vessel, soul }
     private IconType iconType;
+
+    private LoadoutHoverController hoverController;
 
     private void Start()
     {
@@ -28,6 +31,13 @@ public class DraggableIcon : MonoBehaviour
         {
             iconType = IconType.soul;
         }
+
+        //init hovertext
+        GameObject hoverText = GameObject.Find("HoverText");
+        if (hoverText != null)
+        {
+            hoverController = hoverText.GetComponent<LoadoutHoverController>();
+        }
     }
 
     /// <summary>
@@ -36,16 +46,10 @@ public class DraggableIcon : MonoBehaviour
     /// <returns></returns>
     bool IsIconReady ()
     {
-        VesselIcon vesselIcon = GetComponent<VesselIcon>();
-        if (vesselIcon != null && vesselIcon.vessel != null)
+        BaseIcon icon = GetComponent<BaseIcon>();
+        if (icon != null)
         {
-            return true;
-        }
-
-        SoulIcon soulIcon = GetComponent<SoulIcon>();
-        if (soulIcon != null && soulIcon.soul != null)
-        {
-            return true;
+            return icon.IconReady();
         }
 
         return false;
@@ -67,6 +71,12 @@ public class DraggableIcon : MonoBehaviour
         if (IsIconReady())
         {
             startPos = transform.position;
+
+            if (hoverController != null)
+            {
+                hoverController.StartDragging(gameObject);
+            }
+
             dragging = true;
         }
     }
@@ -76,6 +86,11 @@ public class DraggableIcon : MonoBehaviour
         if (dragging)
         {
             dragging = false;
+
+            if (hoverController != null)
+            {
+                hoverController.StopDragging(gameObject);
+            }
 
             //check if there's a draggable to set
             if (dropLocation != null)
@@ -90,16 +105,10 @@ public class DraggableIcon : MonoBehaviour
                 GetComponent<Image>().enabled = false;
                 replaceObj = null;
 
-                switch (iconType)
+                BaseIcon icon = GetComponent<BaseIcon>();
+                if (icon != null)
                 {
-                    case IconType.vessel:
-                        GetComponent<VesselIcon>().Clear();
-                        break;
-                    case IconType.soul:
-                        GetComponent<SoulIcon>().Clear();
-                        break;
-                    default:
-                        break;
+                    icon.Clear();
                 }
 
                 //let loadoutUI know that selection has changed
@@ -182,19 +191,10 @@ public class DraggableIcon : MonoBehaviour
 
             //remove icon from what this was dragged from
             draggable.GetComponent<Image>().enabled = false;
-            if (draggable.allowReplacement)
+            BaseIcon icon = draggable.GetComponent<BaseIcon>();
+            if (draggable.allowReplacement && icon != null)
             {
-                switch (iconType)
-                {
-                    case IconType.vessel:
-                        draggable.GetComponent<VesselIcon>().Clear();
-                        break;
-                    case IconType.soul:
-                        draggable.GetComponent<SoulIcon>().Clear();
-                        break;
-                    default:
-                        break;
-                }
+                icon.Clear();
             }
             
             draggable.replaceObj = null;

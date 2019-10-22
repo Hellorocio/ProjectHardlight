@@ -57,7 +57,7 @@ public class Soul : MonoBehaviour
             description += "Gives bonus attack speed\n";
         }
 
-        return description;
+        return description.Substring(0, description.Length - 1);
     }
 
     public int GetMaxHealthBonus(int baseMaxHealth)

@@ -125,10 +125,9 @@ public class LoadoutUI : Singleton<LoadoutUI>
         foreach (Transform child in soulGrid.transform) {
             GameObject.Destroy(child.gameObject);
         }
-
-        // Create per vessel
         foreach (Soul soul in GameManager.Instance.souls) {
             GameObject soulIcon = Instantiate(soulIconPrefab);
+            
             soulIcon.GetComponent<SoulIcon>().SetSoul(soul);
             soulIcon.transform.SetParent(soulGrid.transform);
             soulIcon.transform.localScale = Vector3.one;
