@@ -39,11 +39,17 @@ public class DialogueBoxController : MonoBehaviour
         StartCoroutine(disappearLoop);
     }
 
+    public void CancelPopupDialogue ()
+    {
+        StopAllCoroutines();
+        disappearLoop = null;
+        Show(false);
+    }
+
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(duration);
         Show(false);
-        disappearLoop = null;
     }
 
     private void Show(bool shouldShow)

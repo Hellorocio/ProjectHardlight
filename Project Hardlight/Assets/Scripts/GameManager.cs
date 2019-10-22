@@ -97,6 +97,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("WARNING: Trying to StartCutscene() when currentCutscene is not empty, is a cutscene already playing?");
         }
+
         // TODO Find the cutscene in CutsceneList
         Transform cutsceneList = transform.Find("CutsceneList");
         foreach (CutsceneLevel cutsceneLevel in cutsceneList.GetComponentsInChildren(typeof(CutsceneLevel)))
@@ -538,4 +539,32 @@ public class GameManager : Singleton<GameManager>
         nodesToUnlock = null;
     }
 
+    /// <summary>
+    /// Called by the skip tutorial button, moves to map and unlocks all the heroes
+    /// </summary>
+    public void SkipTutorial ()
+    {
+        TutorialManager.Instance.tutorialEnabled = false;
+        UIManager.Instance.skipTutorialButton.SetActive(false);
+
+        if (gameState == GameState.FIGHTING)
+        {
+            BattleManager.Instance.BattleOver(false);
+        }
+
+        LoadoutUI.Instance.requiredVessels = 3;
+        LoadoutUI.Instance.CreateLoadoutSlots();
+
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        DialogueManager.Instance.EndDialogue();
+
+        topDialogue.CancelPopupDialogue();
+
+        if (souls.Count < 3)
+        {
+            GrantRandomSouls(3);
+        }
+
+        EnterMap();
+    }
 }

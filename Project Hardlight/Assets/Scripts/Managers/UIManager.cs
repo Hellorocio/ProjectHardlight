@@ -14,7 +14,7 @@ public class UIManager : Singleton<UIManager>
 
     public GameObject heroPlacer;
     public GameObject debugUI;
-
+    public GameObject skipTutorialButton;
 
     private void Update()
     {
