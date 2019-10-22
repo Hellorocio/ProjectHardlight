@@ -588,7 +588,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -7936488368728208126, guid: f152f49d44d1de247b013a74eee3a679,
     type: 3}
@@ -908,10 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Alchemist
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 9109577280019353254}
   maxManaGlow: {fileID: 5487258466830417321}
   anim: {fileID: 6240023073702742519}
@@ -930,9 +927,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 8370368706987180497}
-  basicAttackStats: {fileID: 11400000, guid: 9571733ac1c217344a7ad23f005829b2, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 8370368706987180497}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &8370368706987180497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,9 +943,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Vial Toss
-  range: 100
-  damage: 10
+  range: 5
+  damage: 3
+  cooldown: 4
   description: Eoea tosses out small vials that deal damage in a small radius.
+  sfx: {fileID: 8300000, guid: e2f4371cf04a038408677ebb9e732051, type: 3}
   alchemistBasicAttackPrefab: {fileID: 4242717506198124470, guid: 7ef8b8ea8bbd7ed4a9127ce3af71d9a4,
     type: 3}
   damageRadius: 2

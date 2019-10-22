@@ -211,7 +211,7 @@ public class BattleManager : Singleton<BattleManager>
                         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                         worldPoint.z = camController.transform.position.z;
                         camController.transform.position = worldPoint;
-                        camController.gameObject.GetComponent<Camera>().orthographicSize = camController.zoomMin;
+                        camController.GetCamera().orthographicSize = camController.zoomMin;
                     }
                 }
             } else

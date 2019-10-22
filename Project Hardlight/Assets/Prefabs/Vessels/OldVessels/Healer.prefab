@@ -223,7 +223,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -6303401400232227047, guid: 5316b24cdd502c24ab74cd4357d8c9c7,
     type: 3}
@@ -429,10 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Healer
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 8023636179810329401}
   maxManaGlow: {fileID: 6420277688975706953}
   anim: {fileID: 1372465152858603379}
@@ -472,9 +469,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 06000000
-  basicAttackAction: {fileID: 3674736732129029270}
-  basicAttackStats: {fileID: 11400000, guid: 3abe87aaefce32d4ea3d540f79045fbf, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 3674736732129029270}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &3674736732129029270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,8 +486,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Minor Heal
   range: 7
-  damage: 10
+  damage: 5
+  cooldown: 10
   description: Heals a nearby ally a small amount
+  sfx: {fileID: 8300000, guid: 3949749916c887245989844fb29e360e, type: 3}
   healBasicAction: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
     type: 3}
 --- !u!114 &6465402585232177096

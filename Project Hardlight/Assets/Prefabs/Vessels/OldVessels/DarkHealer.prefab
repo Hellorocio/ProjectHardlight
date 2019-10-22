@@ -265,10 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Dark Healer
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 6518751420555252193}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 2748628100524330411}
@@ -287,9 +284,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 7270942199044395875}
-  basicAttackStats: {fileID: 11400000, guid: 8b48048c9a584a044b76ed0847a3d740, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 7270942199044395875}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &7270942199044395875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,8 +301,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Hurtful Aura
   range: 3
-  damage: 5
+  damage: 3
+  cooldown: 5
   description: Harms enemies in a radius around the Dark Healer
+  sfx: {fileID: 8300000, guid: 3949749916c887245989844fb29e360e, type: 3}
   DarkHealerBasicAttackPrefab: {fileID: 2783819019849837299, guid: 12a69f335242af148bbf4b20857c0966,
     type: 3}
   damageRadius: 3
@@ -759,7 +758,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -6303401400232227047, guid: 5316b24cdd502c24ab74cd4357d8c9c7,
     type: 3}

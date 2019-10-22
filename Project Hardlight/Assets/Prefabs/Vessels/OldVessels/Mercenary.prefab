@@ -161,10 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Mercenary
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 8391061737092288432}
   maxManaGlow: {fileID: 1500819775139704844}
   anim: {fileID: 3171901983355281951}
@@ -204,9 +201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 3171901982325591320}
-  basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 3171901982325591320}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &-6285409649584999982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,8 +242,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Strike
   range: 2
-  damage: 6
+  damage: 5
+  cooldown: 2
   description: Strikes a nearby enemy for a small amount of damage
+  sfx: {fileID: 8300000, guid: bfd2b5ab29fdb66438589a9c5b516030, type: 3}
 --- !u!114 &382628994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +486,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -7528271127412085370, guid: d0eb1c464f309e24bb466c915bf0df59,
     type: 3}

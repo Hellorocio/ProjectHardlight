@@ -399,7 +399,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -514,10 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Ninja
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 55897265517752118}
   maxManaGlow: {fileID: 6946353648948383882}
   anim: {fileID: 6390960234732733081}
@@ -557,9 +554,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 6390960235825343902}
-  basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 6390960235825343902}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &6390960235825343902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,9 +570,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Shank
-  range: 950
-  damage: 950
+  range: 2
+  damage: 2
+  cooldown: 2
   description: Taurin performs a short slash using a knife hidden... somewhere.
+  sfx: {fileID: 8300000, guid: bfd2b5ab29fdb66438589a9c5b516030, type: 3}
 --- !u!114 &8409799907490501637
 MonoBehaviour:
   m_ObjectHideFlags: 0

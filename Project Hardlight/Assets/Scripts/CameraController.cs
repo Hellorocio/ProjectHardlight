@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         screenHeight = Screen.height;
         slope = (maxPanSpeed - minPanSpeed) / (zoomMax - zoomMin);
         mouseSlope = (maxMouseSensitivity - minMouseSensitivity) / (zoomMax - zoomMin);
+
     }
 
     public void Initialize()
@@ -54,6 +55,11 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
             MoveCam();
             ZoomCam();
         }
+    }
+
+    public Camera GetCamera ()
+    {
+        return myCam;
     }
 
 

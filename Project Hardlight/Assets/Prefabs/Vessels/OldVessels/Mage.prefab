@@ -258,10 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Mage
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 1125286265050604820}
   maxManaGlow: {fileID: 447801641650790171}
   anim: {fileID: 2841606765839737413}
@@ -280,9 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 2169203085962951802}
-  basicAttackStats: {fileID: 11400000, guid: 5769981e98c8dfa4c8da973b8c69e324, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 2169203085962951802}
+  basicAttackStats: {fileID: 0}
 --- !u!114 &2581082074096872479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,9 +307,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Acolyte's Spear
-  range: 900
-  damage: 900
+  range: 7
+  damage: 3
+  cooldown: 5
   description: Shoots an beam that pierces enemies in a short line behind them.
+  sfx: {fileID: 8300000, guid: e2f4371cf04a038408677ebb9e732051, type: 3}
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
     type: 3}
   spawnPoint: {fileID: 3246368686423804003}
@@ -650,7 +649,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -7936488368728208126, guid: f152f49d44d1de247b013a74eee3a679,
     type: 3}
