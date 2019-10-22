@@ -9,5 +9,7 @@ public abstract class BasicAttackAction : MonoBehaviour
     public string title;
     public int range;
     public int damage;
+    public float cooldown;
     public string description;
+    public AudioClip sfx;
 }

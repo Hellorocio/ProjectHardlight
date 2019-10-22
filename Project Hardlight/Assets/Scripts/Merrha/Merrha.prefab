@@ -1,5 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1974475011015928984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513952173870391777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b078248d20a694fbc317069604af3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Purple Blastalast
+  range: 20
+  damage: 10
+  cooldown: 2
+  description: Channels dark energy from a faraway distance.
+  sfx: {fileID: 0}
+  gooPrefab: {fileID: 2134644063743925849, guid: 8bf63feb0a1a36d4da5f23118850f6b0,
+    type: 3}
 --- !u!114 &2382584165941252447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,7 +48,7 @@ MonoBehaviour:
     type: 3}
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
---- !u!114 &1616376195155631904
+--- !u!114 &4899670746398785568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,23 +57,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2513952173870391777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 763b5efafc9dcdf49ae48eb57fc6fad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Light Prison
-  abilityDescription: Small damage on one enemy, stops them for 10 seconds
-  baseDamage: 6
-  targetingType: 1
+  abilityName: Bastion of the Mountain
+  abilityDescription: Increase the defense of allies in the area.
+  baseDamage: 0
+  targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
+  baseEffectRadius: 2.5
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
-  rangeIndicator: {fileID: 0}
-  attackDebuff: {fileID: 11400000, guid: 4d4f208a7a0ced54e9784922f90fe067, type: 2}
-  attackTargetUnit: {fileID: 0}
-  lightPrisonPrefab: {fileID: 7039968626089030771, guid: 4118df666498ef44dab023b0e2546f8b,
+  radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
     type: 3}
+  defenseSpellPrefab: {fileID: 0}
+  rangeIndicator: {fileID: 0}
+  radiusIndicator: {fileID: 0}
 --- !u!1001 &8814136383961140344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,6 +87,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: Merrha
       objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 2382584165941252447}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 4899670746398785568}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: appearance
+      value: 
+      objectReference: {fileID: 21300000, guid: 7199f27e053249b45a39b91bec276338,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: vesselName
+      value: Merrha
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: title
+      value: The Elementalist
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: description
+      value: She has tricks up her long, long sleeves.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: basicAttack
+      value: 
+      objectReference: {fileID: 1974475011015928984}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -126,42 +188,11 @@ PrefabInstance:
       propertyPath: characterName
       value: Merrha
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: abilities.Array.data[0]
+      propertyPath: attack
       value: 
-      objectReference: {fileID: 2382584165941252447}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 1616376195155631904}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: appearance
-      value: 
-      objectReference: {fileID: 21300000, guid: 7199f27e053249b45a39b91bec276338,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: vesselName
-      value: Merrha
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: title
-      value: The Elementalist
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: description
-      value: She has tricks up her long, long sleeves
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseMana
-      value: 30
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1974475011015928984}
     - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Sprite
@@ -176,6 +207,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+    - {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
 --- !u!1 &2513952173870391777 stripped
 GameObject:

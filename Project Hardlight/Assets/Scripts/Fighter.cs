@@ -189,7 +189,6 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetSpeed()
     {
-
         return speed + speed * movementSpeedBoost;
     }
 
@@ -208,7 +207,7 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetBasicAttackDamage ()
     {
-        float dmg = GetComponent<FighterAttack>().basicAttackStats.damage;
+        float dmg = GetComponent<FighterAttack>().attack.damage;
         return dmg + dmg * GetAttackBoost();
     }
 
@@ -227,7 +226,11 @@ public class Fighter : MonoBehaviour
     /// <param name="dmg"></param>
     public void TakeDamage (float dmg)
     {
-        health -= dmg - dmg * defenseBoost;
+        
+        // Calculate based on modifiers
+        float realDamage = dmg - dmg * defenseBoost;
+        Debug.Log("Took "  + realDamage + " damage");
+        health -= realDamage;
         IEnumerator colorThing = HitColorChanger();
         StartCoroutine(colorThing);
         if (health <= 0)

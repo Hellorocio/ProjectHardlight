@@ -233,8 +233,8 @@ public class PortraitHotKeyManager : MonoBehaviour
     public void LoadNewlySelectedHero(Fighter f)
     {
 
-        ability1Name.text = ((Ability)f.gameObject.GetComponent<HeroAbilities>().abilityList[0]).abilityName.Replace(' ', '\n');
-        ability2Name.text = ((Ability)f.gameObject.GetComponent<HeroAbilities>().abilityList[1]).abilityName.Replace(' ', '\n');
+        ability1Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityName.Replace(' ', '\n');
+        ability2Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityName.Replace(' ', '\n');
         HotKeyPanelSwitch(true);
     }
 

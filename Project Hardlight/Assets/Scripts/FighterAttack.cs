@@ -10,14 +10,12 @@ public class FighterAttack : MonoBehaviour
     public List<CombatInfo.TargetPreference> targetPrefs;
 
     // Basic attacking
-    public MonoBehaviour basicAttackAction;
-    public BasicAttackStats basicAttackStats;
     private bool doBasicAttack;
     private IEnumerator basicAttackLoop;
 
     [HideInInspector]
     public GameObject currentTarget;
-    private BasicAttackAction attack;
+    public BasicAttackAction attack;
 
     private GameObject attackParent;
 
@@ -36,7 +34,6 @@ public class FighterAttack : MonoBehaviour
     {
         fighter = GetComponent<Fighter>();
         fighterMove = GetComponent<FighterMove>();
-        attack = (BasicAttackAction)basicAttackAction;
 
         if (fighter.team == CombatInfo.Team.Hero)
         {
@@ -123,17 +120,16 @@ public class FighterAttack : MonoBehaviour
             //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
             if (fighter.anim != null )
             {
-                
                 fighter.anim.Play("Attack");
             }
 
             AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource != null && basicAttackStats.sfx != null)
+            if (audioSource != null && attack.sfx != null)
             {
-                audioSource.clip = basicAttackStats.sfx;
+                audioSource.clip = attack.sfx;
                 audioSource.Play();
             }
-            yield return new WaitForSeconds(fighter.GetAttackSpeed(basicAttackStats.attackSpeed));
+            yield return new WaitForSeconds(fighter.GetAttackSpeed(attack.cooldown));
         }
 
         //make sure while stopped because currentFighter is gone
@@ -149,7 +145,7 @@ public class FighterAttack : MonoBehaviour
     /// <returns></returns>
     public bool InRangeOfTarget (Transform t, bool useRange = true)
     {
-        bool inRange = Vector2.Distance(transform.position, t.position) < basicAttackStats.range + attackRangeAllowance;
+        bool inRange = Vector2.Distance(transform.position, t.position) < attack.range + attackRangeAllowance;
         if (!useRange)
         {
             inRange = Vector2.Distance(transform.position, t.position) < attackRangeAllowance;
@@ -343,7 +339,7 @@ public class FighterAttack : MonoBehaviour
             if (currentTargets[i].gameObject.activeSelf)
             {
                 float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().basicAttackStats.range > 3)
+                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range > 3)
                 {
                     minDist = dist;
                     tempcurrentTarget = currentTargets[i].gameObject;
@@ -373,7 +369,7 @@ public class FighterAttack : MonoBehaviour
             if (currentTargets[i].gameObject.activeSelf)
             {
                 float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().basicAttackStats.range < 4)
+                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range < 4)
                 {
                     minDist = dist;
                     tempcurrentTarget = currentTargets[i].gameObject;
