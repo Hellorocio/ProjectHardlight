@@ -14733,27 +14733,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4401064958039830115, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: vesselCatalog.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064958039830115, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: vesselCatalog.Array.data[6].vesselId
-      value: Mercenary
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064958039830115, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: vesselCatalog.Array.data[6].enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401064958039830115, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
-        type: 3}
-      propertyPath: vesselCatalog.Array.data[6].vessel
-      value: 
-      objectReference: {fileID: 3171901982325591327, guid: bcc49c09777713b488bea3617dbfaa97,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9d1c6b6c4b03f244ae1bf2d912625dc, type: 3}
 --- !u!1 &1348234058
@@ -21256,8 +21235,8 @@ MonoBehaviour:
   animator: {fileID: 2758887317564809482}
   maxHealth: 180
   maxMana: 30
-  maxAggroRange: 10
-  alertedRange: 5
+  maxAggroRange: 20
+  alertedRange: 15
   moveSpeed: 150
   basicAttackHitTime: 1.2
   basicAttackClip: {fileID: 7400000, guid: b16492aa542e72b48b9be32dc2961282, type: 2}

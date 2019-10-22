@@ -21,7 +21,7 @@ public class FireDemonMonster : MonoBehaviour
     private Color hitColor;
     private float currentHealth;
     private float currentMana;
-
+    private Coroutine attackCoroutine;
 
     private GameObject currentTarget;
     //private Grid monsterAIGrid;
@@ -73,9 +73,18 @@ public class FireDemonMonster : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Checks if the target is active and within the maximum aggro boundary, updating bool anyValidTargets in the process
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
     bool IsValidTarget(GameObject target)
     {
         anyValidTargets = (target != null && target.activeSelf && InMaxAgroRange(target.transform.position));
+        if (!anyValidTargets)
+        {
+            currentTarget = null;
+        }
         return anyValidTargets;
     }
 
@@ -90,7 +99,7 @@ public class FireDemonMonster : MonoBehaviour
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
         for(int i = 0; i < enemyListTMP.Length; i++)
         {
-            if(IsValidTarget(enemyListTMP[i].gameObject) && InMaxAgroRange(enemyListTMP[i].transform.position))
+            if(IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position))
             {
                 fighters.Add(enemyListTMP[i]);
             }
@@ -116,11 +125,15 @@ public class FireDemonMonster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Decides if the target is valid, if so then decide to move closer or attack.
+    /// If the target is not valid then check for new ones
+    /// </summary>
     void DecideAttack()
     {
         if (IsValidTarget(currentTarget))
         {
-            if (!InBasicRangeOfTarget(currentTarget.transform.position))
+            if (!InBasicRangeOfTarget(currentTarget.transform.position) && moveState != MoveState.basicAttacking)
             {
                 if (moveState != MoveState.moving)
                 {
@@ -156,10 +169,11 @@ public class FireDemonMonster : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Checks if we are in attack range of the current target and if we arn't then we move closer
+    /// </summary>
     void MoveToTarget()
     {
-
-        //Vector3 tmp = monsterAIGrid.WorldToCell(currentTarget.transform.position);
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
@@ -184,6 +198,10 @@ public class FireDemonMonster : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Used in the patrol system, this function moves the monster to a position in the same style as MoveToTarget
+    /// </summary>
+    /// <param name="pos"></param>
     void MoveToPosition(Vector3 pos)
     {
         if (!InBodyRangeOfTarget(pos))
@@ -209,6 +227,12 @@ public class FireDemonMonster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Does a patrol based off the selected patrol type.
+    /// Looping will go from the last index back to the first 1-2-3-1-2-3-1-2-3
+    /// reverse will go down to the last index and then decrement back up to the top 1-2-3-2-1-2-3-2-1
+    /// if you don't know what random means then I can't help you xD
+    /// </summary>
     void DoPatrol()
     {
         if (patrolType != PatrolType.none && moveState == MoveState.stopped)
@@ -237,22 +261,35 @@ public class FireDemonMonster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the basic attacking coroutine
+    /// </summary>
     void StartBasicAttacking()
     {
         if(moveState != MoveState.basicAttacking)
         {
             moveState = MoveState.basicAttacking;
-            StartCoroutine(BasicAttack());
+            if(attackCoroutine == null)
+            {
+                attackCoroutine = StartCoroutine(BasicAttack());
+            }
+            
         }
         
     }
 
+    /// <summary>
+    /// Stops the basicAttack early. Currently used for when the target has moved out of range before the attack is finished
+    /// Stops the basic attack in the event of an interruption?? (future case)
+    /// </summary>
    public void StopBasicAttacking()
     {
-        StopCoroutine(BasicAttack());
+        StopCoroutine(attackCoroutine);
         moveState = MoveState.stopped;
+        attackCoroutine = null;
     }
 
+    
     void DoBasicAttack(GameObject target)
     {
        
@@ -260,9 +297,13 @@ public class FireDemonMonster : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Plays the attack. This includes sync'ing the animator and sounds with dealing damage.
+    /// If the player has moved out of range before the damage is dealt then the coroutine is ended early
+    /// </summary>
+    /// <returns></returns>
     IEnumerator BasicAttack()
     {
-        
         animator.Play("BasicAttack");
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
         if (audioSource != null && basicAttackStats.sfx != null)
@@ -274,14 +315,24 @@ public class FireDemonMonster : MonoBehaviour
         {
             Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
         }
-        yield return new WaitForSeconds(basicAttackHitTime);
-        DoBasicAttack(currentTarget);
 
-        
-        Debug.Log("recorder stop time is : " + (basicAttackClip.length));
-        //Debug.Assert(animator.recorderStopTime - basicAttackHitTime > 0, "basicAttackHitTime must be smaller than recorderStopTime");
+        if (!InBasicRangeOfTarget(currentTarget.transform.position))
+        {
+            StopBasicAttacking();
+        }
+
+        yield return new WaitForSeconds(basicAttackHitTime);
+
+        if (InBasicRangeOfTarget(currentTarget.transform.position) && moveState == MoveState.basicAttacking)
+        {
+            DoBasicAttack(currentTarget);
+        } else
+        {
+            StopBasicAttacking();
+        }
         yield return new WaitForSeconds(basicAttackClip.length - basicAttackHitTime);
         moveState = MoveState.stopped;
+        attackCoroutine = null;
     }
 
 
@@ -310,11 +361,21 @@ public class FireDemonMonster : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// MaxAgroRange represents the maximum boundary that the monster will chase a target to
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
     public bool InMaxAgroRange(Vector3 p)
     {
         return Vector2.Distance(startPos, p) < maxAggroRange;
     }
 
+    /// <summary>
+    /// Alerted range represents the maximum distance before the monster will select the vessel as their target
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
     public bool InAlertedRange(Vector3 p)
     {
         return Vector2.Distance(transform.position, p) < alertedRange;
