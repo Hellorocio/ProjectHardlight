@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireDemonMonster : MonoBehaviour
+public class GenericMeleeMonster : MonoBehaviour
 {
     [Header("Basic Attributes")]
-    public string characterName = "FireDemon";
-    public CombatInfo.Team team = CombatInfo.Team.Enemy;
+    public string characterName;
+    public CombatInfo.Team team;
     public float maxHealth;
     public float maxMana;
     public float moveSpeed;
@@ -17,7 +17,10 @@ public class FireDemonMonster : MonoBehaviour
 
     [Header("Basic Attack Stats")]
     public float basicAttackRange;
-    public float basicAttackSpeed;
+    public float timeBetweenAttacks;
+    public int numJabsInAttack;
+    
+
     public int basicAttackDamage;
     public AudioClip basicAttackSfx;
     [Space(10)]
@@ -29,9 +32,12 @@ public class FireDemonMonster : MonoBehaviour
 
     [Header("Animation Info")]
     public AnimationClip basicAttackClip;
+    public float basicAttackClipSpeedMultiplier;
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
     [Space(10)]
 
+    private float realBasicAttackHitTime;
+    private int jabsDone = 0;
     private Animator animator;
     private Vector3 startPos;
     private Color defaultColor;
@@ -43,16 +49,18 @@ public class FireDemonMonster : MonoBehaviour
     private GameObject attackParent;
     private bool anyValidTargets;
     private int patrolIndex = -1;
-    public enum MoveState {stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking}
+    public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
     MoveState moveState = MoveState.stopped;
-    public enum PatrolType {none, looping, reverse, random}
+    public enum PatrolType { none, looping, reverse, random }
 
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
         animator = gameObject.GetComponentInChildren<Animator>();
+        animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
+        realBasicAttackHitTime = basicAttackHitTime/basicAttackClipSpeedMultiplier;
         currentHealth = maxHealth;
         currentMana = 0;
         //monsterAIGrid = GameObject.Find("MonsterAIGrid").GetComponent<Grid>();
@@ -65,7 +73,7 @@ public class FireDemonMonster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -74,11 +82,12 @@ public class FireDemonMonster : MonoBehaviour
         if (anyValidTargets)
         {
             DecideAttack();
-        } else
+        }
+        else
         {
             DoPatrol();
         }
-        
+
     }
 
     /// <summary>
@@ -105,9 +114,9 @@ public class FireDemonMonster : MonoBehaviour
     {
         List<Fighter> fighters = new List<Fighter>();
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
-        for(int i = 0; i < enemyListTMP.Length; i++)
+        for (int i = 0; i < enemyListTMP.Length; i++)
         {
-            if(IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position))
+            if (IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position))
             {
                 fighters.Add(enemyListTMP[i]);
             }
@@ -125,7 +134,7 @@ public class FireDemonMonster : MonoBehaviour
         if (!IsValidTarget(currentTarget)) // Needs to also check if there are multiple enemies in alerted dist
         {
             startPos = transform.position;
-            if(moveState == MoveState.moving)
+            if (moveState == MoveState.moving)
             {
                 moveState = MoveState.stopped;
             }
@@ -174,7 +183,7 @@ public class FireDemonMonster : MonoBehaviour
             }
         }
 
-        
+
     }
 
     /// <summary>
@@ -185,25 +194,25 @@ public class FireDemonMonster : MonoBehaviour
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
-            if(moveState != MoveState.moving)
+            if (moveState != MoveState.moving)
             {
                 animator.Play("Walk");
 
-            }   
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed/100 * Time.deltaTime);
+            }
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.moving;
 
 
         }
         else
         {
-            if(moveState == MoveState.moving)
+            if (moveState == MoveState.moving)
             {
                 animator.Play("Idle");
             }
             moveState = MoveState.stopped;
         }
-        
+
     }
 
     /// <summary>
@@ -245,11 +254,11 @@ public class FireDemonMonster : MonoBehaviour
     {
         if (patrolType != PatrolType.none && moveState == MoveState.stopped)
         {
-            
+
             if (patrolType == PatrolType.looping)
             {
                 ++patrolIndex;
-                if(patrolIndex >= patrolRoute.Count)
+                if (patrolIndex >= patrolRoute.Count)
                 {
                     patrolIndex = 0;
                 }
@@ -263,7 +272,8 @@ public class FireDemonMonster : MonoBehaviour
             {
 
             }
-        } else if(moveState == MoveState.patrolling)
+        }
+        else if (moveState == MoveState.patrolling)
         {
             MoveToPosition(patrolRoute[patrolIndex].position);
         }
@@ -274,33 +284,37 @@ public class FireDemonMonster : MonoBehaviour
     /// </summary>
     void StartBasicAttacking()
     {
-        if(moveState != MoveState.basicAttacking)
+        if (moveState != MoveState.basicAttacking)
         {
             moveState = MoveState.basicAttacking;
-            if(attackCoroutine == null)
+            if (attackCoroutine == null)
             {
                 attackCoroutine = StartCoroutine(BasicAttack());
             }
-            
+
         }
-        
+
     }
 
     /// <summary>
     /// Stops the basicAttack early. Currently used for when the target has moved out of range before the attack is finished
     /// Stops the basic attack in the event of an interruption?? (future case)
     /// </summary>
-   public void StopBasicAttacking()
+    public void StopBasicAttacking()
     {
         StopCoroutine(attackCoroutine);
+        if(jabsDone >= numJabsInAttack)
+        {
+            jabsDone = 0;
+        }
         moveState = MoveState.stopped;
         attackCoroutine = null;
     }
 
-    
+
     void DoBasicAttack(GameObject target)
     {
-       
+
         target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
 
     }
@@ -312,33 +326,40 @@ public class FireDemonMonster : MonoBehaviour
     /// <returns></returns>
     IEnumerator BasicAttack()
     {
-        animator.Play("BasicAttack");
-        AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-        if (audioSource != null && basicAttackSfx != null)
+        while (jabsDone < numJabsInAttack)
         {
-            audioSource.clip = basicAttackSfx;
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
-        }
+            jabsDone++;
+            animator.Play("BasicAttack");
+            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+            if (audioSource != null && basicAttackSfx != null)
+            {
+                audioSource.clip = basicAttackSfx;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
+            }
 
-        if (!InBasicRangeOfTarget(currentTarget.transform.position))
-        {
-            StopBasicAttacking();
-        }
+            if (!InBasicRangeOfTarget(currentTarget.transform.position))
+            {
+                StopBasicAttacking();
+            }
 
-        yield return new WaitForSeconds(basicAttackHitTime);
+            yield return new WaitForSeconds(realBasicAttackHitTime);
 
-        if (InBasicRangeOfTarget(currentTarget.transform.position) && moveState == MoveState.basicAttacking)
-        {
-            DoBasicAttack(currentTarget);
-        } else
-        {
-            StopBasicAttacking();
+            if (InBasicRangeOfTarget(currentTarget.transform.position) && moveState == MoveState.basicAttacking)
+            {
+                DoBasicAttack(currentTarget);
+            }
+            else
+            {
+                StopBasicAttacking();
+            }
+            yield return new WaitForSeconds(basicAttackClip.length/basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
         }
-        yield return new WaitForSeconds(basicAttackClip.length - basicAttackHitTime);
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        jabsDone = 0;
         moveState = MoveState.stopped;
         attackCoroutine = null;
     }
@@ -352,7 +373,7 @@ public class FireDemonMonster : MonoBehaviour
     {
         //Debug.Log(Vector2.Distance(transform.position, p).ToString() + " " + basicAttackStats.range);
         return Vector2.Distance(transform.position, p) < basicAttackRange;
-        
+
     }
 
 
@@ -507,7 +528,7 @@ public class FireDemonMonster : MonoBehaviour
 
 
         //start moving toward target
-        
+
     }
 
     void SetWeakestAttackTarget()
