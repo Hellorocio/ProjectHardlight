@@ -29,7 +29,7 @@ public class MageBasicAttackAction : BasicAttackAction
 
         if (target != null)
         {
-            mageBasicAttack.GetComponent<ProjectileMovement>().SetTarget(gameObject, target);
+            //mageBasicAttack.GetComponent<ProjectileMovement>().SetTarget(gameObject, target);
         }
         yield break;
     }

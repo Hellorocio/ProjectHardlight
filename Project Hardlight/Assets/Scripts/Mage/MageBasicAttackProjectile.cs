@@ -6,20 +6,22 @@ public class MageBasicAttackProjectile : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        GameObject target = GetComponent<ProjectileMovement>().target;
+        //GameObject target = GetComponent<ProjectileMovement>().target;
 
+        /*
         if (other.gameObject == target)
         {
-            Fighter sourceFighter = GetComponent<ProjectileMovement>().source.GetComponent<Fighter>();
+            //Fighter sourceFighter = GetComponent<ProjectileMovement>().source.GetComponent<Fighter>();
 
             // Deal damage
-            float damage = sourceFighter.GetBasicAttackDamage();
-            target.GetComponent<Fighter>().TakeDamage(damage);
+            //float damage = sourceFighter.GetBasicAttackDamage();
+            .//target.GetComponent<Fighter>().TakeDamage(damage);
 
             // Gain mana
-            sourceFighter.GainMana(10);
+            //sourceFighter.GainMana(10);
 
             Destroy(gameObject);
         }
+        */
     }
 }

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DarkHealerProjectile : MonoBehaviour
 {
+    
     public float dmg = 0;
     GameObject target;
 
     private void Start()
     {
-        target = GetComponent<ProjectileMovement>().target;
+        //target = GetComponent<ProjectileMovement>().target;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

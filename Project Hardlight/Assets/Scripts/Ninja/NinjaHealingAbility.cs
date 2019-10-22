@@ -84,7 +84,7 @@ public class NinjaHealingAbility : Ability
                 GameObject blast = Instantiate(ninjaProjecilePrefab);
                 blast.transform.localPosition = blastPos;
 
-                blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
 
                 blastPos.y += 2;
@@ -92,7 +92,7 @@ public class NinjaHealingAbility : Ability
                 blast2.transform.localPosition = blastPos;
                 
                 
-                blast2.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                //blast2.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast2.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
 
                 blastPos.y -= 4;
@@ -100,7 +100,7 @@ public class NinjaHealingAbility : Ability
                 blast3.transform.localPosition = blastPos;
 
 
-                blast3.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+               // blast3.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast3.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
                 return true;
             }

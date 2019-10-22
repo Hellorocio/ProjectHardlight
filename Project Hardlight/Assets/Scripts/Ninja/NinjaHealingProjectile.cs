@@ -10,8 +10,10 @@ public class NinjaHealingProjectile : MonoBehaviour
 
     private void Start()
     {
+        /*
         target = GetComponent<ProjectileMovement>().target;
         source = GetComponent<ProjectileMovement>().source.GetComponent<Fighter>();
+        */
     }
 
     private void OnTriggerEnter2D(Collider2D other)

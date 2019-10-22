@@ -59,7 +59,7 @@ public class DarkHealerMagicBlast : Ability
                 GameObject blast = Instantiate(magicBlastPrefab);
                 blast.transform.localPosition = transform.position;
                 
-                blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
                 return true;
             }

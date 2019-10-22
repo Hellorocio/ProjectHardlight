@@ -80,9 +80,16 @@ public class DarkWaveAbility : Ability
 
             // Display
             GameObject wind = Instantiate(projectilePrefab);
+            // Set width
             wind.transform.localScale *= 2 * GetRadius();
-            wind.transform.position = new Vector3(selectedPosition.x, selectedPosition.y, wind.transform.position.z);
-
+            // Set initial pos to caster (Merrha)
+            wind.transform.position = transform.position;
+            // Set projectile movement
+            ProjectileMovement projectile = wind.GetComponent<ProjectileMovement>();
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            projectile.SetTarget(mousePos);
+            projectile.StartMovement();
+            
             return true;
         }
         else

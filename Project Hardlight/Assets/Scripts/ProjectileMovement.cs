@@ -4,66 +4,92 @@ using UnityEngine;
 
 using UnityEngine.Events;
 
+// TargetUnit follows, TargetPosition goes in one dir
+public enum ProjectileType { Unknown, TargetUnit, TargetPosition };
+
 public class ProjectileMovement: MonoBehaviour
 {
-
     public float speed = 1.0f;
-    public GameObject source;
-    public GameObject target;
-    Vector3 movementVector;
+    // One of these is populated based on what type of projectile
+    public Vector3 targetPos;
+    public GameObject targetObject;
+    public ProjectileType type;
 
+    // While moving, where it should go. Static for pos, dynamic for unit.
+    public Vector3 movementDirection;
+    public bool shouldRotate = true;
+    
     IEnumerator moveLoop;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (moveLoop != null)
-        {
-            if (target == null)
-            {
-                StopCoroutine(moveLoop);
-            }
-        }
-        else
-        {
-            if (target != null)
-            {
-                moveLoop = MoveLoop();
-                StartCoroutine(moveLoop);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Move projectile in a straight line towards target (and past target, if it misses)
-    /// </summary>
-    /// <returns></returns>
     IEnumerator MoveLoop()
     {
         while (true)
         {
-            transform.position += movementVector * speed * Time.deltaTime;
+            if (type == ProjectileType.TargetUnit)
+            {
+                // If unit disappears, destroy self
+                // TODO Do something more elegant?
+                if (targetObject == null)
+                {
+                    StopCoroutine(moveLoop);
+                }
+                
+                // Update movement
+                movementDirection = targetObject.transform.position - transform.position;
+                // Update rotation
+                if (shouldRotate)
+                {
+                    RotateTowards(targetObject.transform.position);
+                }
+            }
+
+            Vector3 moveTowardsVector = Vector3.MoveTowards(transform.position, movementDirection, speed);
+            transform.position = new Vector3(moveTowardsVector.x, moveTowardsVector.y, transform.position.z);
             yield return null;
         }
     }
 
-    /// <summary>
-    /// Sets the projectile's targetPosition based on the given target and calculates movementVector
-    /// </summary>
-    public void SetTarget (GameObject s, GameObject t)
+    // Follow an object
+    public void SetTarget(GameObject targetObject)
     {
-        source = s;
-        target = t;
-
-        movementVector = (t.transform.position - transform.position).normalized;
-        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (target.transform.position.x < transform.position.x);
+        this.targetObject = targetObject;
+        type = ProjectileType.TargetUnit;
     }
 
-    /*
-    public void TurnToFace()
+    // Go towards set destination
+    public void SetTarget (Vector3 targetPos)
     {
-        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (target.transform.position.x < transform.position.x);
+        this.targetPos = targetPos;
+        type = ProjectileType.TargetPosition;
+        movementDirection = targetPos;
+        
+        if (shouldRotate)
+        {
+            RotateTowards(targetPos);
+        }
+    }
+    
+    // Set if should rotate
+    public void SetShouldRotate(bool shouldRotate)
+    {
+        this.shouldRotate = shouldRotate;
     }
 
-    */
+    public void StartMovement()
+    {
+        if (moveLoop != null)
+        {
+            Debug.Log("WARNING: Starting a projectile move loop when one already exists");
+        }
+
+        moveLoop = MoveLoop();
+        StartCoroutine(moveLoop);
+    }
+
+    private void RotateTowards(Vector3 pos)
+    {
+        Vector3 dir = pos - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 }
