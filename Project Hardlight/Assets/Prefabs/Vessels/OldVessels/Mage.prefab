@@ -279,7 +279,6 @@ MonoBehaviour:
   targetPrefs: 
   currentTarget: {fileID: 0}
   attack: {fileID: 2169203085962951802}
-  basicAttackStats: {fileID: 0}
 --- !u!114 &2581082074096872479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,6 +744,7 @@ RectTransform:
   - {fileID: 1125286265050604821}
   - {fileID: 6137032517373822476}
   - {fileID: 7438353703388031264}
+  - {fileID: 1296675362516808731}
   m_Father: {fileID: 1672757653819103493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1072,6 +1072,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 3865668204569927031}
   healthBar: {fileID: 293465179719938625}
+--- !u!1 &7145412018892506428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1296675362516808731}
+  - component: {fileID: 7783387136348586245}
+  - component: {fileID: 2830251203369179878}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1296675362516808731
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145412018892506428}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -13.2638855}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7247589394789687798}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.87, y: 2.29}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7783387136348586245
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145412018892506428}
+  m_CullTransparentMesh: 0
+--- !u!114 &2830251203369179878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145412018892506428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
 --- !u!1 &7828618710455410080
 GameObject:
   m_ObjectHideFlags: 0

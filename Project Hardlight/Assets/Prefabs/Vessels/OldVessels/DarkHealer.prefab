@@ -286,7 +286,6 @@ MonoBehaviour:
   targetPrefs: 
   currentTarget: {fileID: 0}
   attack: {fileID: 7270942199044395875}
-  basicAttackStats: {fileID: 0}
 --- !u!114 &7270942199044395875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,6 +1019,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8025971488211477243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1356277506078974158}
+  - component: {fileID: 6261588092162737388}
+  - component: {fileID: 5388452957845114412}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1356277506078974158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025971488211477243}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2734323699785245597}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1, y: 2.92}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6261588092162737388
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025971488211477243}
+  m_CullTransparentMesh: 0
+--- !u!114 &5388452957845114412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025971488211477243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
 --- !u!1 &8123797512640254369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1186,7 @@ RectTransform:
   - {fileID: 3427501576358480907}
   - {fileID: 902381993495323830}
   - {fileID: 337580328985402083}
+  - {fileID: 1356277506078974158}
   m_Father: {fileID: 1620355528756934379}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
