@@ -610,8 +610,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     void OnMaxManaEvent(Fighter f)
     {
-        Debug.Log("MANAAA");
-        //commandsUI.SwitchButtonColor(true);
     }
 
     /// <summary>

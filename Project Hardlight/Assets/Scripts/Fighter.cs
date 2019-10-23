@@ -229,7 +229,6 @@ public class Fighter : MonoBehaviour
         
         // Calculate based on modifiers
         float realDamage = dmg - dmg * defenseBoost;
-        Debug.Log("Took "  + realDamage + " damage");
         health -= realDamage;
         IEnumerator colorThing = HitColorChanger();
         StartCoroutine(colorThing);
