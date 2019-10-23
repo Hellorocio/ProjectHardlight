@@ -17,7 +17,21 @@ public class MerrhaBasicAttack : BasicAttackAction
         gooAttack.transform.localPosition = Vector3.zero;
 
         float damage = sourceFighter.GetBasicAttackDamage();
-        target.GetComponent<Fighter>().TakeDamage(damage);
+        GenericMeleeMonster tmp1 = target.GetComponent<GenericMeleeMonster>();
+
+        if(tmp1 != null)
+        {
+            tmp1.TakeDamage(damage);
+        } else
+        {
+            GenericRangedMonster tmp2 = target.GetComponent<GenericRangedMonster>();
+            if (tmp2 != null)
+            {
+                tmp2.TakeDamage(damage);
+            }
+        }
+        
+        //target.GetComponent<Fighter>().TakeDamage(damage);
 
         if (sourceFighter.team == CombatInfo.Team.Hero)
         {
