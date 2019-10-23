@@ -75,6 +75,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &605253450007817859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4380945779425985797}
+  - component: {fileID: 1793800085852701061}
+  - component: {fileID: 5635725931560840398}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4380945779425985797
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605253450007817859}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.04201339}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_Children: []
+  m_Father: {fileID: 5875956322033132706}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.55, y: 1.91}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1793800085852701061
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605253450007817859}
+  m_CullTransparentMesh: 0
+--- !u!114 &5635725931560840398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605253450007817859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
 --- !u!1 &2315843386082990219
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +242,7 @@ RectTransform:
   - {fileID: 8182688580679674355}
   - {fileID: 6533009199522726384}
   - {fileID: 2129186814897316015}
+  - {fileID: 4380945779425985797}
   m_Father: {fileID: 6390960235825343898}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -399,7 +459,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -384906397
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: b502210835003ca4b80969309535424d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -533,10 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: DefaultVessel
   team: 1
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 55897265517752118}
   maxManaGlow: {fileID: 6946353648948383882}
   anim: {fileID: 6390960234732733081}
@@ -555,9 +612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 3866378144017540731}
-  basicAttackStats: {fileID: 11400000, guid: 963d4c3c0cb55ae409010b636abe1ebe, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!82 &8409799906034597506
 AudioSource:
   m_ObjectHideFlags: 0
@@ -767,7 +823,9 @@ MonoBehaviour:
   title: Shank
   range: 950
   damage: 950
+  cooldown: 0
   description: Taurin performs a short slash using a knife hidden... somewhere.
+  sfx: {fileID: 0}
 --- !u!1 &6799968679881366909
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &283553029754807821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8746259708062055959}
+  - component: {fileID: 2072187817637862220}
+  - component: {fileID: 2633069539009110347}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8746259708062055959
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283553029754807821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1541063984246000196}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.72, y: 2.24}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2072187817637862220
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283553029754807821}
+  m_CullTransparentMesh: 0
+--- !u!114 &2633069539009110347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283553029754807821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
 --- !u!1 &712197841992653944
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +276,7 @@ RectTransform:
   - {fileID: 9109577280019353255}
   - {fileID: 3403315385105929654}
   - {fileID: 2695178524456308498}
+  - {fileID: 8746259708062055959}
   m_Father: {fileID: 7404126255719019191}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -929,7 +989,6 @@ MonoBehaviour:
   targetPrefs: 
   currentTarget: {fileID: 0}
   attack: {fileID: 8370368706987180497}
-  basicAttackStats: {fileID: 0}
 --- !u!114 &8370368706987180497
 MonoBehaviour:
   m_ObjectHideFlags: 0
