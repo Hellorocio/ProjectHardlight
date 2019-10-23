@@ -5,20 +5,17 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    public Fighter fighter;
     public Text healthText;
     public Image healthBar;
 
-    Fighter fighter;
     float maxHealth;
     float maxBarWidth;
 
     private void OnEnable()
     {
         maxBarWidth = healthBar.GetComponent<RectTransform>().sizeDelta.x;
-        
 
-
-        fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
             maxHealth = fighter.GetMaxHealth();

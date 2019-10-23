@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ManaBar : MonoBehaviour
 {
+    public Fighter fighter;
     public Text manaText;
     public Image manaBar;
 
-    Fighter fighter;
     float maxMana;
     float maxBarWidth;
 
@@ -20,7 +20,6 @@ public class ManaBar : MonoBehaviour
             maxBarWidth = manaBar.GetComponent<RectTransform>().sizeDelta.x;
         }
 
-        fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
             maxMana = fighter.GetMaxMana();
