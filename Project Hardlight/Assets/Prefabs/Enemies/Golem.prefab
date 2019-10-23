@@ -101,6 +101,68 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &135261482125175135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202336326137177905}
+  - component: {fileID: 3912940424788106962}
+  - component: {fileID: 4788942826960880816}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1202336326137177905
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135261482125175135}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.6449959, y: 1.6449959, z: 1.6449959}
+  m_Children: []
+  m_Father: {fileID: 3228730841961174305}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.58, y: 2.92}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3912940424788106962
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135261482125175135}
+  m_CullTransparentMesh: 0
+--- !u!114 &4788942826960880816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135261482125175135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
+  fighter: {fileID: 6417920846059879940}
+  gMeleeMonster: {fileID: 0}
+  gRangedMonster: {fileID: 0}
 --- !u!1 &295596027026680896
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 295596027026680896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.41, y: 0.3, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 7.0151997, y: 7.0151997, z: 7.0151997}
   m_Children:
   - {fileID: 3228730841961174305}
   - {fileID: 1317324163}
@@ -189,15 +251,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Enemy Two
   team: 2
-  healthUI: {fileID: 0}
-  manaUI: {fileID: 0}
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
   soul: {fileID: 0}
+  buffBar: {fileID: 0}
   battleManager: {fileID: 0}
+  percentDamageTakenModifier: 0
 --- !u!114 &205179122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +274,9 @@ MonoBehaviour:
   title: 
   range: 0
   damage: 12
+  cooldown: 1
   description: 
+  sfx: {fileID: 0}
 --- !u!114 &8680636418704861795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,9 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: 205179122}
-  basicAttackStats: {fileID: 11400000, guid: ff4b795f369ed4df3ba315414ff31589, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!114 &7094492070759052052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d024529edf78ab4d8977cd4c4d4f194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fighter: {fileID: 0}
   healthText: {fileID: 7662144250416700133}
   healthBar: {fileID: 6990121416717888078}
 --- !u!1 &6626125585419159368
@@ -390,6 +453,7 @@ RectTransform:
   m_LocalScale: {x: 0.11919399, y: 0.11919399, z: 0.11919399}
   m_Children:
   - {fileID: 6648015300032280064}
+  - {fileID: 1202336326137177905}
   m_Father: {fileID: 952073211779320124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
