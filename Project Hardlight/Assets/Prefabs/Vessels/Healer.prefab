@@ -1,112 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5416107230612850924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6952383251715976084}
-  m_Layer: 0
-  m_Name: BasicAttackSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6952383251715976084
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5416107230612850924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.288, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2608807790061824647}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &740907697011280635
+--- !u!114 &501291304542367748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
+  m_GameObject: {fileID: 3857220113558794847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
+  m_Script: {fileID: 11500000, guid: e02122204c3b2f84ea69899c7942a9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Light Prison
-  abilityDescription: Deal single target damage
-  baseDamage: 20
+  title: Minor Heal
+  range: 7
+  damage: 5
+  cooldown: 10
+  description: Heals a nearby ally a small amount
+  sfx: {fileID: 8300000, guid: 3949749916c887245989844fb29e360e, type: 3}
+  healBasicAction: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
+    type: 3}
+--- !u!114 &5658098175915835305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857220113558794847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c4977a98082b4da02dcaa8d785144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Major Heal
+  abilityDescription: Large heal on one unit
+  baseDamage: 0
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
-  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
+  baseHealAmt: 50
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
-  rangeIndicator: {fileID: 0}
-  attackDebuff: {fileID: 0}
+  healEffectPrefab: {fileID: 6081640007547680329, guid: 6a26fc454f7b91d418647deb0592a486,
+    type: 3}
   attackTargetUnit: {fileID: 0}
-  lightPrisonPrefab: {fileID: 7039968626089030771, guid: 4118df666498ef44dab023b0e2546f8b,
-    type: 3}
---- !u!114 &3231508250924390035
+--- !u!114 &8731098929592102613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
+  m_GameObject: {fileID: 3857220113558794847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ab4a01e5fe164846b7a24f83a65e5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Pew pew
-  range: 10
-  damage: 3
-  cooldown: 2
-  description: Little blasts of magic.
-  sfx: {fileID: 0}
-  mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
-    type: 3}
-  spawnPoint: {fileID: 5416107230612850924}
-  animationDelay: 0.2
---- !u!114 &7240504610464757373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188df771687e3d445947e2babdf68887, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Light's Extosis
-  abilityDescription: Deal high damage in an area.
-  baseDamage: 10
+  abilityName: Healing Aura
+  abilityDescription: Medium heal in small radius
+  baseDamage: 0
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 8
-  baseEffectRadius: 2
-  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
+  baseEffectRange: 6
+  baseEffectRadius: 2.5
+  baseHealAmt: 13
+  rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
-  radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
-    type: 3}
-  lightBlastPrefab: {fileID: 5489350537540678332, guid: eb9322f9fdb6c504cb2e08b189fa05dd,
+  radiusIndicatorPrefab: {fileID: 8166058387217857041, guid: 32f0d2ec45ff3e846ad8404dab7a2c2d,
     type: 3}
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
---- !u!1001 &8972604932438624029
+--- !u!1001 &7869716235685846982
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -116,53 +82,68 @@ PrefabInstance:
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
-      value: Mage
+      value: Healer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: vesselName
+      value: The Best Healer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: title
+      value: Healer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: description
+      value: A Healer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseHealth
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMovementSpeed
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: appearance
       value: 
-      objectReference: {fileID: 21300000, guid: 33856910865174d37b0800917029e2ac,
+      objectReference: {fileID: 21300000, guid: 4d854d9fbdd524123916f07e9ffe6377,
         type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: vesselName
-      value: Magey McMageface
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: title
-      value: Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: description
-      value: She casts spells.
-      objectReference: {fileID: 0}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: basicAttack
       value: 
-      objectReference: {fileID: 3231508250924390035}
+      objectReference: {fileID: 501291304542367748}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: abilities.Array.data[0]
       value: 
-      objectReference: {fileID: 7240504610464757373}
+      objectReference: {fileID: 8731098929592102613}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: abilities.Array.data[1]
       value: 
-      objectReference: {fileID: 740907697011280635}
+      objectReference: {fileID: 5658098175915835305}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.752446
+      value: -30.72
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5125622
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -211,64 +192,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_Offset.x
-      value: -0.02281946
+      propertyPath: m_Offset.y
+      value: 0.045390964
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_Size.x
-      value: 0.50270784
+      propertyPath: m_Size.y
+      value: 0.7642374
       objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 3231508250924390035}
+      objectReference: {fileID: 501291304542367748}
     - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7936488368728208126, guid: f152f49d44d1de247b013a74eee3a679,
+      objectReference: {fileID: -6303401400232227047, guid: 5316b24cdd502c24ab74cd4357d8c9c7,
         type: 3}
     - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.82745105
+      value: 0.40784317
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.33333334
+      value: 0.93725497
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.43921572
+      value: 0.6039216
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 73c6f9e38b6de6c43951a7aea78b6d1c, type: 2}
+      objectReference: {fileID: 9100000, guid: 25139845c58f4574fa4357048beb3b00, type: 2}
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.039
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.326
+      value: 0.043
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
-    - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+    - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+    - {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
---- !u!1 &2608807790061824644 stripped
+--- !u!1 &3857220113558794847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
     type: 3}
-  m_PrefabInstance: {fileID: 8972604932438624029}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2608807790061824647 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-    type: 3}
-  m_PrefabInstance: {fileID: 8972604932438624029}
+  m_PrefabInstance: {fileID: 7869716235685846982}
   m_PrefabAsset: {fileID: 0}
