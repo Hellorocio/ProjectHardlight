@@ -230,10 +230,14 @@ public class FighterAttack : MonoBehaviour
         if (enemiesActive)
         {
             //Default if no preferences exist
-            //if (targetPrefs.Count == 0)
-            //{
+            if (!HasHealingBasicAttack())
+            {
                 SetClosestAttackTarget();
-            //}
+            }
+            else
+            {
+                SetOptimalHealingTarget();
+            }
             /*
             else
             {
