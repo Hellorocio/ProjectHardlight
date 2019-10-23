@@ -32,6 +32,8 @@ public class DarkWaveProjectile : MonoBehaviour
     {
         startPosition = startPos;
         affectedFighters = new HashSet<Fighter>();
+        affectedFighters1 = new HashSet<GenericMeleeMonster>();
+        affectedFighters2 = new HashSet<GenericRangedMonster>();
         damageAmount = damageAmt;
         healAmount = healAmt;
         this.maxDistance = maxDistance;
