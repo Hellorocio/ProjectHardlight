@@ -34,11 +34,11 @@ public class MageAoEBlast : Ability
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
         rangeIndicator.name = "Range";
-        rangeIndicator.transform.localScale *= 2 * GetRange();
+        rangeIndicator.transform.localScale *=  GetRange();
 
         radiusIndicator = Instantiate(radiusIndicatorPrefab);
         radiusIndicator.name = "Radius";
-        radiusIndicator.transform.localScale *= 2 * GetRadius();
+        radiusIndicator.transform.localScale *= GetRadius();
 
         return true;
     }
