@@ -169,8 +169,6 @@ public class LoadoutUI : Singleton<LoadoutUI>
             Soul slotSoul = loadoutSlot.GetComponentInChildren<SoulIcon>().soul;
             if (slotVessel == null)
             {
-                Debug.Log("Slot missing Vessel");
-
                 if (printMissing && missingPopupText != null)
                 {
                     missingPopupText.text = "Missing Vessel!";
@@ -181,8 +179,6 @@ public class LoadoutUI : Singleton<LoadoutUI>
             }
             if (slotSoul == null)
             {
-                Debug.Log("Slot missing Soul");
-
                 if (printMissing && missingPopupText != null)
                 {
                     missingPopupText.text = "Missing Soul!";

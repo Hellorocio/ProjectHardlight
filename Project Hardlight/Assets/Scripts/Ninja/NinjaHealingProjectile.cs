@@ -16,8 +16,15 @@ public class NinjaHealingProjectile : MonoBehaviour
         */
     }
 
+    public void Initialize(float damage, Fighter source)
+    {
+        dmg = damage;
+        this.source = source;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("proj hit");
         Fighter hitFighter = other.GetComponent<Fighter>();
 
         if (hitFighter != null)
@@ -29,29 +36,9 @@ public class NinjaHealingProjectile : MonoBehaviour
 
                 //heal ninja
                 source.Heal(dmg);
+                Destroy(gameObject);
             }
 
-        }
-
-        GenericMeleeMonster tmp2 = target.GetComponent<GenericMeleeMonster>();
-        GenericRangedMonster tmp3 = target.GetComponent<GenericRangedMonster>();
-
-
-        if (tmp2 != null)
-        {
-            tmp2.TakeDamage(dmg);
-            source.Heal(dmg);
-        }
-
-        if (tmp3 != null)
-        {
-            tmp3.TakeDamage(dmg);
-            source.Heal(dmg);
-        }
-
-        if (other.gameObject == target)
-        {
-            Destroy(gameObject);
         }
     }
 }
