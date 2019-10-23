@@ -50,6 +50,24 @@ MonoBehaviour:
   sfx: {fileID: 8300000, guid: e2f4371cf04a038408677ebb9e732051, type: 3}
   gooPrefab: {fileID: 2134644063743925849, guid: 8bf63feb0a1a36d4da5f23118850f6b0,
     type: 3}
+--- !u!114 &4437844966064891378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513952173870391777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24250a659b9c3454b9a890bbeb796c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffNameId: Bastion
+  buffDescription: Gives 50% damage reduction.
+  buffIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
+  buffDuration: 5
+  maxStacks: 1
+  percentDamageTakenModifier: -0.5
 --- !u!114 &4899670746398785568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,11 +88,13 @@ MonoBehaviour:
   selectedTarget: {fileID: 0}
   baseEffectRange: 8
   baseEffectRadius: 2.5
+  defenseBuff: {fileID: 4437844966064891378}
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
-  radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
+  radiusIndicatorPrefab: {fileID: 732637113300951321, guid: c56bd2d4f3ecf474d8c6c86164105921,
     type: 3}
-  defenseSpellPrefab: {fileID: 0}
+  defenseSpellPrefab: {fileID: 8503900976985910407, guid: cfb2c738bed69d24984d49363113e0f8,
+    type: 3}
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
 --- !u!1001 &8814136383961140344

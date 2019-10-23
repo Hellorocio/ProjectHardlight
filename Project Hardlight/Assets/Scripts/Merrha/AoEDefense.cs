@@ -7,6 +7,8 @@ public class AoEDefense : Ability
     public float baseEffectRange;
     public float baseEffectRadius;
 
+    public Buff defenseBuff;
+    
     public GameObject rangeIndicatorPrefab;
     public GameObject radiusIndicatorPrefab;
 
@@ -34,11 +36,11 @@ public class AoEDefense : Ability
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
         rangeIndicator.name = "Range";
-        rangeIndicator.transform.localScale *= 2 * GetRange();
+        rangeIndicator.transform.localScale *= GetRange();
 
         radiusIndicator = Instantiate(radiusIndicatorPrefab);
         radiusIndicator.name = "Radius";
-        radiusIndicator.transform.localScale *= 2 * GetRadius();
+        radiusIndicator.transform.localScale *= GetRadius();
 
         return true;
     }
@@ -56,33 +58,31 @@ public class AoEDefense : Ability
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
-            Debug.Log("AoE blast casted");
-
-            // Hit enemies
+            
+            // Cast spell appearance
+            GameObject spellInstance = Instantiate(defenseSpellPrefab);
+            spellInstance.transform.localScale *= GetRadius();
+            spellInstance.transform.position = new Vector3(selectedPosition.x, selectedPosition.y, spellInstance.transform.position.z);
+            
+            // Hit allies in a circle to buff them
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
             foreach (Collider2D collider in hitColliders)
             {
                 Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
                 if (hitFighter != null)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
+                    if (hitFighter.team == CombatInfo.Team.Hero)
                     {
-                        hitFighter.TakeDamage(GetDamage());
+                        // Give them the buff
+                        hitFighter.AddBuff(defenseBuff);
                     }
                 }
             }
-
-            //display boom!
-            GameObject boom = Instantiate(defenseSpellPrefab);
-            Vector3 boomPos = selectedPosition;
-            boomPos.z = 2;
-            boom.transform.position = boomPos;
-
+            
             return true;
         }
         else
         {
-            Debug.Log("AoE blast out of range");
             return false;
         }
     }

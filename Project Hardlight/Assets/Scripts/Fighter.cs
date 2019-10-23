@@ -23,6 +23,8 @@ public class Fighter : MonoBehaviour
     private float speed = 1;
     public Soul soul;
 
+    public BuffBar buffBar;
+
     private Color defaultColor;
     private Color hitColor;
     
@@ -32,7 +34,12 @@ public class Fighter : MonoBehaviour
     [HideInInspector]
     public BattleManager battleManager;
     
+    // Stat modifiers (usually modified by buffs)
+    // e.g. percentDamageTakenModifier = -.2 --> Take 20% less damage
+    public float percentDamageTakenModifier;
+    
     //Buff list
+    // TODO cleanup and use above section's system instead (uses overridden Buff objects)
     List<BuffObj> buffs;
     private IEnumerator buffLoop;
     private float movementSpeedBoost;
@@ -90,6 +97,8 @@ public class Fighter : MonoBehaviour
     /// </summary>
     void InitBoosts ()
     {
+        percentDamageTakenModifier = 0.0f;
+        
         if (soul == null)
         {
             soul = GetComponent<Soul>();
@@ -228,7 +237,7 @@ public class Fighter : MonoBehaviour
     {
         
         // Calculate based on modifiers
-        float realDamage = dmg - dmg * defenseBoost;
+        float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         health -= realDamage;
         IEnumerator colorThing = HitColorChanger();
         StartCoroutine(colorThing);
@@ -381,5 +390,21 @@ public class Fighter : MonoBehaviour
         //    return 1;
         //}
         return baseSpeed;
+    }
+
+    public void AddBuff(Buff buff)
+    {
+        BuffInstance buffInstance = gameObject.AddComponent(typeof(BuffInstance)) as BuffInstance;
+        buffInstance.SetBuff(buff);
+        buffInstance.StartBuff();
+        
+        // Add to buff bar
+        buffBar.AddBuffInstance(buffInstance);
+    }
+    
+    // Called by the buff to tell you it's done
+    public void RemoveBuff(BuffInstance buffInstance)
+    {
+        buffBar.RemoveBuffInstance(buffInstance);
     }
 }

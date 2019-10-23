@@ -9,8 +9,6 @@ public class MerrhaBasicAttack : BasicAttackAction
     
     public override void DoBasicAttack(Fighter sourceFighter, GameObject target)
     {
-        Debug.Log("Merrha basic attack");
-        
         // Appearance
         GameObject gooAttack = Instantiate(gooPrefab);
         gooAttack.transform.parent = target.transform.Find("Appearance");

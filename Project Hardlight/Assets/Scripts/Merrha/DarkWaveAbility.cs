@@ -44,11 +44,11 @@ public class DarkWaveAbility : Ability
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
         rangeIndicator.name = "Range";
-        rangeIndicator.transform.localScale *= 2 * GetRange();
+        rangeIndicator.transform.localScale *= GetRange();
 
         widthIndicator = Instantiate(widthIndicatorPrefab);
         widthIndicator.name = "Width";
-        widthIndicator.transform.localScale *= 2 * GetRadius();
+        widthIndicator.transform.localScale *= GetRadius();
 
         return true;
     }
@@ -66,26 +66,10 @@ public class DarkWaveAbility : Ability
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, transform.position) < GetRange())
         {
-            Debug.Log("Dark Wave casted");
-
-            // Hit enemies
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
-            foreach (Collider2D collider in hitColliders)
-            {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
-                {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
-                    {
-                        hitFighter.TakeDamage(GetDamage());
-                    }
-                }
-            }
-
             // Display
             GameObject wind = Instantiate(projectilePrefab);
             // Set width
-            wind.transform.localScale *= 2 * GetRadius();
+            wind.transform.localScale *= GetRadius();
             // Set initial pos to caster (Merrha)
             wind.transform.position = transform.position;
             // Set projectile movement
