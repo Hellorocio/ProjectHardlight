@@ -206,6 +206,12 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
         SetCameraControls(false);
 
+        // if skip tutorial button is enabled when you enter the map, it's time to remove it
+        if (TutorialManager.Instance.tutorialEnabled)
+        {
+            UIManager.Instance.skipTutorialButton.SetActive(false);
+        }
+
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         Debug.Log("init map");
         LoadScene(mapSceneName);
