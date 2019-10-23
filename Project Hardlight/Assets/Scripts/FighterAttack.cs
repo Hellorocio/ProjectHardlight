@@ -145,6 +145,11 @@ public class FighterAttack : MonoBehaviour
     /// <returns></returns>
     public bool InRangeOfTarget (Transform t, bool useRange = true)
     {
+        if(attack == null)
+        {
+            Debug.Log(gameObject.name);
+            Debug.Log("BasicAttackAction is null");
+        }
         bool inRange = Vector2.Distance(transform.position, t.position) < attack.range + attackRangeAllowance;
         if (!useRange)
         {
