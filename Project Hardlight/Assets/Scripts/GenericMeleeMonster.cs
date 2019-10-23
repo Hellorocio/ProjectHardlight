@@ -40,7 +40,6 @@ public class GenericMeleeMonster : MonoBehaviour
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
     [Space(10)]
 
-    bool shouldWander = false;
     private int numWanderPoints;
     private int wanderPointCounter;
     private Vector3 currentWanderPoint;

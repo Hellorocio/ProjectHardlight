@@ -28,6 +28,9 @@ public class GenericRangedMonster : MonoBehaviour
 
     [Header("Patrol Info")]
     public PatrolType patrolType;
+    public float idleTime;
+    public int maxWanderPoints;
+    public int minWanderPoints;
     public List<Transform> patrolRoute;
     [Space(10)]
 
@@ -37,6 +40,10 @@ public class GenericRangedMonster : MonoBehaviour
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
     [Space(10)]
 
+    private int numWanderPoints;
+    private int wanderPointCounter;
+    private Vector3 currentWanderPoint;
+    private float currentIdleTime = 0;
     private BattleManager battleManager;
     private bool startedLevel;
     private float realBasicAttackHitTime;
@@ -93,7 +100,23 @@ public class GenericRangedMonster : MonoBehaviour
             }
             else
             {
-                DoPatrol();
+                if (currentIdleTime > 0)
+                {
+                    currentIdleTime -= Time.deltaTime;
+
+                }
+                else
+                {
+                    if (wanderPointCounter < numWanderPoints)
+                    {
+                        Wander();
+                    }
+                    else
+                    {
+                        DoPatrol();
+                    }
+
+                }
             }
         }
     }
@@ -249,6 +272,40 @@ public class GenericRangedMonster : MonoBehaviour
                 animator.Play("Idle");
             }
             moveState = MoveState.stopped;
+            currentIdleTime = idleTime;
+            numWanderPoints = Random.Range(minWanderPoints, maxWanderPoints);
+            wanderPointCounter = 0;
+        }
+    }
+
+    void MoveToWanderPoint(Vector3 pos)
+    {
+        if (!InBodyRangeOfTarget(pos))
+        {
+            if (moveState != MoveState.patrolling)
+            {
+                animator.Play("Walk");
+
+            }
+            //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
+            transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
+            moveState = MoveState.patrolling;
+
+
+        }
+        else
+        {
+            if (moveState == MoveState.patrolling)
+            {
+                animator.Play("Idle");
+            }
+            moveState = MoveState.stopped;
+            currentIdleTime = idleTime;
+            wanderPointCounter++;
+            if (wanderPointCounter == numWanderPoints)
+            {
+                numWanderPoints = 0;
+            }
         }
     }
 
@@ -289,6 +346,22 @@ public class GenericRangedMonster : MonoBehaviour
             Vector3 realLoc = patrolRoute[patrolIndex].position;
             realLoc.z = transform.position.z;
             MoveToPosition(realLoc);
+        }
+    }
+
+    void Wander()
+    {
+
+        if (patrolType != PatrolType.none && moveState == MoveState.stopped)
+        {
+            float ranX = Random.Range((-transform.position.x * .05f), (transform.position.x * .05f));
+            float ranY = Random.Range((-transform.position.y * .05f), (transform.position.y * .05f));
+            currentWanderPoint = new Vector3(transform.position.x + ranX, transform.position.y + ranY, transform.position.z);
+            MoveToWanderPoint(currentWanderPoint);
+        }
+        else if (moveState == MoveState.patrolling)
+        {
+            MoveToWanderPoint(currentWanderPoint);
         }
     }
 
