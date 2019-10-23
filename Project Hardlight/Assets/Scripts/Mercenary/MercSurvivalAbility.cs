@@ -65,6 +65,33 @@ public class MercSurvivalAbility : Ability
 
                 return true;
             }
+            GenericMeleeMonster tmp2 = selectedTarget.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = selectedTarget.GetComponent<GenericRangedMonster>();
+
+
+            if (tmp2 != null)
+            {
+                tmp2.TakeDamage(GetDamage());
+                Fighter thisFighter = gameObject.GetComponent<Fighter>();
+                if (thisFighter.GetHealth() <= thisFighter.GetMaxHealth() * 0.5f)
+                {
+                    thisFighter.Heal(GetDamage());
+                }
+
+                return true;
+            }
+
+            if (tmp3 != null)
+            {
+                tmp3.TakeDamage(GetDamage());
+                Fighter thisFighter = gameObject.GetComponent<Fighter>();
+                if (thisFighter.GetHealth() <= thisFighter.GetMaxHealth() * 0.5f)
+                {
+                    thisFighter.Heal(GetDamage());
+                }
+
+                return true;
+            }
         }
         return false;
 

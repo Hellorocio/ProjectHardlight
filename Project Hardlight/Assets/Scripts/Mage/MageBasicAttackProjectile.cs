@@ -17,8 +17,31 @@ public class MageBasicAttackProjectile : MonoBehaviour
         if (other.gameObject == target)
         {
             // Deal damage
-            target.GetComponent<Fighter>().TakeDamage(sourceFighter.GetBasicAttackDamage());
-            sourceFighter.GainMana(10);
+
+            //Sorry for the gross code, this will be refactored after this playtest!!!
+            Fighter tmp = target.GetComponent<Fighter>();
+            GenericMeleeMonster tmp2 = target.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = target.GetComponent<GenericRangedMonster>();
+
+            if(tmp != null)
+            {
+                tmp.TakeDamage(sourceFighter.GetBasicAttackDamage());
+                sourceFighter.GainMana(10);
+            }
+
+            if(tmp2 != null)
+            {
+                tmp2.TakeDamage(sourceFighter.GetBasicAttackDamage());
+                sourceFighter.GainMana(10);
+            }
+
+            if(tmp3 != null)
+            {
+                tmp3.TakeDamage(sourceFighter.GetBasicAttackDamage());
+                sourceFighter.GainMana(10);
+            }
+
+            
 
             Destroy(gameObject);
         }

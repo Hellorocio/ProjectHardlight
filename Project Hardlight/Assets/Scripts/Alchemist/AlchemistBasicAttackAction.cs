@@ -34,13 +34,26 @@ public class AlchemistBasicAttackAction : BasicAttackAction
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(basicAttack.transform.position, damageRadius);
             foreach (Collider2D collider in hitColliders)
             {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
+                Fighter tmp = collider.gameObject.GetComponent<Fighter>();
+                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
+                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+
+                if (tmp != null)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
+                    if (tmp.team == CombatInfo.Team.Enemy)
                     {
-                        hitFighter.TakeDamage(damage);
+                        tmp.TakeDamage(damage);
                     }
+                }
+
+                if (tmp2 != null)
+                {
+                    tmp2.TakeDamage(damage);
+                }
+
+                if (tmp3 != null)
+                {
+                    tmp3.TakeDamage(damage);
                 }
             }
 

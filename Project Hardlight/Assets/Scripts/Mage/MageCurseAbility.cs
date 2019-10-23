@@ -47,18 +47,55 @@ public class MageCurseAbility : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
+            Fighter hitFighter = selectedTarget.gameObject.GetComponent<Fighter>();
+            if (hitFighter != null && hitFighter.team == CombatInfo.Team.Enemy)
             {
                 Debug.Log("Mage Light Prison");
 
-                selectedFighter.TakeDamage(GetDamage());
+                hitFighter.TakeDamage(GetDamage());
                 //display light prison
                 GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
                 lightPrison.transform.localPosition = Vector3.zero;
                 lightPrison.transform.localScale = Vector3.one;
                 return true;
             }
+
+                GenericMeleeMonster tmp2 = selectedTarget.gameObject.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = selectedTarget.gameObject.GetComponent<GenericRangedMonster>();
+
+            if (tmp2 != null)
+            {
+                tmp2.TakeDamage(GetDamage());
+                //display light prison
+                GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
+                lightPrison.transform.localPosition = Vector3.zero;
+                lightPrison.transform.localScale = Vector3.one;
+                return true;
+            }
+
+            if (tmp3 != null)
+            {
+                tmp3.TakeDamage(GetDamage());
+                //display light prison
+                GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
+                lightPrison.transform.localPosition = Vector3.zero;
+                lightPrison.transform.localScale = Vector3.one;
+                return true;
+            }
+
+
+            //Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
+            //if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
+            //{
+            //    Debug.Log("Mage Light Prison");
+
+            //    selectedFighter.TakeDamage(GetDamage());
+            //    //display light prison
+            //    GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
+            //    lightPrison.transform.localPosition = Vector3.zero;
+            //    lightPrison.transform.localScale = Vector3.one;
+            //    return true;
+            //}
         }
         return false;
 

@@ -12,6 +12,8 @@ public class DarkWaveProjectile : MonoBehaviour
     // Don't set
     private bool initialized = false;
     public HashSet<Fighter> affectedFighters;
+    public HashSet<GenericMeleeMonster> affectedFighters1;
+    public HashSet<GenericRangedMonster> affectedFighters2;
     public Vector3 startPosition;
     public float maxDistance;
 
@@ -51,6 +53,22 @@ public class DarkWaveProjectile : MonoBehaviour
             }
 
             affectedFighters.Add(hitFighter);
+        }
+
+        GenericMeleeMonster tmp2 = other.gameObject.GetComponent<GenericMeleeMonster>();
+        GenericRangedMonster tmp3 = other.gameObject.GetComponent<GenericRangedMonster>();
+
+
+        if (tmp2 != null && !affectedFighters1.Contains(tmp2))
+        {
+            tmp2.TakeDamage(damageAmount);
+            affectedFighters1.Add(tmp2);
+        }
+
+        if (tmp3 != null && !affectedFighters2.Contains(tmp3))
+        {
+            tmp3.TakeDamage(damageAmount);
+            affectedFighters2.Add(tmp3);
         }
     }
 }

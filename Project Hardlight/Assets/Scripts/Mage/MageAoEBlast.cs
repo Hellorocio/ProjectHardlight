@@ -70,6 +70,19 @@ public class MageAoEBlast : Ability
                         hitFighter.TakeDamage(GetDamage());
                     }
                 }
+
+                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
+                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+
+                if (tmp2 != null)
+                {
+                    tmp2.TakeDamage(GetDamage());
+                }
+
+                if (tmp3 != null)
+                {
+                    tmp3.TakeDamage(GetDamage());
+                }
             }
 
             //display boom!

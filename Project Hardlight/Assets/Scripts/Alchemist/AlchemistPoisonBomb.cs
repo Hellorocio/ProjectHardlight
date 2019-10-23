@@ -34,17 +34,42 @@ public class AlchemistPoisonBomb : Ability
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
         foreach (Collider2D collider in hitColliders)
         {
-            Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-            if (hitFighter != null)
-            {
-                if (hitFighter.team == CombatInfo.Team.Enemy)
-                {
-                    hitFighter.TakeDamage(GetDamage());
 
-                    //add debuff
-                    hitFighter.AddTimedBuff(attackDebuff);
+            Fighter tmp = collider.gameObject.GetComponent<Fighter>();
+            GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+
+            if (tmp != null)
+            {
+                if (tmp.team == CombatInfo.Team.Enemy)
+                {
+                    tmp.TakeDamage(GetDamage());
+                    //tmp.AddTimedBuff(attackDebuff);
                 }
             }
+
+            if (tmp2 != null)
+            {
+                tmp2.TakeDamage(GetDamage());
+                //tmp2.AddTimedBuff(attackDebuff);
+            }
+
+            if (tmp3 != null)
+            {
+                tmp3.TakeDamage(GetDamage());
+                //tmp3.AddTimedBuff(attackDebuff);
+            }
+            //Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
+            //if (hitFighter != null)
+            //{
+            //    if (hitFighter.team == CombatInfo.Team.Enemy)
+            //    {
+            //        hitFighter.TakeDamage(GetDamage());
+
+            //        //add debuff
+            //        hitFighter.AddTimedBuff(attackDebuff);
+            //    }
+            //}
         }
 
         //display boom!

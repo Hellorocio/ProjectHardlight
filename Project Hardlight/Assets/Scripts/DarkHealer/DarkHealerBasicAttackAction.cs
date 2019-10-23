@@ -33,6 +33,28 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(basicAttack.transform.position, damageRadius);
             foreach (Collider2D collider in hitColliders)
             {
+                Fighter tmp = collider.gameObject.GetComponent<Fighter>();
+                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
+                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+
+                if (tmp != null)
+                {
+                    if (tmp.team == CombatInfo.Team.Enemy)
+                    {
+                        tmp.TakeDamage(damage);
+                    }
+                }
+
+                if (tmp2 != null)
+                {
+                    tmp2.TakeDamage(damage);
+                }
+
+                if (tmp3 != null)
+                {
+                    tmp3.TakeDamage(damage);
+                }
+                /*
                 Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
                 if (hitFighter != null)
                 {
@@ -41,6 +63,7 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
                         hitFighter.TakeDamage(damage);
                     }
                 }
+                */
             }
 
             // Gain mana
