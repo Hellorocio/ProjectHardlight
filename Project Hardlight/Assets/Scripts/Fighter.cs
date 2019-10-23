@@ -399,6 +399,7 @@ public class Fighter : MonoBehaviour
         buffInstance.StartBuff();
         
         // Add to buff bar
+        Debug.Log(gameObject.name);
         buffBar.AddBuffInstance(buffInstance);
     }
     

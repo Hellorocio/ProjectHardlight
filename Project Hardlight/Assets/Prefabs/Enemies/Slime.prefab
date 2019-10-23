@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 462535239
-  m_SortingLayer: 3
+  m_SortingLayer: 1
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 5eead02b026cb7b42b57450db98bddd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -203,7 +203,9 @@ MonoBehaviour:
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
   soul: {fileID: 0}
+  buffBar: {fileID: 0}
   battleManager: {fileID: 0}
+  percentDamageTakenModifier: 0
 --- !u!114 &-3343916218713961539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +221,9 @@ MonoBehaviour:
   title: 
   range: 0
   damage: 0
+  cooldown: 0
   description: 
+  sfx: {fileID: 0}
 --- !u!114 &584283511866937370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,9 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
-  basicAttackAction: {fileID: -3343916218713961539}
-  basicAttackStats: {fileID: 11400000, guid: 8aaaa2e14d37b114e88adce05b1f0886, type: 2}
   currentTarget: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!114 &447116477623801756
 MonoBehaviour:
   m_ObjectHideFlags: 0
