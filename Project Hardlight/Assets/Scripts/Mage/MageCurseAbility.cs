@@ -53,9 +53,6 @@ public class MageCurseAbility : Ability
                 Debug.Log("Mage Light Prison");
 
                 selectedFighter.TakeDamage(GetDamage());
-                //add debuff
-                selectedFighter.AddTimedBuff(attackDebuff);
-
                 //display light prison
                 GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
                 lightPrison.transform.localPosition = Vector3.zero;

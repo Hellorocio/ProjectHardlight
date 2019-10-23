@@ -25,7 +25,12 @@ public class MageBasicAttackAction : BasicAttackAction
         yield return new WaitForSeconds(animationDelay);
         
         GameObject mageBasicAttack = Instantiate(mageBasicAttackPrefab);
+        Debug.Log(mageBasicAttack.name);
         mageBasicAttack.transform.position = spawnPoint.transform.position;
+        mageBasicAttack.GetComponent<MageBasicAttackProjectile>().SetSource(GetComponent<Fighter>());
+        ProjectileMovement projectile = mageBasicAttack.GetComponent<ProjectileMovement>();
+        projectile.SetTarget(target);
+        projectile.StartMovement();
 
         if (target != null)
         {

@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class MageBasicAttackProjectile : MonoBehaviour
 {
+    public Fighter sourceFighter;
+
+    public void SetSource(Fighter sourceFighter)
+    {
+        this.sourceFighter = sourceFighter;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //GameObject target = GetComponent<ProjectileMovement>().target;
+        GameObject target = GetComponent<ProjectileMovement>().targetObject;
 
-        /*
         if (other.gameObject == target)
         {
-            //Fighter sourceFighter = GetComponent<ProjectileMovement>().source.GetComponent<Fighter>();
-
             // Deal damage
-            //float damage = sourceFighter.GetBasicAttackDamage();
-            .//target.GetComponent<Fighter>().TakeDamage(damage);
-
-            // Gain mana
-            //sourceFighter.GainMana(10);
+            target.GetComponent<Fighter>().TakeDamage(sourceFighter.GetBasicAttackDamage());
+            sourceFighter.GainMana(10);
 
             Destroy(gameObject);
         }
-        */
     }
 }

@@ -16,6 +16,7 @@ public class VesselData : MonoBehaviour
     public int baseAbility = 100;
     public int baseMovementSpeed = 100;
 
+    // TODO Make fighters use this
     public MonoBehaviour basicAttack;
 
     public List<MonoBehaviour> abilities;
