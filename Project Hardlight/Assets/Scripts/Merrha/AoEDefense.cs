@@ -78,7 +78,13 @@ public class AoEDefense : Ability
                     }
                 }
             }
-            
+
+            if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
+            {
+                Debug.Log("Ability2 anim is played");
+                gameObject.GetComponent<Fighter>().anim.Play("Ability2");
+            }
+
             return true;
         }
         else
