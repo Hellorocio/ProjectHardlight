@@ -272,7 +272,9 @@ public class GenericMeleeMonster : MonoBehaviour
                 {
                     patrolIndex = 0;
                 }
-                MoveToPosition(patrolRoute[patrolIndex].position);
+                Vector3 realLoc = patrolRoute[patrolIndex].position;
+                realLoc.z = transform.position.z;
+                MoveToPosition(realLoc);
             }
             else if (patrolType == PatrolType.reverse)
             {
@@ -285,7 +287,9 @@ public class GenericMeleeMonster : MonoBehaviour
         }
         else if (moveState == MoveState.patrolling)
         {
-            MoveToPosition(patrolRoute[patrolIndex].position);
+            Vector3 realLoc = patrolRoute[patrolIndex].position;
+            realLoc.z = transform.position.z;
+            MoveToPosition(realLoc);
         }
     }
 
