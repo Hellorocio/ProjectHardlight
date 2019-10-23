@@ -489,6 +489,41 @@ public class BattleManager : Singleton<BattleManager>
                                 }
                             }
                         }
+
+                        GenericMeleeMonster tmp2 = hit.GetComponent<GenericMeleeMonster>();
+                        GenericRangedMonster tmp3 = hit.GetComponent<GenericRangedMonster>();
+
+
+                        if (tmp2 != null)
+                        {
+                            if (selectedHero != null)
+                            {
+                                selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp2);
+                            }
+                            else if (multiSelectedHeros.Count > 0)
+                            {
+                                //set target for multiple heroes
+                                foreach (Fighter f in multiSelectedHeros)
+                                {
+                                    f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp2);
+                                }
+                            }
+                        }
+
+                        if (selectedHero != null)
+                        {
+                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp3);
+                        }
+                        else if (multiSelectedHeros.Count > 0)
+                        {
+                            //set target for multiple heroes
+                            foreach (Fighter f in multiSelectedHeros)
+                            {
+                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp3);
+                            }
+                        }
+
+
                     }
                 }
 

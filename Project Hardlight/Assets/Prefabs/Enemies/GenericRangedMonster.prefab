@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138946200862579733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.84, y: -0, z: 17.829784}
+  m_LocalPosition: {x: 0, y: -0, z: 17.829784}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 8891143897135088026}
@@ -206,8 +206,8 @@ MonoBehaviour:
   basicAttackPrefab: {fileID: 7356860677731073783, guid: e2d966732983b194ba0b1ce5ad47a327,
     type: 3}
   spawnPoint: {fileID: 3673327048638818319}
-  basicAttackDamage: 15
-  basicAttackProjectileSpeed: 1
+  basicAttackDamage: 4
+  basicAttackProjectileSpeed: 20
   basicAttackSfx: {fileID: 0}
   patrolType: 0
   patrolRoute: []
@@ -697,6 +697,7 @@ RectTransform:
   m_Children:
   - {fileID: 1183036607246812537}
   - {fileID: 6543129929217006924}
+  - {fileID: 7302771990048161857}
   m_Father: {fileID: 631058492248652137}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -765,3 +766,65 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8338254301221718861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7302771990048161857}
+  - component: {fileID: 3382534426800009299}
+  - component: {fileID: 7298764186591581179}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7302771990048161857
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8338254301221718861}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -29.917253}
+  m_LocalScale: {x: 1.5999967, y: 1.5999967, z: 1.5999967}
+  m_Children: []
+  m_Father: {fileID: 8891143897135088026}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.5, y: 1}
+  m_SizeDelta: {x: 167.83, y: 113.15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3382534426800009299
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8338254301221718861}
+  m_CullTransparentMesh: 0
+--- !u!114 &7298764186591581179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8338254301221718861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c30041129965c49b3498adc513cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
+    type: 3}
+  fighter: {fileID: 0}
+  gMeleeMonster: {fileID: 0}
+  gRangedMonster: {fileID: 138946200862579734}
