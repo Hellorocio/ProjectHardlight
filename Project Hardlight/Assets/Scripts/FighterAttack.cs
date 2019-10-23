@@ -184,9 +184,21 @@ public class FighterAttack : MonoBehaviour
     public void SetCurrentTarget()
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
+        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
         GenericMeleeMonster[] enemyListTMP1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
         GenericRangedMonster[] enemyListTMP2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
         bool enemiesActive = false;
+        //bool newTargetWasSelected = false;
+
+        for (int i = 0; i < enemyListTMP.Length; i++)
+        {
+            if (enemyListTMP[i].gameObject.activeSelf)
+            {
+                enemiesActive = true;
+                break;
+            }
+        }
+
 
         for (int i = 0; i < enemyListTMP1.Length; i++)
         {
@@ -209,7 +221,7 @@ public class FighterAttack : MonoBehaviour
             }
         }
 
-        bool newTargetWasSelected = false;
+        
         if (enemiesActive)
         {
             //Default if no preferences exist
@@ -483,11 +495,24 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     void SetClosestAttackTarget()
     {
+        Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
         GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
         GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
+
+        for (int i = 0; i < currentTargets.Length; i++)
+        {
+            if (currentTargets[i].gameObject.activeSelf)
+            {
+                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    tempcurrentTarget = currentTargets[i].gameObject;
+                }
+            }
+        }
 
         for (int i = 0; i < currentTargets1.Length; i++)
         {
@@ -511,7 +536,6 @@ public class FighterAttack : MonoBehaviour
                 {
                     minDist = dist;
                     tempcurrentTarget = currentTargets2[i].gameObject;
-                    firstList = false;
                 }
             }
         }

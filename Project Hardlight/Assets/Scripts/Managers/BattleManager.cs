@@ -593,6 +593,13 @@ public class BattleManager : Singleton<BattleManager>
         GameObject enemyParent = GameObject.Find("Enemies");
         numHeros = selectedVessels.Count;
         numEnemies = 0;
+
+        foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
+        {
+            numEnemies++;
+            f.LevelStart();
+        }
+
         foreach (GenericMeleeMonster f in enemyParent.GetComponentsInChildren<GenericMeleeMonster>())
         {
             numEnemies++;
