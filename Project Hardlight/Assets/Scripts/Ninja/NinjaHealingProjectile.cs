@@ -40,8 +40,8 @@ public class NinjaHealingProjectile : MonoBehaviour
             }
 
         }
-        GenericMeleeMonster tmp2 = target.GetComponent<GenericMeleeMonster>();
-        GenericRangedMonster tmp3 = target.GetComponent<GenericRangedMonster>();
+        GenericMeleeMonster tmp2 = other.GetComponent<GenericMeleeMonster>();
+        GenericRangedMonster tmp3 = other.GetComponent<GenericRangedMonster>();
 
         if (tmp2 != null)
         {
