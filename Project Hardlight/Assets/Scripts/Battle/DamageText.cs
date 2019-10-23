@@ -15,7 +15,7 @@ public class DamageText : MonoBehaviour
     private int poolSize = 5;
     private int poolNum;
 
-    private Fighter fighter;
+    public Fighter fighter;
     private float oldHealth;     // keeps track of health to tell what damage has been taken
                                  // we may want to change this later but I didn't want to clutter up fighter with more events
 
@@ -29,13 +29,13 @@ public class DamageText : MonoBehaviour
             for (int i = 0; i < poolSize; i++)
             {
                 damageTextPool[i] = Instantiate(damageTextPrefab, transform);
+                damageTextPool[i].transform.position = transform.position;
             }
         }
     }
 
     private void OnEnable()
     {
-        fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
             oldHealth = fighter.GetMaxHealth();
