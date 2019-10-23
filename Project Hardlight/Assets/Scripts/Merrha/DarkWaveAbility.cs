@@ -6,13 +6,17 @@ public class DarkWaveAbility : Ability
 {
     public GameObject projectilePrefab;
 
+    // Stats
     public float baseWidth = 1;
-    
     public float baseEffectRange;
-
+    public int damageAmount;
+    public int healAmount;
+        
+    // Indicator prefabs
     public GameObject rangeIndicatorPrefab;
     public GameObject widthIndicatorPrefab;
 
+    // Prefab instances
     public GameObject rangeIndicator;
     public GameObject widthIndicator;
 
@@ -89,7 +93,13 @@ public class DarkWaveAbility : Ability
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             projectile.SetTarget(mousePos);
             projectile.StartMovement();
+            // Set projectile stats
+            projectile.GetComponent<DarkWaveProjectile>().SetEffectNumbers(damageAmount, healAmount);
             
+            // Heal self
+            GetComponent<Fighter>().Heal(healAmount);
+            projectile.GetComponent<DarkWaveProjectile>().affectedFighters.Add(GetComponent<Fighter>());
+
             return true;
         }
         else
