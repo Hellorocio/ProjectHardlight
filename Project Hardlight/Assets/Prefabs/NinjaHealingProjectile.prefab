@@ -70,8 +70,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0128938565, y: -0.004297795}
-  m_Size: {x: 0.71634793, y: 0.3538778}
+  m_Offset: {x: 0.012893815, y: 0.017404556}
+  m_Size: {x: 1.004927, y: 1.004927}
   m_Direction: 1
 --- !u!114 &2114976088135245465
 MonoBehaviour:
@@ -86,8 +86,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  source: {fileID: 0}
-  target: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  targetObject: {fileID: 0}
+  type: 0
+  movementDirection: {x: 0, y: 0, z: 0}
+  shouldRotate: 1
 --- !u!114 &1392958355508912474
 MonoBehaviour:
   m_ObjectHideFlags: 0

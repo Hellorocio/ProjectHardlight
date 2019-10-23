@@ -16,8 +16,15 @@ public class NinjaHealingProjectile : MonoBehaviour
         */
     }
 
+    public void Initialize(float damage, Fighter source)
+    {
+        dmg = damage;
+        this.source = source;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("proj hit");
         Fighter hitFighter = other.GetComponent<Fighter>();
 
         if (hitFighter != null)
@@ -29,13 +36,9 @@ public class NinjaHealingProjectile : MonoBehaviour
 
                 //heal ninja
                 source.Heal(dmg);
+                Destroy(gameObject);
             }
 
-        }
-
-        if (other.gameObject == target)
-        {
-            Destroy(gameObject);
         }
     }
 }

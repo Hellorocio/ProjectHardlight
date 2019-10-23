@@ -218,11 +218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2c58929d68821489adc2dc1023f564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 
-  range: 0
-  damage: 0
-  cooldown: 0
-  description: 
+  title: Slime kiss
+  range: 4
+  damage: 3
+  cooldown: 1
+  description: mwah
   sfx: {fileID: 0}
 --- !u!114 &584283511866937370
 MonoBehaviour:
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPrefs: 
   currentTarget: {fileID: 0}
-  attack: {fileID: 0}
+  attack: {fileID: -3343916218713961539}
 --- !u!114 &447116477623801756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,11 +501,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.01
       objectReference: {fileID: 0}
-    - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: fighter
-      value: 
-      objectReference: {fileID: 6417920846059879940}
     - target: {fileID: 6732804122311260143, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -516,11 +511,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.28
       objectReference: {fileID: 0}
-    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: fighter
-      value: 
-      objectReference: {fileID: 6417920846059879940}
     - target: {fileID: 7996724151460813675, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -531,6 +521,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.06
       objectReference: {fileID: 0}
+    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 6417920846059879940}
+    - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 6417920846059879940}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 156dacb5b1de5cd4abc0856358410010, type: 3}
 --- !u!224 &2251991140395553549 stripped
