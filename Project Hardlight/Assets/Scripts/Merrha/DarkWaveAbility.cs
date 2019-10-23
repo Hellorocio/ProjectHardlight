@@ -64,7 +64,7 @@ public class DarkWaveAbility : Ability
     public override bool DoAbility()
     {
         // Check that selectedPosition (set by BM) is in range
-        if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
+        if (Vector2.Distance(selectedPosition, transform.position) < GetRange())
         {
             Debug.Log("Dark Wave casted");
 
@@ -94,7 +94,7 @@ public class DarkWaveAbility : Ability
             projectile.SetTarget(mousePos);
             projectile.StartMovement();
             // Set projectile stats
-            projectile.GetComponent<DarkWaveProjectile>().SetEffectNumbers(damageAmount, healAmount);
+            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damageAmount, healAmount, GetRange());
             
             // Heal self
             GetComponent<Fighter>().Heal(healAmount);
