@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: A Dark Wind
   abilityDescription: A wave that damages enemies and heals allies it passes through.
-  baseDamage: 10
+  abilityIcon: {fileID: 0}
+  baseDamage: 5
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
@@ -63,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffNameId: Bastion
-  buffDescription: Gives 50% damage reduction.
+  buffDescription: Gives 50% damage reduction to allies in the ring.
   buffIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
   buffDuration: 5
   maxStacks: 1
@@ -82,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Bastion of the Mountain
   abilityDescription: Increase the defense of allies in the area.
+  abilityIcon: {fileID: 0}
   baseDamage: 0
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -150,10 +152,10 @@ PrefabInstance:
       propertyPath: basicAttack
       value: 
       objectReference: {fileID: 1974475011015928984}
-    - target: {fileID: 6390960235825343900, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: characterName
-      value: Merrha
+      propertyPath: baseHealth
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -209,6 +211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343900, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: characterName
+      value: Merrha
       objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}

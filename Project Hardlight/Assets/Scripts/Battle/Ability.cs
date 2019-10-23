@@ -6,6 +6,7 @@ public class Ability : MonoBehaviour
 {
     public string abilityName;
     public string abilityDescription;
+    public Sprite abilityIcon;
 
     public int baseDamage = 0;
 
