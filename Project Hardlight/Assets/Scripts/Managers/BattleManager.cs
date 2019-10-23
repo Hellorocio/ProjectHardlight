@@ -593,7 +593,20 @@ public class BattleManager : Singleton<BattleManager>
         GameObject enemyParent = GameObject.Find("Enemies");
         numHeros = selectedVessels.Count;
         numEnemies = 0;
+
         foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
+        {
+            numEnemies++;
+            f.LevelStart();
+        }
+
+        foreach (GenericMeleeMonster f in enemyParent.GetComponentsInChildren<GenericMeleeMonster>())
+        {
+            numEnemies++;
+            f.LevelStart();
+        }
+
+        foreach (GenericRangedMonster f in enemyParent.GetComponentsInChildren<GenericRangedMonster>())
         {
             numEnemies++;
             f.LevelStart();
@@ -610,8 +623,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     void OnMaxManaEvent(Fighter f)
     {
-        Debug.Log("MANAAA");
-        //commandsUI.SwitchButtonColor(true);
     }
 
     /// <summary>
@@ -671,6 +682,18 @@ public class BattleManager : Singleton<BattleManager>
             {
                 BattleOver(true);
             }
+        }
+    }
+
+    /// <summary>
+    /// Called by monsters to update numEnemies
+    /// </summary>
+    public void OnDeath()
+    {
+        numEnemies--;
+        if (numEnemies <= 0)
+        {
+            BattleOver(true);
         }
     }
 

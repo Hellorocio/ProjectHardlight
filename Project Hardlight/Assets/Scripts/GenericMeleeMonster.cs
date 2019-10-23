@@ -36,6 +36,10 @@ public class GenericMeleeMonster : MonoBehaviour
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
     [Space(10)]
 
+
+
+    private BattleManager battleManager;
+    private bool startedLevel;
     private float realBasicAttackHitTime;
     private int jabsDone = 0;
     private Animator animator;
@@ -52,12 +56,15 @@ public class GenericMeleeMonster : MonoBehaviour
     public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
     MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
+    public delegate void HealthChanged(float health);
+    public event HealthChanged OnHealthChanged;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime/basicAttackClipSpeedMultiplier;
@@ -78,14 +85,17 @@ public class GenericMeleeMonster : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateTarget();
-        if (anyValidTargets)
+        if (startedLevel)
         {
-            DecideAttack();
-        }
-        else
-        {
-            DoPatrol();
+            UpdateTarget();
+            if (anyValidTargets)
+            {
+                DecideAttack();
+            }
+            else
+            {
+                DoPatrol();
+            }
         }
 
     }
@@ -416,18 +426,29 @@ public class GenericMeleeMonster : MonoBehaviour
         currentHealth -= damage;
         IEnumerator colorThing = HitColorChanger();
         StartCoroutine(colorThing);
+        OnHealthChanged?.Invoke(currentHealth);
         if (currentHealth <= 0)
         {
-            //death
+            OnDeath();
         }
+    }
+
+    public void LevelStart()
+    {
+        startedLevel = true;
     }
 
     public void OnDeath()
     {
 
         //Tell Battle manager that an enemy has died
-
+        battleManager.OnDeath();
         gameObject.SetActive(false);
+    }
+
+    public float GetHealth()
+    {
+        return currentHealth;
     }
 
     IEnumerator HitColorChanger()

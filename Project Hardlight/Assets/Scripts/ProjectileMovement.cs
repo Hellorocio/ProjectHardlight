@@ -35,7 +35,7 @@ public class ProjectileMovement: MonoBehaviour
                 }
                 
                 // Update movement
-                //movementDirection = targetObject.transform.position - transform.position;
+                movementDirection = targetObject.transform.position - transform.position;
                 // Update rotation
                 if (shouldRotate)
                 {
@@ -43,7 +43,10 @@ public class ProjectileMovement: MonoBehaviour
                 }
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetObject.transform.position, speed);
+            movementDirection = new Vector3(movementDirection.x, movementDirection.y, 0);
+            movementDirection.Normalize();
+            Vector3 newPos = transform.position + movementDirection*speed*Time.deltaTime;
+            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
            
             yield return null;
         }
@@ -68,7 +71,7 @@ public class ProjectileMovement: MonoBehaviour
     {
         this.targetPos = targetPos;
         type = ProjectileType.TargetPosition;
-        movementDirection = targetPos;
+        movementDirection = targetPos - transform.position;
         
         if (shouldRotate)
         {
