@@ -12,37 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Taurin
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: appearance
-      value: 
-      objectReference: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: vesselName
-      value: Taurin
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: title
-      value: Rogue
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: description
-      value: A dashing fellow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseMana
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseHealth
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -98,32 +67,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: appearance
       value: 
       objectReference: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520,
         type: 3}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: abilityDescription
-      value: Throw a projectiles which deals damage to the first enemy hit and heals
-        self.
+      propertyPath: vesselName
+      value: Taurin
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: targetingType
-      value: 2
+      propertyPath: title
+      value: Rogue
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: baseDamage
-      value: 10
+      propertyPath: description
+      value: A dashing fellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseHealth
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: baseDamage
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilityDescription
+      value: Teleport to a new target and get speedy
       objectReference: {fileID: 0}
     - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -134,6 +117,21 @@ PrefabInstance:
         type: 3}
       propertyPath: cooldown
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilityDescription
+      value: Throw a projectile which deals damage and heals you
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: targetingType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseDamage
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -155,6 +153,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.07994693
       objectReference: {fileID: 0}
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520,
+        type: 3}
     - target: {fileID: 8214742803668735277, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x

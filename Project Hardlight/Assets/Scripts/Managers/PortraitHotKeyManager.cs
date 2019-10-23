@@ -41,12 +41,14 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image ability1BackgroundImage;
     private Image ability1Image;
     private Text ability1Name;
+    public Text ability1Desc;
 
     //Ability2 components
     private GameObject ability2;
     private Image ability2BackgroundImage;
     private Image ability2Image;
     private Text ability2Name;
+    public Text ability2Desc;
 
     //Command1 components
     private GameObject command1;
@@ -235,6 +237,9 @@ public class PortraitHotKeyManager : MonoBehaviour
 
         ability1Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityName.Replace(' ', '\n');
         ability2Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityName.Replace(' ', '\n');
+
+        ability1Desc.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+        ability2Desc.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
         HotKeyPanelSwitch(true);
     }
 

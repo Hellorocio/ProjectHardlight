@@ -547,6 +547,8 @@ public class GameManager : Singleton<GameManager>
             BattleManager.Instance.BattleOver(false);
         }
 
+        currentCutscene = null;
+
         LoadoutUI.Instance.requiredVessels = 3;
         LoadoutUI.Instance.CreateLoadoutSlots();
 
