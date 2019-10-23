@@ -148,7 +148,7 @@ public class BattleManager : Singleton<BattleManager>
             case Targeting.Type.TargetUnit:
                 {
                     Vector3 pos = Input.mousePosition;
-                    Fighter clickedFighter = null;
+                    GameObject clickedFighter = null;
 
                     //checking all overlapping colliders in case fighter isn't the first one that comes up
                     Collider2D[] hitColliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
@@ -157,9 +157,24 @@ public class BattleManager : Singleton<BattleManager>
                         Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
                         if (hitFighter != null)
                         {
-                            clickedFighter = hitFighter;
+                            clickedFighter = hitFighter.gameObject;
                             break;
                         }
+                        GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
+                        GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+
+                        if (tmp2 != null)
+                        {
+                            clickedFighter = tmp2.gameObject;
+                            break;
+                        }
+                        
+                        if (tmp3 != null)
+                        {
+                            clickedFighter = tmp3.gameObject;
+                            break;
+                        }
+                        
                     }
 
                     if (clickedFighter != null)
@@ -167,7 +182,7 @@ public class BattleManager : Singleton<BattleManager>
                         //Debug.Log("Clicked fighter: " + clickedFighter);
 
                         //moved check for team into ability so it works with healing target unit abilities
-                        selectedAbility.selectedTarget = clickedFighter.gameObject;
+                        selectedAbility.selectedTarget = clickedFighter;
                     }
                 }
                 break;

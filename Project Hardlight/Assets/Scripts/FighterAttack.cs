@@ -181,6 +181,42 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
+    public void SetIssuedCurrentTarget(GenericMeleeMonster target)
+    {
+        if (target != null)
+        {
+            //Updates the current target
+            currentTarget = target.gameObject;
+
+            //invoke OnSwitchTarget event
+            OnSwitchTarget?.Invoke();
+
+            //start moving toward target
+            if (currentTarget != null)
+            {
+                fighterMove.StartMoving(currentTarget.transform);
+            }
+        }
+    }
+
+    public void SetIssuedCurrentTarget(GenericRangedMonster target)
+    {
+        if (target != null)
+        {
+            //Updates the current target
+            currentTarget = target.gameObject;
+
+            //invoke OnSwitchTarget event
+            OnSwitchTarget?.Invoke();
+
+            //start moving toward target
+            if (currentTarget != null)
+            {
+                fighterMove.StartMoving(currentTarget.transform);
+            }
+        }
+    }
+
     /// <summary>
     /// Searches enemies or players gameObject for a target to attack and sets currentTarget
     /// Sets currentTarget to null if there are no more things to attack

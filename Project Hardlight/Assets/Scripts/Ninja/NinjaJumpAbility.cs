@@ -70,6 +70,48 @@ public class NinjaJumpAbility : Ability
                 }
                 return true;
             }
+
+            GenericMeleeMonster tmp2 = selectedTarget.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = selectedTarget.GetComponent<GenericRangedMonster>();
+
+
+            if (tmp2 != null)
+            {
+                Vector3 newPos = tmp2.transform.position;
+                newPos.x -= 0.9f;
+                transform.position = newPos;
+
+                //set ninja's target to the fighter it teleported to
+                thisFighter.SetIssuedCurrentTarget(tmp2);
+
+                //enemy takes tamage
+                tmp2.TakeDamage(GetDamage());
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+                {
+                    Debug.Log("Ability1 anim is played");
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+                }
+                return true;
+            }
+
+            if (tmp3 != null)
+            {
+                Vector3 newPos = tmp3.transform.position;
+                newPos.x -= 0.9f;
+                transform.position = newPos;
+
+                //set ninja's target to the fighter it teleported to
+                thisFighter.SetIssuedCurrentTarget(tmp3);
+
+                //enemy takes tamage
+                tmp3.TakeDamage(GetDamage());
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+                {
+                    Debug.Log("Ability1 anim is played");
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+                }
+                return true;
+            }
         }
         return false;
     }

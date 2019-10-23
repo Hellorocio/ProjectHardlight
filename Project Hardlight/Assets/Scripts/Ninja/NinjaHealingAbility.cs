@@ -50,6 +50,7 @@ public class NinjaHealingAbility : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
+
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
@@ -101,6 +102,80 @@ public class NinjaHealingAbility : Ability
 
 
                // blast3.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast3.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+                return true;
+            }
+
+            GenericMeleeMonster tmp2 = selectedTarget.GetComponent<GenericMeleeMonster>();
+            GenericRangedMonster tmp3 = selectedTarget.GetComponent<GenericRangedMonster>();
+
+
+            if (tmp2 != null)
+            {
+                Debug.Log("Ninja projectile + heal");
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
+                {
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability2");
+                }
+                //do something different based on allight values
+                
+                //create projectiles
+                Vector3 blastPos = transform.position;
+                GameObject blast = Instantiate(ninjaProjecilePrefab);
+                blast.transform.localPosition = blastPos;
+
+                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+
+                blastPos.y += 2;
+                GameObject blast2 = Instantiate(ninjaProjecilePrefab);
+                blast2.transform.localPosition = blastPos;
+
+
+                //blast2.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast2.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+
+                blastPos.y -= 4;
+                GameObject blast3 = Instantiate(ninjaProjecilePrefab);
+                blast3.transform.localPosition = blastPos;
+
+
+                // blast3.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast3.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+                return true;
+            }
+
+            if (tmp3 != null)
+            {
+                Debug.Log("Ninja projectile + heal");
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
+                {
+                    gameObject.GetComponent<Fighter>().anim.Play("Ability2");
+                }
+                //do something different based on allight values
+
+                //create projectiles
+                Vector3 blastPos = transform.position;
+                GameObject blast = Instantiate(ninjaProjecilePrefab);
+                blast.transform.localPosition = blastPos;
+
+                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+
+                blastPos.y += 2;
+                GameObject blast2 = Instantiate(ninjaProjecilePrefab);
+                blast2.transform.localPosition = blastPos;
+
+
+                //blast2.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast2.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
+
+                blastPos.y -= 4;
+                GameObject blast3 = Instantiate(ninjaProjecilePrefab);
+                blast3.transform.localPosition = blastPos;
+
+
+                // blast3.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
                 blast3.GetComponent<NinjaHealingProjectile>().dmg = GetDamage();
                 return true;
             }
