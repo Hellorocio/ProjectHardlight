@@ -39,7 +39,7 @@ public class HealerMajorHeal : Ability
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
         rangeIndicator.name = "Range";
-        rangeIndicator.transform.localScale *= 2 * GetRange();
+        rangeIndicator.transform.localScale *=GetRange();
 
         return true;
     }
