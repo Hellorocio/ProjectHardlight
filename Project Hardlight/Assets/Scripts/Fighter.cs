@@ -77,8 +77,7 @@ public class Fighter : MonoBehaviour
 
         defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
         hitColor = new Color(1f, .5235f, .6194f);
-
-        maxHealth = GetMaxHealth();
+        
         health = maxHealth;
         maxMana = GetMaxMana();
         speed = GetMovementSpeed();
@@ -98,34 +97,7 @@ public class Fighter : MonoBehaviour
     void InitBoosts ()
     {
         percentDamageTakenModifier = 0.0f;
-        
-        if (soul == null)
-        {
-            soul = GetComponent<Soul>();
-        }
-        if (soul != null)
-        {
-            foreach (StatFocusType statFocus in soul.statFocuses)
-            {
-                switch (statFocus)
-                {
-                    case StatFocusType.HEALTH:
-                        //I think we're doing this in soul now?
-                        break;
-                    case StatFocusType.ATTACK:
-                        attackBoost += 0.1f * soul.level;
-                        break;
-                    case StatFocusType.ABILITY:
-                        abilityAttackBoost += 0.1f * soul.level;
-                        break;
-                    case StatFocusType.ATTACKSPEED:
-                        attackSpeedBoost += 0.1f * soul.level;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        maxHealth = GetMaxHealth();
     }
 
     /// <summary>
@@ -184,12 +156,17 @@ public class Fighter : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns this fighter's attack speed based on buffs
+    /// Returns this fighter's attack speed based on buffs and souls
     /// </summary>
     /// <returns></returns>
     public float GetAttackSpeed(float attackSpeed)
     {
-        return attackSpeed + attackSpeed * attackSpeedBoost;
+        int soulBoost = 0;
+        if (soul != null)
+        {
+            soulBoost = soul.GetAttackSpeedBonus((int)attackSpeed);
+        }
+        return attackSpeed + attackSpeed * attackSpeedBoost + soulBoost;
     }
 
     /// <summary>
@@ -207,7 +184,12 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetDamage(float dmg)
     {
-        return dmg + dmg * abilityAttackBoost;
+        int soulBoost = 0;
+        if (soul != null)
+        {
+            soulBoost = soul.GetAbilityBonus((int)dmg);
+        }
+        return dmg + dmg * abilityAttackBoost + soulBoost;
     }
 
     /// <summary>
@@ -217,7 +199,13 @@ public class Fighter : MonoBehaviour
     public float GetBasicAttackDamage ()
     {
         float dmg = GetComponent<FighterAttack>().attack.damage;
-        return dmg + dmg * GetAttackBoost();
+        int soulBoost = 0;
+        if (soul != null)
+        {
+            soulBoost = soul.GetAttackBonus((int)dmg);
+        }
+        
+        return dmg + dmg * GetAttackBoost() + soulBoost;
     }
 
     /// <summary>

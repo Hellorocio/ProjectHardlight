@@ -32,7 +32,7 @@ public class Soul : MonoBehaviour
 {
     public Sprite appearance;
     public string title = "Some Soul";
-    public int level = 0;
+    public int level = 1;
     
     public List<StatFocusType> statFocuses;
     public List<AllightAttribute> allightAttributes; 
@@ -62,7 +62,45 @@ public class Soul : MonoBehaviour
 
     public int GetMaxHealthBonus(int baseMaxHealth)
     {
-        int bonusHealth = (int) ((level * SoulManager.Instance.flatHealthScale) + (level * SoulManager.Instance.percentHealthScale));
-        return bonusHealth;
+        float maxHealthBonus = 0;
+        if (statFocuses.Contains(StatFocusType.HEALTH))
+        {
+            maxHealthBonus += baseMaxHealth * level * SoulManager.Instance.percentHealthScale;
+            maxHealthBonus += level * SoulManager.Instance.flatHealthScale;
+        }
+        return (int) maxHealthBonus;
+    }
+
+    public int GetAbilityBonus(int baseAbility)
+    {
+        float abilityBonus = 0;
+        if (statFocuses.Contains(StatFocusType.ABILITY))
+        {
+            abilityBonus += baseAbility * level * SoulManager.Instance.percentAbilityScale;
+            abilityBonus += level * SoulManager.Instance.flatAbilityScale;
+        }
+        return (int)abilityBonus;
+    }
+
+    public int GetAttackBonus(int baseAttack)
+    {
+        float attackBonus = 0;
+        if (statFocuses.Contains(StatFocusType.ATTACK))
+        {
+            attackBonus += baseAttack * level * SoulManager.Instance.percentAttackDamgeScale;
+            attackBonus += level * SoulManager.Instance.flatAttackDamageScale;
+        }
+        return (int)attackBonus;
+    }
+
+    public int GetAttackSpeedBonus (int baseAttackSpeed)
+    {
+        float attackSpeedBonus = 0;
+        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
+        {
+            attackSpeedBonus += baseAttackSpeed * level * SoulManager.Instance.percentAttackSpeedScale;
+            attackSpeedBonus += level * SoulManager.Instance.flatAttackSpeedScale;
+        }
+        return (int)attackSpeedBonus;
     }
 }
