@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1642316999479156230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6021545214016194935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5008605f241384499003b11caea5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Mushhead
+  team: 2
+  maxHealth: 60
+  maxMana: 0
+  moveSpeed: 200
+  alertedRange: 20
+  maxAggroRange: 30
+  targetPrefs: 
+  basicAttackRange: 1
+  timeBetweenAttacks: 6
+  numJabsInAttack: 3
+  basicAttackPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  basicAttackDamage: 5
+  basicAttackProjectileSpeed: 0
+  basicAttackSfx: {fileID: 0}
+  patrolType: 0
+  idleTime: 0
+  maxWanderPoints: 0
+  minWanderPoints: 0
+  patrolRoute: []
+  basicAttackClip: {fileID: 7400000, guid: 00d36d60a5047844b9a108380b35294b, type: 2}
+  basicAttackClipSpeedMultiplier: 4
+  basicAttackHitTime: 1.1
+--- !u!1001 &8042892766734233982
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4327619683124721673, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Name
+      value: MeleeMushroomMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041101233343615437, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5eead02b026cb7b42b57450db98bddd4,
+        type: 3}
+    - target: {fileID: 4041101233343615436, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e29cae1dbe3c41a4a995a6c1692c2128, type: 2}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: characterName
+      value: Mushhead
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: maxHealth
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: alertedRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: maxAggroRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: basicAttackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: numJabsInAttack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: basicAttackDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: basicAttackClipSpeedMultiplier
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: basicAttackHitTime
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327619683124721672, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: basicAttackClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 00d36d60a5047844b9a108380b35294b, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 865c44a6dbc375b45ac267e449976756, type: 3}
+--- !u!1 &6021545214016194935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4327619683124721673, guid: 865c44a6dbc375b45ac267e449976756,
+    type: 3}
+  m_PrefabInstance: {fileID: 8042892766734233982}
+  m_PrefabAsset: {fileID: 0}
