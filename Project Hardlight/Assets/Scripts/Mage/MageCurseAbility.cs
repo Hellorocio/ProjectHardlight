@@ -60,12 +60,11 @@ public class MageCurseAbility : Ability
                 return true;
             }
 
-                GenericMeleeMonster tmp2 = selectedTarget.gameObject.GetComponent<GenericMeleeMonster>();
-            GenericRangedMonster tmp3 = selectedTarget.gameObject.GetComponent<GenericRangedMonster>();
-
-            if (tmp2 != null)
+               
+            MonsterAI monster = selectedTarget.gameObject.GetComponent<MonsterAI>();
+            if (monster != null)
             {
-                tmp2.TakeDamage(GetDamage());
+                monster.TakeDamage(GetDamage());
                 //display light prison
                 GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
                 lightPrison.transform.localPosition = Vector3.zero;
@@ -73,29 +72,7 @@ public class MageCurseAbility : Ability
                 return true;
             }
 
-            if (tmp3 != null)
-            {
-                tmp3.TakeDamage(GetDamage());
-                //display light prison
-                GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
-                lightPrison.transform.localPosition = Vector3.zero;
-                lightPrison.transform.localScale = Vector3.one;
-                return true;
-            }
-
-
-            //Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            //if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
-            //{
-            //    Debug.Log("Mage Light Prison");
-
-            //    selectedFighter.TakeDamage(GetDamage());
-            //    //display light prison
-            //    GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
-            //    lightPrison.transform.localPosition = Vector3.zero;
-            //    lightPrison.transform.localScale = Vector3.one;
-            //    return true;
-            //}
+           
         }
         return false;
 

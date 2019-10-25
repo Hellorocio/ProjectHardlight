@@ -36,8 +36,7 @@ public class AlchemistPoisonBomb : Ability
         {
 
             Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-            GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
-            GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+            MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
 
             if (tmp != null)
             {
@@ -48,28 +47,12 @@ public class AlchemistPoisonBomb : Ability
                 }
             }
 
-            if (tmp2 != null)
+            if (monster != null)
             {
-                tmp2.TakeDamage(GetDamage());
+                monster.TakeDamage(GetDamage());
                 //tmp2.AddTimedBuff(attackDebuff);
             }
 
-            if (tmp3 != null)
-            {
-                tmp3.TakeDamage(GetDamage());
-                //tmp3.AddTimedBuff(attackDebuff);
-            }
-            //Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-            //if (hitFighter != null)
-            //{
-            //    if (hitFighter.team == CombatInfo.Team.Enemy)
-            //    {
-            //        hitFighter.TakeDamage(GetDamage());
-
-            //        //add debuff
-            //        hitFighter.AddTimedBuff(attackDebuff);
-            //    }
-            //}
         }
 
         //display boom!

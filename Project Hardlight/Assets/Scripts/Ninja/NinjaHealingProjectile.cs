@@ -40,25 +40,17 @@ public class NinjaHealingProjectile : MonoBehaviour
             }
 
         }
-        GenericMeleeMonster tmp2 = other.GetComponent<GenericMeleeMonster>();
-        GenericRangedMonster tmp3 = other.GetComponent<GenericRangedMonster>();
+        MonsterAI monster = other.GetComponent<MonsterAI>();
 
-        if (tmp2 != null)
+        if (monster != null)
         {
-            tmp2.TakeDamage(dmg);
+            monster.TakeDamage(dmg);
 
             //heal ninja
             source.Heal(dmg);
             Destroy(gameObject);
         }
 
-        if (tmp3 != null)
-        {
-            tmp3.TakeDamage(dmg);
-
-            //heal ninja
-            source.Heal(dmg);
-            Destroy(gameObject);
-        }
+        
     }
 }

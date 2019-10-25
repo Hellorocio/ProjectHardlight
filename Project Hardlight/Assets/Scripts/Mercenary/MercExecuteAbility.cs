@@ -53,18 +53,11 @@ public class MercExecuteAbility: Ability
 
                 return true;
             }
-            GenericMeleeMonster tmp2 = selectedTarget.GetComponent<GenericMeleeMonster>();
-            GenericRangedMonster tmp3 = selectedTarget.GetComponent<GenericRangedMonster>();
-
-            if (tmp2 != null)
+            
+            MonsterAI monster = selectedTarget.GetComponent<MonsterAI>();
+            if (monster != null)
             {
-                tmp2.TakeDamage(GetDamage());
-                return true;
-            }
-
-            if (tmp3 != null)
-            {
-                tmp3.TakeDamage(GetDamage());
+                monster.TakeDamage(GetDamage());
                 return true;
             }
         }

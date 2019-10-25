@@ -71,18 +71,14 @@ public class MageAoEBlast : Ability
                     }
                 }
 
-                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
-                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
-
-                if (tmp2 != null)
+                
+                MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
+                if (monster != null)
                 {
-                    tmp2.TakeDamage(GetDamage());
+                    monster.TakeDamage(GetDamage());
                 }
 
-                if (tmp3 != null)
-                {
-                    tmp3.TakeDamage(GetDamage());
-                }
+               
             }
 
             //display boom!

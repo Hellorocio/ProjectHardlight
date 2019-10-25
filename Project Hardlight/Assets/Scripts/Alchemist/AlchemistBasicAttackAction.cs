@@ -35,8 +35,7 @@ public class AlchemistBasicAttackAction : BasicAttackAction
             foreach (Collider2D collider in hitColliders)
             {
                 Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
-                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+                MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
 
                 if (tmp != null)
                 {
@@ -46,14 +45,9 @@ public class AlchemistBasicAttackAction : BasicAttackAction
                     }
                 }
 
-                if (tmp2 != null)
+                if (monster != null)
                 {
-                    tmp2.TakeDamage(damage);
-                }
-
-                if (tmp3 != null)
-                {
-                    tmp3.TakeDamage(damage);
+                    monster.TakeDamage(damage);
                 }
             }
 

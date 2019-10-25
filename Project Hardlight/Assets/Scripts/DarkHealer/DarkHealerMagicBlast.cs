@@ -50,9 +50,19 @@ public class DarkHealerMagicBlast : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
+            MonsterAI monster = selectedTarget.GetComponent<MonsterAI>();
             Fighter tmp = selectedTarget.GetComponent<Fighter>();
-            GenericMeleeMonster tmp2 = selectedTarget.GetComponent<GenericMeleeMonster>();
-            GenericRangedMonster tmp3 = selectedTarget.GetComponent<GenericRangedMonster>();
+          
+
+            if (monster != null)
+            {
+                GameObject blast = Instantiate(magicBlastPrefab);
+                blast.transform.localPosition = transform.position;
+
+                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
+                blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
+                return true;
+            }
 
             if (tmp != null)
             {
@@ -64,40 +74,6 @@ public class DarkHealerMagicBlast : Ability
                 return true;
             }
 
-            if (tmp2 != null)
-            {
-                GameObject blast = Instantiate(magicBlastPrefab);
-                blast.transform.localPosition = transform.position;
-
-                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
-                blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
-                return true;
-            }
-
-            if (tmp3 != null)
-            {
-                GameObject blast = Instantiate(magicBlastPrefab);
-                blast.transform.localPosition = transform.position;
-
-                //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
-                blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
-                return true;
-            }
-
-
-            //Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            //if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
-            //{
-            //    Debug.Log("Dark healer magic blast");
-
-            //    //display light prison
-            //    GameObject blast = Instantiate(magicBlastPrefab);
-            //    blast.transform.localPosition = transform.position;
-
-            //    //blast.GetComponent<ProjectileMovement>().SetTarget(gameObject, selectedTarget);
-            //    blast.GetComponent<DarkHealerProjectile>().dmg = GetDamage();
-            //    return true;
-            //}
         }
         return false;
 

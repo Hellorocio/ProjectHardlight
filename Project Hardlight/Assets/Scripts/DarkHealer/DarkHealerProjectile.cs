@@ -32,17 +32,11 @@ public class DarkHealerProjectile : MonoBehaviour
             
         }
 
-        GenericMeleeMonster tmp2 = target.GetComponent<GenericMeleeMonster>();
-        GenericRangedMonster tmp3 = target.GetComponent<GenericRangedMonster>();
+        MonsterAI monster = target.GetComponent<MonsterAI>();
 
-        if (tmp2 != null)
+        if (monster != null)
         {
-            tmp2.TakeDamage(dmg);
-        }
-
-        if (tmp3 != null)
-        {
-            tmp3.TakeDamage(dmg);
+            monster.TakeDamage(dmg);
         }
 
         if (other.gameObject == target)

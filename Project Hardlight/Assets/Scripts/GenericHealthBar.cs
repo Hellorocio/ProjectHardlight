@@ -8,8 +8,7 @@ public class GenericHealthBar : MonoBehaviour
     public Text healthText;
     public Image healthBar;
 
-    GenericMeleeMonster fighter;
-    GenericRangedMonster fighter2;
+    MonsterAI monster;
     float maxHealth;
     float maxBarWidth;
 
@@ -19,38 +18,26 @@ public class GenericHealthBar : MonoBehaviour
 
 
 
-        fighter = transform.parent.parent.GetComponent<GenericMeleeMonster>();
-        if (fighter != null)
+        monster = transform.parent.parent.GetComponent<MonsterAI>();
+        if (monster != null)
         {
-            maxHealth = fighter.maxHealth;
+            maxHealth = monster.maxHealth;
             UpdateHealthBar(maxHealth);
 
 
-            fighter.OnHealthChanged += UpdateHealthBar;
+            monster.OnHealthChanged += UpdateHealthBar;
         }
 
-        fighter2 = transform.parent.parent.GetComponent<GenericRangedMonster>();
-        if (fighter2 != null)
-        {
-            maxHealth = fighter2.maxHealth;
-            UpdateHealthBar(maxHealth);
 
-
-            fighter2.OnHealthChanged += UpdateHealthBar;
-        }
     }
 
     private void OnDisable()
     {
-        if (fighter != null)
+        if (monster != null)
         {
-            fighter.OnHealthChanged -= UpdateHealthBar;
+            monster.OnHealthChanged -= UpdateHealthBar;
         }
 
-        if (fighter2 != null)
-        {
-            fighter2.OnHealthChanged -= UpdateHealthBar;
-        }
     }
 
     //update text and health bar image

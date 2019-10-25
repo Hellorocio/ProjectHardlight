@@ -181,7 +181,7 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
-    public void SetIssuedCurrentTarget(GenericMeleeMonster target)
+    public void SetIssuedCurrentTarget(MonsterAI target)
     {
         if (target != null)
         {
@@ -199,23 +199,7 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
-    public void SetIssuedCurrentTarget(GenericRangedMonster target)
-    {
-        if (target != null)
-        {
-            //Updates the current target
-            currentTarget = target.gameObject;
-
-            //invoke OnSwitchTarget event
-            OnSwitchTarget?.Invoke();
-
-            //start moving toward target
-            if (currentTarget != null)
-            {
-                fighterMove.StartMoving(currentTarget.transform);
-            }
-        }
-    }
+    
 
     /// <summary>
     /// Searches enemies or players gameObject for a target to attack and sets currentTarget
@@ -226,8 +210,8 @@ public class FighterAttack : MonoBehaviour
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
-        GenericMeleeMonster[] enemyListTMP1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] enemyListTMP2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
+        MonsterAI[] monsters = attackParent.GetComponentsInChildren<MonsterAI>();
+        
         bool enemiesActive = false;
         //bool newTargetWasSelected = false;
 
@@ -241,26 +225,15 @@ public class FighterAttack : MonoBehaviour
         }
 
 
-        for (int i = 0; i < enemyListTMP1.Length; i++)
+        for (int i = 0; i < monsters.Length; i++)
         {
-            if (enemyListTMP1[i].gameObject.activeSelf)
+            if (monsters[i].gameObject.activeSelf)
             {
                 enemiesActive = true;
                 break;
             }
         }
 
-        if (!enemiesActive)
-        {
-            for (int i = 0; i < enemyListTMP2.Length; i++)
-            {
-                if (enemyListTMP2[i].gameObject.activeSelf)
-                {
-                    enemiesActive = true;
-                    break;
-                }
-            }
-        }
 
         
         if (enemiesActive)
@@ -349,200 +322,15 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
-    /*
-    /// <summary>
-    /// Finds the weakest enemy and sets current target
-    /// </summary>
-    void SetWeakestAttackTarget()
-    {
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
-        float hp = float.MaxValue;
-        int index = 0;
-        
-        for (int i = 0; i < currentTargets1.Length; i++)
-        {
-            if (currentTargets1[i].gameObject.activeSelf)
-            {
-                if (currentTargets1[i].GetHealth() < hp)
-                {
-                    hp = currentTargets1[i].GetHealth();
-                    index = i;
-                }
-            }
-        }
-
-        for (int i = 0; i < currentTargets2.Length; i++)
-        {
-            if (currentTargets2[i].gameObject.activeSelf)
-            {
-                if (currentTargets2[i].GetHealth() < hp)
-                {
-                    hp = currentTargets2[i].GetHealth();
-                    index = i;
-                    firstList = false;
-                }
-            }
-        }
-        if (firstList)
-        {
-            currentTarget = currentTargets1[index].gameObject;
-        } else
-        {
-            currentTarget = currentTargets2[index].gameObject;
-        }
-    }
-
-    /// <summary>
-    /// Finds the strongest (Most HP) enemy and sets current target
-    /// </summary>
-    void SetStrongesttAttackTarget()
-    {
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
-        float hp = -1;
-        int index = 0;
-
-        for (int i = 0; i < currentTargets1.Length; i++)
-        {
-            if (currentTargets1[i].gameObject.activeSelf)
-            {
-                if (currentTargets1[i].GetHealth() > hp)
-                {
-                    hp = currentTargets1[i].GetHealth();
-                    index = i;
-                }
-            }
-        }
-
-        for (int i = 0; i < currentTargets2.Length; i++)
-        {
-            if (currentTargets2[i].gameObject.activeSelf)
-            {
-                if (currentTargets2[i].GetHealth() > hp)
-                {
-                    hp = currentTargets2[i].GetHealth();
-                    index = i;
-                    firstList = false;
-                }
-            }
-        }
-        if (firstList)
-        {
-            currentTarget = currentTargets1[index].gameObject;
-        }
-        else
-        {
-            currentTarget = currentTargets2[index].gameObject;
-        }
-    }
-
-    /// <summary>
-    /// Attempts to find a ranged hero to kill
-    /// If one doesn't exist, use next preference
-    /// </summary>
-    bool SetRangedAttackTarget()
-    {
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
-        float minDist = float.MaxValue;
-        GameObject tempcurrentTarget = null;
-
-        for (int i = 0; i < currentTargets.Length; i++)
-        {
-            if (currentTargets[i].gameObject.activeSelf)
-            {
-                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range > 3)
-                {
-                    minDist = dist;
-                    tempcurrentTarget = currentTargets[i].gameObject;
-                }
-            }
-        }
-        if (tempcurrentTarget == null)
-        {
-            return false;
-        }
-        currentTarget = tempcurrentTarget;
-        return true;
-    }
-
-    /// <summary>
-    /// Attempts to find a melee hero to kill
-    /// If one doesn't exist, use next preference
-    /// </summary>
-    bool SetMeleeAttackTarget()
-    {
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
-        float minDist = float.MaxValue;
-        GameObject tempcurrentTarget = null;
-
-        for (int i = 0; i < currentTargets.Length; i++)
-        {
-            if (currentTargets[i].gameObject.activeSelf)
-            {
-                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range < 4)
-                {
-                    minDist = dist;
-                    tempcurrentTarget = currentTargets[i].gameObject;
-                }
-            }
-        }
-        if (tempcurrentTarget == null)
-        {
-            return false;
-        }
-        currentTarget = tempcurrentTarget;
-        return true;
-    }
-
-    /// <summary>
-    /// Attempts to find a healer hero to kill (healers always have a targetPref for weakestTeamate
-    /// If one doesn't exist, use next preference
-    /// </summary>
-    bool SetHealerAttackTarget()
-    {
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
-        bool firstList = true;
-        float minDist = float.MaxValue;
-        GameObject tempcurrentTarget = null;
-
-        for (int i = 0; i < currentTargets.Length; i++)
-        {
-            if (currentTargets[i].gameObject.activeSelf)
-            {
-                float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().HasHealingBasicAttack())
-                {
-                    minDist = dist;
-                    tempcurrentTarget = currentTargets[i].gameObject;
-                }
-            }
-        }
-        if (tempcurrentTarget == null)
-        {
-            return false;
-        }
-        currentTarget = tempcurrentTarget;
-        return true;
-    }
-    */
+    
     /// <summary>
     /// Finds the closest enemy and sets current target
     /// </summary>
     void SetClosestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        GenericMeleeMonster[] currentTargets1 = attackParent.GetComponentsInChildren<GenericMeleeMonster>();
-        GenericRangedMonster[] currentTargets2 = attackParent.GetComponentsInChildren<GenericRangedMonster>();
+        MonsterAI[] monsters = attackParent.GetComponentsInChildren<MonsterAI>();
+        
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -559,31 +347,20 @@ public class FighterAttack : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < currentTargets1.Length; i++)
+        for (int i = 0; i < monsters.Length; i++)
         {
-            if (currentTargets1[i].gameObject.activeSelf)
+            if (monsters[i].gameObject.activeSelf)
             {
-                float dist = (transform.position - currentTargets1[i].transform.position).sqrMagnitude;
+                float dist = (transform.position - monsters[i].transform.position).sqrMagnitude;
                 if (dist < minDist)
                 {
                     minDist = dist;
-                    tempcurrentTarget = currentTargets1[i].gameObject;
+                    tempcurrentTarget = monsters[i].gameObject;
                 }
             }
         }
 
-        for (int i = 0; i < currentTargets2.Length; i++)
-        {
-            if (currentTargets2[i].gameObject.activeSelf)
-            {
-                float dist = (transform.position - currentTargets2[i].transform.position).sqrMagnitude;
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    tempcurrentTarget = currentTargets2[i].gameObject;
-                }
-            }
-        }
+        
         currentTarget = tempcurrentTarget;
     }
     /// <summary>

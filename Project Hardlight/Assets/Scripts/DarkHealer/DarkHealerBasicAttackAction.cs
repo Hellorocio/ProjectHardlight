@@ -34,8 +34,7 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
             foreach (Collider2D collider in hitColliders)
             {
                 Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-                GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
-                GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+                MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
 
                 if (tmp != null)
                 {
@@ -45,25 +44,12 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
                     }
                 }
 
-                if (tmp2 != null)
+                if (monster != null)
                 {
-                    tmp2.TakeDamage(damage);
+                    monster.TakeDamage(damage);
                 }
 
-                if (tmp3 != null)
-                {
-                    tmp3.TakeDamage(damage);
-                }
-                /*
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
-                {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
-                    {
-                        hitFighter.TakeDamage(damage);
-                    }
-                }
-                */
+
             }
 
             // Gain mana

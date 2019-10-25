@@ -160,20 +160,14 @@ public class BattleManager : Singleton<BattleManager>
                             clickedFighter = hitFighter.gameObject;
                             break;
                         }
-                        GenericMeleeMonster tmp2 = collider.gameObject.GetComponent<GenericMeleeMonster>();
-                        GenericRangedMonster tmp3 = collider.gameObject.GetComponent<GenericRangedMonster>();
+                        MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
 
-                        if (tmp2 != null)
+                        if (monster != null)
                         {
-                            clickedFighter = tmp2.gameObject;
+                            clickedFighter = monster.gameObject;
                             break;
                         }
                         
-                        if (tmp3 != null)
-                        {
-                            clickedFighter = tmp3.gameObject;
-                            break;
-                        }
                         
                     }
 
@@ -490,39 +484,24 @@ public class BattleManager : Singleton<BattleManager>
                             }
                         }
 
-                        GenericMeleeMonster tmp2 = hit.GetComponent<GenericMeleeMonster>();
-                        GenericRangedMonster tmp3 = hit.GetComponent<GenericRangedMonster>();
+                        MonsterAI monster = hit.GetComponent<MonsterAI>();
 
 
-                        if (tmp2 != null)
+                        if (monster != null)
                         {
                             if (selectedHero != null)
                             {
-                                selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp2);
+                                selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(monster);
                             }
                             else if (multiSelectedHeros.Count > 0)
                             {
                                 //set target for multiple heroes
                                 foreach (Fighter f in multiSelectedHeros)
                                 {
-                                    f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp2);
+                                    f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(monster);
                                 }
                             }
                         }
-
-                        if (selectedHero != null)
-                        {
-                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp3);
-                        }
-                        else if (multiSelectedHeros.Count > 0)
-                        {
-                            //set target for multiple heroes
-                            foreach (Fighter f in multiSelectedHeros)
-                            {
-                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp3);
-                            }
-                        }
-
 
                     }
                 }
@@ -650,17 +629,12 @@ public class BattleManager : Singleton<BattleManager>
             f.LevelStart();
         }
 
-        foreach (GenericMeleeMonster f in enemyParent.GetComponentsInChildren<GenericMeleeMonster>())
+        foreach (MonsterAI f in enemyParent.GetComponentsInChildren<MonsterAI>())
         {
             numEnemies++;
             f.LevelStart();
         }
 
-        foreach (GenericRangedMonster f in enemyParent.GetComponentsInChildren<GenericRangedMonster>())
-        {
-            numEnemies++;
-            f.LevelStart();
-        }
 
         //This event was causing tons of problems, so we're getting rid of it for now
         //OnLevelStart?.Invoke();

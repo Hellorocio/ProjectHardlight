@@ -16,8 +16,7 @@ public class DamageText : MonoBehaviour
     private int poolNum;
 
     public Fighter fighter;
-    public GenericMeleeMonster gMeleeMonster;
-    public GenericRangedMonster gRangedMonster;
+    public MonsterAI monster;
     private float oldHealth;     // keeps track of health to tell what damage has been taken
                                  // we may want to change this later but I didn't want to clutter up fighter with more events
 
@@ -44,17 +43,12 @@ public class DamageText : MonoBehaviour
             fighter.OnHealthChanged += SetDamageText;
         }
 
-        if (gMeleeMonster != null)
+        if (monster != null)
         {
-            oldHealth = gMeleeMonster.maxHealth;
-            gMeleeMonster.OnHealthChanged += SetDamageText;
+            oldHealth = monster.maxHealth;
+            monster.OnHealthChanged += SetDamageText;
         }
 
-        if (gRangedMonster != null)
-        {
-            oldHealth = gRangedMonster.maxHealth;
-            gRangedMonster.OnHealthChanged += SetDamageText;
-        }
     }
 
     private void OnDisable()
@@ -64,16 +58,10 @@ public class DamageText : MonoBehaviour
             fighter.OnHealthChanged -= SetDamageText;
         }
 
-        if (gMeleeMonster != null)
+        if (monster != null)
         {
-            oldHealth = gMeleeMonster.maxHealth;
-            gMeleeMonster.OnHealthChanged -= SetDamageText;
-        }
-
-        if (gRangedMonster != null)
-        {
-            oldHealth = gRangedMonster.maxHealth;
-            gRangedMonster.OnHealthChanged -= SetDamageText;
+            oldHealth = monster.maxHealth;
+            monster.OnHealthChanged -= SetDamageText;
         }
     }
 
