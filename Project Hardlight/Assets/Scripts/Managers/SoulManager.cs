@@ -19,6 +19,8 @@ public class SoulManager : Singleton<SoulManager>
     public float flatAttackSpeedScale;
     public float percentAttackSpeedScale;
 
+    public int fragmentsPerLevel;
+
     public Soul GenerateSoul()
     {
         Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;

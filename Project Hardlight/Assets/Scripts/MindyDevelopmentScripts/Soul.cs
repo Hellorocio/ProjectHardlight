@@ -33,6 +33,7 @@ public class Soul : MonoBehaviour
     public Sprite appearance;
     public string title = "Some Soul";
     public int level = 1;
+    public int currentFragments = 0;
     
     public List<StatFocusType> statFocuses;
     public List<AllightAttribute> allightAttributes; 
