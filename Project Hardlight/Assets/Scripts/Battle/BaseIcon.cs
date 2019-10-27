@@ -18,6 +18,8 @@ public class BaseIcon : MonoBehaviour
         return false;
     }
 
+    public virtual void SelectDetail() { }
+
     /// <summary>
     /// Starts hovering if start is true, otherwise stops hovering
     /// </summary>

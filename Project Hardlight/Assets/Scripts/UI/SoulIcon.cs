@@ -22,6 +22,14 @@ public class SoulIcon : BaseIcon
         soul = null;
     }
 
+    public override void SelectDetail()
+    {
+        if (soul != null && UIManager.Instance.soulUpgradeUI.activeSelf)
+        {
+            SoulUpgradeUI.Instance.SetSoulDetails(soul);
+        }
+    }
+
     public override string GetHoverDesc()
     {
         string desc = "";

@@ -25,7 +25,7 @@ public class VesselIcon : BaseIcon
         vesselData = null;
     }
 
-    public void SelectDetail()
+    public override void SelectDetail()
     {
         if (vessel != null)
         {

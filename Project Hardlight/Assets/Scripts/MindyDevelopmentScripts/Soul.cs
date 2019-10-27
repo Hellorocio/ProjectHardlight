@@ -19,6 +19,7 @@ public enum AllightType
 public class AllightAttribute
 {
     public AllightType allightType;
+    public int currentValue;
     public int baseValue;
 
     public AllightAttribute(AllightType type, int value)
@@ -61,47 +62,168 @@ public class Soul : MonoBehaviour
         return description.Substring(0, description.Length - 1);
     }
 
+    /// <summary>
+    /// Returns health boost at current level or testLevel if it is not -1
+    /// </summary>
+    /// <param name="testLevel"></param>
+    /// <returns></returns>
+    public float GetPercentHealthBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.HEALTH))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentHealthScale;
+        }
+        return boost;
+    }
+
+    public float GetFlatHealthBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.HEALTH))
+        {
+            boost += modifierLevel * SoulManager.Instance.flatHealthScale;
+        }
+        return boost;
+    }
+
+    public float GetPercentAbilityBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ABILITY))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentAbilityScale;
+        }
+        return boost;
+    }
+
+    public float GetFlatAbilityBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ABILITY))
+        {
+            boost += modifierLevel * SoulManager.Instance.flatAbilityScale;
+        }
+        return boost;
+    }
+
+    public float GetPercentAttackBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ATTACK))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentAttackDamgeScale;
+        }
+        return boost;
+    }
+
+    public float GetFlatAttackBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ATTACK))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentAttackDamgeScale;
+        }
+        return boost;
+    }
+
+    public float GetPercentAttackSpeedBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentAttackSpeedScale;
+        }
+        return boost;
+    }
+
+    public float GetFlatAttackSpeedBoost(int testLevel = -1)
+    {
+        float boost = 0;
+        float modifierLevel = level;
+        if (testLevel != -1)
+        {
+            modifierLevel = testLevel;
+        }
+
+        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
+        {
+            boost += modifierLevel * SoulManager.Instance.percentAttackSpeedScale;
+        }
+        return boost;
+    }
+
     public int GetMaxHealthBonus(int baseMaxHealth)
     {
         float maxHealthBonus = 0;
-        if (statFocuses.Contains(StatFocusType.HEALTH))
-        {
-            maxHealthBonus += baseMaxHealth * level * SoulManager.Instance.percentHealthScale;
-            maxHealthBonus += level * SoulManager.Instance.flatHealthScale;
-        }
-        return (int) maxHealthBonus;
+        maxHealthBonus += baseMaxHealth * GetPercentHealthBoost();
+        maxHealthBonus += GetFlatHealthBoost();
+        return (int)maxHealthBonus;
     }
 
     public int GetAbilityBonus(int baseAbility)
     {
         float abilityBonus = 0;
-        if (statFocuses.Contains(StatFocusType.ABILITY))
-        {
-            abilityBonus += baseAbility * level * SoulManager.Instance.percentAbilityScale;
-            abilityBonus += level * SoulManager.Instance.flatAbilityScale;
-        }
+        abilityBonus += baseAbility * GetPercentAbilityBoost();
+        abilityBonus += GetFlatAbilityBoost();
         return (int)abilityBonus;
     }
 
     public int GetAttackBonus(int baseAttack)
     {
         float attackBonus = 0;
-        if (statFocuses.Contains(StatFocusType.ATTACK))
-        {
-            attackBonus += baseAttack * level * SoulManager.Instance.percentAttackDamgeScale;
-            attackBonus += level * SoulManager.Instance.flatAttackDamageScale;
-        }
+        attackBonus += baseAttack * GetPercentAttackBoost();
+        attackBonus += GetFlatAttackBoost();
         return (int)attackBonus;
     }
 
     public int GetAttackSpeedBonus (int baseAttackSpeed)
     {
         float attackSpeedBonus = 0;
-        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
-        {
-            attackSpeedBonus += baseAttackSpeed * level * SoulManager.Instance.percentAttackSpeedScale;
-            attackSpeedBonus += level * SoulManager.Instance.flatAttackSpeedScale;
-        }
+        attackSpeedBonus += baseAttackSpeed * GetPercentAttackSpeedBoost();
+        attackSpeedBonus += GetPercentAttackSpeedBoost();
         return (int)attackSpeedBonus;
     }
 }

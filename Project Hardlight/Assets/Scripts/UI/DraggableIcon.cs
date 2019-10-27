@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DraggableIcon : MonoBehaviour
 {
+    public bool allowDrag = true;
     public bool allowReplacement;
     private DraggableIcon replaceObj;
 
@@ -68,7 +69,7 @@ public class DraggableIcon : MonoBehaviour
 
     public void StartDragging ()
     {
-        if (IsIconReady())
+        if (allowDrag && IsIconReady())
         {
             startPos = transform.position;
 

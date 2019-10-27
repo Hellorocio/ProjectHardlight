@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject loadoutUI;
     public GameObject loadoutUIButton;
     public GameObject commandsUI;
+    public GameObject soulUpgradeUI;
 
     public GameObject heroPlacer;
     public GameObject debugUI;
