@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     public GameState gameState;
 
     public List<Soul> souls;
+    //[HideInInspector]
+    public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
     // TODO Pull all this and cutscene logic to a Cutscene Manager
     public string mapSceneName;
@@ -49,7 +51,7 @@ public class GameManager : Singleton<GameManager>
     public int currentLevel;
     private string battleEndCutscene = "";
     private int[] nodesToUnlock;
-
+    
     public DialogueBoxController topDialogue;
 
     public void Start()

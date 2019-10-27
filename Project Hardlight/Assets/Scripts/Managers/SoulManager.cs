@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoulManager : Singleton<SoulManager>
 {
     public List<Sprite> soulAppearances;
+    public List<Sprite> allightAppearances; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
     // Adjust per level gains per soul
     public float flatHealthScale;

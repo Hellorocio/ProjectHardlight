@@ -34,10 +34,52 @@ public class Soul : MonoBehaviour
     public Sprite appearance;
     public string title = "Some Soul";
     public int level = 1;
-    public int currentFragments = 0;
     
     public List<StatFocusType> statFocuses;
     public List<AllightAttribute> allightAttributes; 
+
+    /// <summary>
+    /// Adds to the currentValue by amount (clamped to allightAttribute's base value)
+    /// Checks level up
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>Amount actually added</returns>
+    public int AddAllightValue (int index, int amount)
+    {
+        int fragmentsAdded = Mathf.Clamp(amount, 0, allightAttributes[index].baseValue);
+        allightAttributes[index].currentValue += fragmentsAdded;
+
+        if (CheckLevelUp())
+        {
+            LevelUp();
+        }
+
+        return fragmentsAdded;
+    }
+
+    public bool CheckLevelUp()
+    {
+        bool levelUp = true;
+        foreach (AllightAttribute a in allightAttributes)
+        {
+            if (a.currentValue != a.baseValue)
+            {
+                levelUp = false;
+                break;
+            }
+        }
+        return levelUp;
+    }
+
+    public void LevelUp()
+    {
+        level++;
+
+        foreach (AllightAttribute a in allightAttributes)
+        {
+            a.baseValue = (int)(a.baseValue * SoulManager.Instance.baseValueIncPerLevel);
+        }
+    }
 
     public string GetDescription()
     {

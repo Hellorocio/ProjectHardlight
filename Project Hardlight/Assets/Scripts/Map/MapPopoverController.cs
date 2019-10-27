@@ -9,8 +9,6 @@ public class MapPopoverController : MonoBehaviour
     public Text descriptionText;
     public Image[] allightDropImages;
 
-    public Sprite[] allightSprites; //[0] = sunlight, [1] = moonlight, [2] = starlight
-
     [HideInInspector]
     public MapNode currentNode;
 
@@ -53,7 +51,7 @@ public class MapPopoverController : MonoBehaviour
             ResetAllightDropImages();
             for (int i = 0; i < node.allightDrops.Length; i++)
             {
-                allightDropImages[i].sprite = allightSprites[(int)node.allightDrops[i]];
+                allightDropImages[i].sprite = SoulManager.Instance.allightAppearances[(int)node.allightDrops[i]];
                 allightDropImages[i].gameObject.SetActive(true);
             }
         }
