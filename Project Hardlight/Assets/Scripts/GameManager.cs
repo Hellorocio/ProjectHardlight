@@ -51,7 +51,9 @@ public class GameManager : Singleton<GameManager>
     public int currentLevel;
     private string battleEndCutscene = "";
     private int[] nodesToUnlock;
-    
+    private List<AllightType> allightDrops;
+    private Vector2 allightDropRange;
+
     public DialogueBoxController topDialogue;
 
     public void Start()
@@ -305,7 +307,7 @@ public class GameManager : Singleton<GameManager>
         StartCutscene(battleEndCutscene);
         battleEndCutscene = "";
     }
-
+    
     public void EndFighting(bool win)
     {
         if (win)
@@ -513,11 +515,13 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// Called by MapNode, sets some info about levels
     /// </summary>
-    public void SetCurrentLevelInfo (int current, int[] unlock, string cutscene = "")
+    public void SetCurrentLevelInfo (int current, int[] unlock, MapNode node)
     {
         currentLevel = current;
         nodesToUnlock = unlock;
-        battleEndCutscene = cutscene;
+        battleEndCutscene = node.cutsceneAfter;
+        allightDrops = node.allightDrops;
+        allightDropRange = node.allightDropRange;
     }
 
     public void UnlockLevels ()
@@ -565,5 +569,34 @@ public class GameManager : Singleton<GameManager>
         }
 
         EnterMap();
+    }
+
+    /// <summary>
+    /// Called after a victorious battle (by PostBattleUI)
+    /// Fragments are generated based on values from allightDrops and allightDropRange (orignally set in mapNode)
+    /// Returns amounts of each fragments type that was generated ([0] = sun, [1] = moon, [2] = stars, so postBattleUI can display them
+    /// </summary>
+    /// <returns></returns>
+    public int[] AddFragments ()
+    {
+        int[] newFragments = new int[3];
+
+        if (allightDrops != null && allightDropRange != null)
+        {
+            print("Add Fragments start");
+            for (int i = 0; i < newFragments.Length; i++)
+            {
+                print("Add Fragments loop: " + ((AllightType)i).ToString());
+                if (allightDrops.Contains((AllightType)i))
+                {
+                    int numFragments = Random.Range((int)allightDropRange.x, (int)allightDropRange.y + 1);
+                    newFragments[i] = numFragments;
+                    fragments[i] += numFragments;
+                    print("Add Fragments loop 2: " + numFragments);
+                }
+            }
+        }
+        
+        return newFragments;
     }
 }

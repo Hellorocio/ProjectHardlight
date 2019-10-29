@@ -12,11 +12,13 @@ public class UIManager : Singleton<UIManager>
     public GameObject loadoutUIButton;
     public GameObject commandsUI;
     public GameObject soulUpgradeUI;
-
     public GameObject heroPlacer;
+
+    public PostBattleUI postBattleUI;
+
     public GameObject debugUI;
     public GameObject skipTutorialButton;
-
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Equals))

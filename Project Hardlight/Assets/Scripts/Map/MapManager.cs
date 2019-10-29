@@ -247,7 +247,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void PressFightButton ()
     {
-        GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode.cutsceneAfter);
+        GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
         if (currentNode.cutsceneBefore != "")
         {
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);

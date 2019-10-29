@@ -12,10 +12,6 @@ public class BattleManager : Singleton<BattleManager>
     public BattleConfig battleConfig;
 
     private Fighter selectedHero;
-    [HideInInspector]
-    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
-    public Ability selectedAbility;
-    public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
@@ -44,6 +40,11 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<GameObject> selectedVessels;
     bool battleStarted;
+    
+    [Header("donut touch")]
+    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
+    public Ability selectedAbility;
+    public InputState inputState;
 
     private float startX;
     private float startY;
@@ -57,7 +58,7 @@ public class BattleManager : Singleton<BattleManager>
     public void Update()
     {
         // Don't do BattleManager updates if not fighting
-        if (GameManager.Instance.gameState != GameState.FIGHTING)
+        if (GameManager.Instance.gameState != GameState.FIGHTING || inputState == InputState.BattleOver)
         {
             return;
         }
@@ -786,7 +787,8 @@ public class BattleManager : Singleton<BattleManager>
         inputState = InputState.BattleOver;
         selectedVessels = new List<GameObject>();
 
-        GameManager.Instance.EndFighting(herosWin);
+        //GameManager.Instance.EndFighting(herosWin); //Now called in PostBattleUI
+        UIManager.Instance.postBattleUI.StartPostBattle(herosWin);
     }
 
     void SubscribeHeroEvents()
