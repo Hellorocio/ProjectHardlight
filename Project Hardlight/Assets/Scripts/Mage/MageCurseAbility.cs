@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MageCurseAbility : Ability
 {
-    public float baseEffectRange;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -78,8 +77,8 @@ public class MageCurseAbility : Ability
 
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 }

@@ -9,7 +9,7 @@ public class Ability : MonoBehaviour
     public Sprite abilityIcon;
 
     public int baseDamage = 0;
-
+    public float baseEffectRange;
     public Targeting.Type targetingType;
     public Vector3 selectedPosition;
     public GameObject selectedTarget;
@@ -34,5 +34,10 @@ public class Ability : MonoBehaviour
     public virtual float GetDamage()
     {
         return GetComponent<Fighter>().GetDamage(baseDamage);
+    }
+
+    public virtual float GetRange()
+    {
+        return baseEffectRange;
     }
 }

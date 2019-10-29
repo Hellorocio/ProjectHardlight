@@ -8,7 +8,6 @@ public class DarkWaveAbility : Ability
 
     // Stats
     public float baseWidth = 1;
-    public float baseEffectRange;
     public int damageAmount;
     public int healAmount;
         
@@ -99,9 +98,9 @@ public class DarkWaveAbility : Ability
         }
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public float GetRadius()

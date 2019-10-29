@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AoEDefense : Ability
 {
-    public float baseEffectRange;
     public float baseEffectRadius;
 
     public Buff defenseBuff;
@@ -93,9 +92,9 @@ public class AoEDefense : Ability
         }
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public float GetRadius()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NinjaJumpAbility : Ability
 {
-    public float baseEffectRange;
 
     public GameObject attackTargetUnit;
 
@@ -98,8 +97,8 @@ public class NinjaJumpAbility : Ability
         return false;
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 }

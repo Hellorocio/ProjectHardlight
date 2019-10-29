@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealerHealingAura : Ability
 {
-    public float baseEffectRange;
     public float baseEffectRadius;
     public float baseHealAmt;
 
@@ -85,9 +84,9 @@ public class HealerHealingAura : Ability
         }
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public float GetRadius()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MageAoEBlast : Ability
 {
-    public float baseEffectRange;
+    //public float baseEffectRange;
     public float baseEffectRadius;
 
     public GameObject rangeIndicatorPrefab;
@@ -14,9 +14,10 @@ public class MageAoEBlast : Ability
 
     public GameObject rangeIndicator;
     public GameObject radiusIndicator;
+    public GameObject pointRef;
 
     private bool targeting;
-    
+   
     public void Update()
     {
         if (targeting)
@@ -91,14 +92,31 @@ public class MageAoEBlast : Ability
         }
         else
         {
-            Debug.Log("AoE blast out of range");
+            //Debug.Log("AoE blast out of range");
+            /*
+            Vector3 rangePoint = Vector3.MoveTowards(transform.position, selectedPosition, GetRange());
+            float moveDist = Vector3.Distance(rangePoint, selectedPosition);
+            Vector3 InRangePoint = Vector3.MoveTowards(transform.position, selectedPosition, moveDist);
+            GameObject refObj = Instantiate(pointRef);
+            refObj.transform.position = rangePoint;
+            GameObject newMoveLoc = Instantiate(GameObject.Find("BattleManager").GetComponent<BattleManager>().moveLoc);
+            newMoveLoc.SetActive(true);
+            newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);
+
+            //init line
+            LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+            line.positionCount = 2;
+            line.SetPosition(0, newMoveLoc.transform.position);
+            line.SetPosition(1, selectedPosition);
+            gameObject.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+            */
             return false;
         }
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public float GetRadius()

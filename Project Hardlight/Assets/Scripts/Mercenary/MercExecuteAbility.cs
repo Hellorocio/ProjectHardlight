@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MercExecuteAbility: Ability
 {
-    public float baseEffectRange;
+    //public float baseEffectRange;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -64,8 +64,8 @@ public class MercExecuteAbility: Ability
         return false;
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealerMajorHeal : Ability
 {
-    public float baseEffectRange;
     public int baseHealAmt;
 
     public GameObject rangeIndicatorPrefab;
@@ -81,9 +80,9 @@ public class HealerMajorHeal : Ability
 
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public float GetHealAmt()

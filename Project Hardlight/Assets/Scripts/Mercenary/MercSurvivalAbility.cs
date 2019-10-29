@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MercSurvivalAbility : Ability
 {
-    public float baseEffectRange;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject rangeIndicator;
@@ -86,9 +85,9 @@ public class MercSurvivalAbility : Ability
 
     }
 
-    public float GetRange()
+    public override float GetRange()
     {
-        return baseEffectRange;
+        return this.baseEffectRange;
     }
 
     public override float GetDamage()

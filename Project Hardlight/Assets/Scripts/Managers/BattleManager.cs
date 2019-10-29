@@ -21,6 +21,7 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject moveLoc;
     public GameObject multiSelectionBox;
 
+
     public PortraitHotKeyManager portraitHotKeyManager;
     //public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
@@ -120,14 +121,62 @@ public class BattleManager : Singleton<BattleManager>
         // Select target
         UpdateSelectedTarget();
 
-        if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
+        if(selectedHero != null && inputState != InputState.BattleOver)
         {
-            // Lose mana
-            selectedHero.LoseMana(selectedHero.GetMaxMana());
-            //commandsUI.SwitchButtonColor(false);
-            StopTargeting();
-            //DeselectHero();
+            if (selectedAbility.DoAbility())
+            {
+                // Lose mana
+                selectedHero.LoseMana(selectedHero.GetMaxMana());
+                //commandsUI.SwitchButtonColor(false);
+                StopTargeting();
+                //DeselectHero();
+
+            }
+            else
+            {
+                if(selectedAbility.targetingType == Targeting.Type.TargetPosition)
+                {
+                    Vector3 newClickPoint = new Vector3(selectedAbility.selectedPosition.x, selectedAbility.selectedPosition.y, selectedHero.transform.position.z);
+                    Vector3 rangePoint = Vector3.MoveTowards(selectedHero.transform.position, newClickPoint, selectedAbility.GetRange());
+
+                    float moveDist = Vector3.Distance(rangePoint, newClickPoint);
+                    Vector3 InRangePoint = Vector3.MoveTowards(selectedHero.transform.position, newClickPoint, moveDist + 2);
+                    GameObject newMoveLoc = Instantiate(moveLoc);
+                    newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);
+                    newMoveLoc.SetActive(true);
+                    //init line
+                    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                    line.positionCount = 2;
+                    line.SetPosition(0, newMoveLoc.transform.position);
+                    line.SetPosition(1, selectedHero.transform.position);
+                    selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+
+                } else
+                {
+                    Vector3 newClickPoint = new Vector3(selectedAbility.selectedTarget.transform.position.x, selectedAbility.selectedTarget.transform.position.y, selectedHero.transform.position.z);
+                    Vector3 rangePoint = Vector3.MoveTowards(selectedHero.transform.position, newClickPoint, selectedAbility.GetRange());
+
+                    float moveDist = Vector3.Distance(rangePoint, newClickPoint);
+                    Vector3 InRangePoint = Vector3.MoveTowards(selectedHero.transform.position, newClickPoint, moveDist + 2);
+                    GameObject newMoveLoc = Instantiate(moveLoc);
+                    newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);
+                    newMoveLoc.SetActive(true);
+                    //init line
+                    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                    line.positionCount = 2;
+                    line.SetPosition(0, newMoveLoc.transform.position);
+                    line.SetPosition(1, selectedHero.transform.position);
+                    selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                }
+                
+                
+    
+            }
         }
+        //if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
+        //{
+            
+        //}
     }
 
     /// <summary>
