@@ -57,7 +57,7 @@ public class BattleManager : Singleton<BattleManager>
     public void Update()
     {
         // Don't do BattleManager updates if not fighting
-        if (GameManager.Instance.gameState != GameState.FIGHTING)
+        if (GameManager.Instance.gameState != GameState.FIGHTING || inputState == InputState.BattleOver)
         {
             return;
         }
@@ -738,7 +738,8 @@ public class BattleManager : Singleton<BattleManager>
         inputState = InputState.BattleOver;
         selectedVessels = new List<GameObject>();
 
-        GameManager.Instance.EndFighting(herosWin);
+        //GameManager.Instance.EndFighting(herosWin); //Now called in PostBattleUI
+        UIManager.Instance.postBattleUI.StartPostBattle(herosWin);
     }
 
     void SubscribeHeroEvents()

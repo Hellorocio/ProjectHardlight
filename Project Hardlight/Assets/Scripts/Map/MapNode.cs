@@ -33,7 +33,8 @@ public class MapNode : MonoBehaviour
 
     [Header("Battle Details")]
     public Difficulty difficulty;
-    public AllightType[] allightDrops;
+    public List<AllightType> allightDrops;
+    public Vector2 allightDropRange = new Vector2(1, 10);
 
     private Text nameText;
 

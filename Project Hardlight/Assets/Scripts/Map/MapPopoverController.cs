@@ -49,7 +49,7 @@ public class MapPopoverController : MonoBehaviour
 
             //add allight drop icons
             ResetAllightDropImages();
-            for (int i = 0; i < node.allightDrops.Length; i++)
+            for (int i = 0; i < node.allightDrops.Count; i++)
             {
                 allightDropImages[i].sprite = SoulManager.Instance.allightAppearances[(int)node.allightDrops[i]];
                 allightDropImages[i].gameObject.SetActive(true);
