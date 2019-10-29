@@ -12,10 +12,6 @@ public class BattleManager : Singleton<BattleManager>
     public BattleConfig battleConfig;
 
     private Fighter selectedHero;
-    [HideInInspector]
-    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
-    public Ability selectedAbility;
-    public InputState inputState;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
@@ -43,6 +39,11 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<GameObject> selectedVessels;
     bool battleStarted;
+    
+    [Header("donut touch")]
+    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
+    public Ability selectedAbility;
+    public InputState inputState;
 
     private float startX;
     private float startY;
