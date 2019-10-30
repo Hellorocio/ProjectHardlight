@@ -39,6 +39,15 @@ public class UIManager : Singleton<UIManager>
         SetLoadoutUI(!loadoutUI.active);
     }
 
+    public void ToggleSoulUpgradeUI()
+    {
+        soulUpgradeUI.SetActive(!soulUpgradeUI.gameObject.activeSelf);
+        if (soulUpgradeUI.activeSelf)
+        {
+            GetComponent<SoulUpgradeUI>().UpdateSoulUI();
+        }
+    }
+
     public void SetLoadoutUI(bool isActive)
     {
         loadoutUI.SetActive(isActive);

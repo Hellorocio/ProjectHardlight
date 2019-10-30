@@ -42,7 +42,12 @@ public class SoulUpgradeUI : Singleton<SoulUpgradeUI>
     private void OnEnable()
     {
         soulManager = SoulManager.Instance;
-        
+
+        UpdateSoulUI();
+    }
+
+    public void UpdateSoulUI ()
+    {
         PopulateSoulGrid();
         if (GameManager.Instance.souls != null && GameManager.Instance.souls.Count > 0)
         {
@@ -141,6 +146,7 @@ public class SoulUpgradeUI : Singleton<SoulUpgradeUI>
 
     /// <summary>
     /// Shows +X on bonuses if newLevel is less than or equal to the current level
+    /// We're not actually using that feature right now, but I thought we might want it at some point, plus it's cool lol
     /// </summary>
     /// <param name="currentLevel"></param>
     /// <param name="newLevel"></param>
