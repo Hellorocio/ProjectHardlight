@@ -108,19 +108,19 @@ public class BattleManager : Singleton<BattleManager>
             {
                 UseAbility(1);
             }
-            else if ((Input.GetKeyDown(KeyCode.A)))
+            else if ((Input.GetKeyDown(KeyCode.E)))
             {
                 UseAbility(2);
             }
-            else if ((Input.GetKeyDown(KeyCode.S)))
+            else if ((Input.GetKeyDown(KeyCode.R)))
             {
                 UseAbility(3);
             }
-            else if ((Input.GetKeyDown(KeyCode.Z)))
+            else if ((Input.GetKeyDown(KeyCode.T)))
             {
                 UseAbility(4);
             }
-            else if ((Input.GetKeyDown(KeyCode.X)))
+            else if ((Input.GetKeyDown(KeyCode.Y)))
             {
                 UseAbility(5);
             }
