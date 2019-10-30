@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PortraitManaBar : MonoBehaviour
 {
-    public Text manaText;
+    public TextMeshProUGUI manaText;
     public Image manaBar;
 
     public bool hasMaxMana = false;

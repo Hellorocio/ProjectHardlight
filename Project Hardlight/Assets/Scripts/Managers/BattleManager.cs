@@ -72,13 +72,13 @@ public class BattleManager : Singleton<BattleManager>
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (selectedVessels[1].activeSelf)
+            if (selectedVessels.Count >= 2 && selectedVessels[1].activeSelf)
             {
                 SetSelectedHero(selectedVessels[1].GetComponent<Fighter>());
             }
         } else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (selectedVessels[2].activeSelf)
+            if (selectedVessels.Count >= 3 && selectedVessels[2].activeSelf)
             {
                 SetSelectedHero(selectedVessels[2].GetComponent<Fighter>());
             }
@@ -97,7 +97,7 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = false;
         }
 
-        if (inputState == InputState.HeroSelected || inputState == InputState.CastingAbility || inputState == InputState.UpdatingTarget)
+        if (inputState != InputState.BattleOver)
         {
             if ((Input.GetKeyDown(KeyCode.Q)))
             {
@@ -109,8 +109,29 @@ public class BattleManager : Singleton<BattleManager>
             }
             else if ((Input.GetKeyDown(KeyCode.A)))
             {
+                UseAbility(2);
+            }
+            else if ((Input.GetKeyDown(KeyCode.S)))
+            {
+                UseAbility(3);
+            }
+            else if ((Input.GetKeyDown(KeyCode.Z)))
+            {
+                UseAbility(4);
+            }
+            else if ((Input.GetKeyDown(KeyCode.X)))
+            {
+                UseAbility(5);
+            }
+
+
+
+            /*
+            else if ((Input.GetKeyDown(KeyCode.A)))
+            {
                 SetStateToUpdateTarget();
             }
+            */
         }
     }
 
@@ -294,8 +315,9 @@ public class BattleManager : Singleton<BattleManager>
             TutorialManager.Instance.usedAbility = true;
         }
         
-        if (selectedHero != null)
+        //if (selectedHero != null)
         {
+            Fighter castingHero = selectedVessels[0].GetComponent<Fighter>();
             if (selectedAbility != null)
             {
                 StopTargeting();
@@ -308,11 +330,38 @@ public class BattleManager : Singleton<BattleManager>
             // Clear any existing selected ability
             selectedAbility = null;
 
-            Ability ability = (Ability)selectedHero.gameObject.GetComponent<VesselData>().abilities[abilityNum];
-            if (ability != null)
+            Ability ability = (Ability)selectedVessels[0].GetComponent<VesselData>().abilities[0];
+            switch (abilityNum)
             {
+                case 0:
+                    break;
+                case 1:
+                    ability = (Ability)selectedVessels[0].GetComponent<VesselData>().abilities[1];
+                    break;
+                case 2:
+                    ability = (Ability)selectedVessels[1].GetComponent<VesselData>().abilities[0];
+                    castingHero = selectedVessels[1].GetComponent<Fighter>();
+                    break;
+                case 3:
+                    ability = (Ability)selectedVessels[1].GetComponent<VesselData>().abilities[1];
+                    castingHero = selectedVessels[1].GetComponent<Fighter>();
+                    break;
+                case 4:
+                    ability = (Ability)selectedVessels[2].GetComponent<VesselData>().abilities[0];
+                    castingHero = selectedVessels[2].GetComponent<Fighter>();
+                    break;
+                case 5:
+                    ability = (Ability)selectedVessels[2].GetComponent<VesselData>().abilities[1];
+                    castingHero = selectedVessels[2].GetComponent<Fighter>();
+                    break;
+
+            }
+            if (ability != null && castingHero.GetHealth() > 0)
+            {
+                SetSelectedHero(castingHero);
+
                 // Check has enough mana
-                if (selectedHero.GetCurrentMana() >= selectedHero.GetMaxMana())
+                if (castingHero.GetCurrentMana() >= castingHero.GetMaxMana())
                 {
                     selectedAbility = ability;
 

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PortraitHealthBar : MonoBehaviour
 {
-    public Text healthText;
+    public TextMeshProUGUI healthText;
     public Image healthBar;
     public bool isDead;
 

@@ -2,54 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class PortraitHotKeyManager : MonoBehaviour
 {
     public GameObject HeroPortraitPanel;
-    public GameObject hotKeyPanel;
+    //public GameObject hotKeyPanel;
     public GameObject multiSelectHotKeyPanel;
 
     //Hero1 components
     private GameObject hero1;
     private Image hero1ManaFullImage;
-    private Image hero1BackgroundImage;
     private Image hero1Image;
-    private Text hero1Name;
+    private TextMeshProUGUI hero1Name;
     private PortraitHealthBar hero1HealthBar;
     private PortraitManaBar hero1ManaBar;
+    private Image ability1Image;
+    private Image ability2Image;
+    public TextMeshProUGUI ability1Desc;
+    public TextMeshProUGUI ability2Desc;
 
     //Hero2 components
     private GameObject hero2;
     private Image hero2ManaFullImage;
-    private Image hero2BackgroundImage;
     private Image hero2Image;
-    private Text hero2Name;
+    private TextMeshProUGUI hero2Name;
     private PortraitHealthBar hero2HealthBar;
     private PortraitManaBar hero2ManaBar;
+    private Image ability3Image;
+    private Image ability4Image;
+    public TextMeshProUGUI ability3Desc;
+    public TextMeshProUGUI ability4Desc;
 
     //Hero3 components
     private GameObject hero3;
     private Image hero3ManaFullImage;
-    private Image hero3BackgroundImage;
     private Image hero3Image;
-    private Text hero3Name;
+    private TextMeshProUGUI hero3Name;
     private PortraitHealthBar hero3HealthBar;
     private PortraitManaBar hero3ManaBar;
+    private Image ability5Image;
+    private Image ability6Image;
+    public TextMeshProUGUI ability5Desc;
+    public TextMeshProUGUI ability6Desc;
 
-    //Ability1 components
-    private GameObject ability1;
-    private Image ability1BackgroundImage;
-    private Image ability1Image;
-    private Text ability1Name;
-    public Text ability1Desc;
-
-    //Ability2 components
-    private GameObject ability2;
-    private Image ability2BackgroundImage;
-    private Image ability2Image;
-    private Text ability2Name;
-    public Text ability2Desc;
-
+    /*
     //Command1 components
     private GameObject command1;
     private Image command1BackgroundImage;
@@ -61,6 +58,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Image command2BackgroundImage;
     private Image command2Image;
     private Text command2Name;
+    */
 
 
     // Start is called before the first frame update
@@ -72,44 +70,35 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero3 = HeroPortraitPanel.transform.Find("Hero3").gameObject;
 
         hero1ManaFullImage = hero1.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
-        hero1BackgroundImage = hero1.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
-        hero1Image = hero1.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero1Name = hero1.transform.Find("Name").gameObject.GetComponent<Text>();
-        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
+        hero1Image = hero1.transform.Find("Portrait/PortraitCircle/HeroImage").gameObject.GetComponent<Image>();
+        hero1Name = hero1.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
+        hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero1ManaBar = hero1.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
+        ability1Image = hero1.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
+        ability2Image = hero1.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
-        hero2BackgroundImage = hero2.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
-        hero2Image = hero2.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero2Name = hero2.transform.Find("Name").gameObject.GetComponent<Text>();
+        hero2Image = hero2.transform.Find("Portrait/PortraitCircle/HeroImage").gameObject.GetComponent<Image>();
+        hero2Name = hero2.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
         hero2HealthBar = hero2.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
+        ability3Image = hero2.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
+        ability4Image = hero2.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
-        hero3BackgroundImage = hero3.transform.Find("BackgroundImage").gameObject.GetComponent<Image>();
-        hero3Image = hero3.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero3Name = hero3.transform.Find("Name").gameObject.GetComponent<Text>();
-        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>(); ;
+        hero3Image = hero3.transform.Find("Portrait/PortraitCircle/HeroImage").gameObject.GetComponent<Image>();
+        hero3Name = hero3.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
+        hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero3ManaBar = hero3.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
+        ability5Image = hero3.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
+        ability6Image = hero3.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
 
-        //Getting all the ability/order components
-        GameObject abilitiesPanel = hotKeyPanel.transform.Find("AbilitiesPanel").gameObject;
+        /*
         GameObject ordersPanel = hotKeyPanel.transform.Find("OrdersPanel").gameObject;
-
-        ability1 = abilitiesPanel.transform.Find("Ability1").gameObject;
-        ability2 = abilitiesPanel.transform.Find("Ability2").gameObject;
-
         command1 = ordersPanel.transform.Find("Command1").gameObject;
         command2 = ordersPanel.transform.Find("Command2").gameObject;
 
-        ability1BackgroundImage = ability1.transform.Find("Background").gameObject.GetComponent<Image>();
-        ability1Image = ability1.transform.Find("AbilityImage").gameObject.GetComponent<Image>();
-        ability1Name = ability1.transform.Find("Name").gameObject.GetComponent<Text>();
-
-        ability2BackgroundImage = ability2.transform.Find("Background").gameObject.GetComponent<Image>();
-        ability2Image = ability2.transform.Find("AbilityImage").gameObject.GetComponent<Image>();
-        ability2Name = ability2.transform.Find("Name").gameObject.GetComponent<Text>();
-
+        
         command1BackgroundImage = command1.transform.Find("Background").gameObject.GetComponent<Image>();
         command1Image = command1.transform.Find("CommandImage").gameObject.GetComponent<Image>();
         command1Name = command1.transform.Find("Name").gameObject.GetComponent<Text>();
@@ -118,6 +107,8 @@ public class PortraitHotKeyManager : MonoBehaviour
         command2Image = command2.transform.Find("CommandImage").gameObject.GetComponent<Image>();
         command2Name = command2.transform.Find("Name").gameObject.GetComponent<Text>();
 
+         */
+
         AllUISwitch(false);
 
     }
@@ -125,8 +116,11 @@ public class PortraitHotKeyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateManaProcs();
-        UpdateDeathState();
+        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        {
+            UpdateManaProcs();
+            UpdateDeathState();
+        }
     }
 
     /// <summary>
@@ -145,15 +139,15 @@ public class PortraitHotKeyManager : MonoBehaviour
     {
         if (hero1HealthBar.isDead)
         {
-            hero1.transform.Find("Button").gameObject.SetActive(false);
+            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
         }
         if (hero2HealthBar.isDead)
         {
-            hero2.transform.Find("Button").gameObject.SetActive(false);
+            hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
         }
         if (hero3HealthBar.isDead)
         {
-            hero3.transform.Find("Button").gameObject.SetActive(false);
+            hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
         }
     }
 
@@ -180,7 +174,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     /// </summary>
     void HotKeyPanelSwitch(bool s)
     {
-        hotKeyPanel.SetActive(s);
+        //hotKeyPanel.SetActive(s);
 
         //turns off multiselect panel if regular panel is being activated
         if (s)
@@ -216,9 +210,32 @@ public class PortraitHotKeyManager : MonoBehaviour
 
             hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
             hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
-            
+
+            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+            hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+            hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+
+            ability1Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability2Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+
+            ability3Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability4Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+
+            ability5Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability6Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+
+            ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+            ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
+            ability3Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+            ability4Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
+            ability5Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+            ability6Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
             HeroPortraitSwitch(true);
-        } else if(partyList.Count == 1)
+        }
+        else if(partyList.Count == 1)
         {
             Start();
             hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
@@ -227,6 +244,15 @@ public class PortraitHotKeyManager : MonoBehaviour
             hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero2.SetActive(false);
             hero3.SetActive(false);
+
+            ability1Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability2Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+
+            ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+            ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
+            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+
             HeroPortraitSwitch(true);
         }
 
@@ -235,11 +261,10 @@ public class PortraitHotKeyManager : MonoBehaviour
     public void LoadNewlySelectedHero(Fighter f)
     {
 
-        ability1Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityName.Replace(' ', '\n');
-        ability2Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityName.Replace(' ', '\n');
+        //ability1Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityName.Replace(' ', '\n');
+        //ability2Name.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityName.Replace(' ', '\n');
 
-        ability1Desc.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
-        ability2Desc.text = ((Ability)f.gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+        
         HotKeyPanelSwitch(true);
     }
 
@@ -249,7 +274,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     public void LoadMultiSelectedHeros ()
     {
         HotKeyPanelSwitch(false);
-        multiSelectHotKeyPanel.SetActive(true);
+        //multiSelectHotKeyPanel.SetActive(true);
     }
 
     public void DeselectedHero()
