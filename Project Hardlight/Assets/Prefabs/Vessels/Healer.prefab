@@ -34,11 +34,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Major Heal
   abilityDescription: Large heal on one unit
+  abilityIcon: {fileID: 21300000, guid: 1c59dbf7721d29f49896b04e5826acec, type: 3}
   baseDamage: 0
+  baseEffectRange: 8
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 8
   baseHealAmt: 50
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
@@ -59,11 +60,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Healing Aura
   abilityDescription: Medium heal in small radius
+  abilityIcon: {fileID: 21300000, guid: 3065bfc29454bc447883dc02742b905c, type: 3}
   baseDamage: 0
+  baseEffectRange: 6
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 6
   baseEffectRadius: 2.5
   baseHealAmt: 13
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
@@ -190,16 +192,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.045390964
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.7642374
-      objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: targetPrefs.Array.size
@@ -241,6 +233,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 25139845c58f4574fa4357048beb3b00, type: 2}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.045390964
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.7642374
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -32,11 +32,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Survival
   abilityDescription: Small damage on one unit, large damage if greatly injured
+  abilityIcon: {fileID: 21300000, guid: dddd28861ad20da48b7db4ceb0ed287c, type: 3}
   baseDamage: 6
+  baseEffectRange: 10
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 10
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}
@@ -55,11 +56,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Execute
   abilityDescription: Medium damage on one unit
+  abilityIcon: {fileID: 21300000, guid: ed7490c4cbe0a0f49ab3f357321cfbbe, type: 3}
   baseDamage: 11
+  baseEffectRange: 3
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRange: 3
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}
@@ -182,16 +184,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.03906846
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.58247614
-      objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: attack
@@ -218,6 +210,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b58d5a813b776834ab1a06f2ee04b33a, type: 2}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.03906846
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.58247614
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
