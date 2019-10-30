@@ -763,14 +763,17 @@ public class BattleManager : Singleton<BattleManager>
         {
             battleTarget = Instantiate(battleTargetPrefab);
         }
-        
-        GameObject ct = selectedHero.GetComponent<FighterAttack>().currentTarget;
-        if (ct != null)
+        if(selectedHero != null)
         {
-            battleTarget.SetActive(true);
-            battleTarget.transform.parent = ct.transform;
-            battleTarget.transform.localPosition = Vector3.zero;
+            GameObject ct = selectedHero.GetComponent<FighterAttack>().currentTarget;
+            if (ct != null)
+            {
+                battleTarget.SetActive(true);
+                battleTarget.transform.parent = ct.transform;
+                battleTarget.transform.localPosition = Vector3.zero;
+            }
         }
+        
     }
 
     /// <summary>

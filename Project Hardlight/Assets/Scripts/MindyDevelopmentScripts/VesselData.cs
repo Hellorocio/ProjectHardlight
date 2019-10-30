@@ -15,6 +15,7 @@ public class VesselData : MonoBehaviour
     public int baseMana = 100;
     public int baseAbility = 100;
     public int baseMovementSpeed = 100;
+    public float maxAggroRange = 25;
 
     // TODO Make fighters use this
     public MonoBehaviour basicAttack;

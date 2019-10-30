@@ -105,7 +105,7 @@ public class FighterAttack : MonoBehaviour
 
     IEnumerator BasicAttackLoop()
     {
-        while (currentTarget != null && currentTarget.activeSelf)
+        while (IsTargetInAggroRange())
         {
             //check we are still in range
             if (!InRangeOfTarget(currentTarget.transform))
@@ -316,13 +316,17 @@ public class FighterAttack : MonoBehaviour
         //start moving toward target
 
         //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (currentTarget == null));
-        if (currentTarget != null)
+        if (IsTargetInAggroRange())
         {
             fighterMove.StartMoving(currentTarget.transform);
         }
     }
 
-    
+    bool IsTargetInAggroRange()
+    {
+        return currentTarget != null && currentTarget.activeSelf && Vector3.Distance(transform.position, currentTarget.transform.position) < gameObject.GetComponent<VesselData>().maxAggroRange;
+    }
+
     /// <summary>
     /// Finds the closest enemy and sets current target
     /// </summary>
