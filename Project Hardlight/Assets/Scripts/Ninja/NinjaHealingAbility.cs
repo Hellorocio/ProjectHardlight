@@ -83,9 +83,5 @@ public class NinjaHealingAbility : Ability
         return false;
 
     }
-
-    public override float GetRange()
-    {
-        return this.baseEffectRange;
-    }
+    
 }

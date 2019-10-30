@@ -95,12 +95,16 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     public void StartBasicAttacking()
     {
-        StartCoroutine(BasicAttackLoop());
+        basicAttackLoop = BasicAttackLoop();
+        StartCoroutine(basicAttackLoop);
     }
 
     public void StopBasicAttacking()
     {
-        StopCoroutine(BasicAttackLoop());
+        if (basicAttackLoop != null)
+        {
+            StopCoroutine(basicAttackLoop);
+        }
     }
 
     IEnumerator BasicAttackLoop()
@@ -124,7 +128,7 @@ public class FighterAttack : MonoBehaviour
             }
 
             AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource != null && attack.sfx != null)
+            if (audioSource != null && attack.sfx != null && !audioSource.isPlaying)
             {
                 audioSource.clip = attack.sfx;
                 audioSource.Play();

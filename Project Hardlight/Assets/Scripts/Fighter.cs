@@ -31,6 +31,8 @@ public class Fighter : MonoBehaviour
     private float health;
     private int mana = 0;
 
+    public AudioClip manaFullSfx;
+
     [HideInInspector]
     public BattleManager battleManager;
     
@@ -238,7 +240,6 @@ public class Fighter : MonoBehaviour
             {
                 GetComponent<FighterMove>().StopMovingCommandHandle();
             }
-           
 
             gameObject.SetActive(false);
 
@@ -299,6 +300,12 @@ public class Fighter : MonoBehaviour
             if (maxManaGlow != null)
             {
                 maxManaGlow.SetActive(true);
+            }
+
+            if (GetComponent<AudioSource>() != null &&  manaFullSfx)
+            {
+                GetComponent<AudioSource>().clip = manaFullSfx;
+                GetComponent<AudioSource>().Play();
             }
         }
 

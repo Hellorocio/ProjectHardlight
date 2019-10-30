@@ -583,16 +583,13 @@ public class GameManager : Singleton<GameManager>
 
         if (allightDrops != null && allightDropRange != null)
         {
-            print("Add Fragments start");
             for (int i = 0; i < newFragments.Length; i++)
             {
-                print("Add Fragments loop: " + ((AllightType)i).ToString());
                 if (allightDrops.Contains((AllightType)i))
                 {
                     int numFragments = Random.Range((int)allightDropRange.x, (int)allightDropRange.y + 1);
                     newFragments[i] = numFragments;
                     fragments[i] += numFragments;
-                    print("Add Fragments loop 2: " + numFragments);
                 }
             }
         }

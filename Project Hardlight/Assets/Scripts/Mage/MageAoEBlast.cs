@@ -114,11 +114,6 @@ public class MageAoEBlast : Ability
         }
     }
 
-    public override float GetRange()
-    {
-        return this.baseEffectRange;
-    }
-
     public float GetRadius()
     {
         return baseEffectRadius;
