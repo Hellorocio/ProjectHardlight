@@ -25,9 +25,6 @@ public class MeleeBasicAttackAction : BasicAttackAction
 
         //target.GetComponent<Fighter>().TakeDamage(damage);
 
-        if (sourceFighter.team == CombatInfo.Team.Hero)
-        {
-            sourceFighter.GainMana(10);
-        }
+        
     }
 }
