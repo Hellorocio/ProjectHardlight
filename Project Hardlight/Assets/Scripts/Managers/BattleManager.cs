@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 // All inputs should go int there
@@ -16,7 +17,7 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
     public GameObject multiSelectionBox;
-
+    public GameObject countdownUI;
 
     public PortraitHotKeyManager portraitHotKeyManager;
     //public CommandsUIHandler commandsUI;
@@ -711,9 +712,38 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void StartBattle ()
     {
+        StartCoroutine(DoCountdown());
+    }
+
+    /// <summary>
+    /// Moved start battle logic into this IEnumerator so that we can countdown before starting everything
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DoCountdown()
+    {
+        countdownUI.SetActive(true);
+        portraitHotKeyManager.InitBattlerUI(selectedVessels);
+        foreach (GameObject v in selectedVessels)
+        {
+            v.GetComponent<FighterAttack>().enabled = false;
+            v.GetComponent<FighterMove>().enabled = false;
+            v.GetComponent<Fighter>().enabled = false;
+        }
+        Text textComponent = countdownUI.GetComponent<Text>();
+        textComponent.text = "3";
+        yield return new WaitForSeconds(.75f);
+        textComponent.text = "2";
+        yield return new WaitForSeconds(.75f);
+        textComponent.text = "1";
+        yield return new WaitForSeconds(.75f);
+        countdownUI.SetActive(false);
+
         //call levelStart on vessels
         foreach (GameObject v in selectedVessels)
         {
+            v.GetComponent<Fighter>().enabled = true;
+            v.GetComponent<FighterMove>().enabled = true;
+            v.GetComponent<FighterAttack>().enabled = true;
             v.GetComponent<FighterAttack>().LevelStart();
         }
 
@@ -737,7 +767,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //This event was causing tons of problems, so we're getting rid of it for now
         //OnLevelStart?.Invoke();
-        portraitHotKeyManager.InitBattlerUI(selectedVessels);
+        //portraitHotKeyManager.InitBattlerUI(selectedVessels);
         battleStarted = true;
     }
 
