@@ -29,7 +29,7 @@ public class VesselIcon : BaseIcon
     {
         if (vessel != null)
         {
-            LoadoutUI.Instance.SetDetailPane(vessel);
+            LoadoutUI.Instance.SetDetailPane(vessel, gameObject);
         }
     }
 

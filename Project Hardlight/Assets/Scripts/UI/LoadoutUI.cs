@@ -30,18 +30,26 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     public TextMeshProUGUI healthNumber;
     public TextMeshProUGUI manaNumber;
-    public TextMeshProUGUI abilityNumber;
+    //public TextMeshProUGUI abilityNumber;
+    //public TextMeshProUGUI attackDmg;
+    public TextMeshProUGUI attackSpeed;
     public TextMeshProUGUI speedNumber;
 
     public TextMeshProUGUI basicAttackName;
     public TextMeshProUGUI basicAttackDesc;
     public TextMeshProUGUI basicAttackDamage;
     public TextMeshProUGUI basicAttackRange;
+    //public TextMeshProUGUI basicAttackSpeed;
 
     public TextMeshProUGUI abilityOneName;
     public TextMeshProUGUI abilityOneDesc;
+    public TextMeshProUGUI abilityOneDamage;
+
     public TextMeshProUGUI abilityTwoName;
     public TextMeshProUGUI abilityTwoDesc;
+    public TextMeshProUGUI abilityTwoDamage;
+
+    public Soul defaultSoul;
 
     ///////////////////
 
@@ -57,31 +65,59 @@ public class LoadoutUI : Singleton<LoadoutUI>
     }
 
     // Sets vessel to display details for TODO do for Souls
-    public void SetDetailPane(GameObject vessel)
+    public void SetDetailPane(GameObject vessel, GameObject icon = null)
     {
         VesselData vesselData = vessel.GetComponent<VesselData>();
-        
+        Soul selectedSoul = defaultSoul;
+        if (icon != null && icon.transform.parent.parent.gameObject.name == "LoadoutSlot(Clone)")
+        {
+            // set selected soul to the actual selected soul
+            selectedSoul = icon.transform.parent.parent.gameObject.GetComponentInChildren<SoulIcon>().soul;
+
+            if (selectedSoul == null)
+            {
+                selectedSoul = defaultSoul;
+            }
+        }
+
         nameText.text = vesselData.vesselName;
         vesselImage.sprite = vesselData.appearance;
 
-        healthNumber.text = vesselData.baseHealth.ToString();
-        manaNumber.text = vesselData.baseMana.ToString();
-        abilityNumber.text = vesselData.baseAbility.ToString();
-        speedNumber.text = vesselData.baseMovementSpeed.ToString();
+        string healthText = vesselData.baseHealth.ToString();
 
-        BasicAttackAction basicAttack = (BasicAttackAction) vesselData.basicAttack;
+        BasicAttackAction basicAttack = (BasicAttackAction)vesselData.basicAttack;
+        string attackDmgText = basicAttack.damage.ToString();
         basicAttackName.text = basicAttack.title + " (Basic Attack)";
         basicAttackDesc.text = basicAttack.description;
         basicAttackRange.text = basicAttack.range.ToString();
-        basicAttackDamage.text = basicAttack.damage.ToString();
+        basicAttackDamage.text = basicAttack.damage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackBonus(basicAttack.damage));
+        
+        healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetMaxHealthBonus(vesselData.baseHealth));
+        manaNumber.text = vesselData.baseMana.ToString();
+        //abilityNumber.text = vesselData.baseAbility.ToString();
+        attackSpeed.text = basicAttack.cooldown.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.cooldown)));
+        speedNumber.text = vesselData.baseMovementSpeed.ToString();
+
 
         Ability abilityOne = (Ability) vesselData.abilities[0];
         abilityOneName.text = abilityOne.abilityName;
         abilityOneDesc.text = abilityOne.abilityDescription;
+        abilityOneDamage.text = abilityOne.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
 
         Ability abilityTwo = (Ability) vesselData.abilities[1];
         abilityTwoName.text = abilityTwo.abilityName;
         abilityTwoDesc.text = abilityTwo.abilityDescription;
+        abilityTwoDamage.text = abilityTwo.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityTwo.baseDamage));
+    }
+
+    private string AddSoulBonusStatDetail (float soulBonus)
+    {
+        string bonus = "";
+        if (soulBonus > 0)
+        {
+            bonus = "<color=red> + " + (Mathf.CeilToInt(soulBonus)).ToString() + "</color>";
+        }
+        return bonus;
     }
 
     public void CreateLoadoutSlots()
@@ -99,6 +135,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
     }
 
     // Create the icons in the grid based on the VesselManager
+    // Also sets the detail window for the first vessel
     public void PopulateVesselGrid()
     {
         // Destroy existing
@@ -107,18 +144,24 @@ public class LoadoutUI : Singleton<LoadoutUI>
         }
 
         // Create per vessel
+        bool setDetails = false;
         foreach (VesselCatalogEntry entry in VesselManager.Instance.vesselCatalog) {
             if (entry.enabled)
             {
                 GameObject vesselIcon = Instantiate(vesselIconPrefab, vesselGrid.transform, true);
                 vesselIcon.GetComponent<VesselIcon>().SetVessel(entry.vessel);
                 vesselIcon.transform.localScale = Vector3.one;
+
+                if (!setDetails)
+                {
+                    SetDetailPane(entry.vessel);
+                    setDetails = true;
+                }
             }
         }
     }
     
     // Create the icons in the grid based on the souls in GameManager
-
     public void PopulateSoulGrid()
     {
         // Destroy existing

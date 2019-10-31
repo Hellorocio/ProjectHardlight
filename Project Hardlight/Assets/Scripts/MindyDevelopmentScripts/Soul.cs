@@ -98,7 +98,7 @@ public class Soul : MonoBehaviour
         }
         if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
         {
-            description += "Gives bonus attack speed\n";
+            description += "Gives bonus mana regen speed\n";
         }
 
         return description.Substring(0, description.Length - 1);
@@ -258,7 +258,7 @@ public class Soul : MonoBehaviour
         float attackBonus = 0;
         attackBonus += baseAttack * GetPercentAttackBoost();
         attackBonus += GetFlatAttackBoost();
-        return (int)attackBonus;
+        return Mathf.CeilToInt(attackBonus);
     }
 
     public int GetAttackSpeedBonus (int baseAttackSpeed)
@@ -266,6 +266,6 @@ public class Soul : MonoBehaviour
         float attackSpeedBonus = 0;
         attackSpeedBonus += baseAttackSpeed * GetPercentAttackSpeedBoost();
         attackSpeedBonus += GetPercentAttackSpeedBoost();
-        return (int)attackSpeedBonus;
+        return Mathf.CeilToInt(attackSpeedBonus);
     }
 }
