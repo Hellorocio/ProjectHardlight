@@ -196,72 +196,65 @@ public class PortraitHotKeyManager : MonoBehaviour
     /// </summary>
     public void InitBattlerUI(List<GameObject> partyList)
     {
-        if (partyList.Count > 2)
+        Start();
+        hero1.SetActive(false);
+        hero2.SetActive(false);
+        hero3.SetActive(false);
+
+        if (partyList.Count > 0)
         {
-            hero2.SetActive(true);
-            hero3.SetActive(true);
-            Start();
+            // init first hero
+            hero1.SetActive(true);
             hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
-            hero2Image.sprite = partyList[1].GetComponent<VesselData>().appearance;
-            hero3Image.sprite = partyList[2].GetComponent<VesselData>().appearance;
-
             hero1Name.text = partyList[0].GetComponent<VesselData>().vesselName.ToUpper();
-            hero2Name.text = partyList[1].GetComponent<VesselData>().vesselName.ToUpper();
-            hero3Name.text = partyList[2].GetComponent<VesselData>().vesselName.ToUpper();
-
             hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
 
-            hero2HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[1].GetComponent<Fighter>());
-            hero2ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[1].GetComponent<Fighter>());
-
-            hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
-            hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
-
-            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
-            hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
-            hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
-
             ability1Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
             ability2Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+
+            ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
+            ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
+            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+        }
+        if (partyList.Count > 1)
+        {
+            // init second hero
+            hero2.SetActive(true);
+            hero2Image.sprite = partyList[1].GetComponent<VesselData>().appearance;
+            hero2Name.text = partyList[1].GetComponent<VesselData>().vesselName.ToUpper();
+            hero2HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[1].GetComponent<Fighter>());
+            hero2ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[1].GetComponent<Fighter>());
 
             ability3Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
             ability4Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
 
-            ability5Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
-            ability6Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
-
-            ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
-            ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
-
             ability3Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
             ability4Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
+
+            hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+
+        }
+        if (partyList.Count > 2)
+        {
+            // init third hero
+            hero3.SetActive(true);
+            hero3Image.sprite = partyList[2].GetComponent<VesselData>().appearance;
+            hero3Name.text = partyList[2].GetComponent<VesselData>().vesselName.ToUpper();
+            hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
+            hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
+
+            ability5Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability6Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
 
             ability5Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
             ability6Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
 
-            HeroPortraitSwitch(true);
+            hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
         }
-        else if(partyList.Count == 1)
-        {
-            Start();
-            hero1Image.sprite = partyList[0].GetComponent<VesselData>().appearance;
-            hero1Name.text = partyList[0].GetComponent<VesselData>().vesselName.ToUpper();
-            hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
-            hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
-            hero2.SetActive(false);
-            hero3.SetActive(false);
 
-            ability1Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
-            ability2Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
-
-            ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
-            ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
-
-            hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
-
-            HeroPortraitSwitch(true);
-        }
+        HeroPortraitSwitch(true);
 
     }
 
