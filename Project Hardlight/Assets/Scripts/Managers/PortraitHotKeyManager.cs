@@ -18,8 +18,8 @@ public class PortraitHotKeyManager : MonoBehaviour
     private PortraitHealthBar hero1HealthBar;
     private PortraitManaBar hero1ManaBar;
     private GameObject hero1Selected;
-    private Image ability1Image;
-    private Image ability2Image;
+    private Button ability1Button;
+    private Button ability2Button;
     public TextMeshProUGUI ability1Desc;
     public TextMeshProUGUI ability2Desc;
 
@@ -31,8 +31,8 @@ public class PortraitHotKeyManager : MonoBehaviour
     private PortraitHealthBar hero2HealthBar;
     private PortraitManaBar hero2ManaBar;
     private GameObject hero2Selected;
-    private Image ability3Image;
-    private Image ability4Image;
+    private Button ability3Button;
+    private Button ability4Button;
     public TextMeshProUGUI ability3Desc;
     public TextMeshProUGUI ability4Desc;
 
@@ -44,8 +44,8 @@ public class PortraitHotKeyManager : MonoBehaviour
     private PortraitHealthBar hero3HealthBar;
     private PortraitManaBar hero3ManaBar;
     private GameObject hero3Selected;
-    private Image ability5Image;
-    private Image ability6Image;
+    private Button ability5Button;
+    private Button ability6Button;
     public TextMeshProUGUI ability5Desc;
     public TextMeshProUGUI ability6Desc;
 
@@ -78,8 +78,8 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero1HealthBar = hero1.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero1ManaBar = hero1.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
         hero1Selected = hero1.transform.Find("Selected").gameObject;
-        ability1Image = hero1.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
-        ability2Image = hero1.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
+        ability1Button = hero1.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
+        ability2Button = hero1.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
 
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
@@ -88,8 +88,8 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero2HealthBar = hero2.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero2ManaBar = hero2.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
         hero2Selected = hero2.transform.Find("Selected").gameObject;
-        ability3Image = hero2.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
-        ability4Image = hero2.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
+        ability3Button = hero2.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
+        ability4Button = hero2.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero3Image = hero3.transform.Find("Portrait/PortraitCircle/HeroImage").gameObject.GetComponent<Image>();
@@ -97,8 +97,8 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero3HealthBar = hero3.transform.Find("HealthBar").gameObject.GetComponent<PortraitHealthBar>();
         hero3ManaBar = hero3.transform.Find("ManaBar").gameObject.GetComponent<PortraitManaBar>();
         hero3Selected = hero3.transform.Find("Selected").gameObject;
-        ability5Image = hero3.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Image>();
-        ability6Image = hero3.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Image>();
+        ability5Button = hero3.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
+        ability6Button = hero3.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
 
         /*
         GameObject ordersPanel = hotKeyPanel.transform.Find("OrdersPanel").gameObject;
@@ -136,10 +136,16 @@ public class PortraitHotKeyManager : MonoBehaviour
     void UpdateManaProcs()
     {
         hero1ManaFullImage.gameObject.SetActive(hero1ManaBar.hasMaxMana);
+        ability1Button.interactable = hero1ManaBar.hasMaxMana;
+        ability2Button.interactable = hero1ManaBar.hasMaxMana;
 
         hero2ManaFullImage.gameObject.SetActive(hero2ManaBar.hasMaxMana);
+        ability3Button.interactable = hero2ManaBar.hasMaxMana;
+        ability4Button.interactable = hero2ManaBar.hasMaxMana;
 
         hero3ManaFullImage.gameObject.SetActive(hero3ManaBar.hasMaxMana);
+        ability5Button.interactable = hero3ManaBar.hasMaxMana;
+        ability6Button.interactable = hero3ManaBar.hasMaxMana;
     }
 
     void UpdateDeathState()
@@ -210,8 +216,8 @@ public class PortraitHotKeyManager : MonoBehaviour
             hero1HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[0].GetComponent<Fighter>());
             hero1ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[0].GetComponent<Fighter>());
 
-            ability1Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
-            ability2Image.sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+            ability1Button.GetComponent<Image>().sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability2Button.GetComponent<Image>().sprite = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
 
             ability1Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
             ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
@@ -227,8 +233,8 @@ public class PortraitHotKeyManager : MonoBehaviour
             hero2HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[1].GetComponent<Fighter>());
             hero2ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[1].GetComponent<Fighter>());
 
-            ability3Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
-            ability4Image.sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+            ability3Button.GetComponent<Image>().sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability4Button.GetComponent<Image>().sprite = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
 
             ability3Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
             ability4Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
@@ -245,8 +251,8 @@ public class PortraitHotKeyManager : MonoBehaviour
             hero3HealthBar.GetComponent<PortraitHealthBar>().InitHero(partyList[2].GetComponent<Fighter>());
             hero3ManaBar.GetComponent<PortraitManaBar>().InitHero(partyList[2].GetComponent<Fighter>());
 
-            ability5Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
-            ability6Image.sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
+            ability5Button.GetComponent<Image>().sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityIcon;
+            ability6Button.GetComponent<Image>().sprite = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityIcon;
 
             ability5Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[0]).abilityDescription;
             ability6Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;

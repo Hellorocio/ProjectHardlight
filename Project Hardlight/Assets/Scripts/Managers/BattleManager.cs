@@ -360,8 +360,7 @@ public class BattleManager : Singleton<BattleManager>
             if (ability != null && castingHero.GetHealth() > 0)
             {
                 SetSelectedHero(castingHero);
-
-                // Check has enough mana
+                
                 if (castingHero.GetCurrentMana() >= castingHero.GetMaxMana())
                 {
                     selectedAbility = ability;
@@ -371,12 +370,32 @@ public class BattleManager : Singleton<BattleManager>
                 }
                 else
                 {
-                    //Debug.Log("Not enough mana");
-                    if (notEnoughManaUI != null)
+                    // Not enough mana, this will be activated in CheckEnoughMana also if the player clicks the ability button
+                    // (but not with hotkeys, so I'm leaving it for now)
+                    if (notEnoughManaUI != null && !notEnoughManaUI.activeSelf)
                     {
                         notEnoughManaUI.SetActive(true);
                     }
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    // This is a dumb workaround because buttons can't be clicked when they're greyed out (effectively disabled)
+    // But we want the not enough mana popup to still work, so this is called by the OnClick EventTrigger (sometimes concurrently with UseAbility)
+    // And it just shows the popup if there's not enough mana
+    /// </summary>
+    public void CheckEnoughMana (int heroIndex)
+    {
+        Fighter castingHero = selectedVessels[heroIndex].GetComponent<Fighter>();
+
+        if (castingHero.GetCurrentMana() < castingHero.GetMaxMana())
+        {
+            //Debug.Log("Not enough mana");
+            if (notEnoughManaUI != null && !notEnoughManaUI.activeSelf)
+            {
+                notEnoughManaUI.SetActive(true);
             }
         }
     }
