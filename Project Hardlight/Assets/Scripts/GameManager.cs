@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine.UI;
 
-public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB };
+public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB, PAUSED };
 
 public class GameManager : Singleton<GameManager>
 {
@@ -321,6 +321,7 @@ public class GameManager : Singleton<GameManager>
 
         SetCameraControls(false);
         ClearUI();
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
 
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
         if (!TutorialManager.Instance.tutorialEnabled)
@@ -335,8 +336,16 @@ public class GameManager : Singleton<GameManager>
                 {
                     DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
                 }
-                DialogueManager.Instance.StartDialogue(new TextAsset("We did it!"));
 
+                if (fightingEndDialogue != null)
+                {
+                    DialogueManager.Instance.StartDialogue(fightingEndDialogue);
+                }
+                else
+                {
+                    DialogueManager.Instance.StartDialogue(defaultFightingEndDialogue);
+                }
+                
                 //unlock levels
                 UnlockLevels();
             }
@@ -424,11 +433,19 @@ public class GameManager : Singleton<GameManager>
         VesselManager.Instance.SetAllVesselEnabledTo(true);
 
         //load battle
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         Debug.Log("GameManager | Starting to load level " + levelName);
         sceneToLoad = levelName;
-        LoadScene(sceneToLoad, true);
-        //DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
-        //DialogueManager.Instance.StartDialogue(levelStartDialogue);
+
+        if (levelStartDialogue != null)
+        {
+            DialogueManager.Instance.onDialogueEnd.AddListener(LoadSceneAfterDialogue);
+            DialogueManager.Instance.StartDialogue(levelStartDialogue);
+        }
+        else
+        {
+            LoadScene(sceneToLoad, true);
+        }
     }
 
     /// <summary>

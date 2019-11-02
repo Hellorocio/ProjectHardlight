@@ -243,20 +243,27 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Enters battle if the node does not have a cutscene, otherwise load beforeCutscene
+    /// Enters battle if the node does not have a cutscene, otherwise load dialogue or cutscene
     /// </summary>
     public void PressFightButton ()
     {
         GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
+
+        GameManager.Instance.levelStartDialogue = currentNode.dialogueBefore;
+        GameManager.Instance.fightingEndDialogue = currentNode.dialogueAfter;
+
         if (currentNode.cutsceneBefore != "")
         {
+            GameManager.Instance.levelStartDialogue = null; // Right now we don't allow both dialogue and cutscenes before battle, because that causes problems
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);
         }
-        else if (currentNode.type == MapNode.NodeType.BATTLE)
+        else 
+        if (currentNode.type == MapNode.NodeType.BATTLE)
         {
             GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
         }
-        else if (currentNode.type == MapNode.NodeType.HUB)
+        else 
+        if (currentNode.type == MapNode.NodeType.HUB)
         {
             GameManager.Instance.EnterHub(currentNode.sceneToLoad);
         }

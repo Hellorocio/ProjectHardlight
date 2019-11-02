@@ -28,8 +28,8 @@ public class MapNode : MonoBehaviour
     public MapLine[] mapPaths; // should correspond to the connecting unlockNode
     public string cutsceneBefore = "";
     public string cutsceneAfter = "";
-    //public TextAsset dialogueBefore;
-    //public TextAsset dialogueAfter;
+    public TextAsset dialogueBefore;
+    public TextAsset dialogueAfter;
 
     [Header("Battle Details")]
     public Difficulty difficulty;
