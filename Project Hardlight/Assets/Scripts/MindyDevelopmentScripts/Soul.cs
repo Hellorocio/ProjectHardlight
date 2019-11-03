@@ -83,25 +83,34 @@ public class Soul : MonoBehaviour
 
     public string GetDescription()
     {
-        string description = "";
-        if (statFocuses.Contains(StatFocusType.HEALTH))
+        string description = "Gives ";
+        for (int i = 0; i < statFocuses.Count; i++)
         {
-            description += "Gives bonus health\n";
-        }
-        if (statFocuses.Contains(StatFocusType.ABILITY))
-        {
-            description += "Gives bonus ability power\n";
-        }
-        if (statFocuses.Contains(StatFocusType.ATTACK))
-        {
-            description += "Gives bonus attack damage\n";
-        }
-        if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
-        {
-            description += "Gives bonus mana regen speed\n";
+            if (i > 0)
+            {
+                description += "\nand ";
+            }
+
+            switch (statFocuses[i])
+            {
+                case StatFocusType.HEALTH:
+                    description += "bonus health";
+                    break;
+                case StatFocusType.ABILITY:
+                    description += "bonus ability power";
+                    break;
+                case StatFocusType.ATTACK:
+                    description += "bonus attack damage";
+                    break;
+                case StatFocusType.ATTACKSPEED:
+                    description += "bonus attack speed";
+                    break;
+                default:
+                    break;
+            }
         }
 
-        return description.Substring(0, description.Length - 1);
+        return description;
     }
 
     /// <summary>

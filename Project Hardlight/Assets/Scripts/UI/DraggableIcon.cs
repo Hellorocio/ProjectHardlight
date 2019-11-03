@@ -104,7 +104,6 @@ public class DraggableIcon : MonoBehaviour
                 //if distance is large and this is a selection box, snap back to grid
                 replaceObj.GetComponent<Image>().enabled = true;
                 GetComponent<Image>().enabled = false;
-                replaceObj = null;
 
                 BaseIcon icon = GetComponent<BaseIcon>();
                 if (icon != null)
@@ -113,7 +112,16 @@ public class DraggableIcon : MonoBehaviour
                 }
 
                 //let loadoutUI know that selection has changed
-                LoadoutUI.Instance.LoadoutUpdated();
+                if (iconType == IconType.vessel)
+                {
+                    LoadoutUI.Instance.LoadoutUpdated(replaceObj.gameObject);
+                }
+                else 
+                if (iconType == IconType.soul)
+                {
+                    LoadoutUI.Instance.LoadoutUpdated(gameObject);
+                }
+                replaceObj = null;
             }
             transform.position = startPos;
         }
@@ -204,7 +212,7 @@ public class DraggableIcon : MonoBehaviour
             //if this is a selectionWindow, check if everything has been set
             if (allowReplacement)
             {
-                LoadoutUI.Instance.LoadoutUpdated();
+                LoadoutUI.Instance.LoadoutUpdated(gameObject);
             }
         }
     }

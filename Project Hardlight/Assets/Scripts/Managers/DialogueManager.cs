@@ -11,6 +11,7 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     public GameObject box;
     public TextMeshProUGUI text;
+    public GameObject nameLabel;
 
     public TextAsset script;
 
@@ -42,6 +43,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
         ShowBox(false);
         ShowImage(false);
+        ShowName(false);
 
         initialized = true;
     }
@@ -87,6 +89,7 @@ public class DialogueManager : Singleton<DialogueManager>
         text.text = "";
         ShowBox(false);
         ShowImage(false);
+        ShowName(false);
         if (dialogueLoop != null)
         {
             StopCoroutine(dialogueLoop);
@@ -100,7 +103,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // get individual lines from text asset
         string[] lines = script.text.Split('\n');
         bool didInput = false;
-
+        
         for (var l = 0; l < lines.Length; l++)
         {
             var line = lines[l];
@@ -158,12 +161,14 @@ public class DialogueManager : Singleton<DialogueManager>
         if (profileDict.ContainsKey(line))
         {
             ShowImage(true);
+            ShowName(true, line);
             image.sprite = profileDict[line];
         }
         else
         {
             ShowImage(false);
-            Debug.Log("No sprite corresponding to command " + line);
+            ShowName(false);
+            //Debug.Log("No sprite corresponding to command " + line);
             return;
         }
     }
@@ -182,6 +187,19 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         image.gameObject.SetActive(shouldShow);
         image.enabled = shouldShow;
+    }
+
+    private void ShowName (bool shouldShow, string name = "")
+    {
+        if (nameLabel != null)
+        {
+            nameLabel.SetActive(shouldShow);
+
+            if (shouldShow)
+            {
+                nameLabel.GetComponentInChildren<TextMeshProUGUI>().text = name;
+            }
+        }
     }
 }
 

@@ -124,11 +124,11 @@ public class FighterMove : MonoBehaviour
 
         //set new target
         followingMoveOrder = true;
-        fighterAttack.StopBasicAttacking();
         if (fighter == null)
         {
             Start();
         }
+        fighterAttack.StopBasicAttacking();
 
         target = t;
         moveState = MoveState.moving;

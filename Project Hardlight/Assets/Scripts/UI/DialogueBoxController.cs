@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    public float defaultDuration = 2.0f;
     public float duration;
     public GameObject background;
     public GameObject textMesh;
@@ -19,12 +18,21 @@ public class DialogueBoxController : MonoBehaviour
         Show(false);
     }
 
-    // Make some text appear in the bottom right for a couple seconds
+    /// <summary>
+    /// Displays popup with no timer
+    /// </summary>
+    /// <param name="text"></param>
     public void PopupDialogue(string text)
     {
-        PopupDialogue(text, defaultDuration);
+        Show(true);
+        textMesh.GetComponent<TextMeshProUGUI>().text = text;
     }
 
+    /// <summary>
+    /// Displays popup for time seconds
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="time"></param>
     public void PopupDialogue(string text, float time)
     {
         duration = time;

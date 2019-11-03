@@ -51,6 +51,9 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     public Soul defaultSoul;
 
+    public GameObject selectedVessel;
+    public GameObject selectedIcon;
+
     ///////////////////
 
     public void Refresh()
@@ -237,14 +240,30 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     /// <summary>
     /// Change GO button between gray and orange depending on if loudout is set
+    /// Also updates vessel details (switches panel to whichever was just changed)
     /// Called on every change to selection icons
     /// </summary>
-    public void LoadoutUpdated ()
+    public void LoadoutUpdated (GameObject icon)
     {
         ActivateButton goButtonActivate = goButton.GetComponent<ActivateButton>();
         if (goButtonActivate != null)
         {
             goButtonActivate.SetButtonActivation(IsLoadoutValid(false));
+        }
+
+        GameObject changedVessel = null;
+        if (icon.GetComponent<SoulIcon>() != null)
+        {
+            changedVessel = icon.transform.parent.parent.GetComponentInChildren<VesselIcon>().vessel;
+        }
+        else if (icon.GetComponent<VesselIcon>() != null)
+        {
+            changedVessel = icon.GetComponent<VesselIcon>().vessel;
+        }
+
+        if (changedVessel != null)
+        {
+            SetDetailPane(changedVessel, icon);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 // All inputs should go int there
 // BattleManager handles LIVE FIGHTING. Anything outside of that, including setup, or UI stuff, should go elsewhere.
@@ -51,6 +52,9 @@ public class BattleManager : Singleton<BattleManager>
     private float startY;
     public float sizingFactor = 0.01f;
 
+    [HideInInspector]
+    public UnityEvent onHeroSelected;
+
     public void Initialize()
     {
         inputState = InputState.NothingSelected;
@@ -87,6 +91,10 @@ public class BattleManager : Singleton<BattleManager>
         {
             // escape battle
             BattleOver(false);
+
+            //pause
+            //GameManager.Instance.gameState = GameState.PAUSED;
+            //Time.timeScale = 0;
         }
 
 
@@ -469,6 +477,9 @@ public class BattleManager : Singleton<BattleManager>
         portraitHotKeyManager.LoadNewlySelectedHero(hero);
         OnSwitchTargetEvent();
         SubscribeHeroEvents();
+
+        onHeroSelected.Invoke();
+        onHeroSelected.RemoveAllListeners();
     }
     
 
@@ -478,6 +489,11 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void DeselectHero()
     {
+        if (TutorialManager.Instance.heroDeselectLocked)
+        {
+            return;
+        }
+
         if (inputState == InputState.UpdatingTarget)
         {
             SetCursor(battleConfig.defaultCursor);
