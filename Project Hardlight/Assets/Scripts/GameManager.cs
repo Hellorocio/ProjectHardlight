@@ -260,7 +260,7 @@ public class GameManager : Singleton<GameManager>
             }
             else
             {
-                SayTop("Healer: Hey! You better put me out of harm's way or we're all in trouble.");
+                SayTop("Healer: Hey! You better put me out of harm's way or we're all in trouble.", 10);
             }
         }
         
@@ -394,9 +394,27 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    public void SayTop(string text)
+   /// <summary>
+   /// Shows tutorial text and pauses the game
+   /// </summary>
+   /// <param name="text"></param>
+    public void ShowTutorialPopup(string text, bool pause)
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         topDialogue.PopupDialogue(text);
+        if (pause)
+        {
+            Time.timeScale = 0;
+        }
+    }
+
+    /// <summary>
+    /// Hides tutortal text and unpauses the game
+    /// </summary>
+    public void HideTutorialPopup()
+    {
+        topDialogue.CancelPopupDialogue();
+        Time.timeScale = 1;
     }
     
     public void SayTop(string text, float duration)
