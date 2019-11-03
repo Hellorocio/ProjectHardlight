@@ -58,7 +58,7 @@ MonoBehaviour:
   - name: Onion
     sprite: {fileID: 21300000, guid: b9b8573b395266048a04c4d150395396, type: 3}
   - name: Taurin
-    sprite: {fileID: 21300000, guid: 59be2b09489b85e43b1df675f8c32b91, type: 3}
+    sprite: {fileID: 21300000, guid: b03ea1cfffc21f64aa96633e5af5e133, type: 3}
   - name: Healer
     sprite: {fileID: 21300000, guid: 4d854d9fbdd524123916f07e9ffe6377, type: 3}
   - name: Nero
@@ -542,11 +542,19 @@ MonoBehaviour:
   tutorialPopups:
   - name: MovementTutorial
     dialogue: {fileID: 0}
-    popup: {fileID: 0}
+    popupText: 
+    pauseOnPopup: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 0
+    endTriggerParam: 
+    nextTutorialPopup: 
   tutorialEnabled: 1
   inTutorialBattle: 0
   usedAbility: 0
   inMeetupBattle: 0
+  heroDeselectLocked: 0
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1034,11 @@ MonoBehaviour:
   selectedAbility: {fileID: 0}
   inputState: 0
   sizingFactor: 0.0017
+  onHeroSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &7872150922777709663
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,6 +31,7 @@ public class TutorialManager : Singleton<TutorialManager>
 
     public void InitTutorial ()
     {
+        // set up start events
         foreach (TutorialPopupData popup in tutorialPopups)
         {
             switch (popup.startPopupTrigger)
@@ -42,6 +43,14 @@ public class TutorialManager : Singleton<TutorialManager>
                     break;
             }
 
+        }
+
+        // move marrha
+        GameObject moveLoc = GameObject.Find("StartMoveLoc");
+        GameObject merrha = GameObject.Find("Merrha");
+        if (moveLoc != null && merrha != null)
+        {
+            merrha.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
         }
     }
 
