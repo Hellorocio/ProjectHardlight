@@ -64,8 +64,8 @@ public class MercSurvivalAbility : Ability
 
                 return true;
             }
-            
-            MonsterAI monster = selectedTarget.GetComponent<MonsterAI>();
+
+            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
 
             if (monster != null)
             {

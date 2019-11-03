@@ -50,7 +50,7 @@ public class DarkHealerMagicBlast : Ability
     {
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
-            MonsterAI monster = selectedTarget.GetComponent<MonsterAI>();
+            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
             Fighter tmp = selectedTarget.GetComponent<Fighter>();
           
 

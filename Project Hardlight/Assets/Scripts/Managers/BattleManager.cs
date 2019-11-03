@@ -232,7 +232,7 @@ public class BattleManager : Singleton<BattleManager>
                             clickedFighter = hitFighter.gameObject;
                             break;
                         }
-                        MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
+                        GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
 
                         if (monster != null)
                         {
@@ -603,7 +603,7 @@ public class BattleManager : Singleton<BattleManager>
                             }
                         }
 
-                        MonsterAI monster = hit.GetComponent<MonsterAI>();
+                        GenericMonsterAI monster = hit.GetComponent<GenericMonsterAI>();
 
 
                         if (monster != null)
@@ -779,9 +779,20 @@ public class BattleManager : Singleton<BattleManager>
 
         foreach (MonsterAI f in enemyParent.GetComponentsInChildren<MonsterAI>())
         {
+            if (f.transform.parent.GetComponent<SwarmMasterAI>() == null)
+            {
+                numEnemies++;
+            }
+            
+            f.LevelStart();
+        }
+
+        foreach (SwarmMasterAI f in enemyParent.GetComponentsInChildren<SwarmMasterAI>())
+        {
             numEnemies++;
             f.LevelStart();
         }
+
 
 
         //This event was causing tons of problems, so we're getting rid of it for now

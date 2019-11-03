@@ -59,8 +59,8 @@ public class MageCurseAbility : Ability
                 return true;
             }
 
-               
-            MonsterAI monster = selectedTarget.gameObject.GetComponent<MonsterAI>();
+
+            GenericMonsterAI monster = selectedTarget.gameObject.GetComponent<GenericMonsterAI>();
             if (monster != null)
             {
                 monster.TakeDamage(GetDamage());

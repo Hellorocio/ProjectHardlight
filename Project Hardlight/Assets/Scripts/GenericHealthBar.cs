@@ -8,7 +8,7 @@ public class GenericHealthBar : MonoBehaviour
     public Text healthText;
     public Image healthBar;
 
-    MonsterAI monster;
+    GenericMonsterAI monster;
     float maxHealth;
     float maxBarWidth;
 
@@ -18,7 +18,7 @@ public class GenericHealthBar : MonoBehaviour
 
 
 
-        monster = transform.parent.parent.GetComponent<MonsterAI>();
+        monster = transform.parent.parent.GetComponent<GenericMonsterAI>();
         if (monster != null)
         {
             maxHealth = monster.maxHealth;

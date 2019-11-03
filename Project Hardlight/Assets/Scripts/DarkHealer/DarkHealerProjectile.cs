@@ -32,7 +32,7 @@ public class DarkHealerProjectile : MonoBehaviour
             
         }
 
-        MonsterAI monster = target.GetComponent<MonsterAI>();
+        GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
 
         if (monster != null)
         {

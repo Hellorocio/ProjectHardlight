@@ -34,7 +34,7 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
             foreach (Collider2D collider in hitColliders)
             {
                 Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-                MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
+                GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
 
                 if (tmp != null)
                 {

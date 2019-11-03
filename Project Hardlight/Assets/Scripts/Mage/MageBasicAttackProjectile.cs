@@ -20,7 +20,7 @@ public class MageBasicAttackProjectile : MonoBehaviour
 
             //Sorry for the gross code, this will be refactored after this playtest!!!
             Fighter tmp = target.GetComponent<Fighter>();
-            MonsterAI monster = target.GetComponent<MonsterAI>();
+            GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
            
 
             if(tmp != null)

@@ -40,7 +40,7 @@ public class NinjaHealingProjectile : MonoBehaviour
             }
 
         }
-        MonsterAI monster = other.GetComponent<MonsterAI>();
+        GenericMonsterAI monster = other.GetComponent<GenericMonsterAI>();
 
         if (monster != null)
         {

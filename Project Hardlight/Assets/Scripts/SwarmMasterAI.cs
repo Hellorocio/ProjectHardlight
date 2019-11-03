@@ -2,39 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface MonsterInterface
+public class SwarmMasterAI : MonoBehaviour
 {
 
-}
+    public int initalSpawnCount;
+    public GameObject swarmer;
+    public List<GameObject> mySwarmers;
 
-public abstract class GenericMonsterAI : MonoBehaviour
-{
-
-    protected bool startedLevel;
-    public float maxHealth;
-    public delegate void HealthChanged(float health);
-    public event HealthChanged OnHealthChanged;
-
-    protected virtual void CheckHealth(float currentHP)
-    {
-        OnHealthChanged?.Invoke(currentHP);
-    }
-
-    public abstract void TakeDamage(float damage);
-
-    public virtual void LevelStart()
-    {
-        startedLevel = true;
-    }
-}
-
-public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
-{
     [Header("Basic Attributes")]
     public string characterName;
     public CombatInfo.Team team;
-    //public float maxHealth;
-    public float maxMana;
     public float moveSpeed;
     public float alertedRange;
     public float maxAggroRange;
@@ -42,13 +19,9 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     [Space(10)]
 
     [Header("Basic Attack Stats")]
+    public float newSpawnChance;
     public float basicAttackRange;
     public float timeBetweenAttacks;
-    public int numJabsInAttack;
-    public GameObject basicAttackPrefab;
-    public GameObject spawnPoint;
-    public int basicAttackDamage;
-    public float basicAttackProjectileSpeed;
     public AudioClip basicAttackSfx;
     [Space(10)]
 
@@ -60,54 +33,39 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public List<Transform> patrolRoute;
     [Space(10)]
 
-    [Header("Animation Info")]
-    public AnimationClip basicAttackClip;
-    public float basicAttackClipSpeedMultiplier;
-    public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
-    [Space(10)]
-
     protected int numWanderPoints;
     protected int wanderPointCounter;
     protected Vector3 currentWanderPoint;
     protected float currentIdleTime = 0;
     protected BattleManager battleManager;
-    protected float realBasicAttackHitTime;
-    protected int jabsDone = 0;
-    protected Animator animator;
+    protected bool startedLevel;
     protected Vector3 startPos;
-    protected Color defaultColor;
-    protected Color hitColor;
-    protected float currentHealth;
-    protected float currentMana;
     protected Coroutine attackCoroutine;
-    protected GameObject currentTarget;
+    [HideInInspector]
+    public GameObject currentTarget;
     protected GameObject attackParent;
     protected bool anyValidTargets;
     protected int patrolIndex = -1;
     public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
     protected MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
-    //public delegate void HealthChanged(float health);
-    //public event HealthChanged OnHealthChanged;
 
-    void Start()
+    private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        animator = gameObject.GetComponentInChildren<Animator>();
-        animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
-        realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-        currentHealth = maxHealth;
-        currentMana = 0;
         attackParent = GameObject.Find("Vessels");
-        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
-        hitColor = new Color(1f, .5235f, .6194f);
         startPos = transform.position;
+
+
+        InitSpawnSwarmers();
     }
 
     void FixedUpdate()
     {
         if (startedLevel)
         {
+            CleanSwarmers();
+            GenerateNewSpacing();
             UpdateTarget();
             if (anyValidTargets)
             {
@@ -136,6 +94,145 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             }
         }
 
+    }
+
+
+    /// <summary>
+    /// Checks that all Individuals are active, otherwise remove them
+    /// Also handles death event when all swarmers are dead
+    /// </summary>
+    public void CleanSwarmers()
+    {
+        for(int i = 0; i < mySwarmers.Count; i++)
+        {
+            if (!mySwarmers[i].activeSelf)
+            {
+                mySwarmers.RemoveAt(i);
+                i--;
+            }
+        }
+        if (mySwarmers.Count <= 0)
+        {
+            OnDeath();
+        }
+
+    }
+
+    public void InitSpawnSwarmers()
+    {
+        for(int i = 0; i < initalSpawnCount; i++)
+        {
+            mySwarmers.Add(Instantiate(swarmer, transform));
+        }
+        GenerateNewSpacing();
+
+    }
+
+    public void SpawnNewIndividual()
+    {
+        mySwarmers.Add(Instantiate(swarmer, transform));
+        GenerateNewSpacing();
+    }
+
+    public void GenerateNewSpacing()
+    {
+        int j = 0;
+        for (int i = 0; i < mySwarmers.Count; i++)
+        {
+            if(mySwarmers.Count > 7)
+            {
+                if (j == 5 || j == 12)
+                {
+                    j = i + 1;
+                }
+
+                Vector3 newVec = new Vector3((transform.position.x - 1.2f) + (Mathf.Sin(j + .2f) + .2f * j), (transform.position.y - 1.2f) + (Mathf.Cos(j + .2f) + .2f * j), transform.position.z);
+                mySwarmers[i].GetComponent<IndividualSwarmerAI>().swarmLoc = newVec;
+                j++;
+            } else
+            {
+                if (j == 5 || j == 12)
+                {
+                    j = i + 1;
+                }
+
+                Vector3 newVec = new Vector3((transform.position.x - 1.2f) + (Mathf.Sin(j + .2f) + .2f * j), (transform.position.y - 1.2f) + (Mathf.Cos(j + .2f) + .2f * j), transform.position.z);
+                mySwarmers[i].GetComponent<IndividualSwarmerAI>().swarmLoc = newVec;
+                j+=2;
+            }
+            
+        }
+
+        
+    }
+
+    /// <summary>
+    /// Plays the attack. This includes sync'ing the animator and sounds with dealing damage.
+    /// If the player has moved out of range before the damage is dealt then the coroutine is ended early
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator BasicAttack()
+    {
+        List<IndividualSwarmerAI> swarmers = new List<IndividualSwarmerAI>();
+        foreach(GameObject obj in mySwarmers)
+        {
+            if(obj != null && obj.activeSelf)
+            {
+                swarmers.Add(obj.GetComponent<IndividualSwarmerAI>());
+            }
+            
+        }
+        foreach(IndividualSwarmerAI minion in swarmers)
+        {
+            if(minion != null && minion.gameObject.activeSelf)
+            {
+                if (!InBasicRangeOfTarget(currentTarget.transform.position))
+                {
+                    StopBasicAttacking();
+                }
+                minion.StartBasicAttacking();
+                yield return new WaitForSeconds(timeBetweenAttacks);
+                if(minion != null && minion.gameObject.activeSelf)
+                {
+                    if(Random.value <= newSpawnChance)
+                    {
+                        SpawnNewIndividual();
+                    }
+                }
+            }
+        }
+
+        moveState = MoveState.stopped;
+        attackCoroutine = null;
+    }
+
+    /// <summary>
+    /// Starts the basic attacking coroutine
+    /// </summary>
+    void StartBasicAttacking()
+    {
+        if (moveState != MoveState.basicAttacking)
+        {
+            moveState = MoveState.basicAttacking;
+            if (attackCoroutine == null)
+            {
+                attackCoroutine = StartCoroutine(BasicAttack());
+            }
+
+        }
+
+    }
+
+    /// <summary>
+    /// Stops the basicAttack early. Currently used for when the target has moved out of range before the attack is finished
+    /// Stops the basic attack in the event of an interruption?? (future case)
+    /// </summary>
+    public void StopBasicAttacking()
+    {
+        StopCoroutine(attackCoroutine);
+        
+        moveState = MoveState.stopped;
+        attackCoroutine = null;
     }
 
     /// <summary>
@@ -200,11 +297,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         {
             if (!InBasicRangeOfTarget(currentTarget.transform.position) && moveState != MoveState.basicAttacking)
             {
-                if (moveState != MoveState.moving)
-                {
-                    animator.Play("Walk");
-
-                }
+                
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
                 moveState = MoveState.moving;
 
@@ -212,7 +305,9 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             }
             else
             {
+                //Send an IndividualSwarmer to attack
                 StartBasicAttacking();
+                
             }
         }
         else
@@ -242,11 +337,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
-            if (moveState != MoveState.moving)
-            {
-                animator.Play("Walk");
-
-            }
+            
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.moving;
 
@@ -254,10 +345,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         }
         else
         {
-            if (moveState == MoveState.moving)
-            {
-                animator.Play("Idle");
-            }
+            
             moveState = MoveState.stopped;
         }
 
@@ -271,11 +359,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     {
         if (!InBodyRangeOfTarget(pos))
         {
-            if (moveState != MoveState.patrolling)
-            {
-                animator.Play("Walk");
-
-            }
+            
             //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.patrolling;
@@ -284,10 +368,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         }
         else
         {
-            if (moveState == MoveState.patrolling)
-            {
-                animator.Play("Idle");
-            }
+            
             moveState = MoveState.stopped;
             currentIdleTime = idleTime;
             numWanderPoints = Random.Range(minWanderPoints, maxWanderPoints);
@@ -299,11 +380,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     {
         if (!InBodyRangeOfTarget(pos))
         {
-            if (moveState != MoveState.patrolling)
-            {
-                animator.Play("Walk");
-
-            }
+            
             //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.patrolling;
@@ -312,10 +389,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         }
         else
         {
-            if (moveState == MoveState.patrolling)
-            {
-                animator.Play("Idle");
-            }
+            
             moveState = MoveState.stopped;
             currentIdleTime = idleTime;
             wanderPointCounter++;
@@ -385,55 +459,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     }
 
     /// <summary>
-    /// Starts the basic attacking coroutine
-    /// </summary>
-    void StartBasicAttacking()
-    {
-        if (moveState != MoveState.basicAttacking)
-        {
-            moveState = MoveState.basicAttacking;
-            if (attackCoroutine == null)
-            {
-                attackCoroutine = StartCoroutine(BasicAttack());
-            }
-
-        }
-
-    }
-
-    /// <summary>
-    /// Stops the basicAttack early. Currently used for when the target has moved out of range before the attack is finished
-    /// Stops the basic attack in the event of an interruption?? (future case)
-    /// </summary>
-    public void StopBasicAttacking()
-    {
-        StopCoroutine(attackCoroutine);
-        if (jabsDone >= numJabsInAttack)
-        {
-            jabsDone = 0;
-        }
-        moveState = MoveState.stopped;
-        attackCoroutine = null;
-    }
-
-
-    public void DoBasicAttack(GameObject target)
-    {
-
-        target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
-
-    }
-
-    /// <summary>
-    /// Plays the attack. This includes sync'ing the animator and sounds with dealing damage.
-    /// If the player has moved out of range before the damage is dealt then the coroutine is ended early
-    /// </summary>
-    /// <returns></returns>
-    public abstract IEnumerator BasicAttack();
-    
-
-
-    /// <summary>
     /// Returns true if this fighter is in range of their currentTarget
     /// </summary>
     /// <returns></returns>
@@ -479,18 +504,10 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     }
 
 
-    public override void TakeDamage(float damage)
+    public void LevelStart()
     {
-        currentHealth -= damage;
-        IEnumerator colorThing = HitColorChanger();
-        StartCoroutine(colorThing);
-        CheckHealth(currentHealth);
-        if (currentHealth <= 0)
-        {
-            OnDeath();
-        }
+        startedLevel = true;
     }
-
 
     public void OnDeath()
     {
@@ -500,18 +517,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         gameObject.SetActive(false);
     }
 
-    public float GetHealth()
-    {
-        return currentHealth;
-    }
-
-    IEnumerator HitColorChanger()
-    {
-
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
-        yield return new WaitForSeconds((float)0.25);
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
-    }
 
     /// <summary>
     /// Sets the current target, if there is a valid one within maxAggroRange. Uses the preference enums if provided to select a specific type of fighter

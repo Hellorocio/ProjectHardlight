@@ -16,7 +16,7 @@ public class DamageText : MonoBehaviour
     private int poolNum;
 
     public Fighter fighter;
-    public MonsterAI monster;
+    public GenericMonsterAI monster;
     private float oldHealth;     // keeps track of health to tell what damage has been taken
                                  // we may want to change this later but I didn't want to clutter up fighter with more events
 

@@ -15,7 +15,7 @@ public class MerrhaBasicAttack : BasicAttackAction
         gooAttack.transform.localPosition = Vector3.zero;
 
         float damage = sourceFighter.GetBasicAttackDamage();
-        MonsterAI monster = target.GetComponent<MonsterAI>();
+        GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
 
         if(monster != null)
         {

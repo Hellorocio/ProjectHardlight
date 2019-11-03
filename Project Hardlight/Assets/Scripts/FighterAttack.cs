@@ -185,7 +185,7 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
-    public void SetIssuedCurrentTarget(MonsterAI target)
+    public void SetIssuedCurrentTarget(GenericMonsterAI target)
     {
         if (target != null)
         {
@@ -214,7 +214,7 @@ public class FighterAttack : MonoBehaviour
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
-        MonsterAI[] monsters = attackParent.GetComponentsInChildren<MonsterAI>();
+        GenericMonsterAI[] monsters = attackParent.GetComponentsInChildren<GenericMonsterAI>();
         
         bool enemiesActive = false;
         //bool newTargetWasSelected = false;
@@ -337,7 +337,7 @@ public class FighterAttack : MonoBehaviour
     void SetClosestAttackTarget()
     {
         Fighter[] currentTargets = attackParent.GetComponentsInChildren<Fighter>();
-        MonsterAI[] monsters = attackParent.GetComponentsInChildren<MonsterAI>();
+        GenericMonsterAI[] monsters = attackParent.GetComponentsInChildren<GenericMonsterAI>();
         
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;

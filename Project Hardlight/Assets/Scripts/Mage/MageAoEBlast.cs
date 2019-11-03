@@ -72,8 +72,8 @@ public class MageAoEBlast : Ability
                     }
                 }
 
-                
-                MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
+
+                GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
                 if (monster != null)
                 {
                     monster.TakeDamage(GetDamage());

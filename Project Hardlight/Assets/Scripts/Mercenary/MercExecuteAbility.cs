@@ -53,8 +53,8 @@ public class MercExecuteAbility: Ability
 
                 return true;
             }
-            
-            MonsterAI monster = selectedTarget.GetComponent<MonsterAI>();
+
+            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
             if (monster != null)
             {
                 monster.TakeDamage(GetDamage());
