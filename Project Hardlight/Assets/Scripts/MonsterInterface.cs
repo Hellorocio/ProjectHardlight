@@ -90,7 +90,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     //public delegate void HealthChanged(float health);
     //public event HealthChanged OnHealthChanged;
 
-    void Start()
+    protected virtual void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
@@ -143,7 +143,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     /// <param name="target"></param>
     /// <returns></returns>
-    bool IsValidTarget(GameObject target)
+    protected virtual bool IsValidTarget(GameObject target)
     {
         anyValidTargets = (target != null && target.activeSelf && InMaxAgroRange(target.transform.position));
         if (!anyValidTargets)
@@ -158,7 +158,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
     /// </summary>
     /// <returns></returns>
-    List<Fighter> GetValidTargets()
+    protected virtual List<Fighter> GetValidTargets()
     {
         List<Fighter> fighters = new List<Fighter>();
         Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
@@ -177,7 +177,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// <summary>
     /// Check the monster's current target and if it is not valid then check if there are any valid targets
     /// </summary>
-    void UpdateTarget()
+    protected virtual void UpdateTarget()
     {
         if (!IsValidTarget(currentTarget)) // Needs to also check if there are multiple enemies in alerted dist
         {
@@ -194,7 +194,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// Decides if the target is valid, if so then decide to move closer or attack.
     /// If the target is not valid then check for new ones
     /// </summary>
-    void DecideAttack()
+    protected void DecideAttack()
     {
         if (IsValidTarget(currentTarget))
         {
@@ -237,7 +237,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// <summary>
     /// Checks if we are in attack range of the current target and if we arn't then we move closer
     /// </summary>
-    void MoveToTarget()
+    protected void MoveToTarget()
     {
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
@@ -267,7 +267,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// Used in the patrol system, this function moves the monster to a position in the same style as MoveToTarget
     /// </summary>
     /// <param name="pos"></param>
-    void MoveToPosition(Vector3 pos)
+    protected void MoveToPosition(Vector3 pos)
     {
         if (!InBodyRangeOfTarget(pos))
         {
@@ -295,7 +295,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         }
     }
 
-    void MoveToWanderPoint(Vector3 pos)
+    protected void MoveToWanderPoint(Vector3 pos)
     {
         if (!InBodyRangeOfTarget(pos))
         {
@@ -332,7 +332,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// reverse will go down to the last index and then decrement back up to the top 1-2-3-2-1-2-3-2-1
     /// if you don't know what random means then I can't help you xD
     /// </summary>
-    void DoPatrol()
+    protected void DoPatrol()
     {
         if (patrolType != PatrolType.none && moveState == MoveState.stopped)
         {
@@ -368,7 +368,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         }
     }
 
-    void Wander()
+    protected void Wander()
     {
 
         if (patrolType != PatrolType.none && moveState == MoveState.stopped)
@@ -387,7 +387,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// <summary>
     /// Starts the basic attacking coroutine
     /// </summary>
-    void StartBasicAttacking()
+    protected void StartBasicAttacking()
     {
         if (moveState != MoveState.basicAttacking)
         {
@@ -405,7 +405,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// Stops the basicAttack early. Currently used for when the target has moved out of range before the attack is finished
     /// Stops the basic attack in the event of an interruption?? (future case)
     /// </summary>
-    public void StopBasicAttacking()
+    public virtual void StopBasicAttacking()
     {
         StopCoroutine(attackCoroutine);
         if (jabsDone >= numJabsInAttack)
