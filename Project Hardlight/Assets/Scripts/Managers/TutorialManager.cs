@@ -24,6 +24,8 @@ public class TutorialManager : Singleton<TutorialManager>
     public bool heroDeselectLocked = false;
     private int currentTutorialIndex = -1;
 
+    private bool saveCamEnabled ;
+
     public void Start()
     {
         // for testing
@@ -61,10 +63,22 @@ public class TutorialManager : Singleton<TutorialManager>
     /// <param name="popupName"></param>
     public void ActivateTutorialPopup (string popupName)
     {
-        CompleteTutorialStep();
+        //print("activate tutorial " + popupName);
         int popupIndex = GetPopupIndex(popupName);
         if (popupIndex != -1)
         {
+            if (currentTutorialIndex == popupIndex)
+            {
+                // prevent duplicate popups
+                return;
+            }
+            else
+            if (currentTutorialIndex != -1)
+            {
+                // prevent overlapping popups
+                CompleteTutorialStep();
+            }
+
             currentTutorialIndex = popupIndex;
             SetEndPopupTrigger();
 
@@ -73,12 +87,17 @@ public class TutorialManager : Singleton<TutorialManager>
                 // play dialogue
                 if (tutorialPopups[currentTutorialIndex].popupText != "")
                 {
+                    //print("Tutorial popup with dialogue");
                     DialogueManager.Instance.onDialogueEnd.AddListener(TutorialPopupAfterDialogue);
                 }
+                GameManager.Instance.gameState = GameState.PAUSED;
+                saveCamEnabled = BattleManager.Instance.camController.enabled;
+                BattleManager.Instance.camController.enabled = false;
                 DialogueManager.Instance.StartDialogue(tutorialPopups[popupIndex].dialogue);
             }
             else
             {
+                //print("Tutorial popup with no dialogue");
                 TutorialPopupAfterDialogue();
             }
         }
@@ -89,9 +108,14 @@ public class TutorialManager : Singleton<TutorialManager>
     /// </summary>
     public void TutorialPopupAfterDialogue ()
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        GameManager.Instance.gameState = GameState.FIGHTING;
+        BattleManager.Instance.camController.enabled = saveCamEnabled;
+
         //print("TutorialPopupAfterDialogue: tutorial index = " + currentTutorialIndex);
         if (currentTutorialIndex != -1)
         {
+            //print("TutorialPopupAfterDialogue: " + tutorialPopups[currentTutorialIndex].name);
             // show popup
             if (tutorialPopups[currentTutorialIndex].popupText != "")
             {
@@ -113,7 +137,9 @@ public class TutorialManager : Singleton<TutorialManager>
             switch (tutorialPopups[currentTutorialIndex].endPopupTrigger)
             {
                 case PopupTrigger.SELECT_HERO:
-                    //BattleManager.Instance.DeselectHero();
+                    heroDeselectLocked = false;
+                    BattleManager.Instance.DeselectHero();
+                    heroDeselectLocked = true;
                     BattleManager.Instance.onHeroSelected.AddListener(CompleteTutorialStep);
                     break;
                 case PopupTrigger.ZOOM:
@@ -162,6 +188,7 @@ public class TutorialManager : Singleton<TutorialManager>
             {
                 foreach (SpriteRenderer spriteRenderer in activateObj.GetComponentsInChildren<SpriteRenderer>())
                 {
+                    //print("Setting " + spriteRenderer.gameObject + ", child of " + spriteRenderer.transform.parent.gameObject.name + " to active = " + activate);
                     spriteRenderer.enabled = activate;
                 }
 
