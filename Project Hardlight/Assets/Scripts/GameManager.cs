@@ -398,13 +398,17 @@ public class GameManager : Singleton<GameManager>
    /// Shows tutorial text and pauses the game
    /// </summary>
    /// <param name="text"></param>
-    public void ShowTutorialPopup(string text, bool pause)
+    public void ShowTutorialPopup(string text, bool pause, bool disableMovement)
     {
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         topDialogue.PopupDialogue(text);
         if (pause)
         {
             Time.timeScale = 0;
+        }
+        if (disableMovement)
+        {
+            gameState = GameState.PAUSED;
         }
     }
 
@@ -415,6 +419,7 @@ public class GameManager : Singleton<GameManager>
     {
         topDialogue.CancelPopupDialogue();
         Time.timeScale = 1;
+        gameState = GameState.FIGHTING;
     }
     
     public void SayTop(string text, float duration)

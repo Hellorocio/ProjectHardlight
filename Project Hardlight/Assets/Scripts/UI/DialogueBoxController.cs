@@ -9,6 +9,7 @@ public class DialogueBoxController : MonoBehaviour
     public float duration;
     public GameObject background;
     public GameObject textMesh;
+    Animator animator;
 
     IEnumerator disappearLoop;
 
@@ -16,6 +17,7 @@ public class DialogueBoxController : MonoBehaviour
     void Start()
     {
         Show(false);
+        animator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -64,5 +66,10 @@ public class DialogueBoxController : MonoBehaviour
     {
         background.SetActive(shouldShow);
         textMesh.SetActive(shouldShow);
+
+        if (shouldShow && animator != null)
+        {
+            animator.Play("PopupStart");
+        }
     }
 }

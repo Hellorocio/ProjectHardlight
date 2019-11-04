@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.Events;
 
-public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST }
+public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY }
 
 // Keep track of state and things related to the tutorial, like events
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
@@ -94,7 +95,7 @@ public class TutorialManager : Singleton<TutorialManager>
             // show popup
             if (tutorialPopups[currentTutorialIndex].popupText != "")
             {
-                GameManager.Instance.ShowTutorialPopup(tutorialPopups[currentTutorialIndex].popupText, tutorialPopups[currentTutorialIndex].pauseOnPopup);
+                GameManager.Instance.ShowTutorialPopup(tutorialPopups[currentTutorialIndex].popupText, tutorialPopups[currentTutorialIndex].pauseOnPopup, tutorialPopups[currentTutorialIndex].disableMovementOnPopup);
             }
 
             // activate objects
@@ -112,7 +113,15 @@ public class TutorialManager : Singleton<TutorialManager>
             switch (tutorialPopups[currentTutorialIndex].endPopupTrigger)
             {
                 case PopupTrigger.SELECT_HERO:
+                    //BattleManager.Instance.DeselectHero();
                     BattleManager.Instance.onHeroSelected.AddListener(CompleteTutorialStep);
+                    break;
+                case PopupTrigger.ZOOM:
+                    GameManager.Instance.SetCameraControls(true);
+                    BattleManager.Instance.camController.onCameraZoom.AddListener(CompleteTutorialStep);
+                    break;
+                case PopupTrigger.PAN:
+                    BattleManager.Instance.camController.onCameraPan.AddListener(CompleteTutorialStep);
                     break;
                 default:
                     break;
@@ -155,6 +164,11 @@ public class TutorialManager : Singleton<TutorialManager>
                 {
                     spriteRenderer.enabled = activate;
                 }
+
+                foreach (Image image in activateObj.GetComponentsInChildren<Image>())
+                {
+                    image.enabled = activate;
+                }
             }
         }
     }
@@ -187,8 +201,10 @@ public struct TutorialPopupData
 {
     public string name;
     public TextAsset dialogue;
+    [TextArea(2, 5)]
     public string popupText;
     public bool pauseOnPopup;
+    public bool disableMovementOnPopup;
     public string activateObjectsParent; // name of the objects that need their sprite renderers activated
     public PopupTrigger startPopupTrigger;
     public string startTriggerParam;

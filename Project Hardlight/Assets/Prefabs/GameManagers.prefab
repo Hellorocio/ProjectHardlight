@@ -117,13 +117,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 0
   isCamMoving: 0
-  zoomMax: 30
+  enableSideScreenPanning: 0
+  zoomMax: 20
   zoomMin: 5
   minPanSpeed: 3
   maxPanSpeed: 10
   maxMouseSensitivity: 0.05
   minMouseSensitivity: 0.01
   screenBufferSize: 10
+  onCameraZoom:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCameraPan:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1475891051
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +555,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: 
     pauseOnPopup: 0
+    disableMovementOnPopup: 0
     activateObjectsParent: 
     startPopupTrigger: 0
     startTriggerParam: 
@@ -1390,15 +1402,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4401064956470136689}
     m_Modifications:
-    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730020, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_Name
@@ -1524,6 +1527,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730017, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_SortingOrder
@@ -1576,6 +1584,10 @@ PrefabInstance:
       value: -161.7
       objectReference: {fileID: 0}
     - target: {fileID: 313237501, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

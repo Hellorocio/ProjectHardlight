@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class CameraController : MonoBehaviour, IPointerClickHandler
 {
@@ -10,6 +11,8 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     int screenWidth;
     int screenHeight;
     public bool isCamMoving;
+
+    public bool enableSideScreenPanning = false;
 
     public float zoomMax;
     public float zoomMin;
@@ -28,6 +31,11 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
     float mouseSlope;
 
     public int screenBufferSize;
+
+    [HideInInspector]
+    public UnityEvent onCameraZoom;
+    [HideInInspector]
+    public UnityEvent onCameraPan;
 
     Camera myCam;
     // Start is called before the first frame update
@@ -82,6 +90,9 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         
         if (currentScrollDelta != 0)
         {
+            onCameraZoom.Invoke();
+            onCameraZoom.RemoveAllListeners();
+
             float currentZoom = myCam.orthographicSize;
             if (currentScrollDelta + currentZoom > zoomMax)
             {
@@ -136,23 +147,23 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            if (Input.mousePosition.x > screenWidth - screenBufferSize || Input.GetKey(KeyCode.RightArrow))
+            if ((enableSideScreenPanning && Input.mousePosition.x > screenWidth - screenBufferSize) || Input.GetKey(KeyCode.RightArrow))
             {
                 isCamMoving = true;
                 camPos.x += panSpeed * Time.deltaTime;
             }
-            else if (Input.mousePosition.x < screenBufferSize || Input.GetKey(KeyCode.LeftArrow))
+            else if ((enableSideScreenPanning && Input.mousePosition.x < screenBufferSize) || Input.GetKey(KeyCode.LeftArrow))
             {
                 isCamMoving = true;
                 camPos.x -= panSpeed * Time.deltaTime;
             }
 
-            else if (Input.mousePosition.y > screenHeight - screenBufferSize || Input.GetKey(KeyCode.UpArrow))
+            else if ((enableSideScreenPanning && Input.mousePosition.y > screenHeight - screenBufferSize) || Input.GetKey(KeyCode.UpArrow))
             {
                 isCamMoving = true;
                 camPos.y += panSpeed * Time.deltaTime;
             }
-            else if (Input.mousePosition.y < screenBufferSize || Input.GetKey(KeyCode.DownArrow))
+            else if ((enableSideScreenPanning && Input.mousePosition.y < screenBufferSize) || Input.GetKey(KeyCode.DownArrow))
             {
                 isCamMoving = true;
                 camPos.y -= panSpeed * Time.deltaTime;
@@ -163,6 +174,13 @@ public class CameraController : MonoBehaviour, IPointerClickHandler
             }
             
         }
+
+        if (myCam.gameObject.transform.position != camPos)
+        {
+            onCameraPan.Invoke();
+            onCameraPan.RemoveAllListeners();
+        }
+
         myCam.gameObject.transform.position = camPos;
     }
 }
