@@ -57,7 +57,7 @@ public class TankMonsterAI : MonsterAI
             attackZone.SetActive(true);
             //attackZone.transform.LookAt(currentTarget.transform);
             attackZone.transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, 8f);
-            yield return new WaitForSeconds(3.4f);
+            yield return new WaitForSeconds(2f);
             float tmp = basicAttackClipSpeedMultiplier;
             basicAttackClipSpeedMultiplier = .75f;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
@@ -65,7 +65,7 @@ public class TankMonsterAI : MonsterAI
             yield return new WaitForSeconds(realBasicAttackHitTime);
             
             Collider2D[] hitColliders = new Collider2D[1000];
-            Physics2D.OverlapCollider(attackZone.GetComponent<BoxCollider2D>(), myFilter, hitColliders);
+            Physics2D.OverlapCollider(attackZone.GetComponent<CircleCollider2D>(), myFilter, hitColliders);
             List<GameObject> hitFighters = new List<GameObject>();
             foreach(Collider2D collider in hitColliders)
             {

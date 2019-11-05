@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7799958120176471754}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.9633721, y: 2.1611786, z: 0.97484785}
   m_LocalScale: {x: 1, y: 1, z: 2.56215}
   m_Children: []
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11f1ca92f1468c46bd408215cd56e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initalSpawnCount: 5
+  initalSpawnCount: 10
   swarmer: {fileID: 2653135574666883562, guid: 9fdbf8fc93b7f7b46811030675b6a355, type: 3}
   mySwarmers: []
   characterName: Swarm
@@ -199,15 +199,17 @@ MonoBehaviour:
   alertedRange: 16
   maxAggroRange: 24
   targetPrefs: 
-  newSpawnChance: 0.33
+  newSpawnChance: 0
   basicAttackRange: 4
   timeBetweenAttacks: 1
   basicAttackSfx: {fileID: 0}
-  patrolType: 0
-  idleTime: 0
-  maxWanderPoints: 0
+  patrolType: 1
+  idleTime: 1
+  maxWanderPoints: 4
   minWanderPoints: 0
-  patrolRoute: []
+  patrolRoute:
+  - {fileID: 0}
+  - {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!212 &7799958120176471752
 SpriteRenderer:

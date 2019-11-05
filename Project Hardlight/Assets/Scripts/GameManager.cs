@@ -182,11 +182,11 @@ public class GameManager : Singleton<GameManager>
         selectedVessel.GetComponent<Fighter>().soul = souls[0];
         BattleManager.Instance.selectedVessels.Add(selectedVessel);
 
-        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[2].vessel);
+        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[1].vessel);
         selectedVessel.GetComponent<Fighter>().soul = souls[0];
         BattleManager.Instance.selectedVessels.Add(selectedVessel);
 
-        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[3].vessel);
+        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[2].vessel);
         selectedVessel.GetComponent<Fighter>().soul = souls[0];
         BattleManager.Instance.selectedVessels.Add(selectedVessel);
 
