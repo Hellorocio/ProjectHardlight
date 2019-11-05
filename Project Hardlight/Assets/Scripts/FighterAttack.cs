@@ -95,6 +95,8 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     public void StartBasicAttacking()
     {
+        StopBasicAttacking();
+
         basicAttackLoop = BasicAttackLoop();
         StartCoroutine(basicAttackLoop);
     }
