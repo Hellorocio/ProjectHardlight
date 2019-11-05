@@ -5,6 +5,8 @@ using UnityEngine;
 public class VesselData : MonoBehaviour
 {
     public Sprite appearance;
+    public Sprite fullPortrait;
+    public Sprite headshot;
 
     public string vesselName = "Tony Slimeslayer";
     public string title = "Basic Fighter";

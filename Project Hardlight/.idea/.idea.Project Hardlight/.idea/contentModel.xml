@@ -10,6 +10,20 @@
         <e p="Dialogue" t="Include">
           <e p="DefaultBattleEndDialogue.txt" t="Include" />
           <e p="LevelStartDialogue.txt" t="Include" />
+          <e p="NewTutorialDialogue" t="Include">
+            <e p="AfterMovement.txt" t="Include" />
+            <e p="Battle1Over.txt" t="Include" />
+            <e p="FoundMonster.txt" t="Include" />
+            <e p="FoundSecondMonster.txt" t="Include" />
+            <e p="TutorialStart.txt" t="Include" />
+          </e>
+          <e p="OldTutorialDialogue" t="Include">
+            <e p="Exposition.txt" t="Include" />
+            <e p="LoadoutDialogue.txt" t="Include" />
+            <e p="MeetupPrebattleDialogue.txt" t="Include" />
+            <e p="TaurinIntroCutscene.txt" t="Include" />
+            <e p="TaurinMeetupCutscene.txt" t="Include" />
+          </e>
           <e p="OnionFarmAfter.txt" t="Include" />
           <e p="OnionFarmBefore.txt" t="Include" />
           <e p="OnionTest.txt" t="Include" />
@@ -18,13 +32,6 @@
           <e p="Quest1Start.txt" t="Include" />
           <e p="SouthernForestAfter.txt" t="Include" />
           <e p="SouthernForestBefore.txt" t="Include" />
-          <e p="TutorialDialogue" t="Include">
-            <e p="Exposition.txt" t="Include" />
-            <e p="LoadoutDialogue.txt" t="Include" />
-            <e p="MeetupPrebattleDialogue.txt" t="Include" />
-            <e p="TaurinIntroCutscene.txt" t="Include" />
-            <e p="TaurinMeetupCutscene.txt" t="Include" />
-          </e>
         </e>
         <e p="Imported" t="Include">
           <e p="EasySpriteSheetCopy" t="Include">
@@ -94,12 +101,7 @@
           <e p="HeroPlacer.cs" t="Include" />
           <e p="HeroSelectionAndOrdering.cs" t="Include" />
           <e p="HighlightFighter.cs" t="Include" />
-          <e p="Mage" t="Include">
-            <e p="MageAoEBlast.cs" t="Include" />
-            <e p="MageBasicAttackAction.cs" t="Include" />
-            <e p="MageBasicAttackProjectile.cs" t="Include" />
-            <e p="MageCurseAbility.cs" t="Include" />
-          </e>
+          <e p="IndividualSwarmerAI.cs" t="Include" />
           <e p="Managers" t="Include">
             <e p="BattleManager.cs" t="Include" />
             <e p="CutsceneManager.cs" t="Include" />
@@ -140,6 +142,12 @@
             <e p="VesselData.cs" t="Include" />
           </e>
           <e p="MonsterInterface.cs" t="Include" />
+          <e p="Nero" t="Include">
+            <e p="MageAoEBlast.cs" t="Include" />
+            <e p="MageBasicAttackAction.cs" t="Include" />
+            <e p="MageBasicAttackProjectile.cs" t="Include" />
+            <e p="MageCurseAbility.cs" t="Include" />
+          </e>
           <e p="NewTargetAbility.cs" t="Include" />
           <e p="Ninja" t="Include">
             <e p="NinjaHealingAbility.cs" t="Include" />
@@ -149,8 +157,13 @@
           <e p="ProjectileMovement.cs" t="Include" />
           <e p="SelectionManager.cs" t="Include" />
           <e p="Singleton.cs" t="Include" />
-          <e p="SoulStats.cs" t="Include" />
           <e p="StartScreen.cs" t="Include" />
+          <e p="SwarmMasterAI.cs" t="Include" />
+          <e p="TankMonsterAI.cs" t="Include" />
+          <e p="Tutorial" t="Include">
+            <e p="TutorialDialogueTrigger.cs" t="Include" />
+            <e p="TutorialVisibilityTrigger.cs" t="Include" />
+          </e>
           <e p="UI" t="Include">
             <e p="DialogueBoxController.cs" t="Include" />
             <e p="DraggableIcon.cs" t="Include" />
@@ -160,6 +173,7 @@
             <e p="ManaBar.cs" t="Include" />
             <e p="PortraitHealthBar.cs" t="Include" />
             <e p="PortraitManaBar.cs" t="Include" />
+            <e p="PostBattleUI.cs" t="Include" />
             <e p="SoulIcon.cs" t="Include" />
             <e p="SoulUpgradeUI.cs" t="Include" />
             <e p="VesselIcon.cs" t="Include" />

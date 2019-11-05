@@ -203,7 +203,8 @@ MonoBehaviour:
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
   soul: {fileID: 0}
-  buffBar: {fileID: 0}
+  buffBar: {fileID: 4434253863450896407}
+  manaFullSfx: {fileID: 0}
   battleManager: {fileID: 0}
   percentDamageTakenModifier: 0
 --- !u!114 &-3343916218713961539
@@ -266,6 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appearance: {fileID: 0}
+  fullPortrait: {fileID: 0}
+  headshot: {fileID: 0}
   vesselName: Tony Slimeslayer
   title: Basic Fighter
   description: 
@@ -273,6 +276,7 @@ MonoBehaviour:
   baseMana: 0
   baseAbility: 100
   baseMovementSpeed: 200
+  maxAggroRange: 25
   basicAttack: {fileID: 584283511866937370}
   abilities: []
 --- !u!1 &7005731542221293009
@@ -381,11 +385,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2877626415033583129}
     m_Modifications:
-    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_Name
-      value: FighterUI
-      objectReference: {fileID: 0}
     - target: {fileID: 2478720113520355115, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -491,16 +490,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7463027010574693152, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7463027010574693152, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 6732804122311260143, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -511,6 +500,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.28
       objectReference: {fileID: 0}
+    - target: {fileID: 7463027010574693152, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463027010574693152, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7996724151460813675, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -520,6 +519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_Name
+      value: FighterUI
       objectReference: {fileID: 0}
     - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
@@ -539,3 +543,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4406350906864808998}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4434253863450896407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 49296229791783985, guid: 156dacb5b1de5cd4abc0856358410010,
+    type: 3}
+  m_PrefabInstance: {fileID: 4406350906864808998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcac162aa52662542bc69e5b150d3480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,7 +12,8 @@ public class AoEDefense : Ability
     public GameObject radiusIndicatorPrefab;
 
     public GameObject defenseSpellPrefab;
-
+    
+    [Header("Donut Touch")]
     public GameObject rangeIndicator;
     public GameObject radiusIndicator;
 

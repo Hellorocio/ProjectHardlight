@@ -832,6 +832,7 @@ public class BattleManager : Singleton<BattleManager>
             f.LevelStart();
         }
 
+        GameManager.Instance.SetCameraControls(true);
 
 
         //This event was causing tons of problems, so we're getting rid of it for now
