@@ -8,18 +8,11 @@ public class MeleeBasicAttackAction : BasicAttackAction
     {
         float damage = sourceFighter.GetBasicAttackDamage();
 
-        Fighter tmp = target.GetComponent<Fighter>();
-        GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
+        Fighter enemyFighter = target.GetComponent<Fighter>();
 
-        if (tmp != null)
+        if (enemyFighter != null)
         {
-            tmp.TakeDamage(damage);
-            sourceFighter.GainMana(10);
-        }
-
-        if (monster != null)
-        {
-            monster.TakeDamage(damage);
+            enemyFighter.TakeDamage(damage);
             sourceFighter.GainMana(10);
         }
 

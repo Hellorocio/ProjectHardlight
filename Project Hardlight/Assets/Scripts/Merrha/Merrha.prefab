@@ -15,7 +15,8 @@ MonoBehaviour:
   abilityName: A Dark Wind
   abilityDescription: A wave that damages enemies and heals allies it passes through.
   abilityIcon: {fileID: 21300000, guid: 5e5a2ffd43df9714eb0ebedc60278469, type: 3}
-  baseDamage: 5
+  sfx: {fileID: 0}
+  baseDamage: 7
   baseEffectRange: 20
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -45,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Purple Blastalast
   range: 10
-  damage: 3
-  cooldown: 2
-  description: Channels dark energy from a faraway distance.
+  damage: 10
+  cooldown: 3
+  description: A powerful, slow, high range blast of channeled energy.
   sfx: {fileID: 8300000, guid: e2f4371cf04a038408677ebb9e732051, type: 3}
   gooPrefab: {fileID: 2134644063743925849, guid: 8bf63feb0a1a36d4da5f23118850f6b0,
     type: 3}
@@ -66,9 +67,9 @@ MonoBehaviour:
   buffNameId: Bastion
   buffDescription: Gives 50% damage reduction to allies in the ring.
   buffIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
-  buffDuration: 5
+  buffDuration: 10
   maxStacks: 1
-  percentDamageTakenModifier: -0.5
+  percentDamageTakenModifier: -0.7
 --- !u!114 &4899670746398785568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +85,7 @@ MonoBehaviour:
   abilityName: Bastion of the Mountain
   abilityDescription: Increase the defense of allies in the area.
   abilityIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
+  sfx: {fileID: 0}
   baseDamage: 0
   baseEffectRange: 8
   targetingType: 2
@@ -158,6 +160,11 @@ PrefabInstance:
       propertyPath: abilities.Array.data[1]
       value: 
       objectReference: {fileID: 4899670746398785568}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -279,7 +286,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.13054635
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+    - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+    - {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
 --- !u!1 &2513952173870391777 stripped
 GameObject:

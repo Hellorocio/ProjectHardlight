@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5416107230612850924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6952383251715976084}
-  m_Layer: 0
-  m_Name: BasicAttackSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6952383251715976084
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5416107230612850924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.288, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2608807790061824647}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-6746862780836164911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +17,7 @@ MonoBehaviour:
   buffIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
   buffDuration: 10
   maxStacks: 1
-  percentDamageTakenModifier: 0.5
+  percentDamageTakenModifier: 1
 --- !u!114 &740907697011280635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,8 +34,9 @@ MonoBehaviour:
   abilityDescription: Deal single target damage and increase the damage taken by the
     unit for a few seconds.
   abilityIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
+  sfx: {fileID: 0}
   baseDamage: 15
-  baseEffectRange: 8
+  baseEffectRange: 16
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
@@ -114,12 +85,13 @@ MonoBehaviour:
   abilityDescription: Deal high damage in an area.
   abilityIcon: {fileID: -5789774901387246160, guid: 7d141781f10d2e342b834c6c4f203524,
     type: 3}
+  sfx: {fileID: 0}
   baseDamage: 10
-  baseEffectRange: 8
+  baseEffectRange: 16
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRadius: 2
+  baseEffectRadius: 4
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
   radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
@@ -130,6 +102,36 @@ MonoBehaviour:
   radiusIndicator: {fileID: 0}
   pointRef: {fileID: 3708409289486635681, guid: 89e59fd6414a90444be0974627a91cfb,
     type: 3}
+--- !u!1 &5416107230612850924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6952383251715976084}
+  m_Layer: 0
+  m_Name: BasicAttackSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6952383251715976084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416107230612850924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.288, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2608807790061824647}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8972604932438624029
 PrefabInstance:
   m_ObjectHideFlags: 0
