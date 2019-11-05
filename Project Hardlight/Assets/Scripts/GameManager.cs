@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public GameState gameState;
 
     public List<Soul> souls;
+
     //[HideInInspector]
     public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
@@ -55,7 +56,7 @@ public class GameManager : Singleton<GameManager>
     private Vector2 allightDropRange;
 
     public DialogueBoxController topDialogue;
-
+    
     public void Start()
     {
         // Destroy self if already exists
@@ -319,6 +320,7 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("heros lose");
         }
 
+        HideTutorialPopup();
         SetCameraControls(false);
         ClearUI();
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
@@ -357,6 +359,8 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
+            TutorialManager.Instance.FinishTutorialLevel();
+            /*
             if (TutorialManager.Instance.inTutorialBattle)
             {
                 // Tutorial end of battle stuff
@@ -390,6 +394,7 @@ public class GameManager : Singleton<GameManager>
                 }
                 
             }
+            */
         }
         
     }
@@ -498,6 +503,11 @@ public class GameManager : Singleton<GameManager>
         {
             InitializeBattle();
         }
+
+        if (TutorialManager.Instance.tutorialLevels[TutorialManager.Instance.currentTutorialLevel].tutorialScene == scene)
+        {
+            TutorialManager.Instance.InitTutorial();
+        }
     }
 
     ////////// Tutorial fun
@@ -580,17 +590,24 @@ public class GameManager : Singleton<GameManager>
         nodesToUnlock = null;
     }
 
+    public void StartTutorial()
+    {
+        LoadScene(TutorialManager.Instance.tutorialLevels[0].tutorialScene);
+    }
+
     /// <summary>
     /// Called by the skip tutorial button, moves to map and unlocks all the heroes
     /// </summary>
-    public void SkipTutorial ()
+    public void SkipTutorial()
     {
         TutorialManager.Instance.tutorialEnabled = false;
         UIManager.Instance.skipTutorialButton.SetActive(false);
+        HideTutorialPopup();
 
         if (gameState == GameState.FIGHTING)
         {
             BattleManager.Instance.BattleOver(false);
+            UIManager.Instance.postBattleUI.gameObject.SetActive(false);
         }
 
         currentCutscene = null;

@@ -153,7 +153,6 @@ GameObject:
   - component: {fileID: 728077357}
   - component: {fileID: 728077358}
   - component: {fileID: 728077359}
-  - component: {fileID: 486395986791903971}
   m_Layer: 0
   m_Name: CutsceneList
   m_TagString: Untagged
@@ -329,8 +328,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4401064956470136694}
-        m_MethodName: StartCutscene
-        m_Mode: 5
+        m_MethodName: StartTutorial
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -476,37 +475,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &486395986791903971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475891051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcdfebe5bd545d04c884304c6a31f21b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutsceneName: Exposition
-  bgImage: {fileID: 21300000, guid: a66bd58c8dd54064aa90bedb65b57a5f, type: 3}
-  cutsceneText: {fileID: 4900000, guid: f31a4513a0384f6db2b26fb63f449be6, type: 3}
-  onCutsceneEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4401064956470136694}
-        m_MethodName: StartCutscene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: TaurinIntroCutscene
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &966109210319826813
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6077989568657804789}
   - component: {fileID: 3115989202611689206}
+  - component: {fileID: 8457412359921365682}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -550,25 +519,176 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7e3ee36163c104bad2e4f86b6990b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialPopups:
-  - name: MovementTutorial
-    dialogue: {fileID: 0}
-    popupText: 
+  tutorialLevels:
+  - {fileID: 8457412359921365682}
+  tutorialPopups: []
+  currentTutorialLevel: 0
+  tutorialEnabled: 1
+  inTutorialBattle: 0
+  usedAbility: 1
+  inMeetupBattle: 0
+  firstTutorialBattle: 0
+  heroDeselectLocked: 1
+--- !u!114 &8457412359921365682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966109210319826813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50f722246bc0014bad20cbfbe492b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialScene: TutorialBattle_New
+  tutorialSteps:
+  - name: SelectionTutorial
+    dialogue: {fileID: 4900000, guid: 2bfc805dae27a5e4a849d8a773072ea5, type: 3}
+    popupText: Select a hero by clicking on them
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    activateObjectsParent: StartDialogueTrigger
     startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 2
+    endTriggerParam: 
+    nextTutorialPopup: MoveTutorial
+  - name: MoveTutorial
+    dialogue: {fileID: 0}
+    popupText: Move a selected hero by right clicking on a location
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: MovementFinishTrigger
+    startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 0
     endTriggerParam: 
     nextTutorialPopup: 
-  tutorialEnabled: 1
-  inTutorialBattle: 0
-  usedAbility: 0
-  inMeetupBattle: 0
-  firstTutorialBattle: 0
-  heroDeselectLocked: 0
+  - name: ZoomTutorial
+    dialogue: {fileID: 4900000, guid: 69c3fdcaadf84804b9ad95344071c1b4, type: 3}
+    popupText: Zoom out by scrolling the middle mouse button
+    pauseOnPopup: 0
+    disableMovementOnPopup: 1
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 3
+    endTriggerParam: 
+    nextTutorialPopup: PanTutorial
+  - name: PanTutorial
+    dialogue: {fileID: 0}
+    popupText: Pan the camera using the arrow keys or clicking and dragging with the
+      middle mouse button
+    pauseOnPopup: 0
+    disableMovementOnPopup: 1
+    startBattle: 0
+    activateObjectsParent: PanTutorialArrow
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 11
+    endTriggerParam: 
+    nextTutorialPopup: 
+  - name: MoveNextAreaTutorial
+    dialogue: {fileID: 0}
+    popupText: Move your fighter to the indicated spot
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: MoveNextAreaTrigger
+    startPopupTrigger: 11
+    startTriggerParam: 
+    endPopupTrigger: 0
+    endTriggerParam: 
+    nextTutorialPopup: 
+  - name: MonsterInfo
+    dialogue: {fileID: 4900000, guid: 486d05910e45e4645b71790a2eb4a379, type: 3}
+    popupText: When this monster sees you, it will begin attacking you
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 
+    nextTutorialPopup: SelectionTutorial2
+  - name: SelectionTutorial2
+    dialogue: {fileID: 0}
+    popupText: Select your fighter
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: SelectHeroAgainArrow
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 2
+    endTriggerParam: 
+    nextTutorialPopup: TargetTutorial
+  - name: TargetTutorial
+    dialogue: {fileID: 0}
+    popupText: Right click the monster to select it as a target
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 1
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 5
+    endTriggerParam: 
+    nextTutorialPopup: BasicAttackTutorial
+  - name: BasicAttackTutorial
+    dialogue: {fileID: 0}
+    popupText: Fighters will attack automatically with their basic attack. This fighter
+      has a ranged basic attack.
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 8
+    endTriggerParam: 
+    nextTutorialPopup: FirstBattleOver
+  - name: FirstBattleOver
+    dialogue: {fileID: 4900000, guid: 069d51ce818117e4b8473858fa0dd338, type: 3}
+    popupText: Investigate the next area
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: PanTutorialArrow
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 11
+    endTriggerParam: 
+    nextTutorialPopup: 
+  - name: Movement2
+    dialogue: {fileID: 0}
+    popupText: Move your fighter to the next area
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: Movement2Trigger
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 0
+    endTriggerParam: 
+    nextTutorialPopup: 
+  - name: FoundSecondMonster
+    dialogue: {fileID: 4900000, guid: 5022613e6ebd0d54780b5f07a0a5538c, type: 3}
+    popupText: Target the monster
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: Movement2Trigger
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 5
+    endTriggerParam: 
+    nextTutorialPopup: 
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +899,7 @@ MonoBehaviour:
   levelStatuses: 
   currentLevel: 0
   topDialogue: {fileID: 2750734401340295608}
+  tutorialLevelFlow: []
 --- !u!1 &4401064956782455407
 GameObject:
   m_ObjectHideFlags: 0

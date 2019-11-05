@@ -11,7 +11,9 @@ public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARG
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
 public class TutorialManager : Singleton<TutorialManager>
 {
+    public List<TutorialLevelInfo> tutorialLevels;
     public List<TutorialPopupData> tutorialPopups;
+    public int currentTutorialLevel;
 
     public bool tutorialEnabled = true;
 
@@ -26,17 +28,18 @@ public class TutorialManager : Singleton<TutorialManager>
     public bool heroDeselectLocked = false;
     private int currentTutorialIndex = -1;
 
-    private bool saveCamEnabled ;
+    private bool saveCamEnabled;
 
     public void Start()
     {
         // for testing
-        InitTutorial();
+        //InitTutorial();
     }
 
-    public void InitTutorial ()
+    public void InitTutorial()
     {
         // set up start events
+        tutorialPopups = tutorialLevels[currentTutorialLevel].tutorialSteps;
         foreach (TutorialPopupData popup in tutorialPopups)
         {
             switch (popup.startPopupTrigger)
@@ -55,7 +58,26 @@ public class TutorialManager : Singleton<TutorialManager>
         GameObject merrha = GameObject.Find("Merrha");
         if (moveLoc != null && merrha != null)
         {
+            BattleManager.Instance.selectedVessels = new List<GameObject>();
+            BattleManager.Instance.selectedVessels.Add(merrha);
+
             merrha.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
+        }
+
+        UIManager.Instance.battleUI.SetActive(true);
+    }
+
+    public void FinishTutorialLevel()
+    {
+        currentTutorialLevel++;
+        if (currentTutorialLevel < tutorialLevels.Count)
+        {
+            GameManager.Instance.LoadScene(tutorialLevels[currentTutorialLevel].tutorialScene);
+        }
+        else
+        {
+            // tutorial over, enter map
+            GameManager.Instance.EnterMap();
         }
     }
 
@@ -65,7 +87,7 @@ public class TutorialManager : Singleton<TutorialManager>
     /// <param name="popupName"></param>
     public void ActivateTutorialPopup (string popupName)
     {
-        //print("activate tutorial " + popupName);
+        print("activate tutorial " + popupName);
         int popupIndex = GetPopupIndex(popupName);
         if (popupIndex != -1)
         {
@@ -169,7 +191,7 @@ public class TutorialManager : Singleton<TutorialManager>
     /// </summary>
     public void CompleteTutorialStep ()
     {
-        //print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
+        print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
         if (currentTutorialIndex != -1)
         {
             int index = currentTutorialIndex;
@@ -182,8 +204,7 @@ public class TutorialManager : Singleton<TutorialManager>
             // start battle
             if (tutorialPopups[currentTutorialIndex].startBattle)
             {
-                BattleManager.Instance.StartBattle();
-                //firstTutorialBattle = true;
+                GameManager.Instance.StartFighting();
             }
 
             currentTutorialIndex = -1;
