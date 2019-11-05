@@ -95,10 +95,12 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     public void StartBasicAttacking()
     {
-        StopBasicAttacking();
+        if (basicAttackLoop == null)
+        {
+            basicAttackLoop = BasicAttackLoop();
+            StartCoroutine(basicAttackLoop);
+        }
 
-        basicAttackLoop = BasicAttackLoop();
-        StartCoroutine(basicAttackLoop);
     }
 
     public void StopBasicAttacking()
@@ -106,6 +108,7 @@ public class FighterAttack : MonoBehaviour
         if (basicAttackLoop != null)
         {
             StopCoroutine(basicAttackLoop);
+            basicAttackLoop = null;
         }
     }
 
