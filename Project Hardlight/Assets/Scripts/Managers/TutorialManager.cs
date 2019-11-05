@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.Events;
 
-public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY }
+public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON }
 
 // Keep track of state and things related to the tutorial, like events
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
@@ -20,6 +20,8 @@ public class TutorialManager : Singleton<TutorialManager>
 
     public bool inMeetupBattle = false;
 
+
+    public bool firstTutorialBattle;
 
     public bool heroDeselectLocked = false;
     private int currentTutorialIndex = -1;
@@ -119,7 +121,8 @@ public class TutorialManager : Singleton<TutorialManager>
             // show popup
             if (tutorialPopups[currentTutorialIndex].popupText != "")
             {
-                GameManager.Instance.ShowTutorialPopup(tutorialPopups[currentTutorialIndex].popupText, tutorialPopups[currentTutorialIndex].pauseOnPopup, tutorialPopups[currentTutorialIndex].disableMovementOnPopup);
+                TutorialPopupData data = tutorialPopups[currentTutorialIndex];
+                GameManager.Instance.ShowTutorialPopup(data.popupText, data.pauseOnPopup, data.disableMovementOnPopup, data.endPopupTrigger == PopupTrigger.OK_BUTTON);
             }
 
             // activate objects
@@ -149,6 +152,12 @@ public class TutorialManager : Singleton<TutorialManager>
                 case PopupTrigger.PAN:
                     BattleManager.Instance.camController.onCameraPan.AddListener(CompleteTutorialStep);
                     break;
+                case PopupTrigger.SET_TARGET:
+                    BattleManager.Instance.onSetTarget.AddListener(CompleteTutorialStep);
+                    break;
+                case PopupTrigger.MONSTER_DEATH:
+                    BattleManager.Instance.onMonsterDeath.AddListener(CompleteTutorialStep);
+                    break;
                 default:
                     break;
             }
@@ -169,6 +178,13 @@ public class TutorialManager : Singleton<TutorialManager>
 
             // deactivate objects
             SetPopupActivateObjects(currentTutorialIndex, false);
+
+            // start battle
+            if (tutorialPopups[currentTutorialIndex].startBattle)
+            {
+                BattleManager.Instance.StartBattle();
+                //firstTutorialBattle = true;
+            }
 
             currentTutorialIndex = -1;
 
@@ -219,6 +235,11 @@ public class TutorialManager : Singleton<TutorialManager>
         }
         return popupIndex;
     }
+
+    public void OkayButtonPressed ()
+    {
+        CompleteTutorialStep();
+    }
      
 }
 
@@ -232,6 +253,7 @@ public struct TutorialPopupData
     public string popupText;
     public bool pauseOnPopup;
     public bool disableMovementOnPopup;
+    public bool startBattle;
     public string activateObjectsParent; // name of the objects that need their sprite renderers activated
     public PopupTrigger startPopupTrigger;
     public string startTriggerParam;

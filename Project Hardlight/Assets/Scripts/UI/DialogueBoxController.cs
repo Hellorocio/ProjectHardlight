@@ -9,6 +9,7 @@ public class DialogueBoxController : MonoBehaviour
     public float duration;
     public GameObject background;
     public GameObject textMesh;
+    public GameObject okayButton;
     Animator animator;
 
     IEnumerator disappearLoop;
@@ -24,10 +25,11 @@ public class DialogueBoxController : MonoBehaviour
     /// Displays popup with no timer
     /// </summary>
     /// <param name="text"></param>
-    public void PopupDialogue(string text)
+    public void PopupDialogue(string text, bool showOkay)
     {
         Show(true);
         textMesh.GetComponent<TextMeshProUGUI>().text = text;
+        okayButton.SetActive(showOkay);
     }
 
     /// <summary>
@@ -66,6 +68,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         background.SetActive(shouldShow);
         textMesh.SetActive(shouldShow);
+        okayButton.SetActive(false);
 
         if (shouldShow && animator != null)
         {

@@ -398,10 +398,10 @@ public class GameManager : Singleton<GameManager>
    /// Shows tutorial text and pauses the game
    /// </summary>
    /// <param name="text"></param>
-    public void ShowTutorialPopup(string text, bool pause, bool disableMovement)
+    public void ShowTutorialPopup(string text, bool pause, bool disableMovement, bool showOkay)
     {
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
-        topDialogue.PopupDialogue(text);
+        topDialogue.PopupDialogue(text, showOkay);
         if (pause)
         {
             Time.timeScale = 0;

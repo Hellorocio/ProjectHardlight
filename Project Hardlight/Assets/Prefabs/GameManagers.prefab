@@ -556,6 +556,7 @@ MonoBehaviour:
     popupText: 
     pauseOnPopup: 0
     disableMovementOnPopup: 0
+    startBattle: 0
     activateObjectsParent: 
     startPopupTrigger: 0
     startTriggerParam: 
@@ -566,6 +567,7 @@ MonoBehaviour:
   inTutorialBattle: 0
   usedAbility: 0
   inMeetupBattle: 0
+  firstTutorialBattle: 0
   heroDeselectLocked: 0
 --- !u!1 &1171275168379345570
 GameObject:
@@ -1047,6 +1049,21 @@ MonoBehaviour:
   inputState: 0
   sizingFactor: 0.0017
   onHeroSelected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onSetTarget:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onMonsterDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onBattleEnd:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -3580,6 +3597,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606126986638718212, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189275324162173609, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3115989202611689206}
+    - target: {fileID: 9189275324162173609, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CompleteTutorialStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189275324162173609, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}

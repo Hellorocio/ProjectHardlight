@@ -54,6 +54,12 @@ public class BattleManager : Singleton<BattleManager>
 
     [HideInInspector]
     public UnityEvent onHeroSelected;
+    [HideInInspector]
+    public UnityEvent onSetTarget;
+    [HideInInspector]
+    public UnityEvent onMonsterDeath;
+    [HideInInspector]
+    public UnityEvent onBattleEnd;
 
     public void Initialize()
     {
@@ -598,6 +604,12 @@ public class BattleManager : Singleton<BattleManager>
                     }
                 }
 
+                if (foundEnemy)
+                {
+                    onSetTarget.Invoke();
+                    onSetTarget.RemoveAllListeners();
+                }
+
                 if (!foundEnemy)
                 {
                     //move fighter
@@ -904,6 +916,10 @@ public class BattleManager : Singleton<BattleManager>
     public void OnDeath()
     {
         numEnemies--;
+
+        onMonsterDeath.Invoke();
+        onMonsterDeath.RemoveAllListeners();
+
         if (numEnemies <= 0)
         {
             BattleOver(true);
@@ -918,6 +934,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         //Invoke levelEnd event so levelManager knows to show dialogue
         OnLevelEnd?.Invoke(herosWin);
+        onBattleEnd.Invoke();
+        onBattleEnd.RemoveAllListeners();
 
         //cleanup for this script
         DeselectHero();
@@ -927,7 +945,11 @@ public class BattleManager : Singleton<BattleManager>
         selectedVessels = new List<GameObject>();
 
         //GameManager.Instance.EndFighting(herosWin); //Now called in PostBattleUI
-        UIManager.Instance.postBattleUI.StartPostBattle(herosWin);
+        if (!TutorialManager.Instance.firstTutorialBattle)
+        {
+            UIManager.Instance.postBattleUI.StartPostBattle(herosWin);
+        }
+        
     }
 
     void SubscribeHeroEvents()
