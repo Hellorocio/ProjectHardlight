@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoadoutHoverController : MonoBehaviour
 {
     public GameObject panel;
-    public Text panelText;
+    public TextMeshProUGUI panelText;
 
     private Transform saveParent;
     private GameObject hoverIcon;
