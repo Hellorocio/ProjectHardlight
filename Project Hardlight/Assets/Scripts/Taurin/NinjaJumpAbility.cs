@@ -5,8 +5,8 @@ using UnityEngine;
 public class NinjaJumpAbility : Ability
 {
 
-    public GameObject attackTargetUnit;
-
+    public Buff invulnBuff;
+    
     private bool targeting;
 
 
@@ -27,7 +27,7 @@ public class NinjaJumpAbility : Ability
         {
             Debug.Log("Ninja jump ability");
             Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            FighterAttack thisFighter = GetComponent<FighterAttack>();
+            FighterAttack thisFighterAttack = GetComponent<FighterAttack>();
             if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
             {
                 
@@ -58,10 +58,14 @@ public class NinjaJumpAbility : Ability
                 transform.position = newPos;
 
                 //set ninja's target to the fighter it teleported to
-                thisFighter.SetIssuedCurrentTarget(selectedFighter);
+                thisFighterAttack.SetIssuedCurrentTarget(selectedFighter);
 
-                //enemy takes tamage
+                //enemy takes danage
                 selectedFighter.TakeDamage(GetDamage());
+                
+                // Add invuln buff
+                GetComponent<Fighter>().AddBuff(invulnBuff);
+                
                 if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
                 {
                     Debug.Log("Ability1 anim is played");
@@ -80,7 +84,7 @@ public class NinjaJumpAbility : Ability
                 transform.position = newPos;
 
                 //set ninja's target to the fighter it teleported to
-                thisFighter.SetIssuedCurrentTarget(monster);
+                thisFighterAttack.SetIssuedCurrentTarget(monster);
 
                 //enemy takes tamage
                 monster.TakeDamage(GetDamage());

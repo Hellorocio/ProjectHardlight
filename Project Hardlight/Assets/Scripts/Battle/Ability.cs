@@ -8,6 +8,8 @@ public class Ability : MonoBehaviour
     public string abilityDescription;
     public Sprite abilityIcon;
 
+    public AudioClip sfx;
+    
     public int baseDamage = 0;
     public float baseEffectRange;
     public Targeting.Type targetingType;

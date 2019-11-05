@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3929582137514170004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6884540544388673106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24250a659b9c3454b9a890bbeb796c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffNameId: Phased
+  buffDescription: Takes no damage for a short duration.
+  buffIcon: {fileID: 7019536318447566657, guid: f4ddff1249963604ba04067a3e9f21bc,
+    type: 3}
+  buffDuration: 3
+  maxStacks: 1
+  percentDamageTakenModifier: -1
 --- !u!1001 &521165622932636619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12,15 +31,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: Taurin
       objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: appearance
+      value: 
+      objectReference: {fileID: 21300000, guid: a8e305f801e844847b44081e43daab4d,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: fullPortrait
+      value: 
+      objectReference: {fileID: 21300000, guid: b03ea1cfffc21f64aa96633e5af5e133,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: vesselName
+      value: Taurin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: title
+      value: Rogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: description
+      value: A dashing fellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseHealth
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.92
+      value: -8.446907
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.77
+      value: -1.0225343
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -67,41 +123,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: appearance
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520,
+      objectReference: {fileID: 21300000, guid: a8e305f801e844847b44081e43daab4d,
         type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: vesselName
-      value: Taurin
+      propertyPath: abilityDescription
+      value: Throw a projectile which deals damage and heals you
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: title
-      value: Rogue
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+      propertyPath: abilityIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: b502210835003ca4b80969309535424d,
         type: 3}
-      propertyPath: description
-      value: A dashing fellow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseMana
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseHealth
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: baseDamage
-      value: 6
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: targetingType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -114,6 +161,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7019536318447566657, guid: f4ddff1249963604ba04067a3e9f21bc,
         type: 3}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseDamage
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: invulnBuff
+      value: 
+      objectReference: {fileID: 3929582137514170004}
     - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: damage
@@ -124,53 +181,51 @@ PrefabInstance:
       propertyPath: cooldown
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: abilityDescription
-      value: Throw a projectile which deals damage and heals you
+      propertyPath: m_Offset.x
+      value: -0.034522533
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: targetingType
-      value: 2
+      propertyPath: m_Offset.y
+      value: 0.06529319
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: baseDamage
-      value: 10
+      propertyPath: m_Size.x
+      value: 0.31201744
       objectReference: {fileID: 0}
-    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: abilityIcon
-      value: 
-      objectReference: {fileID: 21300000, guid: b502210835003ca4b80969309535424d,
+      propertyPath: m_Size.y
+      value: 0.93610406
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.035
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.004
+      value: 0.0864
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.07994693
+      value: 0.12726487
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.07994693
+      value: 0.12726487
       objectReference: {fileID: 0}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.07994693
+      value: 0.12726487
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 627031deba1b7e841946cde34f2f8520,
-        type: 3}
     - target: {fileID: 8214742803668735277, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -193,3 +248,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
+--- !u!1 &6884540544388673106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    type: 3}
+  m_PrefabInstance: {fileID: 521165622932636619}
+  m_PrefabAsset: {fileID: 0}
