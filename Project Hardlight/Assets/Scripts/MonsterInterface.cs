@@ -39,6 +39,8 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public int basicAttackDamage;
     public float basicAttackProjectileSpeed;
     public AudioClip basicAttackSfx;
+    public GameObject tiredSteam;
+    public GameObject tiredTear;
     [Space(10)]
 
     [Header("Patrol Info")]
@@ -418,8 +420,13 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     /// <returns></returns>
     public abstract IEnumerator BasicAttack();
-    
 
+
+    public void ShowTiredUI(bool s)
+    {
+        tiredSteam.SetActive(s);
+        tiredTear.SetActive(s);
+    }
 
     /// <summary>
     /// Returns true if this fighter is in range of their currentTarget

@@ -45,7 +45,9 @@ public class GenericMeleeMonster : MonsterAI
             }
             yield return new WaitForSeconds(basicAttackClip.length/basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
         }
+        ShowTiredUI(true);
         yield return new WaitForSeconds(timeBetweenAttacks);
+        ShowTiredUI(false);
         jabsDone = 0;
         moveState = MoveState.stopped;
         attackCoroutine = null;

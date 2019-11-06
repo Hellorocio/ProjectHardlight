@@ -81,11 +81,13 @@ public class TankMonsterAI : MonsterAI
             basicAttackClipSpeedMultiplier = tmp;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
             realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-            yield return new WaitForSeconds(basicAttackClip.length / basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
+            //Debug.Log(basicAttackClip.length / basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
+            yield return new WaitForSeconds(.75f);
             
         }
-        
+        ShowTiredUI(true);
         yield return new WaitForSeconds(timeBetweenAttacks);
+        ShowTiredUI(false);
         jabsDone = 0;
         moveState = MoveState.stopped;
         attackCoroutine = null;
