@@ -7,8 +7,6 @@ using TMPro;
 
 public class LoadoutUI : Singleton<LoadoutUI>
 {
-    public int requiredVessels = 3;
-
     public bool loadoutCreated = false;
     public GameObject loadoutSlotPrefab;
     public GameObject loadoutSlots;
@@ -131,7 +129,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         }
 
         // Create per required slot
-        for (int i = 0; i < requiredVessels; i++) {
+        for (int i = 0; i < GameManager.Instance.requiredVessels; i++) {
             GameObject loadoutSlot = Instantiate(loadoutSlotPrefab, loadoutSlots.transform, true);
             loadoutSlot.transform.localScale = Vector3.one;
         }

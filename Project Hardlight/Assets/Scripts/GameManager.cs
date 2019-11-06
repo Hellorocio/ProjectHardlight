@@ -13,7 +13,9 @@ public class GameManager : Singleton<GameManager>
     public GameState gameState;
 
     public List<Soul> souls;
-
+    
+    public int requiredVessels = 3;
+    
     //[HideInInspector]
     public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
@@ -524,7 +526,7 @@ public class GameManager : Singleton<GameManager>
         VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
 
         // For tutorial, only need Taurin
-        LoadoutUI.Instance.requiredVessels = 1;
+        requiredVessels = 1;
         LoadoutUI.Instance.CreateLoadoutSlots();
         
         // Refresh for Loadout
@@ -550,7 +552,7 @@ public class GameManager : Singleton<GameManager>
         VesselManager.Instance.GetVesselEntryById("Healer").enabled = true;
 
         // For tutorial, only need Taurin
-        LoadoutUI.Instance.requiredVessels = 3;
+        requiredVessels = 3;
         LoadoutUI.Instance.CreateLoadoutSlots();
         
         // Refresh for Loadout
@@ -613,7 +615,7 @@ public class GameManager : Singleton<GameManager>
 
         currentCutscene = null;
 
-        LoadoutUI.Instance.requiredVessels = 3;
+        requiredVessels = 3;
         LoadoutUI.Instance.CreateLoadoutSlots();
 
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
