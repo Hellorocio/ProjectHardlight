@@ -469,7 +469,7 @@ public class GameManager : Singleton<GameManager>
     public void EnterBattleScene(string levelName)
     {
         //disable tutorial stuff
-        //TutorialManager.Instance.tutorialEnabled = false;
+        TutorialManager.Instance.tutorialEnabled = false;
         VesselManager.Instance.SetAllVesselEnabledTo(true);
 
         //load battle
