@@ -16,26 +16,17 @@ public class Fighter : MonoBehaviour
     public GameObject maxManaGlow;
     public Animator anim;
 
-    private float maxHealth;
     private int maxMana;
     private float speed = 1;
     public Soul soul;
 
-    private Color defaultColor;
-    private Color hitColor;
-    
-    private float health;
     private int mana = 0;
 
     public AudioClip manaFullSfx;
 
     [HideInInspector]
     public BattleManager battleManager;
-    
-    // Stat modifiers (usually modified by buffs)
-    // e.g. percentDamageTakenModifier = -.2 --> Take 20% less damage
-    public float percentDamageTakenModifier;
-    
+
     //Buff list
     // TODO cleanup and use above section's system instead (uses overridden Buff objects)
     List<BuffObj> buffs;
@@ -50,15 +41,7 @@ public class Fighter : MonoBehaviour
     //have max mana event
     public delegate void MaxManaReached(Fighter fighter);
     public event MaxManaReached OnMaxMana;
-
-    //health changed event- used by HealthBar
-    public delegate void HealthChanged(float health);
-    public event HealthChanged OnHealthChanged;
-
-    //death event
-    public delegate void FighterDeath(Fighter fighter);
-    public event FighterDeath OnFighterDeath;
-
+    
     //lose mana event (only used by fighterUseAbilityPopup right now)
     public delegate void FighterLoseMana(Fighter fighter);
     public event FighterLoseMana OnLoseMana;
@@ -71,12 +54,7 @@ public class Fighter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitBoosts();
-
-        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
-        hitColor = new Color(1f, .5235f, .6194f);
         
-        health = maxHealth;
         maxMana = GetMaxMana();
         speed = GetMovementSpeed();
 
@@ -87,15 +65,6 @@ public class Fighter : MonoBehaviour
         }
 
         buffs = new List<BuffObj>();
-    }
-
-    /// <summary>
-    /// Initializes boost amounts based on soul stat focus types
-    /// </summary>
-    void InitBoosts ()
-    {
-        percentDamageTakenModifier = 0.0f;
-        maxHealth = GetMaxHealth();
     }
 
     /// <summary>
@@ -215,61 +184,6 @@ public class Fighter : MonoBehaviour
         return (int) (manaGained + manaGained * manaGenerationBoost);
     }
 
-    /// <summary>
-    /// Called by other fighters when they attack this one
-    /// </summary>
-    /// <param name="dmg"></param>
-    public void TakeDamage (float dmg)
-    {
-        
-        // Calculate based on modifiers
-        float realDamage = dmg * (1.0f + percentDamageTakenModifier);
-        //Debug.Log(realDamage);
-        health -= realDamage;
-        IEnumerator colorThing = HitColorChanger();
-        StartCoroutine(colorThing);
-        if (health <= 0)
-        {
-            LoseMana(mana);
-
-            //remove moveLoc if following a move command
-            if (GetComponent<FighterMove>().followingMoveOrder)
-            {
-                GetComponent<FighterMove>().StopMovingCommandHandle();
-            }
-
-            gameObject.SetActive(false);
-
-            //tell battleManager this fighter died so it can keep track of level completion info
-            battleManager.OnDeath(this);
-
-            //death event
-            OnFighterDeath?.Invoke(this);
-        }
-        
-        //OnHealthChanged event
-        OnHealthChanged?.Invoke(health);
-    }
-
-    IEnumerator HitColorChanger()
-    {
-        
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
-        yield return new WaitForSeconds((float)0.25);
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
-    }
-
-    public void Heal (float amt)
-    {
-        health += amt;
-        if (health >= maxHealth)
-        {
-            health = maxHealth;
-        }
-
-        //OnHealthChanged event
-        OnHealthChanged?.Invoke(health);
-    }
 
     public void SetMaxMana ()
     {
@@ -335,11 +249,6 @@ public class Fighter : MonoBehaviour
 
         //mana changed event
         OnManaChanged?.Invoke(mana);
-    }
-
-    public float GetHealth()
-    {
-        return health;
     }
 
     public float GetCurrentMana()

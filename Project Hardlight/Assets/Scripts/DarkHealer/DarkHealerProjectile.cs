@@ -15,28 +15,21 @@ public class DarkHealerProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Fighter hitFighter = other.GetComponent<Fighter>();
+        Attackable hitAttackable = other.GetComponent<Attackable>();
 
-        if (hitFighter != null)
+        if (hitAttackable != null)
         {
-            if (hitFighter.team == CombatInfo.Team.Hero)
+            if (hitAttackable.team == CombatInfo.Team.Hero)
             {
                 //heal
-                hitFighter.Heal(dmg);
+                hitAttackable.Heal(dmg);
             }
             else
             {
                 // Deal damage
-                hitFighter.TakeDamage(dmg);
+                hitAttackable.TakeDamage(dmg);
             }
             
-        }
-
-        GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
-
-        if (monster != null)
-        {
-            monster.TakeDamage(dmg);
         }
 
         if (other.gameObject == target)

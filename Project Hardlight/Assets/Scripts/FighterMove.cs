@@ -30,7 +30,7 @@ public class FighterMove : MonoBehaviour
     { 
         Fighter collidedFighter = other.GetComponent<Fighter>();
         if (!GlobalSettings.overlapFighters && collidedFighter != null && moveState == MoveState.moving && 
-                collidedFighter.team == fighter.team && ShouldFighterWait(collidedFighter))
+                collidedFighter.GetComponent<Attackable>().team == GetComponent<Attackable>().team && ShouldFighterWait(collidedFighter))
         {
             moveState = MoveState.paused;
 
@@ -195,7 +195,7 @@ public class FighterMove : MonoBehaviour
                (sprite.flipX && fighter.transform.position.x > otherFighter.transform.position.x))
         {
             //if ((fighter.team == CombatInfo.Team.Hero && !followingMoveOrder) || fighter.team == CombatInfo.Team.Enemy)
-            if (fighter.team == CombatInfo.Team.Enemy) //heros never wait
+            if (fighter.GetComponent<Attackable>().team == CombatInfo.Team.Enemy) //heros never wait
             {
                 fighterWait = true;
             }

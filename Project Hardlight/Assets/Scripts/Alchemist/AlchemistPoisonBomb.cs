@@ -35,21 +35,20 @@ public class AlchemistPoisonBomb : Ability
         foreach (Collider2D collider in hitColliders)
         {
 
-            Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-            GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
+            Attackable attackable = collider.gameObject.GetComponent<Attackable>();
 
-            if (tmp != null)
+            if (attackable != null)
             {
-                if (tmp.team == CombatInfo.Team.Enemy)
+                if (attackable.team == CombatInfo.Team.Enemy)
                 {
-                    tmp.TakeDamage(GetDamage());
+                    attackable.TakeDamage(GetDamage());
                     //tmp.AddTimedBuff(attackDebuff);
                 }
             }
 
-            if (monster != null)
+            if (attackable != null)
             {
-                monster.TakeDamage(GetDamage());
+                attackable.TakeDamage(GetDamage());
                 //tmp2.AddTimedBuff(attackDebuff);
             }
 

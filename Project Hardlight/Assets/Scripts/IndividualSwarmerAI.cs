@@ -6,7 +6,6 @@ public class IndividualSwarmerAI : GenericMonsterAI
 {
     [Header("Basic Attributes")]
     public string characterName;
-    public CombatInfo.Team team;
     //public float maxHealth;
     public float maxMana;
     public float moveSpeed;
@@ -98,8 +97,7 @@ public class IndividualSwarmerAI : GenericMonsterAI
     public void DoBasicAttack(GameObject target)
     {
 
-        target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
-
+        target.GetComponent<Attackable>().TakeDamage(basicAttackDamage);
     }
 
     /// <summary>
@@ -153,39 +151,4 @@ public class IndividualSwarmerAI : GenericMonsterAI
 
     }
 
-
-
-
-    public override void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        IEnumerator colorThing = HitColorChanger();
-        StartCoroutine(colorThing);
-        CheckHealth(currentHealth);
-        if (currentHealth <= 0)
-        {
-            OnDeath();
-        }
-    }
-
-
-    public void OnDeath()
-    {
-        gameObject.SetActive(false);
-    }
-
-    public float GetHealth()
-    {
-        return currentHealth;
-    }
-
-    IEnumerator HitColorChanger()
-    {
-
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
-        yield return new WaitForSeconds((float)0.25);
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
-    }
-
-    
 }

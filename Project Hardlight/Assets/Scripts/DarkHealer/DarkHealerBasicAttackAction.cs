@@ -33,23 +33,16 @@ public class DarkHealerBasicAttackAction : BasicAttackAction
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(basicAttack.transform.position, damageRadius);
             foreach (Collider2D collider in hitColliders)
             {
-                Fighter tmp = collider.gameObject.GetComponent<Fighter>();
-                GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
+                Attackable attackable = collider.gameObject.GetComponent<Attackable>();
 
-                if (tmp != null)
+                if (attackable != null)
                 {
-                    if (tmp.team == CombatInfo.Team.Enemy)
+                    if (attackable.team == CombatInfo.Team.Enemy)
                     {
-                        tmp.TakeDamage(damage);
+                        attackable.TakeDamage(damage);
                     }
                 }
-
-                if (monster != null)
-                {
-                    monster.TakeDamage(damage);
-                }
-
-
+                
             }
 
             // Gain mana

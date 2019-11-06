@@ -15,17 +15,9 @@ public class MerrhaBasicAttack : BasicAttackAction
         gooAttack.transform.localPosition = Vector3.zero;
 
         float damage = sourceFighter.GetBasicAttackDamage();
-        MonsterAI enemyMonster = target.GetComponent<MonsterAI>();
+        Attackable attackable = target.GetComponent<Attackable>();
 
-        if (enemyMonster != null)
-        {
-            enemyMonster.TakeDamage(damage);
-            sourceFighter.GainMana(10);
-        }
-
-        if (sourceFighter.team == CombatInfo.Team.Hero)
-        {
-            sourceFighter.GainMana(10);
-        }
+        attackable.TakeDamage(damage);
+        sourceFighter.GainMana(10);
     }
 }

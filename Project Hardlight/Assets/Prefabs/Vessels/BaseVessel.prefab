@@ -203,7 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21148c3f3741bd2418912eebadd63601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
   buffBar: {fileID: 1012097154563230144}
+  percentDamageTakenModifier: 0
+  maxHealth: 0
+  currentHealth: 0
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &6390960235825343900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,14 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
   selectedUI: {fileID: 2647926368921614537}
   maxManaGlow: {fileID: 3030817009279536542}
   anim: {fileID: 6390960234732733081}
   soul: {fileID: 0}
   manaFullSfx: {fileID: 8300000, guid: f47a1d57f64a36540ba98c4a1b23280d, type: 3}
   battleManager: {fileID: 0}
-  percentDamageTakenModifier: 0
 --- !u!114 &2953940653181175102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +598,11 @@ PrefabInstance:
       propertyPath: fighter
       value: 
       objectReference: {fileID: 6390960235825343900}
+    - target: {fileID: 7319116268717647927, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 3851246974747038760}
     - target: {fileID: 3348725543924743392, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: fighter
@@ -605,6 +613,11 @@ PrefabInstance:
       propertyPath: fighter
       value: 
       objectReference: {fileID: 6390960235825343900}
+    - target: {fileID: 2832024609790476077, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 3851246974747038760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f4c553995451ee409855b56a57ee487, type: 3}
 --- !u!224 &1471959512080689102 stripped

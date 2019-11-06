@@ -11,12 +11,12 @@ public class DefenseBuff : Buff
     public override void InitializeBuff(GameObject affectedObject)
     {
         Debug.Log("Start defense buff");
-        affectedObject.GetComponent<Fighter>().percentDamageTakenModifier += percentDamageTakenModifier;
+        affectedObject.GetComponent<Attackable>().percentDamageTakenModifier += percentDamageTakenModifier;
     }
 
     public override void CleanupBuff(GameObject affectedObject)
     {
         Debug.Log("End defense buff");
-        affectedObject.GetComponent<Fighter>().percentDamageTakenModifier -= percentDamageTakenModifier;
+        affectedObject.GetComponent<Attackable>().percentDamageTakenModifier -= percentDamageTakenModifier;
     }
 }

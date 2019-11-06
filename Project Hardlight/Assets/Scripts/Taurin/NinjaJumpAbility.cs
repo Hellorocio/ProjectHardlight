@@ -26,9 +26,9 @@ public class NinjaJumpAbility : Ability
         if (selectedTarget != null)
         {
             Debug.Log("Ninja jump ability");
-            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
+            Attackable selectedAttackable = selectedTarget.GetComponent<Attackable>();
             FighterAttack thisFighterAttack = GetComponent<FighterAttack>();
-            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
+            if (selectedAttackable.team == CombatInfo.Team.Enemy)
             {
                 
                 //do something different based on allight values
@@ -53,15 +53,15 @@ public class NinjaJumpAbility : Ability
                 }
 
                 //teleport ninja (play poof of smoke anim)
-                Vector3 newPos = selectedFighter.transform.position;
+                Vector3 newPos = selectedAttackable.transform.position;
                 newPos.x -= 0.9f;
                 transform.position = newPos;
 
                 //set ninja's target to the fighter it teleported to
-                thisFighterAttack.SetIssuedCurrentTarget(selectedFighter);
+                thisFighterAttack.SetIssuedCurrentTarget(selectedAttackable);
 
                 //enemy takes danage
-                selectedFighter.TakeDamage(GetDamage());
+                selectedAttackable.TakeDamage(GetDamage());
                 
                 // Add invuln buff
                 GetComponent<Attackable>().AddBuff(invulnBuff);
@@ -74,29 +74,6 @@ public class NinjaJumpAbility : Ability
                 return true;
             }
 
-
-            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
-
-            if (monster != null)
-            {
-                Vector3 newPos = monster.transform.position;
-                newPos.x -= 0.9f;
-                transform.position = newPos;
-
-                //set ninja's target to the fighter it teleported to
-                thisFighterAttack.SetIssuedCurrentTarget(monster);
-
-                //enemy takes tamage
-                monster.TakeDamage(GetDamage());
-                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
-                {
-                    Debug.Log("Ability1 anim is played");
-                    gameObject.GetComponent<Fighter>().anim.Play("Ability1");
-                }
-                return true;
-            }
-
-            
         }
         return false;
     }

@@ -292,7 +292,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21148c3f3741bd2418912eebadd63601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 2
   buffBar: {fileID: 9066374117514809255}
+  percentDamageTakenModifier: 0
+  maxHealth: 0
+  currentHealth: 0
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &8678461056888987651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +312,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 60
   characterName: Mushhead
-  team: 2
   maxMana: 0
   moveSpeed: 200
   alertedRange: 20
@@ -560,6 +564,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 8.389685
       objectReference: {fileID: 0}
+    - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 8671895037030593}
+    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 8671895037030593}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 156dacb5b1de5cd4abc0856358410010, type: 3}
 --- !u!224 &6853132139089261757 stripped

@@ -25,32 +25,21 @@ public class NinjaHealingProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("proj hit");
-        Fighter hitFighter = other.GetComponent<Fighter>();
+        Attackable hitAttackable = other.GetComponent<Attackable>();
 
-        if (hitFighter != null)
+        if (hitAttackable != null)
         {
-            if (hitFighter.team == CombatInfo.Team.Enemy)
+            if (hitAttackable.team == CombatInfo.Team.Enemy)
             {
                 // Deal damage
-                hitFighter.TakeDamage(dmg);
+                hitAttackable.TakeDamage(dmg);
 
                 //heal ninja
-                source.Heal(dmg);
+                source.GetComponent<Attackable>().Heal(dmg);
                 Destroy(gameObject);
             }
 
         }
-        GenericMonsterAI monster = other.GetComponent<GenericMonsterAI>();
-
-        if (monster != null)
-        {
-            monster.TakeDamage(dmg);
-
-            //heal ninja
-            source.Heal(dmg);
-            Destroy(gameObject);
-        }
-
         
     }
 }

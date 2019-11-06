@@ -61,7 +61,6 @@ public class FighterUseAbilityPopup : MonoBehaviour
             if (f.gameObject.activeSelf)
             {
                 f.OnMaxMana += ActivateFighterAbilityPopup;
-                f.OnFighterDeath += UnsubscribeFighterEvents;
                 f.OnLoseMana += DeactivateFighterAbilityPopup;
             }
         }
@@ -81,7 +80,6 @@ public class FighterUseAbilityPopup : MonoBehaviour
         }
 
         f.OnMaxMana -= ActivateFighterAbilityPopup;
-        f.OnFighterDeath -= UnsubscribeFighterEvents;
         f.OnLoseMana -= DeactivateFighterAbilityPopup;
     }
 

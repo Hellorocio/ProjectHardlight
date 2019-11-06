@@ -35,15 +35,14 @@ public class AlchemistHeal : Ability
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
         foreach (Collider2D collider in hitColliders)
         {
-            Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-            if (hitFighter != null)
+            Attackable hitAttackable = collider.gameObject.GetComponent<Attackable>();
+            if (hitAttackable != null)
             {
-                if (hitFighter.team == CombatInfo.Team.Hero)
+                if (hitAttackable.team == CombatInfo.Team.Hero)
                 {
-                    hitFighter.Heal(GetHealAmt());
+                    hitAttackable.Heal(GetHealAmt());
 
-                    //add buff
-                    hitFighter.AddTimedBuff(healBuff);
+                    //add buff TODO
                 }
             }
         }

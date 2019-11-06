@@ -46,20 +46,6 @@ public class MercExecuteAbility: Ability
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
             Debug.Log("Merc execute ability");
-            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
-            {
-                selectedFighter.TakeDamage(GetDamage());
-
-                return true;
-            }
-
-            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
-            if (monster != null)
-            {
-                monster.TakeDamage(GetDamage());
-                return true;
-            }
         }
         return false;
     }

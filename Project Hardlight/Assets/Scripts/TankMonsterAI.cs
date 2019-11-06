@@ -23,8 +23,6 @@ public class TankMonsterAI : MonsterAI
         currentHealth = maxHealth;
         currentMana = 0;
         attackParent = GameObject.Find("Vessels");
-        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
-        hitColor = new Color(1f, .5235f, .6194f);
         startPos = transform.position;
         GameObject wayPt = new GameObject("GolemWayPt");
         wayPt.transform.position = startPos;
@@ -125,10 +123,10 @@ public class TankMonsterAI : MonsterAI
     /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
     /// </summary>
     /// <returns></returns>
-    protected override List<Fighter> GetValidTargets()
+    protected override List<Attackable> GetValidTargets()
     {
-        List<Fighter> fighters = new List<Fighter>();
-        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        List<Attackable> fighters = new List<Attackable>();
+        Attackable[] enemyListTMP = attackParent.GetComponentsInChildren<Attackable>();
         for (int i = 0; i < enemyListTMP.Length; i++)
         {
             if (IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position) && InMaxAgroRange(enemyListTMP[i].transform.position))

@@ -15,7 +15,7 @@ public class HealerBasicAttackAction : BasicAttackAction
         healBasic.transform.localScale = Vector3.one;
 
         float healAmt = sourceFighter.GetBasicAttackDamage();
-        target.GetComponent<Fighter>().Heal(healAmt);
+        target.GetComponent<Attackable>().Heal(healAmt);
         sourceFighter.GainMana(10);
     }
 }

@@ -55,10 +55,10 @@ public class HealerMajorHeal : Ability
         {
             Debug.Log("Healer does Major Heal");
             Fighter hitFighter = selectedTarget.GetComponent<Fighter>();
-            if (hitFighter != null && hitFighter.team == CombatInfo.Team.Hero)
+            if (hitFighter != null && hitFighter.GetComponent<Attackable>().team == CombatInfo.Team.Hero)
             {
                 //heal selected ally
-                hitFighter.Heal(GetHealAmt());
+                hitFighter.GetComponent<Attackable>().Heal(GetHealAmt());
 
                 //display heal circle
                 GameObject healEffect = Instantiate(healEffectPrefab);

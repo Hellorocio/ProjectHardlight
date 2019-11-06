@@ -63,23 +63,15 @@ public class MageAoEBlast : Ability
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
             foreach (Collider2D collider in hitColliders)
             {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
-                if (hitFighter != null)
+                Attackable attackable = collider.gameObject.GetComponent<Attackable>();
+                if (attackable != null)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Enemy)
+                    if (attackable.team == CombatInfo.Team.Enemy)
                     {
-                        hitFighter.TakeDamage(GetDamage());
+                        attackable.TakeDamage(GetDamage());
                     }
                 }
-
-
-                GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
-                if (monster != null)
-                {
-                    monster.TakeDamage(GetDamage());
-                }
-
-               
+                
             }
 
             //display boom!

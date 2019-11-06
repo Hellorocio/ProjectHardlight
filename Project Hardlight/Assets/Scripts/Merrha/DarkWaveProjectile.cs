@@ -11,8 +11,7 @@ public class DarkWaveProjectile : MonoBehaviour
 
     // Don't set
     private bool initialized = false;
-    public HashSet<Fighter> affectedFighters;
-    public HashSet<GenericMonsterAI> affectedEnemies;
+    public HashSet<Attackable> affectedAttackables;
     public Vector3 startPosition;
     public float maxDistance;
 
@@ -30,8 +29,7 @@ public class DarkWaveProjectile : MonoBehaviour
     public void Initialize(Vector3 startPos, int damageAmt, int healAmt, float maxDistance)
     {
         startPosition = startPos;
-        affectedFighters = new HashSet<Fighter>();
-        affectedEnemies = new HashSet<GenericMonsterAI>();
+        affectedAttackables = new HashSet<Attackable>();
         damageAmount = damageAmt;
         healAmount = healAmt;
         this.maxDistance = maxDistance;
@@ -40,24 +38,18 @@ public class DarkWaveProjectile : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Fighter hitFighter = other.gameObject.GetComponent<Fighter>();
-        if (hitFighter != null && !affectedFighters.Contains(hitFighter))
+        Attackable hitAttackable = other.gameObject.GetComponent<Attackable>();
+        if (hitAttackable != null && !affectedAttackables.Contains(hitAttackable))
         {
-            if (hitFighter.team == CombatInfo.Team.Hero)
+            if (hitAttackable.team == CombatInfo.Team.Hero)
             {
-                hitFighter.Heal(healAmount);
+                hitAttackable.Heal(healAmount);
             }
-            affectedFighters.Add(hitFighter);
-        }
-
-        GenericMonsterAI monster = other.gameObject.GetComponent<GenericMonsterAI>();
-        
-
-
-        if (monster != null && !affectedEnemies.Contains(monster))
-        {
-            monster.TakeDamage(damageAmount);
-            affectedEnemies.Add(monster);
+            else if (hitAttackable.team == CombatInfo.Team.Enemy)
+            {
+                hitAttackable.TakeDamage(damageAmount);
+            }
+            affectedAttackables.Add(hitAttackable);
         }
 
     }

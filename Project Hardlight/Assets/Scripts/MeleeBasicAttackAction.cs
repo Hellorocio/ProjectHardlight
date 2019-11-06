@@ -8,16 +8,10 @@ public class MeleeBasicAttackAction : BasicAttackAction
     {
         float damage = sourceFighter.GetBasicAttackDamage();
 
-        Fighter enemyFighter = target.GetComponent<Fighter>();
+        Attackable attackableEnemy = target.GetComponent<Attackable>();
 
-        if (enemyFighter != null)
-        {
-            enemyFighter.TakeDamage(damage);
-            sourceFighter.GainMana(10);
-        }
+        attackableEnemy.TakeDamage(damage);
+        sourceFighter.GainMana(10);
 
-        //target.GetComponent<Fighter>().TakeDamage(damage);
-
-        
     }
 }

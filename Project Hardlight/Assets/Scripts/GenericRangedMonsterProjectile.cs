@@ -16,7 +16,7 @@ public class GenericRangedMonsterProjectile : MonoBehaviour
 
             // Deal damage
             //float damage = sourceFighter.GetBasicAttackDamage();
-            target.GetComponent<Fighter>().TakeDamage(damage);
+            target.GetComponent<Attackable>().TakeDamage(damage);
 
             // Gain mana
             //sourceFighter.GainMana(10);

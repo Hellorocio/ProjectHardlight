@@ -68,9 +68,9 @@ public class HealerHealingAura : Ability
                 Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
                 if (hitFighter != null)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Hero)
+                    if (hitFighter.GetComponent<Attackable>().team == CombatInfo.Team.Hero)
                     {
-                        hitFighter.Heal(GetHealAmt());
+                        GetComponent<Attackable>().Heal(GetHealAmt());
                     }
                 }
             }

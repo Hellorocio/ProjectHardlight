@@ -15,53 +15,34 @@ public class DamageText : MonoBehaviour
     private int poolSize = 5;
     private int poolNum;
 
-    public Fighter fighter;
-    public GenericMonsterAI monster;
+    public Attackable attackable;
     private float oldHealth;     // keeps track of health to tell what damage has been taken
                                  // we may want to change this later but I didn't want to clutter up fighter with more events
 
     private void Start()
     {
         // make a pool for these so we aren't instantiating and destroying things all the time
-        if (damageTextPrefab != null)
+
+        damageTextPool = new GameObject[poolSize];
+        damageTextTimers = new IEnumerator[poolSize];
+        for (int i = 0; i < poolSize; i++)
         {
-            damageTextPool = new GameObject[poolSize];
-            damageTextTimers = new IEnumerator[poolSize];
-            for (int i = 0; i < poolSize; i++)
-            {
-                damageTextPool[i] = Instantiate(damageTextPrefab, transform);
-                damageTextPool[i].transform.position = transform.position;
-            }
+            damageTextPool[i] = Instantiate(damageTextPrefab, transform);
+            damageTextPool[i].transform.position = transform.position;
         }
     }
 
     private void OnEnable()
     {
-        if (fighter != null)
-        {
-            oldHealth = fighter.GetMaxHealth();
-            fighter.OnHealthChanged += SetDamageText;
-        }
-
-        if (monster != null)
-        {
-            oldHealth = monster.maxHealth;
-            monster.OnHealthChanged += SetDamageText;
-        }
-
+        oldHealth = attackable.GetMaxHealth();
+        attackable.OnHealthChanged += SetDamageText;
     }
 
     private void OnDisable()
     {
-        if (fighter != null)
+        if (attackable != null)
         {
-            fighter.OnHealthChanged -= SetDamageText;
-        }
-
-        if (monster != null)
-        {
-            oldHealth = monster.maxHealth;
-            monster.OnHealthChanged -= SetDamageText;
+            attackable.OnHealthChanged -= SetDamageText;
         }
     }
 

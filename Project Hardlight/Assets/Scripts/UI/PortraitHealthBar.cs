@@ -20,11 +20,11 @@ public class PortraitHealthBar : MonoBehaviour
         fighter = f;
         if (fighter != null)
         {
-            maxHealth = fighter.GetMaxHealth();
+            maxHealth = fighter.GetComponent<Attackable>().GetMaxHealth();
             UpdateHealthBar(maxHealth);
 
 
-            fighter.OnHealthChanged += UpdateHealthBar;
+            fighter.GetComponent<Attackable>().OnHealthChanged += UpdateHealthBar;
         }
     }
 
@@ -37,11 +37,11 @@ public class PortraitHealthBar : MonoBehaviour
         //fighter = transform.parent.parent.GetComponent<Fighter>();
         if (fighter != null)
         {
-            maxHealth = fighter.GetMaxHealth();
+            maxHealth = fighter.GetComponent<Attackable>().GetMaxHealth();
             UpdateHealthBar(maxHealth);
 
 
-            fighter.OnHealthChanged += UpdateHealthBar;
+            fighter.GetComponent<Attackable>().OnHealthChanged += UpdateHealthBar;
         }
     }
 
@@ -49,7 +49,7 @@ public class PortraitHealthBar : MonoBehaviour
     {
         if (fighter != null)
         {
-            fighter.OnHealthChanged -= UpdateHealthBar;
+            fighter.GetComponent<Attackable>().OnHealthChanged -= UpdateHealthBar;
         }
     }
 

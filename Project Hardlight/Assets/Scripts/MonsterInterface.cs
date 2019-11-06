@@ -11,16 +11,7 @@ public abstract class GenericMonsterAI : MonoBehaviour
 {
 
     protected bool startedLevel;
-    public float maxHealth;
-    public delegate void HealthChanged(float health);
-    public event HealthChanged OnHealthChanged;
-
-    protected virtual void CheckHealth(float currentHP)
-    {
-        OnHealthChanged?.Invoke(currentHP);
-    }
-
-    public abstract void TakeDamage(float damage);
+    public int maxHealth;
 
     public virtual void LevelStart()
     {
@@ -32,8 +23,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 {
     [Header("Basic Attributes")]
     public string characterName;
-    public CombatInfo.Team team;
-    //public float maxHealth;
     public float maxMana;
     public float moveSpeed;
     public float alertedRange;
@@ -75,8 +64,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     protected int jabsDone = 0;
     protected Animator animator;
     protected Vector3 startPos;
-    protected Color defaultColor;
-    protected Color hitColor;
     protected float currentHealth;
     protected float currentMana;
     protected Coroutine attackCoroutine;
@@ -96,11 +83,8 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-        currentHealth = maxHealth;
         currentMana = 0;
         attackParent = GameObject.Find("Vessels");
-        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
-        hitColor = new Color(1f, .5235f, .6194f);
         startPos = transform.position;
     }
 
@@ -158,10 +142,10 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
     /// </summary>
     /// <returns></returns>
-    protected virtual List<Fighter> GetValidTargets()
+    protected virtual List<Attackable> GetValidTargets()
     {
-        List<Fighter> fighters = new List<Fighter>();
-        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        List<Attackable> fighters = new List<Attackable>();
+        Attackable[] enemyListTMP = attackParent.GetComponentsInChildren<Attackable>();
         for (int i = 0; i < enemyListTMP.Length; i++)
         {
             if (IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position))
@@ -420,7 +404,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public void DoBasicAttack(GameObject target)
     {
 
-        target.GetComponent<Fighter>().TakeDamage(basicAttackDamage);
+        target.GetComponent<Attackable>().TakeDamage(basicAttackDamage);
 
     }
 
@@ -478,48 +462,13 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
         return Vector2.Distance(transform.position, p) < alertedRange;
     }
 
-
-    public override void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        IEnumerator colorThing = HitColorChanger();
-        StartCoroutine(colorThing);
-        CheckHealth(currentHealth);
-        if (currentHealth <= 0)
-        {
-            OnDeath();
-        }
-    }
-
-
-    public void OnDeath()
-    {
-
-        //Tell Battle manager that an enemy has died
-        battleManager.OnDeath();
-        gameObject.SetActive(false);
-    }
-
-    public float GetHealth()
-    {
-        return currentHealth;
-    }
-
-    IEnumerator HitColorChanger()
-    {
-
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = hitColor;
-        yield return new WaitForSeconds((float)0.25);
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
-    }
-
     /// <summary>
     /// Sets the current target, if there is a valid one within maxAggroRange. Uses the preference enums if provided to select a specific type of fighter
     /// </summary>
     public void SetCurrentTarget()
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
-        Fighter[] enemyListTMP = GetValidTargets().ToArray();
+        Attackable[] enemyListTMP = GetValidTargets().ToArray();
         bool enemiesActive = false;
 
         for (int i = 0; i < enemyListTMP.Length; i++)
@@ -608,7 +557,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
     void SetWeakestAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float hp = float.MaxValue;
         int index = 0;
 
@@ -631,7 +580,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     void SetStrongesttAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float hp = -1;
         int index = 0;
 
@@ -655,7 +604,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     bool SetRangedAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -685,7 +634,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     bool SetMeleeAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -715,7 +664,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     bool SetHealerAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -746,7 +695,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     void SetClosestAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -769,7 +718,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     void SetOptimalHealingTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 

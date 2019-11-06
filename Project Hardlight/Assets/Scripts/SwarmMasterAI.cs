@@ -255,10 +255,10 @@ public class SwarmMasterAI : MonoBehaviour
     /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
     /// </summary>
     /// <returns></returns>
-    List<Fighter> GetValidTargets()
+    List<Attackable> GetValidTargets()
     {
-        List<Fighter> fighters = new List<Fighter>();
-        Fighter[] enemyListTMP = attackParent.GetComponentsInChildren<Fighter>();
+        List<Attackable> fighters = new List<Attackable>();
+        Attackable[] enemyListTMP = attackParent.GetComponentsInChildren<Attackable>();
         for (int i = 0; i < enemyListTMP.Length; i++)
         {
             if (IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position))
@@ -513,7 +513,7 @@ public class SwarmMasterAI : MonoBehaviour
     {
 
         //Tell Battle manager that an enemy has died
-        battleManager.OnDeath();
+        battleManager.OnDeath(GetComponent<Attackable>());
         gameObject.SetActive(false);
     }
 
@@ -524,7 +524,7 @@ public class SwarmMasterAI : MonoBehaviour
     public void SetCurrentTarget()
     {
         //This code chuck below checks if any enemies are active in the scene before calling a targeting function
-        Fighter[] enemyListTMP = GetValidTargets().ToArray();
+        Attackable[] enemyListTMP = GetValidTargets().ToArray();
         bool enemiesActive = false;
 
         for (int i = 0; i < enemyListTMP.Length; i++)
@@ -613,7 +613,7 @@ public class SwarmMasterAI : MonoBehaviour
 
     void SetWeakestAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float hp = float.MaxValue;
         int index = 0;
 
@@ -636,7 +636,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     void SetStrongesttAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float hp = -1;
         int index = 0;
 
@@ -660,7 +660,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     bool SetRangedAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -690,7 +690,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     bool SetMeleeAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -720,7 +720,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     bool SetHealerAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -751,7 +751,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     void SetClosestAttackTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float minDist = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
@@ -774,7 +774,7 @@ public class SwarmMasterAI : MonoBehaviour
     /// </summary>
     void SetOptimalHealingTarget()
     {
-        Fighter[] currentTargets = GetValidTargets().ToArray();
+        Attackable[] currentTargets = GetValidTargets().ToArray();
         float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 

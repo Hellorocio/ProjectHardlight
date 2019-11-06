@@ -19,13 +19,13 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject moveLoc;
     public GameObject multiSelectionBox;
     public GameObject countdownUI;
+    
+    // The color to change hit Attackables to briefly
+    public Color hitColor = new Color(1f, .5235f, .6194f);
 
     public PortraitHotKeyManager portraitHotKeyManager;
     //public CommandsUIHandler commandsUI;
     private GameObject battleTarget;
-
-    private int numEnemies;
-    private int numHeros;
 
     //called when the level starts (when all heros have been placed)
     public delegate void LevelStart();
@@ -47,6 +47,9 @@ public class BattleManager : Singleton<BattleManager>
     public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
+   
+    public int numEnemies;
+    public int numHeros;
 
     private float startX;
     private float startY;
@@ -288,11 +291,7 @@ public class BattleManager : Singleton<BattleManager>
         foreach (Collider2D collider in colliders)
         {
             Fighter clickedFighter = collider.gameObject.GetComponent<Fighter>();
-            if (clickedFighter != null && clickedFighter.team == CombatInfo.Team.Hero)
-            {
-                clickedHero = clickedFighter;
-                break;
-            }
+            clickedHero = clickedFighter;
         }
 
         if (clickedHero != null)
@@ -376,7 +375,7 @@ public class BattleManager : Singleton<BattleManager>
                     break;
 
             }
-            if (ability != null && castingHero.GetHealth() > 0)
+            if (ability != null && castingHero.GetComponent<Attackable>().GetHealth() > 0)
             {
                 SetSelectedHero(castingHero);
                 
@@ -569,12 +568,12 @@ public class BattleManager : Singleton<BattleManager>
                 Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
                 foreach (Collider2D hit in hitCollider)
                 {
-                    Fighter tmp = hit.GetComponent<Fighter>();
-                    if (tmp != null)
+                    Attackable attackable = hit.GetComponent<Attackable>();
+                    if (attackable != null)
                     {
                         if (selectedHero != null)
                         {
-                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
+                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
                             foundEnemy = true;
                             break;
                         }
@@ -583,30 +582,7 @@ public class BattleManager : Singleton<BattleManager>
                             //set target for multiple heroes
                             foreach (Fighter f in multiSelectedHeros)
                             {
-                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(tmp);
-                                foundEnemy = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    GenericMonsterAI monster = hit.GetComponent<GenericMonsterAI>();
-
-
-                    if (monster != null)
-                    {
-                        if (selectedHero != null)
-                        {
-                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(monster);
-                            foundEnemy = true;
-                            break;
-                        }
-                        else if (multiSelectedHeros.Count > 0)
-                        {
-                            //set target for multiple heroes
-                            foreach (Fighter f in multiSelectedHeros)
-                            {
-                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(monster);
+                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
                                 foundEnemy = true;
                                 break;
                             }
@@ -891,9 +867,9 @@ public class BattleManager : Singleton<BattleManager>
     /// Determines if this death ends the level, and invokes OnLevelEvent if it does
     /// </summary>
     /// <param name="team"></param>
-    public void OnDeath (Fighter fighter)
+    public void OnDeath (Attackable attackable)
     {
-        if (fighter.team == CombatInfo.Team.Hero)
+        if (attackable.team == CombatInfo.Team.Hero)
         {
             
             numHeros--;
@@ -901,39 +877,27 @@ public class BattleManager : Singleton<BattleManager>
             {
                 BattleOver(false);
             }
-            else if (fighter == selectedHero)
+            else if (attackable == selectedHero)
             {
                 //currently selected hero died, so deselect them
                 DeselectHero();
             }
-            else if (multiSelectedHeros.Contains(fighter))
+            else if (multiSelectedHeros.Contains(attackable.GetComponent<Fighter>()))
             {
-                multiSelectedHeros.Remove(fighter);
+                multiSelectedHeros.Remove(attackable.GetComponent<Fighter>());
             }
         }
         else
         {
             numEnemies--;
+
+            onMonsterDeath.Invoke();
+            onMonsterDeath.RemoveAllListeners();
+
             if (numEnemies <= 0)
             {
                 BattleOver(true);
             }
-        }
-    }
-
-    /// <summary>
-    /// Called by monsters to update numEnemies
-    /// </summary>
-    public void OnDeath()
-    {
-        numEnemies--;
-
-        onMonsterDeath.Invoke();
-        onMonsterDeath.RemoveAllListeners();
-
-        if (numEnemies <= 0)
-        {
-            BattleOver(true);
         }
     }
 

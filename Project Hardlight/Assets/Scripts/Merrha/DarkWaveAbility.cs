@@ -80,8 +80,8 @@ public class DarkWaveAbility : Ability
             projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damageAmount, healAmount, GetRange());
             
             // Heal self
-            GetComponent<Fighter>().Heal(healAmount);
-            projectile.GetComponent<DarkWaveProjectile>().affectedFighters.Add(GetComponent<Fighter>());
+            GetComponent<Attackable>().Heal(healAmount);
+            projectile.GetComponent<DarkWaveProjectile>().affectedAttackables.Add(GetComponent<Attackable>());
 
             if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
             {

@@ -50,36 +50,6 @@ public class MercSurvivalAbility : Ability
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         { 
             Debug.Log("Merc survival cast");
-            Fighter selectedFighter = selectedTarget.GetComponent<Fighter>();
-            if (selectedFighter != null && selectedFighter.team == CombatInfo.Team.Enemy)
-            {
-                selectedFighter.TakeDamage(GetDamage());
-
-                // heal this fighter
-                Fighter thisFighter = gameObject.GetComponent<Fighter>();
-                if (thisFighter.GetHealth() <= thisFighter.GetMaxHealth() * 0.5f)
-                {
-                    thisFighter.Heal(GetDamage());
-                }
-
-                return true;
-            }
-
-            GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
-
-            if (monster != null)
-            {
-                monster.TakeDamage(GetDamage());
-                Fighter thisFighter = gameObject.GetComponent<Fighter>();
-                if (thisFighter.GetHealth() <= thisFighter.GetMaxHealth() * 0.5f)
-                {
-                    thisFighter.Heal(GetDamage());
-                }
-
-                return true;
-            }
-
-            
         }
         return false;
 
@@ -94,10 +64,6 @@ public class MercSurvivalAbility : Ability
     {
         Fighter thisFighter = gameObject.GetComponent<Fighter>();
         float dmg = thisFighter.GetDamage(baseDamage);
-        if (thisFighter.GetHealth() <= thisFighter.GetMaxHealth() * 0.5f)
-        {
-            return dmg * 3;
-        }
         return dmg;
     }
 }

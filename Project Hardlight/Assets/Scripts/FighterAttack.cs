@@ -35,7 +35,7 @@ public class FighterAttack : MonoBehaviour
         fighter = GetComponent<Fighter>();
         fighterMove = GetComponent<FighterMove>();
 
-        if (fighter.team == CombatInfo.Team.Hero)
+        if (GetComponent<Attackable>().team == CombatInfo.Team.Hero)
         {
             attackParent = GameObject.Find("Enemies");
         }
@@ -83,7 +83,7 @@ public class FighterAttack : MonoBehaviour
         }
         
         //only start attacking right away if a hero or a fighter with no enemyTrigger
-        if (fighter.team == CombatInfo.Team.Hero || (fighter.team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
+        if (GetComponent<Attackable>().team == CombatInfo.Team.Hero || (GetComponent<Attackable>().team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
         {
             
             SetCurrentTarget();
@@ -171,7 +171,7 @@ public class FighterAttack : MonoBehaviour
     /// <summary>
     /// Sets the attack target, called when player manually changes attack target
     /// </summary>
-    public void SetIssuedCurrentTarget(Fighter target)
+    public void SetIssuedCurrentTarget(Attackable target)
     {
         if (target != null && ((target.team == CombatInfo.Team.Enemy && !HasHealingBasicAttack())
                 || (target.team == CombatInfo.Team.Hero && HasHealingBasicAttack())))
@@ -381,7 +381,7 @@ public class FighterAttack : MonoBehaviour
     /// </summary>
     void SetOptimalHealingTarget()
     {
-        Fighter[] currentTargets = transform.parent.GetComponentsInChildren<Fighter>();
+        Attackable[] currentTargets = transform.parent.GetComponentsInChildren<Attackable>();
         float maxHealth = float.MaxValue;
         GameObject tempcurrentTarget = null;
 

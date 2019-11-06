@@ -19,23 +19,13 @@ public class MageBasicAttackProjectile : MonoBehaviour
             // Deal damage
 
             //Sorry for the gross code, this will be refactored after this playtest!!!
-            Fighter tmp = target.GetComponent<Fighter>();
-            GenericMonsterAI monster = target.GetComponent<GenericMonsterAI>();
-           
+            Attackable attackable = target.GetComponent<Attackable>();
 
-            if(tmp != null)
+            if(attackable != null)
             {
-                tmp.TakeDamage(sourceFighter.GetBasicAttackDamage());
+                attackable.TakeDamage(sourceFighter.GetBasicAttackDamage());
                 sourceFighter.GainMana(10);
             }
-
-            if(monster != null)
-            {
-                monster.TakeDamage(sourceFighter.GetBasicAttackDamage());
-                sourceFighter.GainMana(10);
-            }
-
-            
 
             Destroy(gameObject);
         }

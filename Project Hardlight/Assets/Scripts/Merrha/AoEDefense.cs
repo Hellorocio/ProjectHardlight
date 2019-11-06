@@ -68,11 +68,11 @@ public class AoEDefense : Ability
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
             foreach (Collider2D collider in hitColliders)
             {
-                Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
+                Attackable hitAttackable = collider.gameObject.GetComponent<Attackable>();
                 Attackable attackable = collider.gameObject.GetComponent<Attackable>();
-                if (hitFighter != null)
+                if (hitAttackable != null)
                 {
-                    if (hitFighter.team == CombatInfo.Team.Hero)
+                    if (hitAttackable.team == CombatInfo.Team.Hero)
                     {
                         // Give them the buff
                         attackable.AddBuff(defenseBuff);
