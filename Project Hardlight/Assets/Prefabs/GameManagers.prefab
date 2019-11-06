@@ -930,6 +930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   souls: []
+  requiredVessels: 3
   fragments: 000000000000000000000000
   mapSceneName: Map
   cutsceneSceneName: Cutscene
@@ -1087,13 +1088,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2ab236e143af53844860430fa415debf, type: 3}
   - {fileID: 21300000, guid: b32bff86367974540aa857ba91a3d6c6, type: 3}
   - {fileID: 21300000, guid: 585601a2383702e489a0a8bbfd97c937, type: 3}
-  flatHealthScale: 2
-  percentHealthScale: 0.1
-  flatAbilityScale: 2
-  percentAbilityScale: 0.1
-  flatAttackDamageScale: 2
-  percentAttackDamgeScale: 0.1
-  flatAttackSpeedScale: 2
+  flatHealthScale: 20
+  percentHealthScale: 0.03
+  flatAbilityScale: 3
+  percentAbilityScale: 0.03
+  flatAttackDamageScale: 0.01
+  percentAttackDamgeScale: 0.07
+  flatAttackSpeedScale: 0.02
   percentAttackSpeedScale: 0.1
   baseValueIncPerLevel: 2
 --- !u!1 &4401064958039830113
@@ -1206,12 +1207,15 @@ MonoBehaviour:
   moveLoc: {fileID: 4401064956782455407}
   multiSelectionBox: {fileID: 7813644966428597455}
   countdownUI: {fileID: 1010380229868212178}
+  hitColor: {r: 1, g: 0.5235, b: 0.6194, a: 1}
   portraitHotKeyManager: {fileID: 3856169871424250296}
   camController: {fileID: 1093829141}
   selectedVessels: []
   multiSelectedHeros: []
   selectedAbility: {fileID: 0}
   inputState: 0
+  numEnemies: 0
+  numHeros: 0
   sizingFactor: 0.0017
   onHeroSelected:
     m_PersistentCalls:
