@@ -224,7 +224,13 @@ public class TutorialManager : Singleton<TutorialManager>
 
             if (tutorialPopups[currentTutorialIndex].name == "FoundSecondMonster")
             {
+                BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "LearnAbility2")
+            {
                 GameObject merrha = GameObject.Find("Merrha");
+                startGeneratingMana = true;
                 BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
                 merrha.GetComponent<Fighter>().SetMaxMana();
             }
@@ -282,6 +288,11 @@ public class TutorialManager : Singleton<TutorialManager>
     public void OkayButtonPressed ()
     {
         CompleteTutorialStep();
+    }
+
+    public string GetCurrentTutorialPopupName ()
+    {
+        return tutorialPopups[currentTutorialIndex].name;
     }
      
 }
