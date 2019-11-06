@@ -275,12 +275,22 @@ public class Fighter : MonoBehaviour
         OnHealthChanged?.Invoke(health);
     }
 
+    public void SetMaxMana ()
+    {
+        GainMana(maxMana);
+    }
+
     /// <summary>
     /// Adds mana and triggers max mana event if unit has reached max mana
     /// </summary>
     /// <param name="manaGained"></param>
     public void GainMana(int manaGained)
     {
+        if (TutorialManager.Instance.tutorialEnabled && !TutorialManager.Instance.startGeneratingMana)
+        {
+            return;
+        }
+
         int prevMana = mana;
 
         mana += GetManaGeneration(manaGained);

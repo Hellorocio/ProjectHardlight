@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.Events;
 
-public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON }
+public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON, USE_ABILITY }
 
 // Keep track of state and things related to the tutorial, like events
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
@@ -14,14 +14,12 @@ public class TutorialManager : Singleton<TutorialManager>
     public List<TutorialLevelInfo> tutorialLevels;
     public List<TutorialPopupData> tutorialPopups;
     public int currentTutorialLevel;
+    public bool startGeneratingMana = true;
 
     public bool tutorialEnabled = true;
-
     public bool inTutorialBattle = false;
     public bool usedAbility = false;
-
     public bool inMeetupBattle = false;
-
 
     public bool firstTutorialBattle;
 
@@ -29,6 +27,9 @@ public class TutorialManager : Singleton<TutorialManager>
     private int currentTutorialIndex = -1;
 
     private bool saveCamEnabled;
+
+    private GameObject fighterUI;
+    private GameObject manaBar;
 
     public void Start()
     {
@@ -56,6 +57,13 @@ public class TutorialManager : Singleton<TutorialManager>
         // move marrha
         GameObject moveLoc = GameObject.Find("StartMoveLoc");
         GameObject merrha = GameObject.Find("Merrha");
+        fighterUI = GameObject.Find("FighterUI");
+        fighterUI.SetActive(false);
+        manaBar = GameObject.Find("ManaBar");
+        manaBar.SetActive(false);
+        startGeneratingMana = false;
+        BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(false);
+
         if (moveLoc != null && merrha != null)
         {
             BattleManager.Instance.selectedVessels = new List<GameObject>();
@@ -180,6 +188,12 @@ public class TutorialManager : Singleton<TutorialManager>
                 case PopupTrigger.MONSTER_DEATH:
                     BattleManager.Instance.onMonsterDeath.AddListener(CompleteTutorialStep);
                     break;
+                case PopupTrigger.USE_ABILITY:
+                    BattleManager.Instance.onUseAbility.AddListener(CompleteTutorialStep);
+                    break;
+                case PopupTrigger.ABILITY_CAST:
+                    BattleManager.Instance.onAbilityCast.AddListener(CompleteTutorialStep);
+                    break;
                 default:
                     break;
             }
@@ -205,6 +219,14 @@ public class TutorialManager : Singleton<TutorialManager>
             if (tutorialPopups[currentTutorialIndex].startBattle)
             {
                 GameManager.Instance.StartFighting();
+                fighterUI.SetActive(true);
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "FoundSecondMonster")
+            {
+                GameObject merrha = GameObject.Find("Merrha");
+                BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
+                merrha.GetComponent<Fighter>().SetMaxMana();
             }
 
             currentTutorialIndex = -1;

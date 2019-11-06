@@ -301,4 +301,17 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero2Selected.SetActive(false);
         hero3Selected.SetActive(false);
     }
+
+    /// <summary>
+    /// Used in tutorial to remove ability stuff and mana bar before it is explained
+    /// </summary>
+    /// <param name="setActive"></param>
+    public void SetAbilityStuff(bool setActive)
+    {
+        ability1Button.transform.parent.gameObject.SetActive(setActive);
+        ability2Button.transform.parent.gameObject.SetActive(setActive);
+        hero1ManaBar.gameObject.SetActive(setActive);
+
+        UpdateManaProcs();
+    }
 }

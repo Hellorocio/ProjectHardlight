@@ -60,6 +60,10 @@ public class BattleManager : Singleton<BattleManager>
     public UnityEvent onMonsterDeath;
     [HideInInspector]
     public UnityEvent onBattleEnd;
+    [HideInInspector]
+    public UnityEvent onUseAbility;
+    [HideInInspector]
+    public UnityEvent onAbilityCast;
 
     public void Initialize()
     {
@@ -327,6 +331,9 @@ public class BattleManager : Singleton<BattleManager>
         {
             TutorialManager.Instance.usedAbility = true;
         }
+
+        onUseAbility.Invoke();
+        onUseAbility.RemoveAllListeners();
         
         //if (selectedHero != null)
         {
@@ -447,6 +454,9 @@ public class BattleManager : Singleton<BattleManager>
 
         selectedAbility.StopTargeting();
         selectedAbility.selectedTarget = null;
+
+        onAbilityCast.Invoke();
+        onAbilityCast.RemoveAllListeners();
 
         inputState = InputState.HeroSelected;
         selectedAbility = null;

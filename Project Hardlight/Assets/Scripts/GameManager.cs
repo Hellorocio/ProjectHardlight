@@ -602,6 +602,7 @@ public class GameManager : Singleton<GameManager>
     {
         TutorialManager.Instance.tutorialEnabled = false;
         UIManager.Instance.skipTutorialButton.SetActive(false);
+        BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
         HideTutorialPopup();
 
         if (gameState == GameState.FIGHTING)
