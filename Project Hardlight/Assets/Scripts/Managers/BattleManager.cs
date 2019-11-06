@@ -224,6 +224,7 @@ public class BattleManager : Singleton<BattleManager>
     
             }
         }
+        DeselectHero();
         //if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
         //{
             
@@ -321,6 +322,7 @@ public class BattleManager : Singleton<BattleManager>
                 }
             } else
             {
+                DeselectHero();
                 SetSelectedHero(clickedHero);
             }
             doubleClickPrimer = true;
@@ -478,6 +480,8 @@ public class BattleManager : Singleton<BattleManager>
     }
     public void SetSelectedHeroButtonHandler(int i)
     {
+        DeselectHero();
+        multiSelectedHeros.Clear();
         SetSelectedHero(selectedVessels[i].GetComponent<Fighter>());
     }
 
@@ -490,18 +494,23 @@ public class BattleManager : Singleton<BattleManager>
         if ((selectedHero != null && selectedHero != hero) || multiSelectedHeros.Count > 0)
         {
             DeselectHero();
+            multiSelectedHeros.Clear();
+            selectedHero = hero;
+            selectedHero.SetSelectedUI(true);
+            inputState = InputState.HeroSelected;
+
+            portraitHotKeyManager.LoadNewlySelectedHero(hero);
+            OnSwitchTargetEvent();
+            SubscribeHeroEvents();
+
+            onHeroSelected.Invoke();
+            onHeroSelected.RemoveAllListeners();
+        } else
+        {
+            DeselectHero();
         }
 
-        selectedHero = hero;
-        selectedHero.SetSelectedUI(true);
-        inputState = InputState.HeroSelected;
-
-        portraitHotKeyManager.LoadNewlySelectedHero(hero);
-        OnSwitchTargetEvent();
-        SubscribeHeroEvents();
-
-        onHeroSelected.Invoke();
-        onHeroSelected.RemoveAllListeners();
+        
     }
     
 
@@ -521,7 +530,22 @@ public class BattleManager : Singleton<BattleManager>
             SetCursor(battleConfig.defaultCursor);
         }
 
-        if (selectedHero != null)
+        if (multiSelectedHeros.Count > 0)
+        {
+            portraitHotKeyManager.DeselectedHero();
+
+            //deselect all multi selected heros
+            foreach (Fighter f in multiSelectedHeros)
+            {
+                f.SetSelectedUI(false);
+            }
+            inputState = InputState.NothingSelected;
+            multiSelectedHeros.Clear();
+            selectedHero.SetSelectedUI(false);
+            UnsubscribeHeroEvents();
+            selectedHero = null;
+        }
+        else if (selectedHero != null)
         {
             if (inputState == InputState.CastingAbility)
             {
@@ -539,18 +563,7 @@ public class BattleManager : Singleton<BattleManager>
                 battleTarget.SetActive(false);
             }
         }
-        else if (multiSelectedHeros.Count > 0)
-        {
-            portraitHotKeyManager.DeselectedHero();
-
-            //deselect all multi selected heros
-            foreach (Fighter f in multiSelectedHeros)
-            {
-                f.SetSelectedUI(false);
-            }
-            inputState = InputState.NothingSelected;
-            multiSelectedHeros.Clear();
-        }
+        
     }
 
     /// <summary>
@@ -655,6 +668,7 @@ public class BattleManager : Singleton<BattleManager>
                 if (pointerData.button == PointerEventData.InputButton.Left)
                 {
                     // Moved to right click when hero is selected
+                    
                 }
 
                 //called on left or right mouse button click (this is what disables selection on right click)
@@ -684,6 +698,7 @@ public class BattleManager : Singleton<BattleManager>
             if (multiSelectedHeros.Count == 0)
             {
                 inputState = InputState.NothingSelected;
+                DeselectHero();
             }
             else if (multiSelectedHeros.Count == 1)
             {
