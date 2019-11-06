@@ -129,7 +129,7 @@ public class MapManager : MonoBehaviour
     {
         if (status == MapNode.NodeStatus.UNDISCOVERED)
         {
-            if (type == MapNode.NodeType.BATTLE)
+            if (type == MapNode.NodeType.BATTLE || type == MapNode.NodeType.TUTORIAL)
             {
                 return undiscoveredBattle;
             }

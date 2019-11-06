@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MapNode : MonoBehaviour
 {
-    public enum NodeType { BATTLE, HUB, BOSS }
+    public enum NodeType { BATTLE, HUB, BOSS, TUTORIAL }
 
     //LOCKED- can't go to, UNDISCOVERED- can go to, haven't beaten yet, DISCOVERED- can go to, have beaten already 
     public enum NodeStatus { LOCKED, UNDISCOVERED, DISCOVERED }
