@@ -13,7 +13,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public BattleConfig battleConfig;
 
-    private Fighter selectedHero;
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
@@ -44,6 +43,7 @@ public class BattleManager : Singleton<BattleManager>
     bool battleStarted;
     
     [Header("donut touch")]
+    public Fighter selectedHero;
     public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
@@ -295,13 +295,19 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     bool UpdateClickedHero()
     {
+        Debug.Log("update clicked hero");
         Vector3 pos = Input.mousePosition;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
         Fighter clickedHero = null;
         foreach (Collider2D collider in colliders)
         {
             Fighter clickedFighter = collider.gameObject.GetComponent<Fighter>();
-            clickedHero = clickedFighter;
+            if (clickedFighter != null)
+            {
+                Debug.Log("got a clicked figter");
+                clickedHero = clickedFighter;
+                break;
+            }
         }
 
         if (clickedHero != null)
@@ -322,6 +328,7 @@ public class BattleManager : Singleton<BattleManager>
                 }
             } else
             {
+                                Debug.Log("b2");
                 DeselectHero();
                 SetSelectedHero(clickedHero);
             }
@@ -491,7 +498,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="hero"></param>
     public void SetSelectedHero(Fighter hero)
     {
-        if ((selectedHero != null && selectedHero != hero) || multiSelectedHeros.Count > 0)
+        if ((selectedHero != hero) || multiSelectedHeros.Count > 0)
         {
             DeselectHero();
             multiSelectedHeros.Clear();
