@@ -138,7 +138,7 @@ public class FighterAttack : MonoBehaviour
                 audioSource.clip = attack.sfx;
                 audioSource.Play();
             }
-            yield return new WaitForSeconds(fighter.GetAttackSpeed(attack.cooldown));
+            yield return new WaitForSeconds(fighter.GetAttackSpeed(1/attack.frequency));
         }
 
         //make sure while stopped because currentFighter is gone

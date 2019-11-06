@@ -96,7 +96,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetMaxHealthBonus(vesselData.baseHealth));
         manaNumber.text = vesselData.baseMana.ToString();
         //abilityNumber.text = vesselData.baseAbility.ToString();
-        attackSpeed.text = basicAttack.cooldown.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.cooldown)));
+        attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.frequency)));
         speedNumber.text = vesselData.baseMovementSpeed.ToString();
 
 
