@@ -362,6 +362,7 @@ public class GameManager : Singleton<GameManager>
         else
         {
             TutorialManager.Instance.FinishTutorialLevel();
+            UnlockLevels();
             /*
             if (TutorialManager.Instance.inTutorialBattle)
             {
