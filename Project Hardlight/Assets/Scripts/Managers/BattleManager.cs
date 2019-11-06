@@ -498,25 +498,19 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="hero"></param>
     public void SetSelectedHero(Fighter hero)
     {
-        if ((selectedHero != hero) || multiSelectedHeros.Count > 0)
-        {
-            DeselectHero();
-            multiSelectedHeros.Clear();
-            selectedHero = hero;
-            selectedHero.SetSelectedUI(true);
-            inputState = InputState.HeroSelected;
+        // Select this hero
+        DeselectHero();
+        multiSelectedHeros.Clear();
+        selectedHero = hero;
+        selectedHero.SetSelectedUI(true);
+        inputState = InputState.HeroSelected;
 
-            portraitHotKeyManager.LoadNewlySelectedHero(hero);
-            OnSwitchTargetEvent();
-            SubscribeHeroEvents();
+        portraitHotKeyManager.LoadNewlySelectedHero(hero);
+        OnSwitchTargetEvent();
+        SubscribeHeroEvents();
 
-            onHeroSelected.Invoke();
-            onHeroSelected.RemoveAllListeners();
-        } else
-        {
-            DeselectHero();
-        }
-
+        onHeroSelected.Invoke();
+        onHeroSelected.RemoveAllListeners();
         
     }
     
@@ -548,8 +542,8 @@ public class BattleManager : Singleton<BattleManager>
             }
             inputState = InputState.NothingSelected;
             multiSelectedHeros.Clear();
-            selectedHero.SetSelectedUI(false);
             UnsubscribeHeroEvents();
+            selectedHero.SetSelectedUI(false);
             selectedHero = null;
         }
         else if (selectedHero != null)
