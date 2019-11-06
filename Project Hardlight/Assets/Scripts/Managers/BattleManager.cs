@@ -295,7 +295,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     bool UpdateClickedHero()
     {
-        Debug.Log("update clicked hero");
         Vector3 pos = Input.mousePosition;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
         Fighter clickedHero = null;
@@ -521,11 +520,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void DeselectHero()
     {
-        if (TutorialManager.Instance.heroDeselectLocked && TutorialManager.Instance.tutorialEnabled)
-        {
-            return;
-        }
-
         if (inputState == InputState.UpdatingTarget)
         {
             SetCursor(battleConfig.defaultCursor);
@@ -543,9 +537,13 @@ public class BattleManager : Singleton<BattleManager>
             }
             inputState = InputState.NothingSelected;
             multiSelectedHeros.Clear();
-            UnsubscribeHeroEvents();
-            selectedHero.SetSelectedUI(false);
-            selectedHero = null;
+
+            if (selectedHero != null)
+            {
+                UnsubscribeHeroEvents();
+                selectedHero.SetSelectedUI(false);
+                selectedHero = null;
+            }
         }
         else if (selectedHero != null)
         {
