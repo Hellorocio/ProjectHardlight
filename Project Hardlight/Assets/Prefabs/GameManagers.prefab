@@ -556,7 +556,7 @@ MonoBehaviour:
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 2
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: MoveTutorial
   - name: MoveTutorial
     dialogue: {fileID: 0}
@@ -568,7 +568,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 0
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
   - name: ZoomTutorial
     dialogue: {fileID: 4900000, guid: 69c3fdcaadf84804b9ad95344071c1b4, type: 3}
@@ -580,7 +580,7 @@ MonoBehaviour:
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 3
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: PanTutorial
   - name: PanTutorial
     dialogue: {fileID: 0}
@@ -593,7 +593,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 11
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
   - name: MoveNextAreaTutorial
     dialogue: {fileID: 0}
@@ -605,7 +605,7 @@ MonoBehaviour:
     startPopupTrigger: 11
     startTriggerParam: 
     endPopupTrigger: 0
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
   - name: MonsterInfo
     dialogue: {fileID: 4900000, guid: 486d05910e45e4645b71790a2eb4a379, type: 3}
@@ -617,7 +617,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 12
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: SelectionTutorial2
   - name: SelectionTutorial2
     dialogue: {fileID: 0}
@@ -629,7 +629,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 2
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: TargetTutorial
   - name: TargetTutorial
     dialogue: {fileID: 0}
@@ -641,7 +641,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 5
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: BasicAttackTutorial
   - name: BasicAttackTutorial
     dialogue: {fileID: 0}
@@ -654,7 +654,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 8
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: FirstBattleOver
   - name: FirstBattleOver
     dialogue: {fileID: 4900000, guid: 069d51ce818117e4b8473858fa0dd338, type: 3}
@@ -666,7 +666,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 11
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
   - name: Movement2
     dialogue: {fileID: 0}
@@ -678,7 +678,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 0
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
   - name: FoundSecondMonster
     dialogue: {fileID: 4900000, guid: 5022613e6ebd0d54780b5f07a0a5538c, type: 3}
@@ -691,7 +691,7 @@ MonoBehaviour:
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 12
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: LearnAbility1
   - name: LearnAbility1
     dialogue: {fileID: 0}
@@ -704,7 +704,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 12
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: LearnAbility2
   - name: LearnAbility2
     dialogue: {fileID: 0}
@@ -717,7 +717,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 12
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: ChooseAbility
   - name: ChooseAbility
     dialogue: {fileID: 0}
@@ -730,7 +730,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 13
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: TargetAbility
   - name: TargetAbility
     dialogue: {fileID: 0}
@@ -742,7 +742,7 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 10
-    endTriggerParam: 
+    endTriggerParam: 0
     nextTutorialPopup: 
 --- !u!114 &74228778366122047
 MonoBehaviour:
@@ -757,7 +757,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialScene: TutorialBattle_New_2
-  tutorialSteps: []
+  tutorialSteps:
+  - name: StartLevel
+    dialogue: {fileID: 4900000, guid: c7150f77da1617144920727c0c4a3294, type: 3}
+    popupText: Zoom out and pan around to find out what is happening
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 1
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 0
+    endTriggerParam: 0
+    nextTutorialPopup: 
+  - name: SeesTaurin
+    dialogue: {fileID: 4900000, guid: 9155beabc9a45dd40aa1fc99e2973ae1, type: 3}
+    popupText: To select another character, click on them, or use hot keys 1 and 2.
+      Select Taurin now
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 1
+    activateObjectsParent: SeesTaurin
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 2
+    endTriggerParam: 0
+    nextTutorialPopup: TaurinBasicAttack
+  - name: TaurinBasicAttack
+    dialogue: {fileID: 0}
+    popupText: Taurin's basic attack is melee, but he attacks quickly
+    pauseOnPopup: 1
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: TaruinAbility1
+  - name: TaruinAbility1
+    dialogue: {fileID: 0}
+    popupText: Like Merrha, Taurin has two abilites. His first ability is Healing
+      Jutsu, which is aimed at enemies and heals Taurin if it hits
+    pauseOnPopup: 1
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: TaurinAbility2
+  - name: TaurinAbility2
+    dialogue: {fileID: 0}
+    popupText: Taurin's second ability is jump jutsu, which teleports him to to targetted
+      enemy and makes him invincible for a short time
+    pauseOnPopup: 1
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: TaurinCastAbility
+  - name: TaurinCastAbility
+    dialogue: {fileID: 0}
+    popupText: Choose one of Taurin's abilities to cast right now
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 10
+    endTriggerParam: 0
+    nextTutorialPopup: BeforeFirstFight
+  - name: BeforeFirstFight
+    dialogue: {fileID: 4900000, guid: f7625182218b64c378394e7f269d205b, type: 3}
+    popupText: Defeat the enemies
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 0
+    startTriggerParam: 
+    endPopupTrigger: 8
+    endTriggerParam: 0
+    nextTutorialPopup: AfterFirstFight
+  - name: AfterFirstFight
+    dialogue: {fileID: 4900000, guid: 0e16efa87db8b4f0f9e430b3f18d7f1a, type: 3}
+    popupText: Taurin has joined the party!
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: 
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7582d9fd1c34534a1090e119b7afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
+  gameState: 5
   souls: []
   requiredVessels: 3
   fragments: 000000000000000000000000

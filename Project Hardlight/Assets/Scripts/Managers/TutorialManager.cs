@@ -31,6 +31,9 @@ public class TutorialManager : Singleton<TutorialManager>
     private GameObject fighterUI;
     private GameObject manaBar;
 
+    private int enemiesDefeated = 0;
+    private int testNumEnemies = 0;
+
     public void Start()
     {
         // for testing
@@ -58,11 +61,14 @@ public class TutorialManager : Singleton<TutorialManager>
         GameObject moveLoc = GameObject.Find("StartMoveLoc");
         GameObject merrha = GameObject.Find("Merrha");
         fighterUI = GameObject.Find("FighterUI");
-        fighterUI.SetActive(false);
-        manaBar = GameObject.Find("ManaBar");
-        manaBar.SetActive(false);
-        startGeneratingMana = false;
-        BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(false);
+        if (currentTutorialLevel == 0)
+        {
+            fighterUI.SetActive(false);
+            manaBar = GameObject.Find("ManaBar");
+            manaBar.SetActive(false);
+            startGeneratingMana = false;
+            BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(false);
+        }
 
         if (moveLoc != null && merrha != null)
         {
@@ -70,6 +76,13 @@ public class TutorialManager : Singleton<TutorialManager>
             BattleManager.Instance.selectedVessels.Add(merrha);
 
             merrha.GetComponent<FighterMove>().StartMovingCommandHandle(moveLoc.transform);
+        }
+
+        if (currentTutorialLevel == 1)
+        {
+            GameObject taurin = GameObject.Find("Taurin");
+            BattleManager.Instance.selectedVessels.Add(taurin);
+            GameManager.Instance.SetCameraControls(true);
         }
 
         UIManager.Instance.battleUI.SetActive(true);
@@ -188,7 +201,17 @@ public class TutorialManager : Singleton<TutorialManager>
                     BattleManager.Instance.onSetTarget.AddListener(CompleteTutorialStep);
                     break;
                 case PopupTrigger.MONSTER_DEATH:
-                    BattleManager.Instance.onMonsterDeath.AddListener(CompleteTutorialStep);
+                    if (tutorialPopups[currentTutorialIndex].endTriggerParam == 0)
+                    {
+                        BattleManager.Instance.onMonsterDeath.AddListener(CompleteTutorialStep);
+                    }
+                    else
+                    {
+                        enemiesDefeated = 0;
+                        testNumEnemies = tutorialPopups[currentTutorialIndex].endTriggerParam;
+                        BattleManager.Instance.onMonsterDeath.AddListener(UpdateMonsterCount);
+                    }
+                    
                     break;
                 case PopupTrigger.USE_ABILITY:
                     BattleManager.Instance.onUseAbility.AddListener(CompleteTutorialStep);
@@ -235,6 +258,12 @@ public class TutorialManager : Singleton<TutorialManager>
                 startGeneratingMana = true;
                 BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
                 merrha.GetComponent<Fighter>().SetMaxMana();
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "TaurinAbility2")
+            {
+                GameObject taurin = GameObject.Find("Taurin");
+                taurin.GetComponent<Fighter>().SetMaxMana();
             }
 
             currentTutorialIndex = -1;
@@ -301,6 +330,20 @@ public class TutorialManager : Singleton<TutorialManager>
         }
         return levelName;
     }
+
+    public void UpdateMonsterCount ()
+    {
+        print("UpdateMonsterCount: " + enemiesDefeated + ", " + testNumEnemies);
+        enemiesDefeated++;
+        if (enemiesDefeated >= testNumEnemies)
+        {
+            CompleteTutorialStep();
+        }
+        else
+        {
+            BattleManager.Instance.onMonsterDeath.AddListener(UpdateMonsterCount);
+        }
+    }
      
 }
 
@@ -319,6 +362,6 @@ public struct TutorialPopupData
     public PopupTrigger startPopupTrigger;
     public string startTriggerParam;
     public PopupTrigger endPopupTrigger;
-    public string endTriggerParam;
+    public int endTriggerParam;
     public string nextTutorialPopup;
 }
