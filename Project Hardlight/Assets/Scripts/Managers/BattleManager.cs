@@ -511,7 +511,7 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void DeselectHero()
     {
-        if (TutorialManager.Instance.heroDeselectLocked)
+        if (TutorialManager.Instance.heroDeselectLocked && TutorialManager.Instance.tutorialEnabled)
         {
             return;
         }

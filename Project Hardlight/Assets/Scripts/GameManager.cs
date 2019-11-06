@@ -501,14 +501,14 @@ public class GameManager : Singleton<GameManager>
             yield return null;
         }
 
-        if (initBattle)
-        {
-            InitializeBattle();
-        }
-
         if (TutorialManager.Instance.tutorialLevels[TutorialManager.Instance.currentTutorialLevel].tutorialScene == scene)
         {
             TutorialManager.Instance.InitTutorial();
+        }
+        else
+        if (initBattle)
+        {
+            InitializeBattle();
         }
     }
 

@@ -78,14 +78,16 @@ public class TutorialManager : Singleton<TutorialManager>
     public void FinishTutorialLevel()
     {
         currentTutorialLevel++;
+        GameManager.Instance.EnterMap();
+        
         if (currentTutorialLevel < tutorialLevels.Count)
         {
-            GameManager.Instance.LoadScene(tutorialLevels[currentTutorialLevel].tutorialScene);
+            //GameManager.Instance.LoadScene(tutorialLevels[currentTutorialLevel].tutorialScene);
         }
         else
         {
             // tutorial over, enter map
-            GameManager.Instance.EnterMap();
+            TutorialManager.Instance.tutorialEnabled = false;
         }
     }
 
