@@ -63,13 +63,15 @@ public class TankMonsterAI : MonsterAI
             direction -= transform.position;
             direction = direction.normalized;
             attackZone.transform.localPosition = direction*2;
-            yield return new WaitForSeconds(1.8f);
+            yield return new WaitForSeconds(1.2f);
             float tmp = basicAttackClipSpeedMultiplier;
-            basicAttackClipSpeedMultiplier = .75f;
+            basicAttackClipSpeedMultiplier = .1f;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
             realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-            yield return new WaitForSeconds(.1f);
-            
+            yield return new WaitForSeconds(1.5f);
+            basicAttackClipSpeedMultiplier = tmp;
+            animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
+            yield return new WaitForSeconds(.4f);
             Collider2D[] hitColliders = new Collider2D[1000];
             Physics2D.OverlapCollider(attackZone.GetComponent<CircleCollider2D>(), myFilter, hitColliders);
             List<GameObject> hitFighters = new List<GameObject>();
