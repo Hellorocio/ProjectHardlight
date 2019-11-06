@@ -146,6 +146,7 @@ public class FighterAttack : MonoBehaviour
         {
             SetCurrentTarget();
         }
+        StopBasicAttacking();
     }
 
     /// <summary>

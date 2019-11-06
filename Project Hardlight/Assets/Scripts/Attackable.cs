@@ -82,7 +82,11 @@ public class Attackable : MonoBehaviour
     public void OnDeath()
     {
         // Tell Battle manager that this died
-        BattleManager.Instance.OnDeath(this);
+        if(gameObject.GetComponent<IndividualSwarmerAI>() == null)
+        {
+            BattleManager.Instance.OnDeath(this);
+        }
+        
         gameObject.SetActive(false);
     }
 
@@ -111,7 +115,7 @@ public class Attackable : MonoBehaviour
         }
         else if (team == CombatInfo.Team.Enemy)
         {
-            baseHealth = GetComponent<MonsterAI>().maxHealth;
+            baseHealth = GetComponent<GenericMonsterAI>().maxHealth;
         }
         else
         {

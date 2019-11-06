@@ -61,8 +61,10 @@ public class IndividualSwarmerAI : GenericMonsterAI
 
     private void Update()
     {
+        
         while (attackCoroutine == null && !InBodyRangeOfTarget(swarmLoc))
         {
+            
             transform.position = Vector3.MoveTowards(transform.position, swarmLoc, moveSpeed / 100 * Time.deltaTime);
         }
         currentTarget = transform.parent.GetComponent<SwarmMasterAI>().currentTarget;
@@ -151,4 +153,5 @@ public class IndividualSwarmerAI : GenericMonsterAI
 
     }
 
+ 
 }

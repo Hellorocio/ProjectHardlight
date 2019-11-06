@@ -189,6 +189,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
                     animator.Play("Walk");
 
                 }
+                gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
                 moveState = MoveState.moving;
 
@@ -231,6 +232,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
                 animator.Play("Walk");
 
             }
+            gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.moving;
 
@@ -253,6 +255,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// <param name="pos"></param>
     protected void MoveToPosition(Vector3 pos)
     {
+        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (pos.x < transform.position.x);
         if (!InBodyRangeOfTarget(pos))
         {
             if (moveState != MoveState.patrolling)
@@ -281,6 +284,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
     protected void MoveToWanderPoint(Vector3 pos)
     {
+        gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (pos.x < transform.position.x);
         if (!InBodyRangeOfTarget(pos))
         {
             if (moveState != MoveState.patrolling)
@@ -461,6 +465,8 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     {
         return Vector2.Distance(transform.position, p) < alertedRange;
     }
+
+
 
     /// <summary>
     /// Sets the current target, if there is a valid one within maxAggroRange. Uses the preference enums if provided to select a specific type of fighter

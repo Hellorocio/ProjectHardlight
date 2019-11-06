@@ -297,7 +297,10 @@ public class SwarmMasterAI : MonoBehaviour
         {
             if (!InBasicRangeOfTarget(currentTarget.transform.position) && moveState != MoveState.basicAttacking)
             {
-                
+                foreach (GameObject individual in mySwarmers)
+                {
+                    individual.GetComponentInChildren<SpriteRenderer>().flipX = currentTarget.transform.position.x < transform.position.x;
+                }
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
                 moveState = MoveState.moving;
 
@@ -337,7 +340,10 @@ public class SwarmMasterAI : MonoBehaviour
 
         if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
         {
-            
+            foreach (GameObject individual in mySwarmers)
+            {
+                individual.GetComponentInChildren<SpriteRenderer>().flipX = currentTarget.transform.position.x < transform.position.x;
+            }
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.moving;
 
@@ -359,6 +365,11 @@ public class SwarmMasterAI : MonoBehaviour
     {
         if (!InBodyRangeOfTarget(pos))
         {
+
+            foreach(GameObject individual in mySwarmers)
+            {
+                individual.GetComponentInChildren<SpriteRenderer>().flipX = pos.x < transform.position.x;
+            }
             
             //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
@@ -380,7 +391,11 @@ public class SwarmMasterAI : MonoBehaviour
     {
         if (!InBodyRangeOfTarget(pos))
         {
-            
+            foreach (GameObject individual in mySwarmers)
+            {
+                individual.GetComponentInChildren<SpriteRenderer>().flipX = pos.x < transform.position.x;
+            }
+
             //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
             moveState = MoveState.patrolling;

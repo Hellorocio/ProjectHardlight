@@ -52,15 +52,18 @@ public class TankMonsterAI : MonsterAI
             //{
             //    StopBasicAttacking();
             //}
+            attackZone.transform.localPosition = new Vector3(0, 0, 0);
             attackZone.SetActive(true);
-            //attackZone.transform.LookAt(currentTarget.transform);
-            attackZone.transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, 8f);
-            yield return new WaitForSeconds(2f);
+            Vector3 direction = new Vector3(currentTarget.transform.position.x, currentTarget.transform.position.y, transform.position.z);
+            direction -= transform.position;
+            direction = direction.normalized;
+            attackZone.transform.localPosition = direction*2;
+            yield return new WaitForSeconds(1.8f);
             float tmp = basicAttackClipSpeedMultiplier;
             basicAttackClipSpeedMultiplier = .75f;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
             realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-            yield return new WaitForSeconds(realBasicAttackHitTime);
+            yield return new WaitForSeconds(.1f);
             
             Collider2D[] hitColliders = new Collider2D[1000];
             Physics2D.OverlapCollider(attackZone.GetComponent<CircleCollider2D>(), myFilter, hitColliders);
@@ -72,8 +75,8 @@ public class TankMonsterAI : MonsterAI
                     DoBasicAttack(collider.gameObject);
                 }
             }
-            attackZone.transform.position = transform.position;
-            attackZone.transform.rotation = defaultAttackZoneTransform.rotation;
+            //attackZone.transform.position = transform.position;
+            //attackZone.transform.rotation = defaultAttackZoneTransform.rotation;
             attackZone.SetActive(false);
             basicAttackClipSpeedMultiplier = tmp;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
