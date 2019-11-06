@@ -42,8 +42,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b750cef7f3d5a40be484cb1773ff4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
   characterName: Angry Onion
+  maxHealth: 80
   maxMana: 0
   moveSpeed: 250
   alertedRange: 18
@@ -80,6 +80,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RangedOnionMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 8798531554873855805, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517336916065768635, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 534822669287997758, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -134,16 +149,6 @@ PrefabInstance:
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8798531554873855805, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8517336916065768635, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6357777086258113278, guid: 865c44a6dbc375b45ac267e449976756,
@@ -251,11 +256,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 534822669287997758, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8678461056888987651, guid: 865c44a6dbc375b45ac267e449976756, type: 3}

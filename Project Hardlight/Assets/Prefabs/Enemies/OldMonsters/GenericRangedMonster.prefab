@@ -193,8 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Angry Onion
-  team: 2
-  maxHealth: 40
+  maxHealth: 80
   maxMana: 0
   moveSpeed: 250
   alertedRange: 25
@@ -209,7 +208,13 @@ MonoBehaviour:
   basicAttackDamage: 4
   basicAttackProjectileSpeed: 20
   basicAttackSfx: {fileID: 0}
+  tiredSteam: {fileID: 0}
+  tiredTear: {fileID: 0}
+  alertedMark: {fileID: 0}
   patrolType: 0
+  idleTime: 0
+  maxWanderPoints: 0
+  minWanderPoints: 0
   patrolRoute: []
   basicAttackClip: {fileID: 7400000, guid: 3ea96c8dbc9c3db44849bb97f8054682, type: 2}
   basicAttackClipSpeedMultiplier: 1
@@ -379,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbed6ddb754912d42bfcf9ac54d2d581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackable: {fileID: 0}
   healthText: {fileID: 5136044066855565854}
   healthBar: {fileID: 5198702174738956412}
 --- !u!1 &1183036607246812536
@@ -825,6 +831,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
     type: 3}
-  fighter: {fileID: 0}
-  gMeleeMonster: {fileID: 0}
-  gRangedMonster: {fileID: 138946200862579734}
+  attackable: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   abilityDescription: A wave that damages enemies and heals allies it passes through.
   abilityIcon: {fileID: 21300000, guid: 5e5a2ffd43df9714eb0ebedc60278469, type: 3}
   sfx: {fileID: 8300000, guid: c31a3d97ffe6b644db7cf659f160f1ea, type: 3}
-  baseDamage: 7
+  baseDamage: 15
   baseEffectRange: 20
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -67,7 +67,7 @@ MonoBehaviour:
   buffNameId: Bastion
   buffDescription: Gives 50% damage reduction to allies in the ring.
   buffIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
-  buffDuration: 10
+  buffDuration: 15
   maxStacks: 1
   percentDamageTakenModifier: -0.7
 --- !u!114 &4899670746398785568
@@ -91,7 +91,7 @@ MonoBehaviour:
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  baseEffectRadius: 2.5
+  baseEffectRadius: 3
   defenseBuff: {fileID: 4437844966064891378}
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
@@ -113,58 +113,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Merrha
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 743599957097044493, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: appearance
+      propertyPath: appearence
       value: 
-      objectReference: {fileID: 21300000, guid: 714d1a23c29dab74bab929514093f933,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: fullPortrait
-      value: 
-      objectReference: {fileID: 21300000, guid: 1cb4d6e276d00ec4baf9dfc0cc57c4f4,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: vesselName
-      value: Merrha
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: title
-      value: The Elementalist
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: description
-      value: She has tricks up her long, long sleeves.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseHealth
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: basicAttack
+      propertyPath: attack
       value: 
       objectReference: {fileID: 1974475011015928984}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 20893948577878501}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 4899670746398785568}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseMana
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Offset.x
@@ -240,21 +198,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: attack
+      propertyPath: appearance
+      value: 
+      objectReference: {fileID: 21300000, guid: 714d1a23c29dab74bab929514093f933,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: fullPortrait
+      value: 
+      objectReference: {fileID: 21300000, guid: 1cb4d6e276d00ec4baf9dfc0cc57c4f4,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: vesselName
+      value: Merrha
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: title
+      value: The Elementalist
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: description
+      value: She has tricks up her long, long sleeves.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseHealth
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: basicAttack
       value: 
       objectReference: {fileID: 1974475011015928984}
-    - target: {fileID: 743599957097044493, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: appearence
+      propertyPath: abilities.Array.data[0]
       value: 
+      objectReference: {fileID: 20893948577878501}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 4899670746398785568}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseMana
+      value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 74bca45bc80ef7a40822fd586a4efc5f, type: 2}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -286,6 +281,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3725835753875688886, guid: 8964f323661a48241a68995d380ea18f,
         type: 3}
+    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 74bca45bc80ef7a40822fd586a4efc5f, type: 2}
     m_RemovedComponents:
     - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}

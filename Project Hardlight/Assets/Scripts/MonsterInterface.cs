@@ -11,7 +11,6 @@ public abstract class GenericMonsterAI : MonoBehaviour
 {
 
     protected bool startedLevel;
-    public int maxHealth;
 
     public virtual void LevelStart()
     {
@@ -23,6 +22,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 {
     [Header("Basic Attributes")]
     public string characterName;
+    public int maxHealth;
     public float maxMana;
     public float moveSpeed;
     public float alertedRange;
@@ -67,7 +67,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     protected int jabsDone = 0;
     protected Animator animator;
     protected Vector3 startPos;
-    protected float currentHealth;
     protected float currentMana;
     protected Coroutine attackCoroutine;
     protected GameObject currentTarget;
@@ -78,8 +77,6 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     protected MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
     private bool justAlerted = true;
-    //public delegate void HealthChanged(float health);
-    //public event HealthChanged OnHealthChanged;
 
     protected virtual void Start()
     {
@@ -753,7 +750,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     void SetOptimalHealingTarget()
     {
         Attackable[] currentTargets = GetValidTargets().ToArray();
-        float maxHealth = float.MaxValue;
+        float maxhp = float.MaxValue;
         GameObject tempcurrentTarget = null;
 
         for (int i = 0; i < currentTargets.Length; i++)
@@ -761,9 +758,9 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             if (currentTargets[i].gameObject.activeSelf)
             {
                 float checkHealth = currentTargets[i].GetHealth();
-                if (checkHealth < maxHealth)
+                if (checkHealth < maxhp)
                 {
-                    maxHealth = checkHealth;
+                    maxhp = checkHealth;
                     tempcurrentTarget = currentTargets[i].gameObject;
                 }
             }

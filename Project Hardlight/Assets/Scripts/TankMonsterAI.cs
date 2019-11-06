@@ -25,7 +25,6 @@ public class TankMonsterAI : MonsterAI
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-        currentHealth = maxHealth;
         currentMana = 0;
         attackParent = GameObject.Find("Vessels");
         startPos = transform.position;

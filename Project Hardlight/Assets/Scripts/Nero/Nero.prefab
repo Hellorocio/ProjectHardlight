@@ -45,7 +45,7 @@ MonoBehaviour:
   buffNameId: Light Prison
   buffDescription: Increase the damage taken by this unit.
   buffIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
-  buffDuration: 10
+  buffDuration: 15
   maxStacks: 1
   percentDamageTakenModifier: 1
 --- !u!114 &740907697011280635
@@ -65,7 +65,7 @@ MonoBehaviour:
     unit for a few seconds.
   abilityIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
   sfx: {fileID: 0}
-  baseDamage: 30
+  baseDamage: 60
   baseEffectRange: 16
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -90,9 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Pew pew
-  range: 10
+  range: 12
   damage: 2
-  frequency: 1
+  frequency: 0.6
   description: Little blasts of magic.
   sfx: {fileID: 0}
   mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
@@ -116,7 +116,7 @@ MonoBehaviour:
   abilityIcon: {fileID: -5789774901387246160, guid: 7d141781f10d2e342b834c6c4f203524,
     type: 3}
   sfx: {fileID: 0}
-  baseDamage: 15
+  baseDamage: 35
   baseEffectRange: 16
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -144,48 +144,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nero
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 743599957097044493, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: appearance
+      propertyPath: appearence
       value: 
-      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: fullPortrait
-      value: 
-      objectReference: {fileID: 21300000, guid: ac1625ef45e3fa1429d38d13b0f08215,
-        type: 3}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: vesselName
-      value: Nero
       objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: title
-      value: Magical Prodigy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: description
-      value: She casts spells.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: basicAttack
+      propertyPath: attack
       value: 
       objectReference: {fileID: 3231508250924390035}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 7240504610464757373}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 740907697011280635}
     - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Offset.x
@@ -261,21 +229,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: attack
+      propertyPath: appearance
+      value: 
+      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: fullPortrait
+      value: 
+      objectReference: {fileID: 21300000, guid: ac1625ef45e3fa1429d38d13b0f08215,
+        type: 3}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: vesselName
+      value: Nero
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: title
+      value: Magical Prodigy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: description
+      value: She casts spells.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: basicAttack
       value: 
       objectReference: {fileID: 3231508250924390035}
-    - target: {fileID: 743599957097044493, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: appearence
+      propertyPath: abilities.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+      objectReference: {fileID: 7240504610464757373}
+    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_Controller
+      propertyPath: abilities.Array.data[1]
       value: 
-      objectReference: {fileID: 9100000, guid: ca0a500eacf29d541b22649ab11cd2e5, type: 2}
+      objectReference: {fileID: 740907697011280635}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -287,6 +282,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
         type: 3}
+    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ca0a500eacf29d541b22649ab11cd2e5, type: 2}
     m_RemovedComponents:
     - {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}

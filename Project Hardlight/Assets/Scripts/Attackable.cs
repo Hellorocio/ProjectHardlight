@@ -14,7 +14,7 @@ public class Attackable : MonoBehaviour
     // e.g. percentDamageTakenModifier = -.2 --> Take 20% less damage
     public float percentDamageTakenModifier;
     
-    public float maxHealth;
+    public int maxHealth;
     public float currentHealth;
     public Color defaultColor;
 
@@ -115,7 +115,7 @@ public class Attackable : MonoBehaviour
         }
         else if (team == CombatInfo.Team.Enemy)
         {
-            baseHealth = GetComponent<GenericMonsterAI>().maxHealth;
+            baseHealth = GetComponent<MonsterAI>().maxHealth;
         }
         else
         {
