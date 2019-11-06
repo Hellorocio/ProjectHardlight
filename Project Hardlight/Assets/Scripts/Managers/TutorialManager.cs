@@ -294,7 +294,12 @@ public class TutorialManager : Singleton<TutorialManager>
 
     public string GetCurrentTutorialPopupName ()
     {
-        return tutorialPopups[currentTutorialIndex].name;
+        string levelName = "";
+        if (currentTutorialIndex != -1)
+        {
+            levelName = tutorialPopups[currentTutorialIndex].name;
+        }
+        return levelName;
     }
      
 }

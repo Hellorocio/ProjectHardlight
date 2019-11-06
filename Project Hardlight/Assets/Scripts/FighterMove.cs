@@ -174,7 +174,7 @@ public class FighterMove : MonoBehaviour
         Destroy(target.gameObject);
         target = null;
 
-        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        if (GameManager.Instance.gameState == GameState.FIGHTING && !TutorialManager.Instance.tutorialEnabled)
         {
             fighterAttack.SetCurrentTarget();
         }

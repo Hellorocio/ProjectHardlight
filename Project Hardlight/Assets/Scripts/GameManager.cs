@@ -459,7 +459,7 @@ public class GameManager : Singleton<GameManager>
     public void EnterBattleScene(string levelName)
     {
         //disable tutorial stuff
-        TutorialManager.Instance.tutorialEnabled = false;
+        //TutorialManager.Instance.tutorialEnabled = false;
         VesselManager.Instance.SetAllVesselEnabledTo(true);
 
         //load battle
@@ -602,7 +602,8 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void SkipTutorial()
     {
-        TutorialManager.Instance.tutorialEnabled = false;
+        //TutorialManager.Instance.tutorialEnabled = false;
+        TutorialManager.Instance.currentTutorialLevel = 1;
         UIManager.Instance.skipTutorialButton.SetActive(false);
         BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
         HideTutorialPopup();
