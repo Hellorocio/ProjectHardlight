@@ -12,8 +12,6 @@ using UnityEngine.Events;
 /// </summary>
 public class Fighter : MonoBehaviour
 {
-    public CombatInfo.Team team;
-    
     public GameObject selectedUI;
     public GameObject maxManaGlow;
     public Animator anim;
@@ -22,8 +20,6 @@ public class Fighter : MonoBehaviour
     private int maxMana;
     private float speed = 1;
     public Soul soul;
-
-    public BuffBar buffBar;
 
     private Color defaultColor;
     private Color hitColor;
@@ -361,25 +357,7 @@ public class Fighter : MonoBehaviour
             GetComponent<HighlightFighter>().highlight = active;
         }
     }
-
-    // TODO finish this
-    public int GetMaxHealth()
-    {
-        int baseHealth = 2;
-
-        if (soul != null && GetComponent<VesselData>() != null)
-        {
-            baseHealth = GetComponent<VesselData>().baseHealth;
-            baseHealth += soul.GetMaxHealthBonus(baseHealth);
-        }
-        else
-        {
-            baseHealth = GetComponent<VesselData>().baseHealth;
-        }
-
-        return baseHealth;
-    }
-
+    
     public int GetMaxMana ()
     {
         int baseMana = GetComponent<VesselData>().baseMana;
@@ -398,20 +376,5 @@ public class Fighter : MonoBehaviour
         return baseSpeed;
     }
 
-    public void AddBuff(Buff buff)
-    {
-        BuffInstance buffInstance = gameObject.AddComponent(typeof(BuffInstance)) as BuffInstance;
-        buffInstance.SetBuff(buff);
-        buffInstance.StartBuff();
-        
-        // Add to buff bar
-        Debug.Log(gameObject.name);
-        buffBar.AddBuffInstance(buffInstance);
-    }
     
-    // Called by the buff to tell you it's done
-    public void RemoveBuff(BuffInstance buffInstance)
-    {
-        buffBar.RemoveBuffInstance(buffInstance);
-    }
 }

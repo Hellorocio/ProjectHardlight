@@ -69,12 +69,13 @@ public class AoEDefense : Ability
             foreach (Collider2D collider in hitColliders)
             {
                 Fighter hitFighter = collider.gameObject.GetComponent<Fighter>();
+                Attackable attackable = collider.gameObject.GetComponent<Attackable>();
                 if (hitFighter != null)
                 {
                     if (hitFighter.team == CombatInfo.Team.Hero)
                     {
                         // Give them the buff
-                        hitFighter.AddBuff(defenseBuff);
+                        attackable.AddBuff(defenseBuff);
                     }
                 }
             }

@@ -41,7 +41,7 @@ public class BuffInstance : MonoBehaviour
         buff.CleanupBuff(gameObject);
         
         // Tell Fighter you're done (to update BuffBar mostly)
-        GetComponent<Fighter>().RemoveBuff(this);
+        GetComponent<Attackable>().RemoveBuff(this);
     }
 
     IEnumerator BuffLoop()

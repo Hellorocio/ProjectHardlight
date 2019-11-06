@@ -64,7 +64,7 @@ public class NinjaJumpAbility : Ability
                 selectedFighter.TakeDamage(GetDamage());
                 
                 // Add invuln buff
-                GetComponent<Fighter>().AddBuff(invulnBuff);
+                GetComponent<Attackable>().AddBuff(invulnBuff);
                 
                 if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
                 {

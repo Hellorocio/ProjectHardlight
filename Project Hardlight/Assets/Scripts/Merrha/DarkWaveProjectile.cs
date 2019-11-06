@@ -12,7 +12,7 @@ public class DarkWaveProjectile : MonoBehaviour
     // Don't set
     private bool initialized = false;
     public HashSet<Fighter> affectedFighters;
-    public HashSet<GenericMonsterAI> affectedFighters1;
+    public HashSet<GenericMonsterAI> affectedEnemies;
     public Vector3 startPosition;
     public float maxDistance;
 
@@ -31,7 +31,7 @@ public class DarkWaveProjectile : MonoBehaviour
     {
         startPosition = startPos;
         affectedFighters = new HashSet<Fighter>();
-        affectedFighters1 = new HashSet<GenericMonsterAI>();
+        affectedEnemies = new HashSet<GenericMonsterAI>();
         damageAmount = damageAmt;
         healAmount = healAmt;
         this.maxDistance = maxDistance;
@@ -47,11 +47,6 @@ public class DarkWaveProjectile : MonoBehaviour
             {
                 hitFighter.Heal(healAmount);
             }
-            else if (hitFighter.team == CombatInfo.Team.Enemy)
-            {
-                hitFighter.TakeDamage(damageAmount);
-            }
-
             affectedFighters.Add(hitFighter);
         }
 
@@ -59,10 +54,10 @@ public class DarkWaveProjectile : MonoBehaviour
         
 
 
-        if (monster != null && !affectedFighters1.Contains(monster))
+        if (monster != null && !affectedEnemies.Contains(monster))
         {
             monster.TakeDamage(damageAmount);
-            affectedFighters1.Add(monster);
+            affectedEnemies.Add(monster);
         }
 
     }

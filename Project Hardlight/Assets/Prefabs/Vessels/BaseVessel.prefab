@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 6390960235825343898}
   - component: {fileID: 6390960235825343901}
   - component: {fileID: 6390960235825343899}
+  - component: {fileID: 3851246974747038760}
   - component: {fileID: 6390960235825343900}
   - component: {fileID: 2953940653181175102}
   - component: {fileID: 8409799906034597506}
@@ -190,6 +191,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3851246974747038760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390960235825343897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21148c3f3741bd2418912eebadd63601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffBar: {fileID: 1012097154563230144}
 --- !u!114 &6390960235825343900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +221,6 @@ MonoBehaviour:
   maxManaGlow: {fileID: 3030817009279536542}
   anim: {fileID: 6390960234732733081}
   soul: {fileID: 0}
-  buffBar: {fileID: 1012097154563230144}
   manaFullSfx: {fileID: 8300000, guid: f47a1d57f64a36540ba98c4a1b23280d, type: 3}
   battleManager: {fileID: 0}
   percentDamageTakenModifier: 0
@@ -349,6 +362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appearance: {fileID: 21300000, guid: b502210835003ca4b80969309535424d, type: 3}
+  fullPortrait: {fileID: 0}
+  headshot: {fileID: 0}
   vesselName: Default vessel name
   title: Default vessel title
   description: Default vessel description
@@ -390,6 +405,7 @@ MonoBehaviour:
   abilityName: Healing Jutsu
   abilityDescription: Throw 3 projectiles, each hit heals Ninja for medium amount
   abilityIcon: {fileID: 0}
+  sfx: {fileID: 0}
   baseDamage: 4
   baseEffectRange: 8
   targetingType: 1
@@ -417,12 +433,13 @@ MonoBehaviour:
   abilityDescription: Teleport to a new target and become invicible and stronger for
     5 seconds
   abilityIcon: {fileID: 0}
+  sfx: {fileID: 0}
   baseDamage: 10
   baseEffectRange: 10
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  attackTargetUnit: {fileID: 0}
+  invulnBuff: {fileID: 0}
 --- !u!114 &3866378144017540731
 MonoBehaviour:
   m_ObjectHideFlags: 0

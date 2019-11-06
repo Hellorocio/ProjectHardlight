@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Fighter fighter;
+    public Attackable attackable;
     public Text healthText;
     public Image healthBar;
 
@@ -16,21 +16,25 @@ public class HealthBar : MonoBehaviour
     {
         maxBarWidth = healthBar.GetComponent<RectTransform>().sizeDelta.x;
 
-        if (fighter != null)
+        if (attackable != null)
         {
-            maxHealth = fighter.GetMaxHealth();
+            maxHealth = attackable.GetMaxHealth();
             UpdateHealthBar(maxHealth);
 
 
-            fighter.OnHealthChanged += UpdateHealthBar;
+            attackable.OnHealthChanged += UpdateHealthBar;
+        }
+        else
+        {
+            Debug.Log("WARNING: Health Bar doesn't have an attackable set to track'");
         }
     }
 
     private void OnDisable()
     {
-        if (fighter != null)
+        if (attackable != null)
         {
-            fighter.OnHealthChanged -= UpdateHealthBar;
+            attackable.OnHealthChanged -= UpdateHealthBar;
         }
     }
 

@@ -48,13 +48,14 @@ public class MageCurseAbility : Ability
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
             Fighter hitFighter = selectedTarget.gameObject.GetComponent<Fighter>();
+            Attackable attackable = selectedTarget.gameObject.GetComponent<Attackable>();
             if (hitFighter != null && hitFighter.team == CombatInfo.Team.Enemy)
             {
                 Debug.Log("Mage Light Prison");
 
                 // Deal damage and add debuff
                 hitFighter.TakeDamage(GetDamage());
-                hitFighter.AddBuff(defenseDebuff);
+                attackable.AddBuff(defenseDebuff);
 
                 //display light prison
                 GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
