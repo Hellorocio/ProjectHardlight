@@ -604,7 +604,6 @@ public class BattleManager : Singleton<BattleManager>
                     onSetTarget.Invoke();
                     onSetTarget.RemoveAllListeners();
                 }
-
                 if (!foundEnemy)
                 {
                     //move fighter
@@ -615,23 +614,8 @@ public class BattleManager : Singleton<BattleManager>
 
                     pos = Input.mousePosition;
                     pos = Camera.main.ScreenToWorldPoint(pos);
-
                     //start moving hero
-                    if (selectedHero != null)
-                    {
-                        //init moveloc
-                        GameObject newMoveLoc = Instantiate(moveLoc);
-                        newMoveLoc.SetActive(true);
-                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                        //init line
-                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                        line.positionCount = 2;
-                        line.SetPosition(0, newMoveLoc.transform.position);
-                        line.SetPosition(1, selectedHero.transform.position);
-                        selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                    }
-                    else if (multiSelectedHeros.Count > 0)
+                    if (multiSelectedHeros.Count > 0)
                     {
                         //move multiple heroes
                         foreach (Fighter f in multiSelectedHeros)
@@ -646,8 +630,22 @@ public class BattleManager : Singleton<BattleManager>
                             line.positionCount = 2;
                             line.SetPosition(0, newMoveLoc.transform.position);
                             line.SetPosition(1, multiSelectedHeros[0].transform.position);
+
                             f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
                         }
+                    } else if (selectedHero != null)
+                    {
+                        //init moveloc
+                        GameObject newMoveLoc = Instantiate(moveLoc);
+                        newMoveLoc.SetActive(true);
+                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                        //init line
+                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                        line.positionCount = 2;
+                        line.SetPosition(0, newMoveLoc.transform.position);
+                        line.SetPosition(1, selectedHero.transform.position);
+                        selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
                     }
                 }                              
 
