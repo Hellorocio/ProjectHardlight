@@ -12,10 +12,15 @@ public class TankMonsterAI : MonsterAI
     /// <returns></returns>
     /// 
     public GameObject attackZone;
+    private Sprite targetSprite;
+    private Color defaultZoneColor;
+    public Sprite crackedSprite;
     public ContactFilter2D myFilter;
     private Transform defaultAttackZoneTransform;
     protected override void Start()
     {
+        targetSprite = attackZone.GetComponent<SpriteRenderer>().sprite;
+        defaultZoneColor = attackZone.GetComponent<SpriteRenderer>().color;
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
@@ -77,7 +82,8 @@ public class TankMonsterAI : MonsterAI
             }
             //attackZone.transform.position = transform.position;
             //attackZone.transform.rotation = defaultAttackZoneTransform.rotation;
-            attackZone.SetActive(false);
+            
+            StartCoroutine(DisplayCracks());
             basicAttackClipSpeedMultiplier = tmp;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
             realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
@@ -91,6 +97,22 @@ public class TankMonsterAI : MonsterAI
         jabsDone = 0;
         moveState = MoveState.stopped;
         attackCoroutine = null;
+    }
+
+    public IEnumerator DisplayCracks()
+    {
+        attackZone.GetComponent<SpriteRenderer>().sprite = crackedSprite;
+        attackZone.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .9f);
+        for (float i = 1; i > 0; i -= .01f)
+        {
+            attackZone.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, i);
+            yield return new WaitForSeconds(.02f);
+        }
+        attackZone.SetActive(false);
+        attackZone.GetComponent<SpriteRenderer>().sprite = targetSprite;
+        attackZone.GetComponent<SpriteRenderer>().color = defaultZoneColor;
+        
+
     }
 
     /// <summary>
