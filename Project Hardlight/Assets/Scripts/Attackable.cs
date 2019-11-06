@@ -115,7 +115,7 @@ public class Attackable : MonoBehaviour
         }
         else if (team == CombatInfo.Team.Enemy)
         {
-            baseHealth = GetComponent<MonsterAI>().maxHealth;
+            baseHealth = GetComponent<GenericMonsterAI>().maxHealth;
         }
         else
         {

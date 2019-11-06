@@ -9,7 +9,7 @@ interface MonsterInterface
 
 public abstract class GenericMonsterAI : MonoBehaviour
 {
-
+    public int maxHealth;
     protected bool startedLevel;
 
     public virtual void LevelStart()
@@ -22,7 +22,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 {
     [Header("Basic Attributes")]
     public string characterName;
-    public int maxHealth;
+    
     public float maxMana;
     public float moveSpeed;
     public float alertedRange;
