@@ -167,6 +167,15 @@ public class BattleManager : Singleton<BattleManager>
         {
             if (selectedAbility.DoAbility())
             {
+                // Play sound
+                if (selectedAbility.sfx != null)
+                {
+                    selectedHero.GetComponent<AudioSource>().PlayOneShot(selectedAbility.sfx);
+                }
+                else
+                {
+                    Debug.Log(selectedAbility.abilityName + " is missing sfx btw");
+                }
                 // Lose mana
                 selectedHero.LoseMana(selectedHero.GetMaxMana());
                 //commandsUI.SwitchButtonColor(false);
