@@ -295,7 +295,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     bool UpdateClickedHero()
     {
-        Debug.Log("update clicked hero");
         Vector3 pos = Input.mousePosition;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
         Fighter clickedHero = null;
@@ -498,25 +497,19 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="hero"></param>
     public void SetSelectedHero(Fighter hero)
     {
-        if ((selectedHero != hero) || multiSelectedHeros.Count > 0)
-        {
-            DeselectHero();
-            multiSelectedHeros.Clear();
-            selectedHero = hero;
-            selectedHero.SetSelectedUI(true);
-            inputState = InputState.HeroSelected;
+        // Select this hero
+        DeselectHero();
+        multiSelectedHeros.Clear();
+        selectedHero = hero;
+        selectedHero.SetSelectedUI(true);
+        inputState = InputState.HeroSelected;
 
-            portraitHotKeyManager.LoadNewlySelectedHero(hero);
-            OnSwitchTargetEvent();
-            SubscribeHeroEvents();
+        portraitHotKeyManager.LoadNewlySelectedHero(hero);
+        OnSwitchTargetEvent();
+        SubscribeHeroEvents();
 
-            onHeroSelected.Invoke();
-            onHeroSelected.RemoveAllListeners();
-        } else
-        {
-            DeselectHero();
-        }
-
+        onHeroSelected.Invoke();
+        onHeroSelected.RemoveAllListeners();
         
     }
     
@@ -527,11 +520,6 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void DeselectHero()
     {
-        if (TutorialManager.Instance.heroDeselectLocked && TutorialManager.Instance.tutorialEnabled)
-        {
-            return;
-        }
-
         if (inputState == InputState.UpdatingTarget)
         {
             SetCursor(battleConfig.defaultCursor);
@@ -544,13 +532,18 @@ public class BattleManager : Singleton<BattleManager>
             //deselect all multi selected heros
             foreach (Fighter f in multiSelectedHeros)
             {
+                Debug.Log("turning off selected ui");
                 f.SetSelectedUI(false);
             }
             inputState = InputState.NothingSelected;
             multiSelectedHeros.Clear();
-            selectedHero.SetSelectedUI(false);
-            UnsubscribeHeroEvents();
-            selectedHero = null;
+
+            if (selectedHero != null)
+            {
+                UnsubscribeHeroEvents();
+                selectedHero.SetSelectedUI(false);
+                selectedHero = null;
+            }
         }
         else if (selectedHero != null)
         {

@@ -362,7 +362,16 @@ public class GameManager : Singleton<GameManager>
         else
         {
             TutorialManager.Instance.FinishTutorialLevel();
-            UnlockLevels();
+
+            //set all levels that the beaten level unlocks to undiscovered
+            if (nodesToUnlock != null)
+            {
+                for (int i = 0; i < nodesToUnlock.Length; i++)
+                {
+                    levelStatuses[nodesToUnlock[i]] = MapNode.NodeStatus.UNDISCOVERED;
+                }
+            }
+            nodesToUnlock = null;
             /*
             if (TutorialManager.Instance.inTutorialBattle)
             {
@@ -460,7 +469,7 @@ public class GameManager : Singleton<GameManager>
     public void EnterBattleScene(string levelName)
     {
         //disable tutorial stuff
-        //TutorialManager.Instance.tutorialEnabled = false;
+        TutorialManager.Instance.tutorialEnabled = false;
         VesselManager.Instance.SetAllVesselEnabledTo(true);
 
         //load battle
@@ -502,7 +511,7 @@ public class GameManager : Singleton<GameManager>
             yield return null;
         }
 
-        if (TutorialManager.Instance.tutorialLevels[TutorialManager.Instance.currentTutorialLevel].tutorialScene == scene)
+        if (TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.tutorialLevels[TutorialManager.Instance.currentTutorialLevel].tutorialScene == scene)
         {
             TutorialManager.Instance.InitTutorial();
         }
