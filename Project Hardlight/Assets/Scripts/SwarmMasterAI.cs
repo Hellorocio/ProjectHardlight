@@ -543,7 +543,7 @@ public class SwarmMasterAI : MonoBehaviour
     {
 
         //Tell Battle manager that an enemy has died
-        battleManager.OnDeath(GetComponent<Attackable>());
+        battleManager.OnDeath();
         gameObject.SetActive(false);
     }
 

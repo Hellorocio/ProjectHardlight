@@ -53,6 +53,10 @@ public class IndividualSwarmerAI : GenericMonsterAI
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
         currentMana = 0;
+        GetComponent<Attackable>().maxHealth = 20;
+        maxHealth = 20;
+        currentHealth = maxHealth;
+        //GetComponent<Attackable>().TakeDamage(1);
         defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
         hitColor = new Color(1f, .5235f, .6194f);
     }

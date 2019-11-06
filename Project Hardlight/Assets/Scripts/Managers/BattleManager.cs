@@ -891,6 +891,18 @@ public class BattleManager : Singleton<BattleManager>
         
     }
 
+    public void OnDeath()
+    {
+        numEnemies--;
+
+        onMonsterDeath.Invoke();
+        onMonsterDeath.RemoveAllListeners();
+
+        if (numEnemies <= 0)
+        {
+            BattleOver(true);
+        }
+    }
     /// <summary>
     /// Called by all fighters when they die
     /// Determines if this death ends the level, and invokes OnLevelEvent if it does
