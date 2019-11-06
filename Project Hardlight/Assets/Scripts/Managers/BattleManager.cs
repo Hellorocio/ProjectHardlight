@@ -538,6 +538,7 @@ public class BattleManager : Singleton<BattleManager>
             //deselect all multi selected heros
             foreach (Fighter f in multiSelectedHeros)
             {
+                Debug.Log("turning off selected ui");
                 f.SetSelectedUI(false);
             }
             inputState = InputState.NothingSelected;
