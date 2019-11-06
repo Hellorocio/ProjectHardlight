@@ -15,6 +15,7 @@ public class SwarmMasterAI : MonoBehaviour
     public float moveSpeed;
     public float alertedRange;
     public float maxAggroRange;
+    public GameObject alertedMark;
     public List<CombatInfo.TargetPreference> targetPrefs;
     [Space(10)]
 
@@ -49,6 +50,7 @@ public class SwarmMasterAI : MonoBehaviour
     public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
     protected MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
+    private bool justAlerted = true;
 
     private void Start()
     {
@@ -69,10 +71,16 @@ public class SwarmMasterAI : MonoBehaviour
             UpdateTarget();
             if (anyValidTargets)
             {
+                if (justAlerted)
+                {
+                    justAlerted = false;
+                    StartCoroutine(SetAlertedUI());
+                }
                 DecideAttack();
             }
             else
             {
+                justAlerted = true;
                 if (currentIdleTime > 0)
                 {
                     currentIdleTime -= Time.deltaTime;
@@ -233,6 +241,13 @@ public class SwarmMasterAI : MonoBehaviour
         
         moveState = MoveState.stopped;
         attackCoroutine = null;
+    }
+
+    public IEnumerator SetAlertedUI()
+    {
+        alertedMark.SetActive(true);
+        yield return new WaitForSeconds(2);
+        alertedMark.SetActive(false);
     }
 
     /// <summary>

@@ -41,6 +41,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public AudioClip basicAttackSfx;
     public GameObject tiredSteam;
     public GameObject tiredTear;
+    public GameObject alertedMark;
     [Space(10)]
 
     [Header("Patrol Info")]
@@ -76,6 +77,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
     protected MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
+    private bool justAlerted = true;
     //public delegate void HealthChanged(float health);
     //public event HealthChanged OnHealthChanged;
 
@@ -97,10 +99,16 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             UpdateTarget();
             if (anyValidTargets)
             {
+                if (justAlerted)
+                {
+                    justAlerted = false;
+                    StartCoroutine(SetAlertedUI());
+                }
                 DecideAttack();
             }
             else
             {
+                justAlerted = true;
                 if (currentIdleTime > 0)
                 {
                     currentIdleTime -= Time.deltaTime;
@@ -156,6 +164,10 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             }
         }
         anyValidTargets = fighters.Count > 0;
+        if (!anyValidTargets)
+        {
+            currentTarget = null;
+        }
         return fighters;
     }
 
@@ -214,6 +226,8 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             }
             else
             {
+                
+                
                 SetCurrentTarget();
             }
         }
@@ -412,6 +426,13 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
         target.GetComponent<Attackable>().TakeDamage(basicAttackDamage);
 
+    }
+
+    public IEnumerator SetAlertedUI()
+    {
+        alertedMark.SetActive(true);
+        yield return new WaitForSeconds(2);
+        alertedMark.SetActive(false);
     }
 
     /// <summary>
