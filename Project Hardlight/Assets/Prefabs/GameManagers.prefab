@@ -775,8 +775,8 @@ MonoBehaviour:
     popupText: Zoom out and pan around to find out what is happening
     pauseOnPopup: 0
     disableMovementOnPopup: 0
-    startBattle: 1
-    activateObjectsParent: 
+    startBattle: 0
+    activateObjectsParent: SeesTaurin
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 0
@@ -786,10 +786,10 @@ MonoBehaviour:
     dialogue: {fileID: 4900000, guid: 9155beabc9a45dd40aa1fc99e2973ae1, type: 3}
     popupText: To select another character, click on them, or use hot keys 1 and 2.
       Select Taurin now
-    pauseOnPopup: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
-    startBattle: 0
-    activateObjectsParent: SeesTaurin
+    startBattle: 1
+    activateObjectsParent: 
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 2
@@ -801,7 +801,7 @@ MonoBehaviour:
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: Ability1Arrow
+    activateObjectsParent: 
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 12
@@ -809,12 +809,12 @@ MonoBehaviour:
     nextTutorialPopup: TaruinAbility1
   - name: TaruinAbility1
     dialogue: {fileID: 0}
-    popupText: Like Merrha, Taurin has two abilites. His first ability is Healing
-      Jutsu, which is aimed at enemies and heals Taurin if it hits
+    popupText: Taurin has two abilites. His first ability is Jump Jutsu, which teleports
+      him to to targetted enemy and makes him temporarily invincible
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    activateObjectsParent: Ability1Arrow
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 12
@@ -822,8 +822,8 @@ MonoBehaviour:
     nextTutorialPopup: TaurinAbility2
   - name: TaurinAbility2
     dialogue: {fileID: 0}
-    popupText: Taurin's second ability is jump jutsu, which teleports him to to targetted
-      enemy and makes him invincible for a short time
+    popupText: Taurin's second ability is Healing Jutsu, which is aimed at enemies
+      and heals Taurin if it hits
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -832,10 +832,10 @@ MonoBehaviour:
     startTriggerParam: 
     endPopupTrigger: 12
     endTriggerParam: 0
-    nextTutorialPopup: TaurinCastAbility
+    nextTutorialPopup: TargetTaurinAbility
   - name: TaurinCastAbility
     dialogue: {fileID: 0}
-    popupText: Choose one of Taurin's abilities to cast right now
+    popupText: Click on a monster to choose a target for the ability
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -855,7 +855,7 @@ MonoBehaviour:
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 8
-    endTriggerParam: 0
+    endTriggerParam: 2
     nextTutorialPopup: AfterFirstFight
   - name: AfterFirstFight
     dialogue: {fileID: 4900000, guid: 0e16efa87db8b4f0f9e430b3f18d7f1a, type: 3}
@@ -878,7 +878,7 @@ MonoBehaviour:
     activateObjectsParent: 
     startPopupTrigger: 1
     startTriggerParam: 
-    endPopupTrigger: 2
+    endPopupTrigger: 14
     endTriggerParam: 0
     nextTutorialPopup: LookForNero
   - name: LookForNero
@@ -887,7 +887,7 @@ MonoBehaviour:
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    activateObjectsParent: SeesNero
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 0
@@ -955,6 +955,18 @@ MonoBehaviour:
     endPopupTrigger: 0
     endTriggerParam: 0
     nextTutorialPopup: 
+  - name: TargetTaurinAbility
+    dialogue: {fileID: 0}
+    popupText: Choose one of Taurin's abilities to cast right now
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 13
+    endTriggerParam: 0
+    nextTutorialPopup: TaurinCastAbility
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,6 +1470,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onAbilityCast:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onAllHerosSelected:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,

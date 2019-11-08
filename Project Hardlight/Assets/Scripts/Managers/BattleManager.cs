@@ -56,6 +56,7 @@ public class BattleManager : Singleton<BattleManager>
     private float startY;
     public float sizingFactor = 0.01f;
 
+    // Tutorial Events
     [HideInInspector]
     public UnityEvent onHeroSelected;
     [HideInInspector]
@@ -68,6 +69,8 @@ public class BattleManager : Singleton<BattleManager>
     public UnityEvent onUseAbility;
     [HideInInspector]
     public UnityEvent onAbilityCast;
+    [HideInInspector]
+    public UnityEvent onAllHerosSelected;
 
     public void Initialize()
     {
@@ -711,6 +714,11 @@ public class BattleManager : Singleton<BattleManager>
                 inputState = InputState.HeroSelected;
                 portraitHotKeyManager.LoadMultiSelectedHeros();
 
+                if (multiSelectedHeros.Count == selectedVessels.Count)
+                {
+                    onAllHerosSelected.Invoke();
+                    onAllHerosSelected.RemoveAllListeners();
+                }
             }
             multiSelectionBox.gameObject.SetActive(false);
         }
@@ -887,9 +895,8 @@ public class BattleManager : Singleton<BattleManager>
     public void OnDeath()
     {
         numEnemies--;
-
+        
         onMonsterDeath.Invoke();
-        onMonsterDeath.RemoveAllListeners();
 
         if (numEnemies <= 0)
         {
@@ -924,9 +931,8 @@ public class BattleManager : Singleton<BattleManager>
         else
         {
             numEnemies--;
-
+            
             onMonsterDeath.Invoke();
-            onMonsterDeath.RemoveAllListeners();
 
             if (numEnemies <= 0)
             {
