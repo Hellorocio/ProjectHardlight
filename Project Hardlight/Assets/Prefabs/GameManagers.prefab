@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialLevels:
   - {fileID: 8457412359921365682}
+  - {fileID: 74228778366122047}
   tutorialPopups: []
   currentTutorialLevel: 0
   startGeneratingMana: 1
@@ -691,7 +692,7 @@ MonoBehaviour:
     startTriggerParam: 
     endPopupTrigger: 12
     endTriggerParam: 0
-    nextTutorialPopup: LearnAbility1
+    nextTutorialPopup: TargetMonster2
   - name: LearnAbility1
     dialogue: {fileID: 0}
     popupText: This is Merrha's Dark Wind ability. It's a projectile that hurts enemies
@@ -743,6 +744,18 @@ MonoBehaviour:
     endPopupTrigger: 10
     endTriggerParam: 0
     nextTutorialPopup: 
+  - name: TargetMonster2
+    dialogue: {fileID: 0}
+    popupText: Right click the monster to select it as a target
+    pauseOnPopup: 1
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 5
+    endTriggerParam: 0
+    nextTutorialPopup: LearnAbility1
 --- !u!114 &74228778366122047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,7 +788,7 @@ MonoBehaviour:
       Select Taurin now
     pauseOnPopup: 0
     disableMovementOnPopup: 0
-    startBattle: 1
+    startBattle: 0
     activateObjectsParent: SeesTaurin
     startPopupTrigger: 0
     startTriggerParam: 
@@ -788,7 +801,7 @@ MonoBehaviour:
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    activateObjectsParent: Ability1Arrow
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 12
@@ -814,7 +827,7 @@ MonoBehaviour:
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    activateObjectsParent: Ability2Arrow
     startPopupTrigger: 0
     startTriggerParam: 
     endPopupTrigger: 12
@@ -854,6 +867,92 @@ MonoBehaviour:
     startPopupTrigger: 1
     startTriggerParam: 
     endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: ClickAndDrag
+  - name: ClickAndDrag
+    dialogue: {fileID: 0}
+    popupText: Click and drag to select multiple heros
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 2
+    endTriggerParam: 0
+    nextTutorialPopup: LookForNero
+  - name: LookForNero
+    dialogue: {fileID: 0}
+    popupText: Find Taurin's friend
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 0
+    endTriggerParam: 0
+    nextTutorialPopup: 
+  - name: SeesNero
+    dialogue: {fileID: 4900000, guid: 893c0c97f16aa4d4d99cb7029a268632, type: 3}
+    popupText: Nero has joined the party!
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: NeroAbility1
+  - name: NeroAbility1
+    dialogue: {fileID: 0}
+    popupText: Nero also has two abilities. Her first ability is called Light's Extosis
+      and it harms multiple enemies in a small range
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: Ability3Arrow
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: NeroAbility2
+  - name: NeroAbility2
+    dialogue: {fileID: 0}
+    popupText: Nero's second ability is Light Prison, which harms one enemy for a
+      large amount of damage
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: Ability4Arrow
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 12
+    endTriggerParam: 0
+    nextTutorialPopup: CastNeroAbility
+  - name: CastNeroAbility
+    dialogue: {fileID: 0}
+    popupText: Cast one of Nero's abilities now!
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 10
+    endTriggerParam: 0
+    nextTutorialPopup: BeforeLastFight
+  - name: BeforeLastFight
+    dialogue: {fileID: 4900000, guid: 037ddaafeec1a21469c7774218f082ed, type: 3}
+    popupText: Defeat all the monsters
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    activateObjectsParent: 
+    startPopupTrigger: 1
+    startTriggerParam: 
+    endPopupTrigger: 0
     endTriggerParam: 0
     nextTutorialPopup: 
 --- !u!1 &1171275168379345570
@@ -1315,6 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleConfig: {fileID: 11400000, guid: fb38ed8923fb4b0439b77f73a99f804c, type: 2}
+  allowDeselect: 0
   notEnoughManaUI: {fileID: 4401064958202629787}
   battleTargetPrefab: {fileID: 6391830390797983290, guid: 622767f1e00134f47b9e351508ab8c98,
     type: 3}
@@ -1713,15 +1813,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4401064956470136689}
     m_Modifications:
-    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730020, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_Name
@@ -1852,6 +1943,11 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730017, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_SortingOrder
@@ -1919,6 +2015,10 @@ PrefabInstance:
       value: -161.7
       objectReference: {fileID: 0}
     - target: {fileID: 313237501, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

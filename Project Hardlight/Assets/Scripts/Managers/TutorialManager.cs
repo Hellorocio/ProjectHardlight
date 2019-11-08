@@ -42,6 +42,7 @@ public class TutorialManager : Singleton<TutorialManager>
 
     public void InitTutorial()
     {
+        print("init tutorial");
         // set up start events
         tutorialPopups = tutorialLevels[currentTutorialLevel].tutorialSteps;
         foreach (TutorialPopupData popup in tutorialPopups)
@@ -85,22 +86,23 @@ public class TutorialManager : Singleton<TutorialManager>
             GameManager.Instance.SetCameraControls(true);
         }
 
+        BattleManager.Instance.inputState = BattleManager.InputState.NothingSelected;
         UIManager.Instance.battleUI.SetActive(true);
     }
 
     public void FinishTutorialLevel()
     {
         currentTutorialLevel++;
-        GameManager.Instance.EnterMap();
         
         if (currentTutorialLevel < tutorialLevels.Count)
         {
-            //GameManager.Instance.LoadScene(tutorialLevels[currentTutorialLevel].tutorialScene);
+            GameManager.Instance.LoadScene(tutorialLevels[currentTutorialLevel].tutorialScene);
         }
         else
         {
             // tutorial over, enter map
-            TutorialManager.Instance.tutorialEnabled = false;
+            GameManager.Instance.EnterMap();
+            tutorialEnabled = false;
         }
     }
 
@@ -110,7 +112,7 @@ public class TutorialManager : Singleton<TutorialManager>
     /// <param name="popupName"></param>
     public void ActivateTutorialPopup (string popupName)
     {
-        print("activate tutorial " + popupName);
+        //print("activate tutorial " + popupName);
         int popupIndex = GetPopupIndex(popupName);
         if (popupIndex != -1)
         {
@@ -230,7 +232,7 @@ public class TutorialManager : Singleton<TutorialManager>
     /// </summary>
     public void CompleteTutorialStep ()
     {
-        print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
+        //print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
         if (currentTutorialIndex != -1)
         {
             int index = currentTutorialIndex;
@@ -264,6 +266,19 @@ public class TutorialManager : Singleton<TutorialManager>
             {
                 GameObject taurin = GameObject.Find("Taurin");
                 taurin.GetComponent<Fighter>().SetMaxMana();
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "NeroAbility2")
+            {
+                GameObject nero = GameObject.Find("Nero");
+                nero.GetComponent<Fighter>().SetMaxMana();
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "SeesNero")
+            {
+                GameObject nero = GameObject.Find("Nero");
+                BattleManager.Instance.selectedVessels.Add(nero);
+                BattleManager.Instance.portraitHotKeyManager.InitBattlerUI(BattleManager.Instance.selectedVessels);
             }
 
             currentTutorialIndex = -1;

@@ -12,6 +12,7 @@ public class BattleManager : Singleton<BattleManager>
     public enum InputState { NothingSelected, HeroSelected, DraggingSelect, UpdatingTarget, CastingAbility, FollowingMoveCommand, BattleOver }
 
     public BattleConfig battleConfig;
+    public bool allowDeselect = false;
 
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
@@ -224,7 +225,6 @@ public class BattleManager : Singleton<BattleManager>
     
             }
         }
-        DeselectHero();
         //if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
         //{
             
@@ -577,7 +577,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             if (pointerData.button == PointerEventData.InputButton.Left && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
             {
-                if (!UpdateClickedHero())
+                if (!UpdateClickedHero() && allowDeselect)
                 {
                     DeselectHero();
                 }
