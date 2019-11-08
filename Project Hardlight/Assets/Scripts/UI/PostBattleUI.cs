@@ -65,7 +65,14 @@ public class PostBattleUI : MonoBehaviour
     public void PressPostBattleContinueButton ()
     {
         GameManager.Instance.EndFighting(storeWin);
+        DisablePostBattleUI();
+    }
 
+    /// <summary>
+    /// Disables the UI, called on continue button pressed or skip tutorial button pressed;
+    /// </summary>
+    public void DisablePostBattleUI ()
+    {
         title.gameObject.SetActive(false);
         fragmentsGained.SetActive(false);
         continueButton.SetActive(false);

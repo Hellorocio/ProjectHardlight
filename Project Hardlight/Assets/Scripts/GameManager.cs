@@ -616,12 +616,13 @@ public class GameManager : Singleton<GameManager>
         TutorialManager.Instance.currentTutorialLevel = 1;
         UIManager.Instance.skipTutorialButton.SetActive(false);
         BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
+        TutorialManager.Instance.CancelTutorial();
         HideTutorialPopup();
 
         if (gameState == GameState.FIGHTING)
         {
             BattleManager.Instance.BattleOver(false);
-            UIManager.Instance.postBattleUI.gameObject.SetActive(false);
+            UIManager.Instance.postBattleUI.DisablePostBattleUI();
         }
 
         currentCutscene = null;

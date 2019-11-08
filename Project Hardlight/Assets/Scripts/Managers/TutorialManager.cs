@@ -344,6 +344,46 @@ public class TutorialManager : Singleton<TutorialManager>
             CompleteTutorialStep();
         }
     }     
+
+    /// <summary>
+    /// Called when skip tutorial button is pressed
+    /// Removes listener on the current popup if there is one
+    /// </summary>
+    public void CancelTutorial ()
+    {
+        if (currentTutorialLevel != -1)
+        {
+            switch (tutorialPopups[currentTutorialIndex].endPopupTrigger)
+            {
+                case PopupTrigger.SELECT_HERO:
+                    BattleManager.Instance.onHeroSelected.RemoveAllListeners();
+                    break;
+                case PopupTrigger.ZOOM:
+                    BattleManager.Instance.camController.onCameraZoom.RemoveAllListeners();
+                    break;
+                case PopupTrigger.PAN:
+                    BattleManager.Instance.camController.onCameraPan.RemoveAllListeners();
+                    break;
+                case PopupTrigger.SET_TARGET:
+                    BattleManager.Instance.onSetTarget.RemoveAllListeners();
+                    break;
+                case PopupTrigger.MONSTER_DEATH:
+                    BattleManager.Instance.onMonsterDeath.RemoveAllListeners();
+                    break;
+                case PopupTrigger.USE_ABILITY:
+                    BattleManager.Instance.onUseAbility.RemoveAllListeners();
+                    break;
+                case PopupTrigger.ABILITY_CAST:
+                    BattleManager.Instance.onAbilityCast.RemoveAllListeners();
+                    break;
+                case PopupTrigger.SELECT_ALL:
+                    BattleManager.Instance.onAllHerosSelected.RemoveAllListeners();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 
