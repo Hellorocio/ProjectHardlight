@@ -6,24 +6,36 @@ public class HighlightFighter : MonoBehaviour
 {
     public bool highlight;
     public SpriteRenderer appearence;
+    public GameObject outline;
 
-    //Ref: https://forum.unity.com/threads/changing-animation-sprites.213431/
+    SpriteRenderer[] outlines;
+
+    private void Start()
+    {
+        if (outline != null)
+        {
+            outlines = outline.GetComponentsInChildren<SpriteRenderer>();
+        }
+    }
+    
     void LateUpdate()
     {
         if (highlight && appearence != null)
         {
-            string spriteName = appearence.sprite.name; //finds the name of the sprite to be rendered
-            Sprite[] subSprites = Resources.LoadAll<Sprite>(spriteName.Substring(0, spriteName.IndexOf("_")) + "_Stroke"); //loads all the sprites in your new sprite sheet
-            if (subSprites != null)
+            if (!outline.activeSelf)
             {
-                foreach (var sprite in subSprites)
-                {
-                    if (sprite.name == spriteName) //if the sprite has the same name as one you're trying to replace than replace it
-                    {
-                        appearence.sprite = sprite;
-                    }
-                }
+                outline.SetActive(true);
             }
+            
+            foreach (SpriteRenderer s in outlines)
+            {
+                s.sprite = appearence.sprite;
+                s.flipX = appearence.flipX;
+            }
+        }
+        else if (!highlight && outline.activeSelf)
+        {
+            outline.SetActive(false);
         }
         
     }
