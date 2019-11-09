@@ -918,7 +918,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 BattleOver(false);
             }
-            else if (attackable == selectedHero)
+            else if (attackable.GetComponent<Fighter>() == selectedHero)
             {
                 //currently selected hero died, so deselect them
                 DeselectHero();
@@ -926,6 +926,7 @@ public class BattleManager : Singleton<BattleManager>
             else if (multiSelectedHeros.Contains(attackable.GetComponent<Fighter>()))
             {
                 multiSelectedHeros.Remove(attackable.GetComponent<Fighter>());
+                DeselectHero();
             }
         }
         else

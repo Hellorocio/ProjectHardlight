@@ -100,7 +100,7 @@ public class TutorialManager : Singleton<TutorialManager>
     {
         //print("activate tutorial " + popupName);
         int popupIndex = GetPopupIndex(popupName);
-        if (popupIndex != -1)
+        if (popupIndex != -1 && tutorialEnabled)
         {
             if (currentTutorialIndex == popupIndex)
             {
@@ -122,7 +122,6 @@ public class TutorialManager : Singleton<TutorialManager>
                 // play dialogue
                 if (tutorialPopups[currentTutorialIndex].popupText != "")
                 {
-                    //print("Tutorial popup with dialogue");
                     DialogueManager.Instance.onDialogueEnd.AddListener(TutorialPopupAfterDialogue);
                 }
                 GameManager.Instance.gameState = GameState.PAUSED;
@@ -351,7 +350,7 @@ public class TutorialManager : Singleton<TutorialManager>
     /// </summary>
     public void CancelTutorial ()
     {
-        if (currentTutorialLevel != -1)
+        if (currentTutorialIndex != -1)
         {
             switch (tutorialPopups[currentTutorialIndex].endPopupTrigger)
             {

@@ -135,17 +135,20 @@ public class PortraitHotKeyManager : MonoBehaviour
     /// </summary>
     void UpdateManaProcs()
     {
-        hero1ManaFullImage.gameObject.SetActive(hero1ManaBar.hasMaxMana);
-        ability1Button.interactable = hero1ManaBar.hasMaxMana;
-        ability2Button.interactable = hero1ManaBar.hasMaxMana;
+        bool showHero1Mana = !hero1HealthBar.isDead && hero1ManaBar.hasMaxMana;
+        hero1ManaFullImage.gameObject.SetActive(showHero1Mana);
+        ability1Button.interactable = showHero1Mana;
+        ability2Button.interactable = showHero1Mana;
 
-        hero2ManaFullImage.gameObject.SetActive(hero2ManaBar.hasMaxMana);
-        ability3Button.interactable = hero2ManaBar.hasMaxMana;
-        ability4Button.interactable = hero2ManaBar.hasMaxMana;
+        bool showHero2Mana = !hero2HealthBar.isDead && hero2ManaBar.hasMaxMana;
+        hero2ManaFullImage.gameObject.SetActive(showHero2Mana);
+        ability3Button.interactable = showHero2Mana;
+        ability4Button.interactable = showHero2Mana;
 
-        hero3ManaFullImage.gameObject.SetActive(hero3ManaBar.hasMaxMana);
-        ability5Button.interactable = hero3ManaBar.hasMaxMana;
-        ability6Button.interactable = hero3ManaBar.hasMaxMana;
+        bool showHero3Mana = !hero3HealthBar.isDead && hero3ManaBar.hasMaxMana;
+        hero3ManaFullImage.gameObject.SetActive(showHero3Mana);
+        ability5Button.interactable = showHero3Mana;
+        ability6Button.interactable = showHero3Mana;
     }
 
     void UpdateDeathState()

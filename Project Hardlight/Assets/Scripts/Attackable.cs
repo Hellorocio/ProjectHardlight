@@ -56,6 +56,11 @@ public class Attackable : MonoBehaviour
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
         currentHealth -= realDamage;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+
         IEnumerator colorThing = HitColorChanger();
         StartCoroutine(colorThing);
         if (currentHealth <= 0)
