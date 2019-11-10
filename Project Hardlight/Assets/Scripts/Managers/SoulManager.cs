@@ -22,6 +22,11 @@ public class SoulManager : Singleton<SoulManager>
 
     public float baseValueIncPerLevel;
 
+    /// <summary>
+    /// Generates a random soul
+    /// Note that this does not add the soul to GameManager's soul list, so we must refresh the loadoutUI elsewhere
+    /// </summary>
+    /// <returns></returns>
     public Soul GenerateSoul()
     {
         Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;
@@ -32,8 +37,6 @@ public class SoulManager : Singleton<SoulManager>
         soul.statFocuses = GetRandomStatFocuses();
         soul.allightAttributes = GetRandomAllightTypes();
         
-        LoadoutUI.Instance.Refresh();
-
         return soul;
     }
 
