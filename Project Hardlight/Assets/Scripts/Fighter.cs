@@ -63,9 +63,12 @@ public class Fighter : MonoBehaviour
 
     private void OnEnable()
     {
-        sunlight = soul.GetAllightValue(AllightType.SUNLIGHT);
-        moonlight = soul.GetAllightValue(AllightType.MOONLIGHT);
-        starlight = soul.GetAllightValue(AllightType.STARLIGHT);
+        if (soul != null)
+        {
+            sunlight = soul.GetAllightValue(AllightType.SUNLIGHT);
+            moonlight = soul.GetAllightValue(AllightType.MOONLIGHT);
+            starlight = soul.GetAllightValue(AllightType.STARLIGHT);
+        }
     }
 
     /// <summary>
@@ -118,7 +121,7 @@ public class Fighter : MonoBehaviour
             soulBoost = soul.GetAttackBonus((int)dmg);
         }
         
-        return (dmg * (1.0f + attackable.percentAttackDamageModifier)) + soul.GetAttackBonus((int) dmg);
+        return (dmg * (1.0f + attackable.percentAttackDamageModifier)) + soulBoost;
     }
 
     /// <summary>
