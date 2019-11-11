@@ -15,6 +15,15 @@ MonoBehaviour:
   abilityName: A Dark Wind
   abilityDescription: A wave that damages enemies and heals allies it passes through.
   abilityIcon: {fileID: 21300000, guid: 5e5a2ffd43df9714eb0ebedc60278469, type: 3}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
   sfx: {fileID: 8300000, guid: c31a3d97ffe6b644db7cf659f160f1ea, type: 3}
   baseDamage: 15
   baseEffectRange: 20
@@ -23,7 +32,7 @@ MonoBehaviour:
   selectedTarget: {fileID: 0}
   projectilePrefab: {fileID: 8300047146111117373, guid: c01ef168d52a51e428744f74b43eb7c7,
     type: 3}
-  baseWidth: 2
+  baseWidth: 1
   damageAmount: 10
   healAmount: 10
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
@@ -32,6 +41,9 @@ MonoBehaviour:
     type: 3}
   rangeIndicator: {fileID: 0}
   widthIndicator: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
 --- !u!114 &1974475011015928984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +97,15 @@ MonoBehaviour:
   abilityName: Bastion of the Mountain
   abilityDescription: Increase the defense of allies in the area.
   abilityIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
   sfx: {fileID: 8300000, guid: a7f21746ab24a434b81daab9c7c09ad6, type: 3}
   baseDamage: 0
   baseEffectRange: 8
@@ -108,6 +129,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3725835753875688886, guid: 8964f323661a48241a68995d380ea18f,
+        type: 3}
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
@@ -280,12 +307,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.13054635
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3725835753875688886, guid: 8964f323661a48241a68995d380ea18f,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}

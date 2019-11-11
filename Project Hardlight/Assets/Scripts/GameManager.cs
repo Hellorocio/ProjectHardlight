@@ -158,6 +158,8 @@ public class GameManager : Singleton<GameManager>
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
+
+        LoadoutUI.Instance.Refresh();
     }
 
     /// <summary>
@@ -228,7 +230,7 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log("init battle");
         // Set to create loadout
-        LoadoutUI.Instance.loadoutCreated = false;
+        //LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
         UIManager.Instance.SetLoadoutUI(true);
         UIManager.Instance.loadoutUIButton.SetActive(true);

@@ -7,7 +7,7 @@ public class SoulManager : Singleton<SoulManager>
     public List<Sprite> soulAppearances;
     public List<Sprite> allightAppearances; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
-    // Adjust per level gains per soul
+    // Adjust per level gains
     public float flatHealthScale;
     public float percentHealthScale;
 
@@ -21,7 +21,16 @@ public class SoulManager : Singleton<SoulManager>
     public float percentAttackSpeedScale;
 
     public float baseValueIncPerLevel;
+    
+    // Base values
+    public int oneAllightBaseValue = 120;
+    public int twoAllightBaseValue = 50;
 
+    /// <summary>
+    /// Generates a random soul
+    /// Note that this does not add the soul to GameManager's soul list, so we must refresh the loadoutUI elsewhere
+    /// </summary>
+    /// <returns></returns>
     public Soul GenerateSoul()
     {
         Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;
@@ -32,8 +41,6 @@ public class SoulManager : Singleton<SoulManager>
         soul.statFocuses = GetRandomStatFocuses();
         soul.allightAttributes = GetRandomAllightTypes();
         
-        LoadoutUI.Instance.Refresh();
-
         return soul;
     }
 
@@ -90,32 +97,34 @@ public class SoulManager : Singleton<SoulManager>
     private List<AllightAttribute> GetRandomAllightTypes()
     {
         // Give random combo of stat focuses
-        int allightNumber = Random.Range(0, 6);
+        int allightNumber = Random.Range(0, 3); //6);
         List<AllightAttribute> allightAttributes = new List<AllightAttribute>();
 
         switch (allightNumber)
         {
             case 0:
-                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, 20));
+                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, oneAllightBaseValue));
                 break;
             case 1:
-                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, 20));
+                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, oneAllightBaseValue));
                 break;
             case 2:
-                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, 20));
+                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, oneAllightBaseValue));
                 break;
+            /*
             case 3:
-                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, 10));
-                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, 10));
+                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, twoAllightBaseValue));
+                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, twoAllightBaseValue));
                 break;
             case 4:
-                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, 10));
-                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, 10));
+                allightAttributes.Add(new AllightAttribute(AllightType.MOONLIGHT, twoAllightBaseValue));
+                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, twoAllightBaseValue));
                 break;
             case 5:
-                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, 10));
-                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, 10));
+                allightAttributes.Add(new AllightAttribute(AllightType.STARLIGHT, twoAllightBaseValue));
+                allightAttributes.Add(new AllightAttribute(AllightType.SUNLIGHT, twoAllightBaseValue));
                 break;
+                */
         }
 
         return allightAttributes;

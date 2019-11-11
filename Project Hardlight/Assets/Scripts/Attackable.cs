@@ -13,6 +13,12 @@ public class Attackable : MonoBehaviour
     // Stat modifiers (usually modified by buffs)
     // e.g. percentDamageTakenModifier = -.2 --> Take 20% less damage
     public float percentDamageTakenModifier;
+    public float percentAttackDamageModifier;
+    public float percentAttackSpeedModifier;
+    public float percentAbilityModifier;
+
+    public float percentMovementSpeedModifier;
+    
     
     public int maxHealth;
     public float currentHealth;
@@ -32,6 +38,7 @@ public class Attackable : MonoBehaviour
         maxHealth = GetMaxHealth();
         currentHealth = GetMaxHealth();
         percentDamageTakenModifier = 0.0f;
+        percentAttackDamageModifier = 0.0f;
     }
     
     public void Heal (float amt)

@@ -54,7 +54,7 @@ public class UIManager : Singleton<UIManager>
         if (isActive)
         {
             // Refresh what's displayed
-            LoadoutUI.Instance.Refresh();
+            //LoadoutUI.Instance.Refresh();
             // Disable camera controls
             if (GameManager.Instance.gameState == GameState.PREBATTLE)
             {
