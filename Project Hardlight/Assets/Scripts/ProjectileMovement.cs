@@ -77,6 +77,9 @@ public class ProjectileMovement: MonoBehaviour
         {
             RotateTowards(targetPos);
         }
+        gameObject.GetComponentInChildren<SpriteRenderer>().flipY = (targetPos.x < transform.position.x);
+
+        StartMovement();
     }
     
     // Set if should rotate

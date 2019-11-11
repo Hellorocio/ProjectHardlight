@@ -395,6 +395,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
             moveState = MoveState.basicAttacking;
             if (attackCoroutine == null)
             {
+                gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
                 attackCoroutine = StartCoroutine(BasicAttack());
             }
 
