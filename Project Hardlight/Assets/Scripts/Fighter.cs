@@ -258,7 +258,7 @@ public class Fighter : MonoBehaviour
 
     public void SetSelectedUI(bool active)
     {
-        selectedUI.SetActive(active);
+        //selectedUI.SetActive(active);
 
         //start switching over to highlighted outline
         if (GetComponent<HighlightFighter>() != null)
