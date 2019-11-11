@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public enum StatFocusType {
     HEALTH,
     ABILITY,
@@ -9,6 +10,7 @@ public enum StatFocusType {
     ATTACKSPEED
 }
 
+[System.Serializable]
 public enum AllightType
 {
     SUNLIGHT,
@@ -16,6 +18,7 @@ public enum AllightType
     STARLIGHT
 }
 
+[System.Serializable]
 public class AllightAttribute
 {
     public AllightType allightType;
@@ -25,6 +28,7 @@ public class AllightAttribute
     public AllightAttribute(AllightType type, int value)
     {
         allightType = type;
+        currentValue = value;
         baseValue = value;
     }
 }
@@ -223,7 +227,7 @@ public class Soul : MonoBehaviour
 
         if (statFocuses.Contains(StatFocusType.ATTACK))
         {
-            boost += modifierLevel * SoulManager.Instance.percentAttackDamgeScale;
+            boost += modifierLevel * SoulManager.Instance.flatAttackDamageScale;
         }
         return boost;
     }
@@ -255,7 +259,7 @@ public class Soul : MonoBehaviour
 
         if (statFocuses.Contains(StatFocusType.ATTACKSPEED))
         {
-            boost += modifierLevel * SoulManager.Instance.percentAttackSpeedScale;
+            boost += modifierLevel * SoulManager.Instance.flatAttackSpeedScale;
         }
         return boost;
     }

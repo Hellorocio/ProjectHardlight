@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class AbilityAugment
+{
+    public string augmentTitle;
+    public string augmentDescription;
+}
+
 public class Ability : MonoBehaviour
 {
     public string abilityName;
     public string abilityDescription;
     public Sprite abilityIcon;
+
+    public AbilityAugment sunlightAugment;
+    public AbilityAugment moonlightAugment;
+    public AbilityAugment starlightAugment;
 
     public AudioClip sfx;
     

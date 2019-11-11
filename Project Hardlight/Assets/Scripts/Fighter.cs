@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,6 +61,13 @@ public class Fighter : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        sunlight = soul.GetAllightValue(AllightType.SUNLIGHT);
+        moonlight = soul.GetAllightValue(AllightType.MOONLIGHT);
+        starlight = soul.GetAllightValue(AllightType.STARLIGHT);
+    }
+
     /// <summary>
     /// Returns this fighter's attack speed based on buffs and souls
     /// </summary>
@@ -110,7 +118,7 @@ public class Fighter : MonoBehaviour
             soulBoost = soul.GetAttackBonus((int)dmg);
         }
         
-        return dmg + dmg * attackable.percentAttackDamageModifier + soulBoost;
+        return (dmg * (1.0f + attackable.percentAttackDamageModifier)) + soul.GetAttackBonus((int) dmg);
     }
 
     /// <summary>

@@ -10,7 +10,11 @@ public class DarkWaveAbility : Ability
     public float baseWidth = 1;
     public int damageAmount;
     public int healAmount;
-        
+    
+    // Augment values
+    // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind TODO
+    public float numAffectedScale;
+
     // Indicator prefabs
     public GameObject rangeIndicatorPrefab;
     public GameObject widthIndicatorPrefab;
@@ -20,6 +24,11 @@ public class DarkWaveAbility : Ability
     public GameObject widthIndicator;
 
     private bool targeting;
+    
+    public int sunlight = 0;
+    public int moonlight = 0;
+    public int starlight = 0;
+
     
     public void Update()
     {
@@ -35,6 +44,14 @@ public class DarkWaveAbility : Ability
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             widthIndicator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+    }
+
+    // Checks for the souls attached
+    private void Augment()
+    {
+        sunlight = GetComponent<Fighter>().sunlight;
+        moonlight = GetComponent<Fighter>().moonlight;
+        starlight = GetComponent<Fighter>().starlight;
     }
 
     public override bool StartTargeting()
@@ -62,6 +79,8 @@ public class DarkWaveAbility : Ability
 
     public override bool DoAbility()
     {
+        Augment();
+        
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, transform.position) < GetRange())
         {

@@ -38,6 +38,7 @@ public class Attackable : MonoBehaviour
         maxHealth = GetMaxHealth();
         currentHealth = GetMaxHealth();
         percentDamageTakenModifier = 0.0f;
+        percentAttackDamageModifier = 0.0f;
     }
     
     public void Heal (float amt)
