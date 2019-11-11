@@ -42,8 +42,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b750cef7f3d5a40be484cb1773ff4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Angry Onion
   maxHealth: 80
+  characterName: Angry Onion
   maxMana: 0
   moveSpeed: 250
   alertedRange: 18
@@ -69,6 +69,8 @@ MonoBehaviour:
   basicAttackClip: {fileID: 7400000, guid: 3ea96c8dbc9c3db44849bb97f8054682, type: 2}
   basicAttackClipSpeedMultiplier: 1
   basicAttackHitTime: 0.75
+  numProjectilesToSpawn: 1
+  timeBetweenProjectiles: 0
 --- !u!1001 &7022488515736289214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,21 +82,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RangedOnionMonster
-      objectReference: {fileID: 0}
-    - target: {fileID: 8798531554873855805, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8517336916065768635, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 534822669287997758, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -150,6 +137,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8798531554873855805, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517336916065768635, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 534822669287997758, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6357777086258113278, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -237,26 +259,6 @@ PrefabInstance:
       propertyPath: monster
       value: 
       objectReference: {fileID: 3492619280435812129}
-    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8478853329490026539, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8678461056888987651, guid: 865c44a6dbc375b45ac267e449976756, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 865c44a6dbc375b45ac267e449976756, type: 3}

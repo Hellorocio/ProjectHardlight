@@ -11,6 +11,7 @@ public class FlingingSlimeMonster : MonsterAI
     public float damageMultiplier;
     private bool isFlying;
     private Vector3 startedAttackPos;
+    private Vector3 targetPos;
     /// <summary>
     /// Plays the attack. This includes sync'ing the animator and sounds with dealing damage.
     /// If the player has moved out of range before the damage is dealt then the coroutine is ended early
@@ -19,7 +20,7 @@ public class FlingingSlimeMonster : MonsterAI
     public override IEnumerator BasicAttack()
     {
         SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
-        Vector3 targetPos = currentTarget.transform.position;
+        targetPos = currentTarget.transform.position;
         targetPos.z = transform.position.z;
         targetPos = transform.position + (targetPos - transform.position).normalized * (alertedRange+1);
         isFlying = true;
@@ -46,10 +47,7 @@ public class FlingingSlimeMonster : MonsterAI
         isFlying = false;
         renderer.transform.rotation = new Quaternion(0, 0, 0, renderer.transform.rotation.w);
         renderer.color = tmp;
-        Vector3 dir = targetPos - transform.position;
-        dir.Normalize();
-        Vector3 lastPos = transform.position - dir*2;
-        transform.position = new Vector3(lastPos.x, lastPos.y, transform.position.z);
+        
         ShowTiredUI(true);
         yield return new WaitForSeconds(timeBetweenAttacks);
         ShowTiredUI(false);
@@ -71,6 +69,10 @@ public class FlingingSlimeMonster : MonsterAI
                 basicAttackDamage = (int)(distTraveled * damageMultiplier) + 1;
                 DoBasicAttack(target.gameObject);
                 isFlying = false;
+                Vector3 dir = targetPos - transform.position;
+                dir.Normalize();
+                Vector3 lastPos = transform.position - dir * 2;
+                transform.position = new Vector3(lastPos.x, lastPos.y, transform.position.z);
             }
         }
 
