@@ -15,6 +15,7 @@ public class Fighter : MonoBehaviour
     public GameObject selectedUI;
     public GameObject maxManaGlow;
     public Animator anim;
+    public Attackable attackable;
 
     private int maxMana;
     private float speed = 1;
@@ -23,20 +24,14 @@ public class Fighter : MonoBehaviour
     private int mana = 0;
 
     public AudioClip manaFullSfx;
+    
+    // Set by soul
+    public int sunlight = 0;
+    public int moonlight = 0;
+    public int starlight = 0;
 
     [HideInInspector]
     public BattleManager battleManager;
-
-    //Buff list
-    // TODO cleanup and use above section's system instead (uses overridden Buff objects)
-    List<BuffObj> buffs;
-    private IEnumerator buffLoop;
-    private float movementSpeedBoost;
-    private float attackSpeedBoost;
-    private float defenseBoost;
-    private float attackBoost; //this is for basic attacks only
-    private float abilityAttackBoost; //this is the attack boost for abilities
-    private float manaGenerationBoost;
 
     //have max mana event
     public delegate void MaxManaReached(Fighter fighter);
@@ -54,72 +49,15 @@ public class Fighter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         maxMana = GetMaxMana();
         speed = GetMovementSpeed();
+        attackable = GetComponent<Attackable>();
 
         GameObject battleManagerObj = GameObject.Find("BattleManager");
         if (battleManagerObj != null)
         {
             battleManager = battleManagerObj.GetComponent<BattleManager>();
         }
-
-        buffs = new List<BuffObj>();
-    }
-
-    /// <summary>
-    /// Adds a new buff to the list and implements its effect
-    /// Starts buff timer if it isn't already running
-    /// </summary>
-    /// <param name="newBuff"></param>
-    public void AddTimedBuff (BuffObj newBuff)
-    {
-        BuffObj cloneBuff = Instantiate(newBuff);
-        buffs.Add(cloneBuff);
-
-        movementSpeedBoost += newBuff.movementSpeedBoost;
-        attackSpeedBoost += newBuff.attackSpeedBoost;
-        defenseBoost += newBuff.defenseBoost;
-        attackBoost += newBuff.attackBoost;
-        manaGenerationBoost += newBuff.manaGenerationBoost;
-
-        if (buffLoop == null)
-        {
-            buffLoop = UpdateBuff();
-            StartCoroutine(buffLoop);
-        }
-    }
-    
-    IEnumerator UpdateBuff ()
-    {
-        while (buffs.Count > 0)
-        {
-            for (int i = 0; i < buffs.Count; i++)
-            {
-                buffs[i].timeActive--;
-                if (buffs[i].timeActive <= 0)
-                {
-                    movementSpeedBoost -= buffs[i].movementSpeedBoost;
-                    attackSpeedBoost -= buffs[i].attackSpeedBoost;
-                    defenseBoost -= buffs[i].defenseBoost;
-                    attackBoost -= buffs[i].attackBoost;
-                    manaGenerationBoost -= buffs[i].manaGenerationBoost;
-
-                    buffs.Remove(buffs[i]);
-                    i--;
-                }
-            }
-            yield return new WaitForSeconds(1);
-        }
-    }
-
-    float GetAttackBoost ()
-    {
-        if (attackBoost < 0)
-        {
-            return 0;
-        }
-        return attackBoost;
     }
 
     /// <summary>
@@ -133,7 +71,7 @@ public class Fighter : MonoBehaviour
         {
             soulBoost = soul.GetAttackSpeedBonus((int)attackSpeed);
         }
-        return attackSpeed + attackSpeed * attackSpeedBoost + soulBoost;
+        return attackSpeed + attackSpeed * attackable.percentAttackSpeedModifier + soulBoost;
     }
 
     /// <summary>
@@ -142,7 +80,7 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetSpeed()
     {
-        return speed + speed * movementSpeedBoost;
+        return speed + speed * attackable.percentMovementSpeedModifier;
     }
 
     /// <summary>
@@ -156,7 +94,7 @@ public class Fighter : MonoBehaviour
         {
             soulBoost = soul.GetAbilityBonus((int)dmg);
         }
-        return dmg + dmg * abilityAttackBoost + soulBoost;
+        return dmg + dmg * attackable.percentAbilityModifier + soulBoost;
     }
 
     /// <summary>
@@ -172,7 +110,7 @@ public class Fighter : MonoBehaviour
             soulBoost = soul.GetAttackBonus((int)dmg);
         }
         
-        return dmg + dmg * GetAttackBoost() + soulBoost;
+        return dmg + dmg * attackable.percentAttackDamageModifier + soulBoost;
     }
 
     /// <summary>
@@ -181,7 +119,7 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public int GetManaGeneration (int manaGained)
     {
-        return (int) (manaGained + manaGained * manaGenerationBoost);
+        return (int) (manaGained);
     }
 
 

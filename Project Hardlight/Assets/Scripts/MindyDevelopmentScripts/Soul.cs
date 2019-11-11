@@ -113,6 +113,20 @@ public class Soul : MonoBehaviour
         return description;
     }
 
+    public int GetAllightValue(AllightType type)
+    {
+        int val = 0;
+        foreach (AllightAttribute a in allightAttributes)
+        {
+            if (a.allightType == type)
+            {
+                return a.currentValue;
+            }
+        }
+
+        return val;
+    }
+
     /// <summary>
     /// Returns health boost at current level or testLevel if it is not -1
     /// </summary>
