@@ -59,11 +59,4 @@ public class MercSurvivalAbility : Ability
     {
         return this.baseEffectRange;
     }
-
-    public override float GetDamage()
-    {
-        Fighter thisFighter = gameObject.GetComponent<Fighter>();
-        float dmg = thisFighter.GetDamage(baseDamage);
-        return dmg;
-    }
 }

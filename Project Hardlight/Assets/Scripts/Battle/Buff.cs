@@ -17,6 +17,12 @@ public class Buff : MonoBehaviour
     public int maxStacks = 1;
 
     // Override in the buff class
+    public virtual void BuffUpdate(GameObject affectedObject)
+    {
+        
+    }
+    
+    // Override in the buff class
     public virtual void InitializeBuff(GameObject affectedObject)
     {
         Debug.Log("Default StartBuff()");

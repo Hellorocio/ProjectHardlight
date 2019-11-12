@@ -48,6 +48,7 @@ public class DarkHealerMagicBlast : Ability
 
     public override bool DoAbility()
     {
+        /*
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
             GenericMonsterAI monster = selectedTarget.GetComponent<GenericMonsterAI>();
@@ -75,6 +76,7 @@ public class DarkHealerMagicBlast : Ability
             }
 
         }
+        */
         return false;
 
     }

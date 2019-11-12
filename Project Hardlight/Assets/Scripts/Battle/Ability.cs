@@ -46,7 +46,7 @@ public class Ability : MonoBehaviour
 
     public virtual float GetDamage()
     {
-        return GetComponent<Fighter>().GetDamage(baseDamage);
+        return baseDamage;
     }
 
     public virtual float GetRange()

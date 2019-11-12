@@ -103,12 +103,12 @@ public class LoadoutUI : Singleton<LoadoutUI>
         Ability abilityOne = (Ability) vesselData.abilities[0];
         abilityOneName.text = abilityOne.abilityName;
         abilityOneDesc.text = abilityOne.abilityDescription;
-        abilityOneDamage.text = abilityOne.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
+        abilityOneDamage.text = abilityOne.GetDamage().ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
 
         Ability abilityTwo = (Ability) vesselData.abilities[1];
         abilityTwoName.text = abilityTwo.abilityName;
         abilityTwoDesc.text = abilityTwo.abilityDescription;
-        abilityTwoDamage.text = abilityTwo.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityTwo.baseDamage));
+        abilityTwoDamage.text = abilityTwo.GetDamage().ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityTwo.baseDamage));
     }
 
     private string AddSoulBonusStatDetail (float soulBonus)
