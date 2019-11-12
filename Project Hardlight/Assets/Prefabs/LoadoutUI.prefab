@@ -190,7 +190,7 @@ RectTransform:
   - {fileID: 845280417413783349}
   - {fileID: 9066466041356285473}
   m_Father: {fileID: 6321902586312202296}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -892,7 +892,7 @@ RectTransform:
   - {fileID: 1283227103313131803}
   - {fileID: 1283227102828009283}
   m_Father: {fileID: 6321902586312202296}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1203,9 +1203,9 @@ RectTransform:
   m_Children:
   - {fileID: 3013298875001280548}
   - {fileID: 6599755122084857347}
-  - {fileID: 4676300332562514187}
   - {fileID: 1283227103360147376}
   - {fileID: 845280417081322699}
+  - {fileID: 4676300332562514187}
   m_Father: {fileID: 469321193412120044}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5704,10 +5704,10 @@ RectTransform:
   m_Father: {fileID: 4676300332562514187}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015258789, y: 1.54}
-  m_SizeDelta: {x: 192.19, y: 14.32}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.73999786, y: 0}
+  m_SizeDelta: {x: -9.28, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4215558658906814404
 CanvasRenderer:
@@ -5765,7 +5765,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 18
+  m_fontSize: 19.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5782,7 +5782,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -6907,12 +6907,12 @@ RectTransform:
   m_Children:
   - {fileID: 505310273437428201}
   m_Father: {fileID: 6321902586312202296}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -172.19, y: 23.4}
-  m_SizeDelta: {x: 202.82, y: 21.37}
+  m_AnchoredPosition: {x: -30.835, y: 24.5}
+  m_SizeDelta: {x: 153.16, y: 26.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &752954964652993760
 CanvasRenderer:
@@ -6935,14 +6935,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23137257, g: 0.25490198, b: 0.28235295, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e0b63f1cfe110994ba2ad2de0e5292de, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6973,11 +6973,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7082,6 +7077,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
@@ -7723,11 +7723,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7832,6 +7827,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
@@ -8323,11 +8323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (6)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8433,6 +8428,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (6)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
 --- !u!224 &9116746687585031863 stripped
@@ -8448,11 +8448,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8557,6 +8552,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
@@ -8698,11 +8698,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8808,6 +8803,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
 --- !u!224 &930738376345249972 stripped
@@ -8823,11 +8823,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8933,6 +8928,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (4)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
 --- !u!224 &1011868496578983521 stripped
@@ -8948,11 +8948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (7)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9058,6 +9053,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (7)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
 --- !u!224 &1738027272576597403 stripped
@@ -9073,11 +9073,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9066466041356285473}
     m_Modifications:
-    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
-        type: 3}
-      propertyPath: m_Name
-      value: SoulSlotBG (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 4697143366882602577, guid: d552db551cec6fb4491a25d928bb117c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9182,6 +9177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1850014107588857414, guid: d552db551cec6fb4491a25d928bb117c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoulSlotBG (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d552db551cec6fb4491a25d928bb117c, type: 3}
@@ -9323,11 +9323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6599755123659640231}
     m_Modifications:
-    - target: {fileID: 3775878409277923167, guid: 5be32cfc110b3144daa0a3c5beab8280,
-        type: 3}
-      propertyPath: m_Name
-      value: SelectedSlot
-      objectReference: {fileID: 0}
     - target: {fileID: 3775878409277923160, guid: 5be32cfc110b3144daa0a3c5beab8280,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9433,6 +9428,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3775878409277923167, guid: 5be32cfc110b3144daa0a3c5beab8280,
+        type: 3}
+      propertyPath: m_Name
+      value: SelectedSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 6308149199767290165, guid: 5be32cfc110b3144daa0a3c5beab8280,
         type: 3}
       propertyPath: m_Enabled
@@ -9453,11 +9453,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2032359566338171204}
     m_Modifications:
-    - target: {fileID: 8878563668470893985, guid: 0c22fdf93d19a8a49bc71539ef4fb581,
-        type: 3}
-      propertyPath: m_Name
-      value: Ability1
-      objectReference: {fileID: 0}
     - target: {fileID: 1621894627303245122, guid: 0c22fdf93d19a8a49bc71539ef4fb581,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9562,6 +9557,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878563668470893985, guid: 0c22fdf93d19a8a49bc71539ef4fb581,
+        type: 3}
+      propertyPath: m_Name
+      value: Ability1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c22fdf93d19a8a49bc71539ef4fb581, type: 3}

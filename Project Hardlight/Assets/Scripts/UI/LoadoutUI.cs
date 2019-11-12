@@ -263,5 +263,11 @@ public class LoadoutUI : Singleton<LoadoutUI>
         {
             SetDetailPane(changedVessel, icon);
         }
+
+        // stop showing missing popup so it's not confusing
+        if (missingPopupText != null)
+        {
+            missingPopupText.transform.parent.gameObject.SetActive(false);
+        }
     }
 }
