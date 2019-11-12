@@ -12,9 +12,16 @@ public class DarkWaveAbility : Ability
     public float damageScale;
     public float healScale;
     
-    [Header("Augments Stats")]
-    // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind TODO
+    [Header("Sunlight Augments")]
+    // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind
     public float damageIncreaseScale;
+
+    [Header("Moonlight Augments")]
+    // Increased travel range and width
+    public float rangeScale;
+
+    public float widthScale;
+    [Header("Starlight Augments")]
 
     // Indicator prefabs
     [Header("Indicators")]
@@ -130,11 +137,11 @@ public class DarkWaveAbility : Ability
 
     public override float GetRange()
     {
-        return this.baseEffectRange;
+        return baseEffectRange + moonlight*rangeScale;
     }
 
     public float GetRadius()
     {
-        return baseWidth;
+        return baseWidth + moonlight*widthScale;
     }
 }
