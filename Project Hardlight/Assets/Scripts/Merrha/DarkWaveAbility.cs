@@ -14,7 +14,7 @@ public class DarkWaveAbility : Ability
     
     [Header("Augments Stats")]
     // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind TODO
-    public float numAffectedScale;
+    public float damageIncreaseScale;
 
     // Indicator prefabs
     [Header("Indicators")]
@@ -101,7 +101,8 @@ public class DarkWaveAbility : Ability
             // Set projectile stats
             int damage = (int) (damageScale * GetComponent<Fighter>().GetAbility());
             int healing = (int) (healScale * GetComponent<Fighter>().GetAbility());
-            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange());
+            int damageIncrease = (int) (sunlight*damageIncreaseScale);
+            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease);
             
             // Heal self
             GetComponent<Attackable>().Heal(healing);

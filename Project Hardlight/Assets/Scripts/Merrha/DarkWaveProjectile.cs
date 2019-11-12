@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class DarkWaveProjectile : MonoBehaviour
 {
-    // Set by SetEffectNumbers
+    // Set by Intialize
     public int damageAmount;
     public int healAmount;
+    public int damageIncrease;
 
     // Don't set
     private bool initialized = false;
@@ -26,12 +27,13 @@ public class DarkWaveProjectile : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector3 startPos, int damageAmt, int healAmt, float maxDistance)
+    public void Initialize(Vector3 startPos, int damageAmt, int healAmt, float maxDistance, int damageIncreasedPerHit)
     {
         startPosition = startPos;
         affectedAttackables = new HashSet<Attackable>();
         damageAmount = damageAmt;
         healAmount = healAmt;
+        damageIncrease = damageIncreasedPerHit;
         this.maxDistance = maxDistance;
         initialized = true;
     }
@@ -47,7 +49,7 @@ public class DarkWaveProjectile : MonoBehaviour
             }
             else if (hitAttackable.team == CombatInfo.Team.Enemy)
             {
-                hitAttackable.TakeDamage(damageAmount);
+                hitAttackable.TakeDamage(damageAmount + damageIncrease*affectedAttackables.Count);
             }
             affectedAttackables.Add(hitAttackable);
         }
