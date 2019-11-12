@@ -22,6 +22,7 @@ public class DarkWaveAbility : Ability
 
     public float widthScale;
     [Header("Starlight Augments")]
+    public float healTrailScale;
 
     // Indicator prefabs
     [Header("Indicators")]
@@ -109,7 +110,9 @@ public class DarkWaveAbility : Ability
             int damage = (int) (damageScale * GetComponent<Fighter>().GetAbility());
             int healing = (int) (healScale * GetComponent<Fighter>().GetAbility());
             int damageIncrease = (int) (sunlight*damageIncreaseScale);
-            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease);
+            int healTrailAmt = (int) (starlight*healTrailScale);
+            Debug.Log("wtf" + healTrailAmt);
+            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
             
             // Heal self
             GetComponent<Attackable>().Heal(healing);

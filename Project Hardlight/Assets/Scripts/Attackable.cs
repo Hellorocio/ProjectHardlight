@@ -149,7 +149,7 @@ public class Attackable : MonoBehaviour
     }
 
     
-    public void AddBuff(Buff buff)
+    public BuffInstance AddBuff(Buff buff)
     {
         BuffInstance buffInstance = gameObject.AddComponent(typeof(BuffInstance)) as BuffInstance;
         buffInstance.SetBuff(buff);
@@ -158,11 +158,14 @@ public class Attackable : MonoBehaviour
         // Add to buff bar
         Debug.Log(gameObject.name);
         buffBar.AddBuffInstance(buffInstance);
+
+        return buffInstance;
     }
     
     // Called by the buff to tell you it's done
     public void RemoveBuff(BuffInstance buffInstance)
     {
         buffBar.RemoveBuffInstance(buffInstance);
+        Destroy(buffInstance);
     }
 }

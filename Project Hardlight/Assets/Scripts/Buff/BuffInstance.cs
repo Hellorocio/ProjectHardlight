@@ -16,8 +16,8 @@ public class BuffInstance : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
         }
-        buff.BuffUpdate(gameObject);
     }
+    
     public void SetBuff(Buff buff)
     {
         this.buff = buff;

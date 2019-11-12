@@ -8,7 +8,6 @@ public class Buff : MonoBehaviour
     // Used to check for stacking
     public string buffNameId = "Default buff name";
     public string buffDescription = "Default buff description";
-    // TODO appear on UI
     public Sprite buffIcon;
 
     // 0 for permanent-- must explicitly call EndBuff() on your own
@@ -16,12 +15,6 @@ public class Buff : MonoBehaviour
     // TODO implement maxStacks based on buffNameId
     public int maxStacks = 1;
 
-    // Override in the buff class
-    public virtual void BuffUpdate(GameObject affectedObject)
-    {
-        
-    }
-    
     // Override in the buff class
     public virtual void InitializeBuff(GameObject affectedObject)
     {
