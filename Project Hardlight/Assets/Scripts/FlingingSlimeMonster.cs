@@ -19,7 +19,10 @@ public class FlingingSlimeMonster : MonsterAI
     /// <returns></returns>
     public override IEnumerator BasicAttack()
     {
+        
         SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+        animator.Play("SlimePrelaunch");
+        yield return new WaitForSeconds(.75f);
         targetPos = currentTarget.transform.position;
         targetPos.z = transform.position.z;
         targetPos = transform.position + (targetPos - transform.position).normalized * (basicAttackRange+1);
@@ -27,6 +30,15 @@ public class FlingingSlimeMonster : MonsterAI
         Color tmp = renderer.color;
         renderer.color = new Color(1, 0, 0);
         startedAttackPos = transform.position;
+        animator.Play("Flying");
+        if (targetPos.x < transform.position.x)
+        {
+            renderer.transform.Rotate(new Vector3(0, 0, -12f));
+        }
+        else
+        {
+            renderer.transform.Rotate(new Vector3(0, 0, 12f));
+        }
         while (!InBodyRangeOfTarget(targetPos))
         {
             if (!isFlying)
@@ -40,10 +52,18 @@ public class FlingingSlimeMonster : MonsterAI
             //Debug.Log(renderer.transform.rotation.z);
             //float newZ = renderer.transform.rotation.z + flingSpeed * Time.deltaTime;
             //renderer.transform.rotation = new Quaternion(renderer.transform.rotation.x, renderer.transform.rotation.y, renderer.transform.rotation.z + flingSpeed * Time.deltaTime, renderer.transform.rotation.w);
-            renderer.transform.Rotate(new Vector3(0, 0, 5));
+            if(targetPos.x < transform.position.x)
+            {
+                renderer.transform.Rotate(new Vector3(0, 0, .5f));
+            } else
+            {
+                renderer.transform.Rotate(new Vector3(0, 0, -.5f));
+            }
+            
             
             yield return null;
         }
+        animator.Play("Postlaunch");
         isFlying = false;
         renderer.transform.rotation = new Quaternion(0, 0, 0, renderer.transform.rotation.w);
         renderer.color = tmp;
@@ -75,6 +95,7 @@ public class FlingingSlimeMonster : MonsterAI
                 dir.Normalize();
                 Vector3 lastPos = transform.position - dir * 2;
                 transform.position = new Vector3(lastPos.x, lastPos.y, transform.position.z);
+
             }
         }
 
