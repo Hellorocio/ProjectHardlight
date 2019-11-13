@@ -58,7 +58,9 @@ public class NinjaJumpAbility : Ability
                 transform.position = newPos;
 
                 //set ninja's target to the fighter it teleported to
+
                 thisFighterAttack.SetIssuedCurrentTarget(selectedAttackable);
+                
 
                 //enemy takes danage
                 selectedAttackable.TakeDamage(GetDamage());

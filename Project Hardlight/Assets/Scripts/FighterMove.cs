@@ -8,7 +8,7 @@ using UnityEngine;
 public class FighterMove : MonoBehaviour
 {
     public enum MoveState {stopped, moving, paused}
-    MoveState moveState = MoveState.stopped;
+    public MoveState moveState = MoveState.stopped;
     private Fighter fighter;
     private FighterAttack fighterAttack;
     public bool followingMoveOrder;
@@ -52,6 +52,7 @@ public class FighterMove : MonoBehaviour
     void FixedUpdate()
     {
         MoveFighter();
+
     }
 
     void MoveFighter ()
@@ -180,7 +181,7 @@ public class FighterMove : MonoBehaviour
         }
         //Debug.Log("Deleting " + target.gameObject.name);
         //Debug.Log(target.name + " is getting destroyed!");
-        if(target.name == "MoveLoc(Clone)")
+        if(target != null && target.name == "MoveLoc(Clone)")
         {
             Destroy(target.gameObject);
         }
