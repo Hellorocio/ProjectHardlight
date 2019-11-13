@@ -11,8 +11,10 @@ public class FighterMove : MonoBehaviour
     MoveState moveState = MoveState.stopped;
     private Fighter fighter;
     private FighterAttack fighterAttack;
-    private SpriteRenderer sprite;
     public bool followingMoveOrder;
+    [HideInInspector]
+    public SpriteRenderer sprite;
+    
 
     private Transform target;
     LineRenderer targetLine;

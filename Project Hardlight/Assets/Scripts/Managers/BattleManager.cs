@@ -167,7 +167,8 @@ public class BattleManager : Singleton<BattleManager>
         // Select target
         UpdateSelectedTarget();
 
-        if(selectedHero != null && inputState != InputState.BattleOver)
+        if(selectedHero != null && inputState != InputState.BattleOver
+            && (selectedAbility.targetingType == Targeting.Type.TargetPosition || selectedAbility.selectedTarget != null))
         {
             if (selectedAbility.DoAbility())
             {

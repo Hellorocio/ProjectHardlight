@@ -133,16 +133,21 @@ public class FighterAttack : MonoBehaviour
                 }
                 break;
             }
-
+            fighterMove.sprite.flipX = (currentTarget.transform.position.x < transform.position.x);
             // attack
             if (GameManager.Instance.gameState != GameState.PAUSED && fighterMove.GetMoveState() != FighterMove.MoveState.moving)
             {
                 attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
-                //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
-                //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
-                if (fighter.anim != null)
-                {
-                    fighter.anim.Play("Attack");
+                //Debug.Log("Current anime" + fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
+                //Debug.Log("ability 2" + Animator.StringToHash("Ability2"));
+                //Debug.Log("ability 1" + Animator.StringToHash("Ability1"));
+                if (fighter.anim != null) {
+                    int nameHash = fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash;
+                    if ((nameHash != Animator.StringToHash("Ability1"))
+                        && (nameHash != Animator.StringToHash("Ability2")))
+                    {
+                        fighter.anim.Play("Attack");
+                    }
                 }
 
                 AudioSource audioSource = gameObject.GetComponent<AudioSource>();

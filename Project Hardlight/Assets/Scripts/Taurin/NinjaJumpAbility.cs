@@ -68,7 +68,7 @@ public class NinjaJumpAbility : Ability
                 
                 if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
                 {
-                    Debug.Log("Ability1 anim is played");
+                    //Debug.Log("Ability1 anim is played");
                     gameObject.GetComponent<Fighter>().anim.Play("Ability1");
                 }
                 return true;
