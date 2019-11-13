@@ -77,10 +77,10 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetAttackSpeed(float attackSpeed)
     {
-        int soulBoost = 0;
+        float soulBoost = 0;
         if (soul != null)
         {
-            soulBoost = soul.GetAttackSpeedBonus((int)attackSpeed);
+            soulBoost = soul.GetAttackSpeedBonus(attackSpeed);
         }
         return attackSpeed + attackSpeed * attackable.percentAttackSpeedModifier + soulBoost;
     }

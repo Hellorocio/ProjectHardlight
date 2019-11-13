@@ -87,7 +87,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         
         healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetHealthBonus(vesselData.baseHealth));
         abilityNumber.text = vesselData.baseAbility.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(vesselData.baseAbility));
-        attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.frequency)));
+        attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(basicAttack.frequency));
         speedNumber.text = vesselData.baseMovementSpeed.ToString();
 
 
@@ -105,7 +105,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         string bonus = "";
         if (soulBonus > 0)
         {
-            bonus = "<color=green> + " + (Mathf.CeilToInt(soulBonus)).ToString() + "</color>";
+            bonus = "<color=green> +" + soulBonus.ToString() + "</color>";
         }
         return bonus;
     }

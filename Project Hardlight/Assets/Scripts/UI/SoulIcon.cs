@@ -31,11 +31,35 @@ public class SoulIcon : BaseIcon
         {
             AddAllightIcon(SoulManager.Instance.starlightIcon);
         }
+        
+        // Instantiate stat focuses
+        if (soul.statFocuses.Contains(StatFocusType.HEALTH))
+        {
+            AddStatIcon(SoulManager.Instance.healthIcon);
+        }
+        if (soul.statFocuses.Contains(StatFocusType.ABILITY))
+        {
+            AddStatIcon(SoulManager.Instance.abilityIcon);
+        }
+        if (soul.statFocuses.Contains(StatFocusType.ATTACK))
+        {
+            AddStatIcon(SoulManager.Instance.attackDamageIcon);
+        }
+        if (soul.statFocuses.Contains(StatFocusType.ATTACKSPEED))
+        {
+            AddStatIcon(SoulManager.Instance.attackSpeedIcon);
+        }
     }
 
     private void AddAllightIcon(Sprite sprite)
     {
         GameObject icon = Instantiate(SoulManager.Instance.iconPrefab, allightIconPanel.transform);
+        icon.GetComponent<Image>().sprite = sprite;
+    }
+    
+    private void AddStatIcon(Sprite sprite)
+    {
+        GameObject icon = Instantiate(SoulManager.Instance.iconPrefab, statfocusIconPanel.transform);
         icon.GetComponent<Image>().sprite = sprite;
     }
 
