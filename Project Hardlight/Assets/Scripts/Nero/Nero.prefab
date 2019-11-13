@@ -1,126 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6746862780836164911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24250a659b9c3454b9a890bbeb796c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffNameId: Light Prison
-  buffDescription: Increase the damage taken by this unit.
-  buffIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
-  buffDuration: 15
-  maxStacks: 1
-  percentDamageTakenModifier: 1
---- !u!114 &740907697011280635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Light Prison
-  abilityDescription: Deal single target damage and increase the damage taken by the
-    unit for a few seconds.
-  abilityIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
-  sunlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  moonlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  starlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  sfx: {fileID: 0}
-  baseDamage: 60
-  baseEffectRange: 16
-  targetingType: 1
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
-    type: 3}
-  defenseDebuff: {fileID: -6746862780836164911}
-  lightPrisonPrefab: {fileID: 7039968626089030771, guid: 4118df666498ef44dab023b0e2546f8b,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  attackTargetUnit: {fileID: 0}
---- !u!114 &3231508250924390035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: Pew pew
-  range: 12
-  damage: 2
-  frequency: 0.6
-  description: Little blasts of magic.
-  sfx: {fileID: 0}
-  mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
-    type: 3}
-  spawnPoint: {fileID: 5416107230612850924}
-  animationDelay: 0.2
---- !u!114 &7240504610464757373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188df771687e3d445947e2babdf68887, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Light's Extosis
-  abilityDescription: Deal high damage in an area.
-  abilityIcon: {fileID: -5789774901387246160, guid: 7d141781f10d2e342b834c6c4f203524,
-    type: 3}
-  sunlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  moonlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  starlightAugment:
-    augmentTitle: 
-    augmentDescription: 
-  sfx: {fileID: 0}
-  baseDamage: 0
-  baseEffectRange: 16
-  targetingType: 2
-  selectedPosition: {x: 0, y: 0, z: 0}
-  selectedTarget: {fileID: 0}
-  baseEffectRadius: 4
-  damageScale: 0.35
-  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
-    type: 3}
-  radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
-    type: 3}
-  lightBlastPrefab: {fileID: 5489350537540678332, guid: eb9322f9fdb6c504cb2e08b189fa05dd,
-    type: 3}
-  rangeIndicator: {fileID: 0}
-  radiusIndicator: {fileID: 0}
-  pointRef: {fileID: 3708409289486635681, guid: 89e59fd6414a90444be0974627a91cfb,
-    type: 3}
 --- !u!1 &5416107230612850924
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,9 +27,135 @@ Transform:
   m_LocalPosition: {x: 0.288, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2608807790061824647}
+  m_Father: {fileID: 8972604932438624226}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6746862780836164911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972604932438624239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24250a659b9c3454b9a890bbeb796c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffNameId: Light Prison
+  buffDescription: Increase the damage taken by this unit.
+  buffIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
+  buffDuration: 15
+  maxStacks: 1
+  percentDamageTakenModifier: 1
+--- !u!114 &740907697011280635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972604932438624239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ce19b0c069bc1488f4d6d0f23ad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Light Prison
+  abilityDescription: Deal single target damage and increase the damage taken by the
+    unit for a few seconds.
+  abilityIcon: {fileID: 21300000, guid: e13c6595348c2144aa0916b3113083d8, type: 3}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  sfx: {fileID: 0}
+  damageScale: 0.6
+  baseEffectRange: 16
+  targetingType: 1
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
+  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
+    type: 3}
+  defenseDebuff: {fileID: -6746862780836164911}
+  lightPrisonPrefab: {fileID: 7039968626089030771, guid: 4118df666498ef44dab023b0e2546f8b,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  attackTargetUnit: {fileID: 0}
+--- !u!114 &3231508250924390035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972604932438624239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Pew pew
+  range: 12
+  damage: 2
+  frequency: 0.6
+  description: Little blasts of magic.
+  sfx: {fileID: 0}
+  mageBasicAttackPrefab: {fileID: 1585671088267181929, guid: 7095ddb7d4911c646bcda956b4c8db76,
+    type: 3}
+  spawnPoint: {fileID: 5416107230612850924}
+  animationDelay: 0.2
+--- !u!114 &7240504610464757373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972604932438624239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188df771687e3d445947e2babdf68887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Light's Extosis
+  abilityDescription: Deal high damage in an area.
+  abilityIcon: {fileID: -5789774901387246160, guid: 7d141781f10d2e342b834c6c4f203524,
+    type: 3}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  sfx: {fileID: 0}
+  damageScale: 0.35
+  baseEffectRange: 16
+  targetingType: 2
+  selectedPosition: {x: 0, y: 0, z: 0}
+  selectedTarget: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
+  baseEffectRadius: 4
+  rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
+    type: 3}
+  radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
+    type: 3}
+  lightBlastPrefab: {fileID: 5489350537540678332, guid: eb9322f9fdb6c504cb2e08b189fa05dd,
+    type: 3}
+  rangeIndicator: {fileID: 0}
+  radiusIndicator: {fileID: 0}
+  pointRef: {fileID: 3708409289486635681, guid: 89e59fd6414a90444be0974627a91cfb,
+    type: 3}
 --- !u!1001 &8972604932438624029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,7 +294,7 @@ PrefabInstance:
         type: 3}
       propertyPath: appearence
       value: 
-      objectReference: {fileID: 2608807789006964101}
+      objectReference: {fileID: 8972604932438623767}
     - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Controller
@@ -316,19 +321,19 @@ PrefabInstance:
     - {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
     - {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da7ca1c0c5fbb82418b130cf22878cf4, type: 3}
---- !u!1 &2608807790061824644 stripped
+--- !u!1 &8972604932438624239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
     type: 3}
   m_PrefabInstance: {fileID: 8972604932438624029}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2608807790061824647 stripped
+--- !u!4 &8972604932438624226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
     type: 3}
   m_PrefabInstance: {fileID: 8972604932438624029}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &2608807789006964101 stripped
+--- !u!212 &8972604932438623767 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
     type: 3}
