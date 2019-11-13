@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealSpot : MonoBehaviour
+public class DoTSpot : MonoBehaviour
 {
     public CombatInfo.Team ownerTeam = CombatInfo.Team.Hero;
 
-    public Buff healOverTimeBuff;
+    public Buff dotBuff;
 
     public Dictionary<Attackable, BuffInstance> buffed;
 
@@ -30,7 +30,7 @@ public class HealSpot : MonoBehaviour
             if (attackable.team != ownerTeam)
             {
                 // Give them the buff
-                buffed.Add(attackable, attackable.AddBuff(healOverTimeBuff));
+                buffed.Add(attackable, attackable.AddBuff(dotBuff));
             }
         }
     }

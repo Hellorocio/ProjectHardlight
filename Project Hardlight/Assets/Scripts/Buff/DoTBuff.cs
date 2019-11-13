@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class HealPerSecondBuff : Buff
+public class DoTBuff : Buff
 {
-    public float healPerTick = 1.0f;
+    public float damagePerTick = 1.0f;
     public float tickCooldown = 1.0f;
     
     [Header("donut touch")]
@@ -34,7 +33,7 @@ public class HealPerSecondBuff : Buff
     {
         while (true)
         {
-            attackable.Heal(healPerTick);
+            attackable.TakeDamage(damagePerTick);
             yield return new WaitForSeconds(tickCooldown);
         }
     }

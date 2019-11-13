@@ -77,7 +77,7 @@ public class DarkWaveProjectile : MonoBehaviour
             GameObject trailBit = Instantiate(healTrailPrefab);
             trailBit.transform.position = new Vector2(transform.position.x, transform.position.y);
             trailBit.GetComponent<HealSpot>().duration = healTrailDuration;
-            trailBit.GetComponent<HealPerSecondBuff>().healPerSecond = healTrailAmount;
+            trailBit.GetComponent<HealPerSecondBuff>().healPerTick = healTrailAmount;
             yield return new WaitForSeconds(healTrailDropFreq);
         }
     }
