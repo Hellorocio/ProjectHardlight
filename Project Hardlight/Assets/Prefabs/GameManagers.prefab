@@ -1247,6 +1247,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2ab236e143af53844860430fa415debf, type: 3}
   - {fileID: 21300000, guid: b32bff86367974540aa857ba91a3d6c6, type: 3}
   - {fileID: 21300000, guid: 585601a2383702e489a0a8bbfd97c937, type: 3}
+  iconPrefab: {fileID: 8195803575176112509, guid: 356d269d546140f4389b824748cf75cc,
+    type: 3}
+  sunlightIcon: {fileID: 21300000, guid: 2ab236e143af53844860430fa415debf, type: 3}
+  moonlightIcon: {fileID: 21300000, guid: b32bff86367974540aa857ba91a3d6c6, type: 3}
+  starlightIcon: {fileID: 21300000, guid: 585601a2383702e489a0a8bbfd97c937, type: 3}
+  healthIcon: {fileID: 21300000, guid: 6159c1de83502df4186ca19b8051a969, type: 3}
+  abilityIcon: {fileID: 21300000, guid: 03ee2f915b4ee834f9673125de8509c5, type: 3}
+  attackDamageIcon: {fileID: 21300000, guid: f120da2ed4d6d5842b9762117113609c, type: 3}
+  attackSpeedIcon: {fileID: 21300000, guid: 21235c44eba2b0a4ea7c08033ec535e7, type: 3}
   flatHealthScale: 20
   percentHealthScale: 0.03
   flatAbilityScale: 3
@@ -1256,8 +1265,8 @@ MonoBehaviour:
   flatAttackSpeedScale: 0.02
   percentAttackSpeedScale: 0.1
   baseValueIncPerLevel: 2
-  oneAllightBaseValue: 120
-  twoAllightBaseValue: 50
+  oneAllightBaseValue: 100
+  twoAllightBaseValue: 40
 --- !u!1 &4401064958039830113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,13 +1311,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vesselCatalog:
-  - vesselId: Nero
-    enabled: 1
-    vessel: {fileID: 2608807790061824644, guid: a15b29b551944714fae5ce9f2e3fdbce,
-      type: 3}
   - vesselId: Merrha
     enabled: 1
     vessel: {fileID: 2513952173870391777, guid: 08e574264dc906940bfae12b09753f59,
+      type: 3}
+  - vesselId: Nero
+    enabled: 1
+    vessel: {fileID: 2608807790061824644, guid: a15b29b551944714fae5ce9f2e3fdbce,
       type: 3}
   - vesselId: Taurin
     enabled: 1
@@ -1373,6 +1382,7 @@ MonoBehaviour:
   portraitHotKeyManager: {fileID: 3856169871424250296}
   camController: {fileID: 1093829141}
   selectedVessels: []
+  battleStarted: 0
   selectedHero: {fileID: 0}
   multiSelectedHeros: []
   selectedAbility: {fileID: 0}
@@ -1766,6 +1776,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4401064956470136689}
     m_Modifications:
+    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730020, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_Name
@@ -1896,11 +1915,6 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730017, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_SortingOrder
@@ -1968,10 +1982,6 @@ PrefabInstance:
       value: -161.7
       objectReference: {fileID: 0}
     - target: {fileID: 313237501, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class DarkWaveProjectile : MonoBehaviour
 {
-    // Set by SetEffectNumbers
+    // Set by Intialize
     public int damageAmount;
     public int healAmount;
+    public int damageIncrease;
+    public int healTrailAmount;
+    
+    // Fix if u want
+    public GameObject healTrailPrefab;
+    public float healTrailDropFreq = 0.3f;
+    public float healTrailDuration = 10.0f;
 
     // Don't set
+    [Header("donut touch")]
     private bool initialized = false;
     public HashSet<Attackable> affectedAttackables;
     public Vector3 startPosition;
@@ -19,6 +27,7 @@ public class DarkWaveProjectile : MonoBehaviour
     {
         if (initialized)
         {
+            // Destroy after distance
             if (Vector2.Distance(transform.position, startPosition) > maxDistance)
             {
                 Destroy(gameObject);
@@ -26,14 +35,22 @@ public class DarkWaveProjectile : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector3 startPos, int damageAmt, int healAmt, float maxDistance)
+    public void Initialize(Vector3 startPos, int damageAmt, int healAmt, float maxDistance, int damageIncreasedPerHit, int healTrailHPS)
     {
         startPosition = startPos;
         affectedAttackables = new HashSet<Attackable>();
         damageAmount = damageAmt;
         healAmount = healAmt;
+        damageIncrease = damageIncreasedPerHit;
         this.maxDistance = maxDistance;
+        healTrailAmount = healTrailHPS;
         initialized = true;
+        
+        // If has heal trail amount, drop every few seconds 
+        if (healTrailAmount > 0)
+        {
+            StartCoroutine(DropHealTrail());
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -47,10 +64,21 @@ public class DarkWaveProjectile : MonoBehaviour
             }
             else if (hitAttackable.team == CombatInfo.Team.Enemy)
             {
-                hitAttackable.TakeDamage(damageAmount);
+                hitAttackable.TakeDamage(damageAmount + damageIncrease*affectedAttackables.Count);
             }
             affectedAttackables.Add(hitAttackable);
         }
+    }
 
+    IEnumerator DropHealTrail()
+    {
+        while (true)
+        {
+            GameObject trailBit = Instantiate(healTrailPrefab);
+            trailBit.transform.position = new Vector2(transform.position.x, transform.position.y);
+            trailBit.GetComponent<HealSpot>().duration = healTrailDuration;
+            trailBit.GetComponent<HealPerSecondBuff>().healPerTick = healTrailAmount;
+            yield return new WaitForSeconds(healTrailDropFreq);
+        }
     }
 }

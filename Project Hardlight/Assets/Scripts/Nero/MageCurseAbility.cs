@@ -45,6 +45,7 @@ public class MageCurseAbility : Ability
 
     public override bool DoAbility()
     {
+        /*
         if (selectedTarget != null && Vector2.Distance(selectedTarget.transform.position, gameObject.transform.position) < GetRange())
         {
             Attackable attackable = selectedTarget.gameObject.GetComponent<Attackable>();
@@ -66,6 +67,7 @@ public class MageCurseAbility : Ability
 
 
         }
+        */
         return false;
 
     }

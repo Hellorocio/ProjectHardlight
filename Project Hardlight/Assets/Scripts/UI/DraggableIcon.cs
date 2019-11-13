@@ -13,6 +13,8 @@ public class DraggableIcon : MonoBehaviour
     public DraggableIcon dropLocation; 
 
     private Vector3 startPos;
+    private Transform startParent;
+    private Transform loadoutParent;
     [HideInInspector]
     public bool dragging;
 
@@ -38,6 +40,16 @@ public class DraggableIcon : MonoBehaviour
         if (hoverText != null)
         {
             hoverController = hoverText.GetComponent<LoadoutHoverController>();
+        }
+
+        startParent = transform.parent;
+
+        // we assign loadoutParent to the transform of LoadoutMenu, which is at a different level depending
+        // on if this is a selected slot or a regular slot
+        loadoutParent = transform.parent.parent.parent;
+        if (allowReplacement)
+        {
+            loadoutParent = loadoutParent.transform.parent.parent;
         }
     }
 
@@ -73,11 +85,18 @@ public class DraggableIcon : MonoBehaviour
         {
             startPos = transform.position;
 
+            // change parent to loadoutparent so dragged icon doesn't go under other panels
+            // this causes grid issues with non-selected slots, so I'm only doing on selected slots for now
+            if (allowReplacement)
+            {
+                transform.SetParent(loadoutParent);
+            }
+
             if (hoverController != null)
             {
                 hoverController.StartDragging(gameObject);
             }
-
+            
             dragging = true;
         }
     }
@@ -87,6 +106,12 @@ public class DraggableIcon : MonoBehaviour
         if (dragging)
         {
             dragging = false;
+
+            // reparent to correct thing
+            if (allowReplacement)
+            {
+                transform.SetParent(startParent);
+            }
 
             if (hoverController != null)
             {
@@ -132,7 +157,15 @@ public class DraggableIcon : MonoBehaviour
         DraggableIcon draggable = collision.GetComponent<DraggableIcon>();
         if (allowReplacement && draggable != null && draggable.dragging && draggable.iconType == iconType)
         {
+            draggable.dropLocation = this;
+        }
+    }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        DraggableIcon draggable = collision.GetComponent<DraggableIcon>();
+        if (allowReplacement && draggable != null && draggable.dragging && draggable.iconType == iconType && draggable.dropLocation == null)
+        {
             draggable.dropLocation = this;
         }
     }

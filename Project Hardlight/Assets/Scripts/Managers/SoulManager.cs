@@ -7,6 +7,16 @@ public class SoulManager : Singleton<SoulManager>
     public List<Sprite> soulAppearances;
     public List<Sprite> allightAppearances; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
+    public GameObject iconPrefab;
+    public Sprite sunlightIcon;
+    public Sprite moonlightIcon;
+    public Sprite starlightIcon;
+
+    public Sprite healthIcon;
+    public Sprite abilityIcon;
+    public Sprite attackDamageIcon;
+    public Sprite attackSpeedIcon;
+
     // Adjust per level gains
     public float flatHealthScale;
     public float percentHealthScale;
@@ -23,8 +33,8 @@ public class SoulManager : Singleton<SoulManager>
     public float baseValueIncPerLevel;
     
     // Base values
-    public int oneAllightBaseValue = 120;
-    public int twoAllightBaseValue = 50;
+    public int oneAllightBaseValue = 100;
+    public int twoAllightBaseValue = 40;
 
     /// <summary>
     /// Generates a random soul

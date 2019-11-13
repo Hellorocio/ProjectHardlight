@@ -40,10 +40,10 @@ public class BattleManager : Singleton<BattleManager>
     private bool doubleClickPrimer;
     private float doubleClickTimeLimit = 0.3f;
 
-    public List<GameObject> selectedVessels;
-    bool battleStarted;
+    public List<GameObject> selectedVessels;    
     
     [Header("donut touch")]
+    public bool battleStarted;
     public Fighter selectedHero;
     public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;

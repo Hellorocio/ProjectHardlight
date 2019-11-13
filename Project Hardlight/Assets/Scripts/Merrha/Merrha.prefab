@@ -16,16 +16,17 @@ MonoBehaviour:
   abilityDescription: A wave that damages enemies and heals allies it passes through.
   abilityIcon: {fileID: 21300000, guid: 5e5a2ffd43df9714eb0ebedc60278469, type: 3}
   sunlightAugment:
-    augmentTitle: 
-    augmentDescription: 
+    augmentTitle: Vengeful
+    augmentDescription: Deals more damage based on how many units have been healed
+      or damaged.
   moonlightAugment:
-    augmentTitle: 
-    augmentDescription: 
+    augmentTitle: Cherished
+    augmentDescription: Leaves a trail that heals allies that stand in it.
   starlightAugment:
-    augmentTitle: 
-    augmentDescription: 
+    augmentTitle: Lucky
+    augmentDescription: Longer range and width.
   sfx: {fileID: 8300000, guid: c31a3d97ffe6b644db7cf659f160f1ea, type: 3}
-  baseDamage: 15
+  damageScale: 0.1
   baseEffectRange: 20
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -33,17 +34,21 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8300047146111117373, guid: c01ef168d52a51e428744f74b43eb7c7,
     type: 3}
   baseWidth: 1
-  damageAmount: 10
-  healAmount: 10
+  healScale: 0.12
+  damageIncreaseScale: 0.1
+  rangeScale: 0.1
+  widthScale: 0.01
+  healTrailScale: 0.03
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
   widthIndicatorPrefab: {fileID: 1456815152525268537, guid: 1974851b064f3c94cac7e1c826c95b5a,
     type: 3}
-  rangeIndicator: {fileID: 0}
-  widthIndicator: {fileID: 0}
   sunlight: 0
   moonlight: 0
   starlight: 0
+  rangeIndicator: {fileID: 0}
+  widthIndicator: {fileID: 0}
+  targeting: 0
 --- !u!114 &1974475011015928984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +82,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffNameId: Bastion
-  buffDescription: Gives 50% damage reduction to allies in the ring.
+  buffDescription: Gives percent damage reduction to allies in the ring.
   buffIcon: {fileID: 21300000, guid: c54ad7e0137b6184ba5d986e7f5fa13b, type: 3}
-  buffDuration: 15
+  buffDuration: 10
   maxStacks: 1
   percentDamageTakenModifier: -0.7
 --- !u!114 &4899670746398785568
@@ -107,7 +112,7 @@ MonoBehaviour:
     augmentTitle: 
     augmentDescription: 
   sfx: {fileID: 8300000, guid: a7f21746ab24a434b81daab9c7c09ad6, type: 3}
-  baseDamage: 0
+  damageScale: 0
   baseEffectRange: 8
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -129,12 +134,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3725835753875688886, guid: 8964f323661a48241a68995d380ea18f,
-        type: 3}
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
@@ -160,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: title
-      value: The Elementalist
+      value: Elementalist
       objectReference: {fileID: 0}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -191,6 +190,26 @@ PrefabInstance:
         type: 3}
       propertyPath: baseMana
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.015372694
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.08126229
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.3424009
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.932922
       objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
@@ -247,26 +266,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.015372694
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.08126229
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.3424009
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.932922
-      objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: attack
@@ -282,6 +281,12 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 74bca45bc80ef7a40822fd586a4efc5f, type: 2}
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3725835753875688886, guid: 8964f323661a48241a68995d380ea18f,
+        type: 3}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -78,7 +78,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="ActivateButton.cs" t="Include" />
+          <e p="AbilityDetail.cs" t="Include" />
           <e p="Alchemist" t="Include">
             <e p="AlchemistBasicAttackAction.cs" t="Include" />
             <e p="AlchemistHeal.cs" t="Include" />
@@ -91,9 +91,7 @@
             <e p="BasicAttackAction.cs" t="Include" />
             <e p="BasicAttackStats.cs" t="Include" />
             <e p="BattleConfig.cs" t="Include" />
-            <e p="Buff.cs" t="Include" />
             <e p="BuffBar.cs" t="Include" />
-            <e p="BuffInstance.cs" t="Include" />
             <e p="DamageText.cs" t="Include" />
             <e p="FireDemonMonster.cs" t="Include" />
             <e p="HeroAbilities.cs" t="Include" />
@@ -101,7 +99,16 @@
             <e p="MultiSelectRect.cs" t="Include" />
             <e p="Targeting.cs" t="Include" />
           </e>
-          <e p="BuffObj.cs" t="Include" />
+          <e p="Buff" t="Include">
+            <e p="ActivateButton.cs" t="Include" />
+            <e p="AttackDamageBuff.cs" t="Include" />
+            <e p="Buff.cs" t="Include" />
+            <e p="BuffInstance.cs" t="Include" />
+            <e p="BuffObj.cs" t="Include" />
+            <e p="DefenseBuff.cs" t="Include" />
+            <e p="DoTBuff.cs" t="Include" />
+            <e p="HealPerSecondBuff.cs" t="Include" />
+          </e>
           <e p="CameraController.cs" t="Include" />
           <e p="CombatInfo.cs" t="Include" />
           <e p="CommandsUIHandler.cs" t="Include" />
@@ -112,11 +119,13 @@
             <e p="DarkHealerProjectile.cs" t="Include" />
           </e>
           <e p="DisableOnCooldown.cs" t="Include" />
+          <e p="DoTSpot.cs" t="Include" />
           <e p="EnemyTrigger.cs" t="Include" />
           <e p="EnvironmentSpriteSort.cs" t="Include" />
           <e p="Fighter.cs" t="Include" />
           <e p="FighterAttack.cs" t="Include" />
           <e p="FighterMove.cs" t="Include" />
+          <e p="FlingingSlimeMonster.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="GenericHealthBar.cs" t="Include" />
           <e p="GenericMeleeMonster.cs" t="Include" />
@@ -128,10 +137,12 @@
             <e p="HealerHealingAura.cs" t="Include" />
             <e p="HealerMajorHeal.cs" t="Include" />
           </e>
+          <e p="HealSpot.cs" t="Include" />
           <e p="HeroPlacer.cs" t="Include" />
           <e p="HeroSelectionAndOrdering.cs" t="Include" />
           <e p="HighlightFighter.cs" t="Include" />
           <e p="IndividualSwarmerAI.cs" t="Include" />
+          <e p="LargeOnionMonster.cs" t="Include" />
           <e p="Managers" t="Include">
             <e p="BattleManager.cs" t="Include" />
             <e p="CutsceneManager.cs" t="Include" />
@@ -160,10 +171,8 @@
           <e p="Merrha" t="Include">
             <e p="AoEDefense.cs" t="Include" />
             <e p="AoEDefenseSpell.cs" t="Include" />
-            <e p="AttackDamageBuff.cs" t="Include" />
             <e p="DarkWaveAbility.cs" t="Include" />
             <e p="DarkWaveProjectile.cs" t="Include" />
-            <e p="DefenseBuff.cs" t="Include" />
             <e p="DestroyAfterSeconds.cs" t="Include" />
             <e p="MerrhaBasicAttack.cs" t="Include" />
           </e>

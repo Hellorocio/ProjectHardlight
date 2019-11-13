@@ -7,29 +7,39 @@ public class DarkWaveAbility : Ability
     public GameObject projectilePrefab;
 
     // Stats
+    [Header("Base Stats")]
     public float baseWidth = 1;
-    public int damageAmount;
-    public int healAmount;
+    public float healScale;
     
-    // Augment values
-    // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind TODO
-    public float numAffectedScale;
+    [Header("Sunlight Augments")]
+    // Increases healing and damage by numAffectedScale*sunlight per unit already affected by Dark Wind
+    public float damageIncreaseScale;
+
+    [Header("Moonlight Augments")]
+    // Increased travel range and width
+    public float rangeScale;
+
+    public float widthScale;
+    [Header("Starlight Augments")]
+    public float healTrailScale;
 
     // Indicator prefabs
+    [Header("Indicators")]
     public GameObject rangeIndicatorPrefab;
     public GameObject widthIndicatorPrefab;
-
+    
+    [Header("Allight Values")]
+    public int sunlight = 0;
+    public int moonlight = 0;
+    public int starlight = 0;
+    
+    [Header("Donut touch")]
     // Prefab instances
     public GameObject rangeIndicator;
     public GameObject widthIndicator;
 
-    private bool targeting;
-    
-    public int sunlight = 0;
-    public int moonlight = 0;
-    public int starlight = 0;
+    public bool targeting;
 
-    
     public void Update()
     {
         if (targeting)
@@ -56,6 +66,7 @@ public class DarkWaveAbility : Ability
 
     public override bool StartTargeting()
     {
+        Augment();
         targeting = true;
 
         rangeIndicator = Instantiate(rangeIndicatorPrefab);
@@ -79,7 +90,6 @@ public class DarkWaveAbility : Ability
 
     public override bool DoAbility()
     {
-        Augment();
         
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, transform.position) < GetRange())
@@ -96,10 +106,15 @@ public class DarkWaveAbility : Ability
             projectile.SetTarget(mousePos);
             projectile.StartMovement();
             // Set projectile stats
-            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damageAmount, healAmount, GetRange());
+            int damage = (int) (damageScale * GetComponent<Fighter>().GetAbility());
+            int healing = (int) (healScale * GetComponent<Fighter>().GetAbility());
+            int damageIncrease = (int) (sunlight*damageIncreaseScale);
+            int healTrailAmt = (int) (moonlight*healTrailScale);
+            Debug.Log("wtf" + healTrailAmt);
+            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
             
             // Heal self
-            GetComponent<Attackable>().Heal(healAmount);
+            GetComponent<Attackable>().Heal(healing);
             projectile.GetComponent<DarkWaveProjectile>().affectedAttackables.Add(GetComponent<Attackable>());
 
             if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
@@ -119,11 +134,11 @@ public class DarkWaveAbility : Ability
 
     public override float GetRange()
     {
-        return this.baseEffectRange;
+        return baseEffectRange + starlight*rangeScale;
     }
 
     public float GetRadius()
     {
-        return baseWidth;
+        return baseWidth + starlight*widthScale;
     }
 }

@@ -27,9 +27,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public Image vesselImage;
 
     public TextMeshProUGUI healthNumber;
-    public TextMeshProUGUI manaNumber;
-    //public TextMeshProUGUI abilityNumber;
-    //public TextMeshProUGUI attackDmg;
+    public TextMeshProUGUI abilityNumber;
     public TextMeshProUGUI attackSpeed;
     public TextMeshProUGUI speedNumber;
 
@@ -37,16 +35,10 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public TextMeshProUGUI basicAttackDesc;
     public TextMeshProUGUI basicAttackDamage;
     public TextMeshProUGUI basicAttackRange;
-    //public TextMeshProUGUI basicAttackSpeed;
 
-    public TextMeshProUGUI abilityOneName;
-    public TextMeshProUGUI abilityOneDesc;
-    public TextMeshProUGUI abilityOneDamage;
-
-    public TextMeshProUGUI abilityTwoName;
-    public TextMeshProUGUI abilityTwoDesc;
-    public TextMeshProUGUI abilityTwoDamage;
-
+    public AbilityDetail abilityOneDetail;
+    public AbilityDetail abilityTwoDetail;
+    
     public Soul defaultSoul;
 
     public GameObject selectedVessel;
@@ -81,7 +73,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
             }
         }
 
-        nameText.text = vesselData.vesselName;
+        nameText.text = vesselData.vesselName + " " + vesselData.title;
         vesselImage.sprite = vesselData.appearance;
 
         string healthText = vesselData.baseHealth.ToString();
@@ -93,22 +85,19 @@ public class LoadoutUI : Singleton<LoadoutUI>
         basicAttackRange.text = basicAttack.range.ToString();
         basicAttackDamage.text = basicAttack.damage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackBonus(basicAttack.damage));
         
-        healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetMaxHealthBonus(vesselData.baseHealth));
-        manaNumber.text = vesselData.baseMana.ToString();
-        //abilityNumber.text = vesselData.baseAbility.ToString();
-        attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.frequency)));
+        healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetHealthBonus(vesselData.baseHealth));
+        abilityNumber.text = vesselData.baseAbility.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(vesselData.baseAbility));
+        attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(basicAttack.frequency));
         speedNumber.text = vesselData.baseMovementSpeed.ToString();
 
 
         Ability abilityOne = (Ability) vesselData.abilities[0];
-        abilityOneName.text = abilityOne.abilityName;
-        abilityOneDesc.text = abilityOne.abilityDescription;
-        abilityOneDamage.text = abilityOne.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
-
+        abilityOneDetail.SetAbility(abilityOne);
+        abilityOneDetail.UpdateSoul(selectedSoul);
+        
         Ability abilityTwo = (Ability) vesselData.abilities[1];
-        abilityTwoName.text = abilityTwo.abilityName;
-        abilityTwoDesc.text = abilityTwo.abilityDescription;
-        abilityTwoDamage.text = abilityTwo.baseDamage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityTwo.baseDamage));
+        abilityTwoDetail.SetAbility(abilityTwo);
+        abilityTwoDetail.UpdateSoul(selectedSoul);
     }
 
     private string AddSoulBonusStatDetail (float soulBonus)
@@ -116,7 +105,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         string bonus = "";
         if (soulBonus > 0)
         {
-            bonus = "<color=red> + " + (Mathf.CeilToInt(soulBonus)).ToString() + "</color>";
+            bonus = "<color=green> +" + soulBonus.ToString() + "</color>";
         }
         return bonus;
     }
@@ -262,6 +251,12 @@ public class LoadoutUI : Singleton<LoadoutUI>
         if (changedVessel != null)
         {
             SetDetailPane(changedVessel, icon);
+        }
+
+        // stop showing missing popup so it's not confusing
+        if (missingPopupText != null)
+        {
+            missingPopupText.transform.parent.gameObject.SetActive(false);
         }
     }
 }

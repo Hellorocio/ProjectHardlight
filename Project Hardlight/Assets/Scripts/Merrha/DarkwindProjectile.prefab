@@ -179,6 +179,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 0
   healAmount: 0
+  damageIncrease: 0
+  healTrailAmount: 0
+  healTrailPrefab: {fileID: 8636935295454015228, guid: 63d344ae11ccd684f9a7b45eaf963931,
+    type: 3}
+  healTrailDropFreq: 0.3
+  healTrailDuration: 15
   startPosition: {x: 0, y: 0, z: 0}
   maxDistance: 0
 --- !u!114 &9003947216093043130
@@ -193,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a931764947a2642aec1f3985c2ba1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
   targetPos: {x: 0, y: 0, z: 0}
   targetObject: {fileID: 0}
   type: 0

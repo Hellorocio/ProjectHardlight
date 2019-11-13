@@ -17,6 +17,7 @@ public class BuffInstance : MonoBehaviour
             timeLeft -= Time.deltaTime;
         }
     }
+    
     public void SetBuff(Buff buff)
     {
         this.buff = buff;

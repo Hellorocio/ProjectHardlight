@@ -8,7 +8,6 @@ public class Buff : MonoBehaviour
     // Used to check for stacking
     public string buffNameId = "Default buff name";
     public string buffDescription = "Default buff description";
-    // TODO appear on UI
     public Sprite buffIcon;
 
     // 0 for permanent-- must explicitly call EndBuff() on your own

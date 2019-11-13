@@ -67,11 +67,11 @@ public class DamageText : MonoBehaviour
         damageTextTimers[poolNum] = DisableAfterAnimation(poolNum);
 
         // change color of text depending on damage/healing
-        if (damage <= 0)
+        if (damage < 0)
         {
             damageTextPool[poolNum].GetComponent<TextMeshProUGUI>().color = damageColor;
         }
-        else
+        else if (damage > 0)
         {
             
             damageTextPool[poolNum].GetComponent<TextMeshProUGUI>().color = healingColor;

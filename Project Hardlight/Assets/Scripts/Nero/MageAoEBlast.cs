@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class MageAoEBlast : Ability
 {
-    //public float baseEffectRange;
+
+    [Header("Base Stats")]
     public float baseEffectRadius;
 
     public GameObject rangeIndicatorPrefab;
     public GameObject radiusIndicatorPrefab;
 
+    // Indicator prefabs
+    [Header("Indicators")]
     public GameObject lightBlastPrefab;
 
+    [Header("Donut touch")]
+    // Prefab instances
     public GameObject rangeIndicator;
     public GameObject radiusIndicator;
     public GameObject pointRef;
@@ -57,8 +62,6 @@ public class MageAoEBlast : Ability
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
-            Debug.Log("AoE blast casted");
-
             // Hit enemies
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
             foreach (Collider2D collider in hitColliders)
@@ -85,7 +88,7 @@ public class MageAoEBlast : Ability
         else
         {
             //Debug.Log("AoE blast out of range");
-            /*
+            
             Vector3 rangePoint = Vector3.MoveTowards(transform.position, selectedPosition, GetRange());
             float moveDist = Vector3.Distance(rangePoint, selectedPosition);
             Vector3 InRangePoint = Vector3.MoveTowards(transform.position, selectedPosition, moveDist);
@@ -101,9 +104,10 @@ public class MageAoEBlast : Ability
             line.SetPosition(0, newMoveLoc.transform.position);
             line.SetPosition(1, selectedPosition);
             gameObject.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-            */
+            
             return false;
         }
+        return true;
     }
 
     public float GetRadius()

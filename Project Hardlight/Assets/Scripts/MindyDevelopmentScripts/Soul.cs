@@ -264,7 +264,7 @@ public class Soul : MonoBehaviour
         return boost;
     }
 
-    public int GetMaxHealthBonus(int baseMaxHealth)
+    public int GetHealthBonus(int baseMaxHealth)
     {
         float maxHealthBonus = 0;
         maxHealthBonus += baseMaxHealth * GetPercentHealthBoost();
@@ -277,7 +277,7 @@ public class Soul : MonoBehaviour
         float abilityBonus = 0;
         abilityBonus += baseAbility * GetPercentAbilityBoost();
         abilityBonus += GetFlatAbilityBoost();
-        return (int)abilityBonus;
+        return (int) abilityBonus;
     }
 
     public int GetAttackBonus(int baseAttack)
@@ -285,14 +285,14 @@ public class Soul : MonoBehaviour
         float attackBonus = 0;
         attackBonus += baseAttack * GetPercentAttackBoost();
         attackBonus += GetFlatAttackBoost();
-        return Mathf.CeilToInt(attackBonus);
+        return (int) attackBonus;
     }
 
-    public int GetAttackSpeedBonus (int baseAttackSpeed)
+    public float GetAttackSpeedBonus (float baseAttackSpeed)
     {
         float attackSpeedBonus = 0;
         attackSpeedBonus += baseAttackSpeed * GetPercentAttackSpeedBoost();
         attackSpeedBonus += GetPercentAttackSpeedBoost();
-        return Mathf.CeilToInt(attackSpeedBonus);
+        return attackSpeedBonus;
     }
 }

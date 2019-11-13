@@ -28,6 +28,7 @@ public class AlchemistPoisonBomb : Ability
 
     public override bool DoAbility()
     {
+        /*
         Debug.Log("Poison bomb casted");
 
         // Hit enemies
@@ -59,7 +60,7 @@ public class AlchemistPoisonBomb : Ability
         Vector3 boomPos = selectedPosition;
         boomPos.z = 2;
         boom.transform.position = boomPos;
-
+        */
         return true;
     }
 

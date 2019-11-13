@@ -77,10 +77,10 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetAttackSpeed(float attackSpeed)
     {
-        int soulBoost = 0;
+        float soulBoost = 0;
         if (soul != null)
         {
-            soulBoost = soul.GetAttackSpeedBonus((int)attackSpeed);
+            soulBoost = soul.GetAttackSpeedBonus(attackSpeed);
         }
         return attackSpeed + attackSpeed * attackable.percentAttackSpeedModifier + soulBoost;
     }
@@ -95,17 +95,18 @@ public class Fighter : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns this fighter's damage for a based on buffs (used for abilities)
+    /// Returns this fighter's ability based on buffs (used for abilities)
     /// </summary>
     /// <returns></returns>
-    public float GetDamage(float dmg)
+    public float GetAbility()
     {
+        int baseAbility = GetComponent<VesselData>().baseAbility;
         int soulBoost = 0;
         if (soul != null)
         {
-            soulBoost = soul.GetAbilityBonus((int)dmg);
+            soulBoost = soul.GetAbilityBonus((int)baseAbility);
         }
-        return dmg + dmg * attackable.percentAbilityModifier + soulBoost;
+        return baseAbility * (1.0f + GetComponent<Attackable>().percentAbilityModifier) + soulBoost;
     }
 
     /// <summary>
