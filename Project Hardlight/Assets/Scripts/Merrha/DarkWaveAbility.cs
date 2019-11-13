@@ -9,7 +9,6 @@ public class DarkWaveAbility : Ability
     // Stats
     [Header("Base Stats")]
     public float baseWidth = 1;
-    public float damageScale;
     public float healScale;
     
     [Header("Sunlight Augments")]
@@ -131,11 +130,6 @@ public class DarkWaveAbility : Ability
             Debug.Log("Dark Wave out of range");
             return false;
         }
-    }
-
-    public override float GetDamage()
-    {
-        return damageScale*GetComponent<Fighter>().GetAbility();
     }
 
     public override float GetRange()

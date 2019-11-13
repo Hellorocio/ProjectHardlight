@@ -21,7 +21,7 @@ public class Ability : MonoBehaviour
 
     public AudioClip sfx;
     
-    public int baseDamage = 0;
+    public float damageScale = 0;
     public float baseEffectRange;
     public Targeting.Type targetingType;
     public Vector3 selectedPosition;
@@ -46,7 +46,7 @@ public class Ability : MonoBehaviour
 
     public virtual float GetDamage()
     {
-        return baseDamage;
+        return damageScale*GetComponent<Fighter>().GetAbility();
     }
 
     public virtual float GetRange()
