@@ -28,11 +28,6 @@ public class DarkWaveAbility : Ability
     public GameObject rangeIndicatorPrefab;
     public GameObject widthIndicatorPrefab;
     
-    [Header("Allight Values")]
-    public int sunlight = 0;
-    public int moonlight = 0;
-    public int starlight = 0;
-    
     [Header("Donut touch")]
     // Prefab instances
     public GameObject rangeIndicator;
@@ -55,15 +50,7 @@ public class DarkWaveAbility : Ability
             widthIndicator.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
-
-    // Checks for the souls attached
-    private void Augment()
-    {
-        sunlight = GetComponent<Fighter>().sunlight;
-        moonlight = GetComponent<Fighter>().moonlight;
-        starlight = GetComponent<Fighter>().starlight;
-    }
-
+    
     public override bool StartTargeting()
     {
         Augment();

@@ -27,6 +27,11 @@ public class Ability : MonoBehaviour
     public Vector3 selectedPosition;
     public GameObject selectedTarget;
 
+    [Header("Allight Values")]
+    public int sunlight = 0;
+    public int moonlight = 0;
+    public int starlight = 0;
+
     public virtual bool StartTargeting()
     {
         Debug.Log("Default StartTargeting()");
@@ -36,6 +41,14 @@ public class Ability : MonoBehaviour
     public virtual void StopTargeting()
     {
         Debug.Log("Default StopTargeting()");
+    }
+
+    // Checks for the souls attached
+    public void Augment()
+    {
+        sunlight = GetComponent<Fighter>().sunlight;
+        moonlight = GetComponent<Fighter>().moonlight;
+        starlight = GetComponent<Fighter>().starlight;
     }
 
     public virtual bool DoAbility()
