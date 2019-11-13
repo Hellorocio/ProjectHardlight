@@ -127,8 +127,11 @@ public class DraggableIcon : MonoBehaviour
             if ((transform.position - startPos).magnitude > 50 && replaceObj != null)
             {
                 //if distance is large and this is a selection box, snap back to grid
-                replaceObj.GetComponent<Image>().enabled = true;
-                GetComponent<Image>().enabled = false;
+                BaseIcon replaceIcon = replaceObj.GetComponent<BaseIcon>();
+                if (replaceIcon != null)
+                {
+                    replaceIcon.ShowIcon(true);
+                }
 
                 BaseIcon icon = GetComponent<BaseIcon>();
                 if (icon != null)
@@ -182,14 +185,21 @@ public class DraggableIcon : MonoBehaviour
 
     /// <summary>
     /// Sets this icons soul to draggable's soul
+    /// Called by a dragged icon on this icon, which is a drop slot
     /// </summary>
     /// <param name="draggable"></param>
     void DropDraggable(DraggableIcon draggable)
     {
         bool dropSucceeded = false;
 
-        //add icon to new spot
-        GetComponent<Image>().enabled = true;
+        // enable this drop slot
+        BaseIcon icon = GetComponent<BaseIcon>();
+        if (icon != null)
+        {
+            icon.ShowIcon(true);
+        }
+
+        // add icon to new spot
         switch (iconType)
         {
             case IconType.vessel:
@@ -215,13 +225,17 @@ public class DraggableIcon : MonoBehaviour
 
         if (dropSucceeded)
         {
-            //replace icon if there was one already
+            // replace icon if there was one already
             if (replaceObj != null)
             {
-                replaceObj.GetComponent<Image>().enabled = true;
+                BaseIcon replaceIcon = replaceObj.GetComponent<BaseIcon>();
+                if (replaceIcon != null)
+                {
+                    replaceIcon.ShowIcon(true);
+                }
             }
 
-            //set new replaceObj
+            // set new replaceObj
             if (draggable.replaceObj != null)
             {
                 replaceObj = draggable.replaceObj;
@@ -231,12 +245,11 @@ public class DraggableIcon : MonoBehaviour
                 replaceObj = draggable;
             }
 
-            //remove icon from what this was dragged from
-            draggable.GetComponent<Image>().enabled = false;
-            BaseIcon icon = draggable.GetComponent<BaseIcon>();
-            if (draggable.allowReplacement && icon != null)
+            // remove icon from what this was dragged from
+            BaseIcon draggableIcon = draggable.GetComponent<BaseIcon>();
+            if (draggableIcon != null)
             {
-                icon.Clear();
+                draggableIcon.ShowIcon(false);
             }
             
             draggable.replaceObj = null;

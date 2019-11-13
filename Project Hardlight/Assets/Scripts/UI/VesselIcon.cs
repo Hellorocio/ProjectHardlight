@@ -21,6 +21,7 @@ public class VesselIcon : BaseIcon
 
     public override void Clear()
     {
+        base.Clear();
         vessel = null;
         vesselData = null;
     }

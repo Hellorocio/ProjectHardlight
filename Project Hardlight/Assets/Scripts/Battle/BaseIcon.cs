@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseIcon : MonoBehaviour
 {
     private LoadoutHoverController hoverController;
 
-    public virtual void Clear() { }
+    public virtual void Clear()
+    {
+        GetComponent<Image>().enabled = false;
+    }
 
     public virtual string GetHoverDesc ()
     {
@@ -54,5 +58,10 @@ public class BaseIcon : MonoBehaviour
             }
         }
         return hoverController != null;
+    }
+
+    public virtual void ShowIcon(bool show)
+    {
+        GetComponent<Image>().enabled = show;
     }
 }
