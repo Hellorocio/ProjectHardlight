@@ -19,7 +19,7 @@ MonoBehaviour:
   alertedRange: 20
   maxAggroRange: 30
   targetPrefs: 
-  basicAttackRange: 16
+  basicAttackRange: 10
   timeBetweenAttacks: 6
   numJabsInAttack: 1
   basicAttackPrefab: {fileID: 0}
@@ -39,7 +39,7 @@ MonoBehaviour:
   basicAttackClipSpeedMultiplier: 4
   basicAttackHitTime: 1.1
   flingSpeed: 6
-  damageMultiplier: 1
+  damageMultiplier: 1.5
 --- !u!1001 &1052626933926778627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,6 +111,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732159179760604423, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732159179760604423, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}

@@ -22,7 +22,7 @@ public class FlingingSlimeMonster : MonsterAI
         SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
         targetPos = currentTarget.transform.position;
         targetPos.z = transform.position.z;
-        targetPos = transform.position + (targetPos - transform.position).normalized * (alertedRange+1);
+        targetPos = transform.position + (targetPos - transform.position).normalized * (basicAttackRange+1);
         isFlying = true;
         Color tmp = renderer.color;
         renderer.color = new Color(1, 0, 0);
@@ -52,6 +52,8 @@ public class FlingingSlimeMonster : MonsterAI
         yield return new WaitForSeconds(timeBetweenAttacks);
         ShowTiredUI(false);
         jabsDone = 0;
+        renderer.flipX = (targetPos.x < transform.position.x);
+        yield return new WaitForSeconds(1f);
         moveState = MoveState.stopped;
         attackCoroutine = null;
     }
