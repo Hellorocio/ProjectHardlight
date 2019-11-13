@@ -45,7 +45,10 @@ public class MapPopoverController : MonoBehaviour
         if (node.type != MapNode.NodeType.HUB)
         {
             //add difficulty to description
-            descriptionText.text += "\nDifficulty: " + node.difficulty.ToString().ToLower();
+            if (node.difficulty != MapNode.Difficulty.NONE)
+            {
+                descriptionText.text += "\nDifficulty: " + node.difficulty.ToString().ToLower();
+            }
 
             //add allight drop icons
             ResetAllightDropImages();
