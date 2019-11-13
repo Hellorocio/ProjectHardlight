@@ -9,6 +9,9 @@ public class FighterAttack : MonoBehaviour
 {
     public List<CombatInfo.TargetPreference> targetPrefs;
 
+    public bool allowAutoMovement = false;
+    public bool autoMoveOnTarget = true;
+
     // Basic attacking
     private bool doBasicAttack;
     private IEnumerator basicAttackLoop;
@@ -85,8 +88,7 @@ public class FighterAttack : MonoBehaviour
         //only start attacking right away if a hero or a fighter with no enemyTrigger
         if (GetComponent<Attackable>().team == CombatInfo.Team.Hero || (GetComponent<Attackable>().team == CombatInfo.Team.Enemy && GetComponentInParent<EnemyTrigger>() == null))
         {
-            
-            SetCurrentTarget();
+            StartBasicAttacking();
         }
     }
 
@@ -100,7 +102,6 @@ public class FighterAttack : MonoBehaviour
             basicAttackLoop = BasicAttackLoop();
             StartCoroutine(basicAttackLoop);
         }
-
     }
 
     public void StopBasicAttacking()
@@ -112,41 +113,66 @@ public class FighterAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Repeatedly attacks on a cooldown timer
+    /// If gamestate is PAUSED or if the figher is moving, timer is still active, but attack won't happen
+    /// The fighter moving check is used to prevent the player from stopping and starting moving to get free basic attacks without the timer
+    /// This is still exploitable if the fighter goes in an out of range, but I think that won't be an issue as long as movement speed stays pretty slow
+    /// </summary>
+    /// <returns></returns>
     IEnumerator BasicAttackLoop()
     {
         while (IsTargetInAggroRange())
         {
-            //check we are still in range
+            // check we are still in range
             if (!InRangeOfTarget(currentTarget.transform))
             {
-                fighterMove.StartMoving(currentTarget.transform);
+                if (allowAutoMovement)
+                {
+                    fighterMove.StartMoving(currentTarget.transform);
+                }
                 break;
             }
 
-            //attack
-            attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
-            //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
-            //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
-            if (fighter.anim != null )
+            // attack
+            if (GameManager.Instance.gameState != GameState.PAUSED && fighterMove.GetMoveState() != FighterMove.MoveState.moving)
             {
-                fighter.anim.Play("Attack");
-            }
+                attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
+                //&& (fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability1")) ||
+                //fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash != Animator.StringToHash("Ability2")
+                if (fighter.anim != null)
+                {
+                    fighter.anim.Play("Attack");
+                }
 
-            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource != null && attack.sfx != null && !audioSource.isPlaying)
-            {
-                audioSource.clip = attack.sfx;
-                audioSource.Play();
+                AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+                if (audioSource != null && attack.sfx != null && !audioSource.isPlaying)
+                {
+                    audioSource.clip = attack.sfx;
+                    audioSource.Play();
+                }
             }
+           
             yield return new WaitForSeconds(fighter.GetAttackSpeed(1/attack.frequency));
         }
 
-        //make sure while stopped because currentFighter is gone
-        if (currentTarget == null || !currentTarget.activeSelf)
+        /*
+        if (fighterMove.GetMoveState() != FighterMove.MoveState.moving && fighter.anim.HasState(0, Animator.StringToHash("Idle")))
+        {
+            print(gameObject.name + ": BasicAttackLoop idle");
+            fighter.anim.Play("Idle");
+        }
+        */
+
+        // if current fight is gone and the battle isn't over, find a new target
+        if ((currentTarget == null || !currentTarget.activeSelf) && BattleManager.Instance.inputState != BattleManager.InputState.BattleOver)
         {
             SetCurrentTarget();
         }
-        StopBasicAttacking();
+        else
+        {
+            StopBasicAttacking();
+        }        
     }
 
     /// <summary>
@@ -182,9 +208,15 @@ public class FighterAttack : MonoBehaviour
 
             //invoke OnSwitchTarget event
             OnSwitchTarget?.Invoke();
+            
+            // interrupt movement
+            if (fighterMove.GetMoveState() == FighterMove.MoveState.moving)
+            {
+                fighterMove.StopMovingCommandHandle(false);
+            }
 
-            //start moving toward target
-            if (currentTarget != null)
+            // auto-move to target
+            if (autoMoveOnTarget && currentTarget != null && !InRangeOfTarget(currentTarget.transform))
             {
                 fighterMove.StartMoving(currentTarget.transform);
             }
@@ -201,8 +233,14 @@ public class FighterAttack : MonoBehaviour
             //invoke OnSwitchTarget event
             OnSwitchTarget?.Invoke();
 
-            //start moving toward target
-            if (currentTarget != null)
+            // interrupt movement
+            if (fighterMove.GetMoveState() == FighterMove.MoveState.moving)
+            {
+                fighterMove.StopMovingCommandHandle(false);
+            }
+
+            // auto-move to target
+            if (autoMoveOnTarget && currentTarget != null && !InRangeOfTarget(currentTarget.transform))
             {
                 fighterMove.StartMoving(currentTarget.transform);
             }
@@ -326,9 +364,15 @@ public class FighterAttack : MonoBehaviour
         //start moving toward target
 
         //Debug.Log("Game obj is " + gameObject.name + " | current target is null? = " + (currentTarget == null));
-        if (IsTargetInAggroRange())
+
+        // reset basic attack loop
+        // we need this because if we set the current target in the attack loop, we can't start a new attack loop
+        // until we get rid of the old one
+        StopBasicAttacking();
+
+        if (currentTarget != null)
         {
-            fighterMove.StartMoving(currentTarget.transform);
+            StartBasicAttacking();
         }
     }
 

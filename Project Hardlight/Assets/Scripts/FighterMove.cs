@@ -12,7 +12,6 @@ public class FighterMove : MonoBehaviour
     private Fighter fighter;
     private FighterAttack fighterAttack;
     private SpriteRenderer sprite;
-    public bool testing;
     public bool followingMoveOrder;
 
     private Transform target;
@@ -60,7 +59,7 @@ public class FighterMove : MonoBehaviour
         if (moveState == MoveState.moving)
         {
 
-            if (!fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
+            if (target != null && !fighterAttack.InRangeOfTarget(target, !followingMoveOrder))
             {
                 //update fighter position
                 transform.position = Vector3.MoveTowards(transform.position, target.position, fighter.GetSpeed() * Time.deltaTime);
@@ -91,7 +90,6 @@ public class FighterMove : MonoBehaviour
     {
         if (!followingMoveOrder)
         {
-
             //Debug.Log("Recieved Start Moving Transform: " + t.name);
             //make sure everything has been initialized
             if (fighter == null)
@@ -128,7 +126,7 @@ public class FighterMove : MonoBehaviour
         {
             Start();
         }
-        fighterAttack.StopBasicAttacking();
+        //fighterAttack.StopBasicAttacking(); // prevent exploit with move a bunch to get lots of basic attacks
 
         target = t;
         moveState = MoveState.moving;
@@ -162,11 +160,16 @@ public class FighterMove : MonoBehaviour
         fighterAttack.StartBasicAttacking();
     }
 
-    public void StopMovingCommandHandle()
+    /// <summary>
+    /// Sorry the parameter here is hacky, for some reason this was causing the anim to idle when walking is interrupted
+    /// Even though start moving is called after and plays the walking anim. I know, weird.
+    /// </summary>
+    /// <param name="playIdle"></param>
+    public void StopMovingCommandHandle(bool playIdle = true)
     {
         followingMoveOrder = false;
         moveState = MoveState.stopped;
-        if (fighter.anim.HasState(0, Animator.StringToHash("Idle")))
+        if (fighter.anim.HasState(0, Animator.StringToHash("Idle")) && playIdle)
         {
             fighter.anim.Play("Idle");
         }
@@ -174,10 +177,10 @@ public class FighterMove : MonoBehaviour
         Destroy(target.gameObject);
         target = null;
 
-        if (GameManager.Instance.gameState == GameState.FIGHTING && !TutorialManager.Instance.tutorialEnabled)
+        if (BattleManager.Instance.battleStarted)
         {
-            fighterAttack.SetCurrentTarget();
-        }
+            fighterAttack.StartBasicAttacking();
+        }        
     }
 
 
@@ -210,5 +213,14 @@ public class FighterMove : MonoBehaviour
     public void TurnToFace ()
     {
         sprite.flipX = (target.position.x < transform.position.x);
+    }
+
+    /// <summary>
+    /// Accessor used by fighterAttack
+    /// </summary>
+    /// <returns></returns>
+    public MoveState GetMoveState ()
+    {
+        return moveState;
     }
 }
