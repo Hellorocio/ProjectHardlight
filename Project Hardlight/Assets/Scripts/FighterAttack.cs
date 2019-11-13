@@ -217,7 +217,13 @@ public class FighterAttack : MonoBehaviour
             // interrupt movement
             if (fighterMove.GetMoveState() == FighterMove.MoveState.moving)
             {
+                
                 fighterMove.StopMovingCommandHandle(false);
+            }
+
+            if (InRangeOfTarget(currentTarget.transform))
+            {
+                StartBasicAttacking();
             }
 
             // auto-move to target
