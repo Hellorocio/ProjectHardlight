@@ -39,14 +39,9 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public TextMeshProUGUI basicAttackRange;
     //public TextMeshProUGUI basicAttackSpeed;
 
-    public TextMeshProUGUI abilityOneName;
-    public TextMeshProUGUI abilityOneDesc;
-    public TextMeshProUGUI abilityOneDamage;
-
-    public TextMeshProUGUI abilityTwoName;
-    public TextMeshProUGUI abilityTwoDesc;
-    public TextMeshProUGUI abilityTwoDamage;
-
+    public AbilityDetail abilityOneDetail;
+    public AbilityDetail abilityTwoDetail;
+    
     public Soul defaultSoul;
 
     public GameObject selectedVessel;
@@ -101,14 +96,17 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
 
         Ability abilityOne = (Ability) vesselData.abilities[0];
+        abilityOneDetail.SetAbility(abilityOne);
+        abilityOneDetail.UpdateSoul(selectedSoul);
+        /*
         abilityOneName.text = abilityOne.abilityName;
         abilityOneDesc.text = abilityOne.abilityDescription;
         abilityOneDamage.text = abilityOne.GetDamage().ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
+        */
 
         Ability abilityTwo = (Ability) vesselData.abilities[1];
-        abilityTwoName.text = abilityTwo.abilityName;
-        abilityTwoDesc.text = abilityTwo.abilityDescription;
-        abilityTwoDamage.text = abilityTwo.GetDamage().ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityTwo.baseDamage));
+        abilityTwoDetail.SetAbility(abilityTwo);
+        abilityTwoDetail.UpdateSoul(selectedSoul);
     }
 
     private string AddSoulBonusStatDetail (float soulBonus)
