@@ -105,7 +105,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         string bonus = "";
         if (soulBonus > 0)
         {
-            bonus = "<color=red> + " + (Mathf.CeilToInt(soulBonus)).ToString() + "</color>";
+            bonus = "<color=green> + " + (Mathf.CeilToInt(soulBonus)).ToString() + "</color>";
         }
         return bonus;
     }
