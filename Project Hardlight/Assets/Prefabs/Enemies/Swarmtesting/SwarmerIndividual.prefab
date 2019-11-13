@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06b64d36339796449d05afd07a8bdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 0
   characterName: Swarmer
   maxMana: 0
   moveSpeed: 1400
@@ -26,7 +26,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   basicAttackDamage: 2
   basicAttackProjectileSpeed: 0
-  basicAttackSfx: {fileID: 0}
+  basicAttackSfx: {fileID: 8300000, guid: 2a1d5ff2ce61c0840b7cdd2e4b3744ef, type: 3}
   basicAttackClip: {fileID: 0}
   basicAttackClipSpeedMultiplier: 1
   basicAttackHitTime: 1
@@ -139,6 +139,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.09845253
       objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9510727
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8463106253352522184, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -163,21 +178,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.011984972
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.9510727
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
