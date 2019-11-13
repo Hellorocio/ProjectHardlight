@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7573849073438683987}
   - component: {fileID: 7428291963595623568}
   - component: {fileID: 4827502967419148786}
+  - component: {fileID: 1453044509567898150}
   m_Layer: 0
   m_Name: NewStandardOnionProjectile
   m_TagString: Untagged
@@ -150,8 +151,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0128938565, y: -0.004297795}
-  m_Size: {x: 1.1, y: 0.5}
+  m_Offset: {x: 0.012893757, y: -0.0042978027}
+  m_Size: {x: 1.1660365, y: 0.5000014}
   m_Direction: 1
 --- !u!114 &7573849073438683987
 MonoBehaviour:
@@ -198,3 +199,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+--- !u!68 &1453044509567898150
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699462833164562949}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.5168203, y: -0.16829634}
+  - {x: -0.29152554, y: -0.22485459}
+  - {x: -0.02320989, y: -0.23307918}
+  - {x: 0.35309094, y: -0.17693722}
+  - {x: 0.11484146, y: -0.09443068}
+  - {x: -0.14640681, y: -0.04325517}
+  - {x: -0.19555664, y: 0.04485058}
+  - {x: 0.13186836, y: 0.03604938}
+  - {x: 0.3997383, y: 0.0579879}
+  - {x: 0.54192674, y: 0.09760841}
+  - {x: 0.33987236, y: 0.1526465}
+  - {x: 0.13394484, y: 0.17149478}
+  - {x: 0.0004380544, y: 0.23558733}
+  - {x: -0.3273004, y: 0.16402155}
+  - {x: -0.25912032, y: 0.11447008}
+  - {x: -0.33462653, y: 0.06969202}
+  - {x: -0.22216289, y: 0.017874748}
+  - {x: -0.5150833, y: -0.0757645}
+  - {x: -0.50362337, y: -0.16108373}
