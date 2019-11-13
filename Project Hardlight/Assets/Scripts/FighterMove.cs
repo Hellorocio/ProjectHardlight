@@ -90,6 +90,7 @@ public class FighterMove : MonoBehaviour
     /// </summary>
     public void StartMoving (Transform t)
     {
+        //Debug.Log(t.name + " is new target in SM");
         if (!followingMoveOrder)
         {
             //Debug.Log("Recieved Start Moving Transform: " + t.name);
@@ -116,9 +117,11 @@ public class FighterMove : MonoBehaviour
 
     public void StartMovingCommandHandle(Transform t)
     {
+        //Debug.Log(t.name + " is new target in SMCH");
         //remove any old targets
         if (followingMoveOrder)
         {
+            
             Destroy(target.gameObject);
         }
 
@@ -176,7 +179,12 @@ public class FighterMove : MonoBehaviour
             fighter.anim.Play("Idle");
         }
         //Debug.Log("Deleting " + target.gameObject.name);
-        Destroy(target.gameObject);
+        //Debug.Log(target.name + " is getting destroyed!");
+        if(target.name == "MoveLoc(Clone)")
+        {
+            Destroy(target.gameObject);
+        }
+        
         target = null;
 
         if (BattleManager.Instance.battleStarted)
