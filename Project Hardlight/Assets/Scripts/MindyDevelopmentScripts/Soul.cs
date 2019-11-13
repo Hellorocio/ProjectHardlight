@@ -264,7 +264,7 @@ public class Soul : MonoBehaviour
         return boost;
     }
 
-    public int GetMaxHealthBonus(int baseMaxHealth)
+    public int GetHealthBonus(int baseMaxHealth)
     {
         float maxHealthBonus = 0;
         maxHealthBonus += baseMaxHealth * GetPercentHealthBoost();

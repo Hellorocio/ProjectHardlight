@@ -27,9 +27,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public Image vesselImage;
 
     public TextMeshProUGUI healthNumber;
-    public TextMeshProUGUI manaNumber;
-    //public TextMeshProUGUI abilityNumber;
-    //public TextMeshProUGUI attackDmg;
+    public TextMeshProUGUI abilityNumber;
     public TextMeshProUGUI attackSpeed;
     public TextMeshProUGUI speedNumber;
 
@@ -37,7 +35,6 @@ public class LoadoutUI : Singleton<LoadoutUI>
     public TextMeshProUGUI basicAttackDesc;
     public TextMeshProUGUI basicAttackDamage;
     public TextMeshProUGUI basicAttackRange;
-    //public TextMeshProUGUI basicAttackSpeed;
 
     public AbilityDetail abilityOneDetail;
     public AbilityDetail abilityTwoDetail;
@@ -88,9 +85,8 @@ public class LoadoutUI : Singleton<LoadoutUI>
         basicAttackRange.text = basicAttack.range.ToString();
         basicAttackDamage.text = basicAttack.damage.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackBonus(basicAttack.damage));
         
-        healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetMaxHealthBonus(vesselData.baseHealth));
-        manaNumber.text = vesselData.baseMana.ToString();
-        //abilityNumber.text = vesselData.baseAbility.ToString();
+        healthNumber.text = vesselData.baseHealth.ToString() + AddSoulBonusStatDetail(selectedSoul.GetHealthBonus(vesselData.baseHealth));
+        abilityNumber.text = vesselData.baseAbility.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(vesselData.baseAbility));
         attackSpeed.text = basicAttack.frequency.ToString() + AddSoulBonusStatDetail(selectedSoul.GetAttackSpeedBonus(Mathf.CeilToInt(basicAttack.frequency)));
         speedNumber.text = vesselData.baseMovementSpeed.ToString();
 
@@ -98,12 +94,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         Ability abilityOne = (Ability) vesselData.abilities[0];
         abilityOneDetail.SetAbility(abilityOne);
         abilityOneDetail.UpdateSoul(selectedSoul);
-        /*
-        abilityOneName.text = abilityOne.abilityName;
-        abilityOneDesc.text = abilityOne.abilityDescription;
-        abilityOneDamage.text = abilityOne.GetDamage().ToString() + AddSoulBonusStatDetail(selectedSoul.GetAbilityBonus(abilityOne.baseDamage));
-        */
-
+        
         Ability abilityTwo = (Ability) vesselData.abilities[1];
         abilityTwoDetail.SetAbility(abilityTwo);
         abilityTwoDetail.UpdateSoul(selectedSoul);

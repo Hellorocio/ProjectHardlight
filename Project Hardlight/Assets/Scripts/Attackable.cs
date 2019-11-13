@@ -117,7 +117,7 @@ public class Attackable : MonoBehaviour
             if (soul != null)
             {
                 baseHealth = GetComponent<VesselData>().baseHealth;
-                baseHealth += soul.GetMaxHealthBonus(baseHealth);
+                baseHealth += soul.GetHealthBonus(baseHealth);
             }
             else
             {
