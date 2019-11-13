@@ -76,10 +76,10 @@ public class NinjaHealingAbility : Ability
             shuriken.GetComponent<NinjaHealingProjectile>().Initialize(GetDamage(), GetComponent<Fighter>());
             shuriken.GetComponent<ProjectileMovement>().SetTarget(selectedPosition);
             shuriken.GetComponent<ProjectileMovement>().StartMovement();
-            if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+            if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
             {
                 //Debug.Log("Ability1 anim is played");
-                gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+                gameObject.GetComponent<Fighter>().anim.Play("Ability2");
             }
             return true;
         }        

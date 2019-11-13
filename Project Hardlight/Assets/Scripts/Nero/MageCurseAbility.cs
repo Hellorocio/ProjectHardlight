@@ -61,7 +61,10 @@ public class MageCurseAbility : Ability
                 GameObject lightPrison = Instantiate(lightPrisonPrefab, selectedTarget.transform);
                 lightPrison.transform.localPosition = Vector3.zero;
                 lightPrison.transform.localScale = Vector3.one;
-
+                if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability2")))
+            {
+                gameObject.GetComponent<Fighter>().anim.Play("Ability2");
+            }
                 return true;
             }
 

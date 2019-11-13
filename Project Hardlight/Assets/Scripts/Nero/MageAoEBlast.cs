@@ -82,7 +82,11 @@ public class MageAoEBlast : Ability
             Vector3 boomPos = selectedPosition;
             boomPos.z = 2;
             boom.transform.position = boomPos;
-
+            if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+            {
+                //Debug.Log("Ability1 anim is played");
+                gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+            }
             return true;
         }
         else
