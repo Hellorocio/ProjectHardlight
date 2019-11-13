@@ -109,7 +109,7 @@ public class DarkWaveAbility : Ability
             int damage = (int) (damageScale * GetComponent<Fighter>().GetAbility());
             int healing = (int) (healScale * GetComponent<Fighter>().GetAbility());
             int damageIncrease = (int) (sunlight*damageIncreaseScale);
-            int healTrailAmt = (int) (starlight*healTrailScale);
+            int healTrailAmt = (int) (moonlight*healTrailScale);
             Debug.Log("wtf" + healTrailAmt);
             projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
             
@@ -134,11 +134,11 @@ public class DarkWaveAbility : Ability
 
     public override float GetRange()
     {
-        return baseEffectRange + moonlight*rangeScale;
+        return baseEffectRange + starlight*rangeScale;
     }
 
     public float GetRadius()
     {
-        return baseWidth + moonlight*widthScale;
+        return baseWidth + starlight*widthScale;
     }
 }

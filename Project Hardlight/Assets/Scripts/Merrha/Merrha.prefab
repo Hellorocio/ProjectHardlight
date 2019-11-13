@@ -20,13 +20,13 @@ MonoBehaviour:
     augmentDescription: Deals more damage based on how many units have been healed
       or damaged.
   moonlightAugment:
-    augmentTitle: Lucky
-    augmentDescription: Longer range and width.
-  starlightAugment:
     augmentTitle: Cherished
     augmentDescription: Leaves a trail that heals allies that stand in it.
+  starlightAugment:
+    augmentTitle: Lucky
+    augmentDescription: Longer range and width.
   sfx: {fileID: 8300000, guid: c31a3d97ffe6b644db7cf659f160f1ea, type: 3}
-  baseDamage: 0
+  damageScale: 0.1
   baseEffectRange: 20
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -34,7 +34,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8300047146111117373, guid: c01ef168d52a51e428744f74b43eb7c7,
     type: 3}
   baseWidth: 1
-  damageScale: 0.1
   healScale: 0.12
   damageIncreaseScale: 0.1
   rangeScale: 0.1
@@ -113,7 +112,7 @@ MonoBehaviour:
     augmentTitle: 
     augmentDescription: 
   sfx: {fileID: 8300000, guid: a7f21746ab24a434b81daab9c7c09ad6, type: 3}
-  baseDamage: 0
+  damageScale: 0
   baseEffectRange: 8
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
