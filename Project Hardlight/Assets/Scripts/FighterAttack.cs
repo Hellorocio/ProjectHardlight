@@ -381,7 +381,7 @@ public class FighterAttack : MonoBehaviour
         // until we get rid of the old one
         StopBasicAttacking();
 
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.activeSelf)
         {
             StartBasicAttacking();
         }

@@ -7,6 +7,8 @@ using TMPro;
 
 public class PostBattleUI : MonoBehaviour
 {
+    public AudioClip winSound;
+    public AudioClip loseSound;
     public string winTitle = "Victory";
     public string loseTitle = "RIP";
     public TextMeshProUGUI title;
@@ -31,6 +33,11 @@ public class PostBattleUI : MonoBehaviour
         if (win)
         {
             title.text = winTitle;
+            if (winSound != null && GetComponent<AudioSource>())
+            {
+                GetComponent<AudioSource>().clip = winSound;
+                GetComponent<AudioSource>().Play();
+            }
 
             if (!TutorialManager.Instance.tutorialEnabled)
             {
@@ -56,6 +63,11 @@ public class PostBattleUI : MonoBehaviour
         else
         {
             title.text = loseTitle;
+            if (loseSound != null && GetComponent<AudioSource>())
+            {
+                GetComponent<AudioSource>().clip = loseSound;
+                GetComponent<AudioSource>().Play();
+            }
         }
     }
 

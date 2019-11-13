@@ -27,7 +27,7 @@ public class HealSpot : MonoBehaviour
         Attackable attackable = other.gameObject.GetComponent<Attackable>();
         if (attackable != null)
         {
-            if (attackable.team != ownerTeam)
+            if (attackable.team == ownerTeam)
             {
                 // Give them the buff
                 buffed.Add(attackable, attackable.AddBuff(healOverTimeBuff));
