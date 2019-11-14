@@ -21,7 +21,7 @@ public class Attackable : MonoBehaviour
     
     
     public int maxHealth;
-    public int currentHealth;
+    public float currentHealth;
     public Color defaultColor;
 
     //health changed event- used by HealthBar
@@ -43,7 +43,7 @@ public class Attackable : MonoBehaviour
     
     public void Heal (float amt)
     {
-        currentHealth += (int) amt;
+        currentHealth += amt;
         if (currentHealth >= maxHealth)
         {
             currentHealth = maxHealth;
@@ -62,7 +62,7 @@ public class Attackable : MonoBehaviour
         // Calculate based on modifiers
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
-        currentHealth -= (int) realDamage;
+        currentHealth -= realDamage;
         if (currentHealth < 0)
         {
             currentHealth = 0;

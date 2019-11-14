@@ -18,40 +18,6 @@ MonoBehaviour:
   buffDuration: 15
   maxStacks: 1
   percentDamageTakenModifier: 1
---- !u!114 &-3118206264379439244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70d4b38878ce8374284c7b91ce607689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffNameId: Light's Blinding
-  buffDescription: Disables enemies for a short duration
-  buffIcon: {fileID: 21300000, guid: 275e7ec87a2bf9d47979ae7bced3c068, type: 3}
-  buffDuration: 0
-  maxStacks: 1
---- !u!114 &-1545922858491961481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2608807790061824644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9695e4def8f5f6c4aaab7a30627f6aec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffNameId: Knocked Back
-  buffDescription: This unit is being knocked back.
-  buffIcon: {fileID: 21300000, guid: fa21aed70d02f0b48b1d0acb1c6d97c3, type: 3}
-  buffDuration: 0
-  maxStacks: 1
 --- !u!114 &740907697011280635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,14 +44,11 @@ MonoBehaviour:
     augmentTitle: 
     augmentDescription: 
   sfx: {fileID: 0}
-  damageScale: 0.6
+  baseDamage: 60
   baseEffectRange: 16
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  sunlight: 0
-  moonlight: 0
-  starlight: 0
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
   defenseDebuff: {fileID: -6746862780836164911}
@@ -132,40 +95,28 @@ MonoBehaviour:
   abilityIcon: {fileID: -5789774901387246160, guid: 7d141781f10d2e342b834c6c4f203524,
     type: 3}
   sunlightAugment:
-    augmentTitle: Brilliant
-    augmentDescription: Leaves a circle of blinding light that deals damage to enemies
-      in the area over time.
+    augmentTitle: 
+    augmentDescription: 
   moonlightAugment:
-    augmentTitle: Blinding
-    augmentDescription: Disables monsters in the area for a short duration.
+    augmentTitle: 
+    augmentDescription: 
   starlightAugment:
     augmentTitle: 
     augmentDescription: 
   sfx: {fileID: 0}
-  damageScale: 0.35
+  baseDamage: 0
   baseEffectRange: 16
   targetingType: 2
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
-  sunlight: 0
-  moonlight: 0
-  starlight: 0
   baseEffectRadius: 4
+  damageScale: 0.35
   rangeIndicatorPrefab: {fileID: 6068803954833598424, guid: bade9448fc10bec4789e8dbbecd76205,
     type: 3}
   radiusIndicatorPrefab: {fileID: 6439921863601720389, guid: f70e3e5ad7e9ac84585246d14a24ae2c,
     type: 3}
   lightBlastPrefab: {fileID: 5489350537540678332, guid: eb9322f9fdb6c504cb2e08b189fa05dd,
     type: 3}
-  dotSpotPrefab: {fileID: 4223861167182238569, guid: 57aa91c1fe2ccb446926c07922da3fab,
-    type: 3}
-  spotDuration: 10
-  dpsScale: 0.03
-  disableMonsterBuff: {fileID: -3118206264379439244}
-  disableDurationScale: 0.05
-  knockbackBuff: {fileID: -1545922858491961481}
-  knockbackDuration: 0.2
-  knockbackScale: 0.2
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
   pointRef: {fileID: 3708409289486635681, guid: 89e59fd6414a90444be0974627a91cfb,
@@ -207,12 +158,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
-        type: 3}
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
@@ -260,11 +205,6 @@ PrefabInstance:
       propertyPath: abilities.Array.data[1]
       value: 
       objectReference: {fileID: 740907697011280635}
-    - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseMana
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Offset.x
@@ -355,6 +295,12 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ca0a500eacf29d541b22649ab11cd2e5, type: 2}
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
+        type: 3}
     - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.y

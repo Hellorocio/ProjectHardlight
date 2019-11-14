@@ -409,16 +409,13 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     /// </summary>
     public virtual void StopBasicAttacking()
     {
-        if (attackCoroutine != null)
+        StopCoroutine(attackCoroutine);
+        if (jabsDone >= numJabsInAttack)
         {
-            StopCoroutine(attackCoroutine);
-            if (jabsDone >= numJabsInAttack)
-            {
-                jabsDone = 0;
-            }
-            moveState = MoveState.stopped;
-            attackCoroutine = null;
+            jabsDone = 0;
         }
+        moveState = MoveState.stopped;
+        attackCoroutine = null;
     }
 
 
