@@ -14,6 +14,7 @@ public class TutorialManager : Singleton<TutorialManager>
     public List<TutorialLevelInfo> tutorialLevels;
     public List<TutorialPopupData> tutorialPopups;
     public int currentTutorialLevel;
+    public bool testing = false;
     public bool startGeneratingMana = true;
 
     public bool tutorialEnabled = true;
@@ -37,7 +38,11 @@ public class TutorialManager : Singleton<TutorialManager>
     public void Start()
     {
         // for testing
-        //InitTutorial();
+        if (testing)
+        {
+            print("init tutorial for testing reasons");
+            InitTutorial();
+        }
     }
 
     public void InitTutorial()

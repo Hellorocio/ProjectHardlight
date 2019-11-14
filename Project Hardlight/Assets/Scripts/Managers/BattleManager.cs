@@ -45,16 +45,21 @@ public class BattleManager : Singleton<BattleManager>
     [Header("donut touch")]
     public bool battleStarted;
     public Fighter selectedHero;
-    public List<Fighter> multiSelectedHeros; //keeping this separate for now, maybe refactor later?
+    public List<Fighter> multiSelectedHeros; // keeping this separate for now, maybe refactor later?
     public Ability selectedAbility;
     public InputState inputState;
    
     public int numEnemies;
     public int numHeros;
 
+    // draggable box params
     private float startX;
     private float startY;
     public float sizingFactor = 0.01f;
+
+    // saved during drag in case it fails
+    private Fighter savedSelectedHero;
+    private List<Fighter> savedMultiSelectedHeros;
 
     // Tutorial Events
     [HideInInspector]
@@ -582,6 +587,7 @@ public class BattleManager : Singleton<BattleManager>
         {
             if (pointerData.button == PointerEventData.InputButton.Left && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
             {
+                // select a vessel
                 if (!UpdateClickedHero() && allowDeselect)
                 {
                     DeselectHero();
@@ -589,99 +595,18 @@ public class BattleManager : Singleton<BattleManager>
             }
             else if (inputState == InputState.HeroSelected && pointerData.button == PointerEventData.InputButton.Right)
             {
-                //select new target
-                bool foundEnemy = false;
-                Vector3 pos = Input.mousePosition;
-                Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
-                foreach (Collider2D hit in hitCollider)
-                {
-                    Attackable attackable = hit.GetComponent<Attackable>();
-                    if (attackable != null)
-                    {
-                        if (selectedHero != null)
-                        {
-                            selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
-                            foundEnemy = true;
-                            break;
-                        }
-                        else if (multiSelectedHeros.Count > 0)
-                        {
-                            //set target for multiple heroes
-                            foreach (Fighter f in multiSelectedHeros)
-                            {
-                                f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
-                                foundEnemy = true;
-                            }
-                            break;
-                        }
-                    }
-                }
+                // select new target for vessel(s)
+                bool foundEnemy = SetVesselTarget();
 
-                if (foundEnemy)
-                {
-                    onSetTarget.Invoke();
-                    onSetTarget.RemoveAllListeners();
-                }
+                // move vessel(s)
                 if (!foundEnemy)
                 {
-                    //move fighter
-                    // Needs more moveloc references or static variable, otherwise ordering a second unity overwrites first's moveloc
-                    // Also find bug where heroes disappear
-                    //Set state to move or update target
-                    //Debug.Log("Ordered a move");
-
-                    pos = Input.mousePosition;
-                    pos = Camera.main.ScreenToWorldPoint(pos);
-                    //start moving hero
-                    if (multiSelectedHeros.Count > 0)
-                    {
-                        //move multiple heroes
-                        foreach (Fighter f in multiSelectedHeros)
-                        {
-                            //init moveloc
-                            GameObject newMoveLoc = Instantiate(moveLoc);
-                            newMoveLoc.SetActive(true);
-                            newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                            //init line
-                            LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                            line.positionCount = 2;
-                            line.SetPosition(0, newMoveLoc.transform.position);
-                            line.SetPosition(1, multiSelectedHeros[0].transform.position);
-
-                            f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                        }
-                    } else if (selectedHero != null)
-                    {
-                        //init moveloc
-                        GameObject newMoveLoc = Instantiate(moveLoc);
-                        newMoveLoc.SetActive(true);
-                        newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
-
-                        //init line
-                        LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                        line.positionCount = 2;
-                        line.SetPosition(0, newMoveLoc.transform.position);
-                        line.SetPosition(1, selectedHero.transform.position);
-                        selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                    }
-                }                              
-
-            }
-            else if (inputState == InputState.UpdatingTarget)
-            {
-                if (pointerData.button == PointerEventData.InputButton.Left)
-                {
-                    // Moved to right click when hero is selected
-                    
+                    MoveVessel();
                 }
-
-                //called on left or right mouse button click (this is what disables selection on right click)
-                inputState = InputState.HeroSelected;
-                SetCursor(battleConfig.defaultCursor);
             }
             else if (inputState == InputState.CastingAbility)
             {
+                // cast ability (or exit out of ability casting)
                 if (pointerData.button == PointerEventData.InputButton.Left)
                 {
                     TargetSelected();
@@ -694,25 +619,129 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
+    /// <summary>
+    /// Sets the target for the selected vessel or for all multiselected vessels
+    /// </summary>
+    /// <returns>True if target was found, false otherwise</returns>
+    public  bool SetVesselTarget ()
+    {
+        bool foundEnemy = false;
+        Vector3 pos = Input.mousePosition;
+        Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+        foreach (Collider2D hit in hitCollider)
+        {
+            Attackable attackable = hit.GetComponent<Attackable>();
+            if (attackable != null)
+            {
+                if (selectedHero != null)
+                {
+                    selectedHero.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
+                    foundEnemy = true;
+                    break;
+                }
+                else if (multiSelectedHeros.Count > 0)
+                {
+                    // set target for multiple heroes
+                    foreach (Fighter f in multiSelectedHeros)
+                    {
+                        f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
+                    }
+                    foundEnemy = true;
+                    break;
+                }
+            }
+        }
+
+        if (foundEnemy)
+        {
+            onSetTarget.Invoke();
+            onSetTarget.RemoveAllListeners();
+        }
+
+        return foundEnemy;
+    }
+
+    /// <summary>
+    /// Moves a vessel (or multiselected vessels) to the clicked location
+    /// </summary>
+    public void MoveVessel ()
+    {
+        // Debug.Log("Ordered a move");
+        Vector3 pos = Input.mousePosition;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+
+        // start moving hero
+        if (multiSelectedHeros.Count > 0)
+        {
+            // move multiple heroes
+            foreach (Fighter f in multiSelectedHeros)
+            {
+                // init moveloc
+                GameObject newMoveLoc = Instantiate(moveLoc);
+                newMoveLoc.SetActive(true);
+                newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                // init line
+                LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+                line.positionCount = 2;
+                line.SetPosition(0, newMoveLoc.transform.position);
+                line.SetPosition(1, multiSelectedHeros[0].transform.position);
+
+                f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+            }
+        }
+        else if (selectedHero != null)
+        {
+            // init moveloc
+            GameObject newMoveLoc = Instantiate(moveLoc);
+            newMoveLoc.SetActive(true);
+            newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+            // init line
+            LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+            line.positionCount = 2;
+            line.SetPosition(0, newMoveLoc.transform.position);
+            line.SetPosition(1, selectedHero.transform.position);
+            selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+        }
+    }
+
     public void StopDraggingSelection ()
     {
         if (inputState == InputState.DraggingSelect)
         {
-            //TODO: end drag- select multiple if multiple selected, select 1 if 1 selected, otherwise deselect
             inputState = InputState.NothingSelected;
             if (multiSelectedHeros.Count == 0)
             {
-                inputState = InputState.NothingSelected;
-                DeselectHero();
+                // nothing was selected on drag, so reload previous selection (could be single or multiple vessels)
+                if (savedSelectedHero != null)
+                {
+                    inputState = InputState.HeroSelected;
+                    SetSelectedHero(savedSelectedHero);
+                    savedSelectedHero = null;
+                }
+                else
+                if (savedMultiSelectedHeros != null && savedMultiSelectedHeros.Count > 0)
+                {
+                    inputState = InputState.HeroSelected;
+                    for (int i = 0; i < savedMultiSelectedHeros.Count; i++)
+                    {
+                        multiSelectedHeros.Add(savedMultiSelectedHeros[i]);
+                        multiSelectedHeros[i].SetSelectedUI(true);
+                    }
+                    savedMultiSelectedHeros.Clear();
+                }
             }
-            else if (multiSelectedHeros.Count == 1)
+            else
+            if (multiSelectedHeros.Count == 1)
             {
+                // drag selected only one hero, so select it
                 inputState = InputState.HeroSelected;
                 SetSelectedHero(multiSelectedHeros[0]);
             }
             else
             {
-                //selected multiple heros, show multi-selected hero menu
+                // selected multiple heros, show multi-selected hero menu
                 inputState = InputState.HeroSelected;
                 portraitHotKeyManager.LoadMultiSelectedHeros();
 
@@ -733,12 +762,21 @@ public class BattleManager : Singleton<BattleManager>
     {
         //print("select multiple");
         PointerEventData pointerData = data as PointerEventData;
-        if (pointerData.button == PointerEventData.InputButton.Left && GameManager.Instance.gameState == GameState.FIGHTING && 
+        if ((pointerData.button == PointerEventData.InputButton.Left || pointerData.button == PointerEventData.InputButton.Right) && GameManager.Instance.gameState == GameState.FIGHTING && 
             (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
         {
+            // save currently selected vessels
+            savedSelectedHero = selectedHero;
+            for (int i = 0; i < multiSelectedHeros.Count; i++)
+            {
+                savedMultiSelectedHeros.Add(multiSelectedHeros[i]);
+            }
+
+            // clear vessels to prep for selecting new ones
             DeselectHero();
             multiSelectedHeros.Clear();
 
+            // init draggable box thingy
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20);
             Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             startX = position.x;
@@ -823,11 +861,14 @@ public class BattleManager : Singleton<BattleManager>
             v.GetComponent<FighterAttack>().LevelStart();
         }
 
-        //call levelStart on enemies
+        // init some stuff
         GameObject enemyParent = GameObject.Find("Enemies");
         numHeros = selectedVessels.Count;
         numEnemies = 0;
+        savedSelectedHero = null;
+        savedMultiSelectedHeros = new List<Fighter>();
 
+        // call levelStart on enemies
         foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
         {
             numEnemies++;
