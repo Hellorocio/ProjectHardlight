@@ -23,8 +23,12 @@ public class MageAoEBlast : Ability
     [Header("Moonlight Augments")]
     public Buff disableMonsterBuff;
     public float disableDurationScale;
-    
+
     [Header("Starlight Augments")]
+    public Buff knockbackBuff;
+
+    public float knockbackDuration;
+    public float knockbackScale;
 
     [Header("Donut touch")]
     // Prefab instances
@@ -91,6 +95,17 @@ public class MageAoEBlast : Ability
                         {
                             disableMonsterBuff.buffDuration = moonlight*disableDurationScale;
                             attackable.AddBuff(disableMonsterBuff);
+                        }
+                        
+                        // Starlight knockback
+                        if (starlight > 0)
+                        {
+                            knockbackBuff.buffDuration = knockbackDuration;
+                            Vector2 knockbackVector = attackable.transform.position - selectedPosition;
+                            knockbackVector.Normalize();
+                            knockbackVector *= starlight*knockbackScale;
+                            attackable.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
+                            attackable.AddBuff(knockbackBuff);
                         }
                     }
                 }
