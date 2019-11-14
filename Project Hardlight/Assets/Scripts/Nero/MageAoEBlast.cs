@@ -15,6 +15,16 @@ public class MageAoEBlast : Ability
     [Header("Indicators")]
     public GameObject lightBlastPrefab;
 
+    [Header("Sunlight Augments")]
+    public GameObject dotSpotPrefab;
+    public float spotDuration;
+    public float dpsScale;
+
+    [Header("Moonlight Augments")]
+    public float disableDurationScale;
+    
+    [Header("Starlight Augments")]
+
     [Header("Donut touch")]
     // Prefab instances
     public GameObject rangeIndicator;
@@ -59,6 +69,8 @@ public class MageAoEBlast : Ability
 
     public override bool DoAbility()
     {
+        Augment();
+
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
@@ -72,6 +84,13 @@ public class MageAoEBlast : Ability
                     if (attackable.team == CombatInfo.Team.Enemy)
                     {
                         attackable.TakeDamage(GetDamage());
+
+                        // Moonlight disable
+                        if (moonlight > 0)
+                        {
+                            attackable.gameObject.GetComponent<MonsterAI>().StopBasicAttacking();
+                            attackable.gameObject.GetComponent<MonsterAI>().enabled = false;
+                        }
                     }
                 }
                 
@@ -82,6 +101,15 @@ public class MageAoEBlast : Ability
             Vector3 boomPos = selectedPosition;
             boomPos.z = 2;
             boom.transform.position = boomPos;
+
+            // Sunlight DoT spot
+            GameObject dotSpot = Instantiate(dotSpotPrefab);
+            // Set spot to expire
+            dotSpot.GetComponent<DoTSpot>().duration = spotDuration;
+            // Set DoT debuff stats
+            dotSpot.GetComponent<DoTBuff>().damagePerTick = sunlight*dpsScale;
+            dotSpot.transform.position = new Vector3(selectedPosition.x, selectedPosition.y, dotSpot.transform.position.z);
+
             if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
             {
                 //Debug.Log("Ability1 anim is played");
