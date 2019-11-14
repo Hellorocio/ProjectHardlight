@@ -573,6 +573,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <summary>
     /// Called by an invisible button on behind all the other UI
     /// Used to prevent race conditions between button clicking and Input.OnMouseDown
+    /// This controls hero selection/deselection, target selection, movement, and ability casting
     /// </summary>
     public void SelectNonBattleButton (BaseEventData data)
     {
@@ -610,8 +611,8 @@ public class BattleManager : Singleton<BattleManager>
                             {
                                 f.GetComponent<FighterAttack>().SetIssuedCurrentTarget(attackable);
                                 foundEnemy = true;
-                                break;
                             }
+                            break;
                         }
                     }
                 }
