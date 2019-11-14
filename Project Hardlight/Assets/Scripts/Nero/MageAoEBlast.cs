@@ -21,6 +21,7 @@ public class MageAoEBlast : Ability
     public float dpsScale;
 
     [Header("Moonlight Augments")]
+    public Buff disableMonsterBuff;
     public float disableDurationScale;
     
     [Header("Starlight Augments")]
@@ -88,8 +89,8 @@ public class MageAoEBlast : Ability
                         // Moonlight disable
                         if (moonlight > 0)
                         {
-                            attackable.gameObject.GetComponent<MonsterAI>().StopBasicAttacking();
-                            attackable.gameObject.GetComponent<MonsterAI>().enabled = false;
+                            disableMonsterBuff.buffDuration = moonlight*disableDurationScale;
+                            attackable.AddBuff(disableMonsterBuff);
                         }
                     }
                 }
@@ -103,13 +104,15 @@ public class MageAoEBlast : Ability
             boom.transform.position = boomPos;
 
             // Sunlight DoT spot
-            GameObject dotSpot = Instantiate(dotSpotPrefab);
-            // Set spot to expire
-            dotSpot.GetComponent<DoTSpot>().duration = spotDuration;
-            // Set DoT debuff stats
-            dotSpot.GetComponent<DoTBuff>().damagePerTick = sunlight*dpsScale;
-            dotSpot.transform.position = new Vector3(selectedPosition.x, selectedPosition.y, dotSpot.transform.position.z);
-
+            if (sunlight > 0)
+            {
+                GameObject dotSpot = Instantiate(dotSpotPrefab);
+                // Set spot to expire
+                dotSpot.GetComponent<DoTSpot>().duration = spotDuration;
+                // Set DoT debuff stats
+                dotSpot.GetComponent<DoTBuff>().damagePerTick = sunlight*dpsScale;
+                dotSpot.transform.position = new Vector3(selectedPosition.x, selectedPosition.y, dotSpot.transform.position.z);
+            }
             if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
             {
                 //Debug.Log("Ability1 anim is played");

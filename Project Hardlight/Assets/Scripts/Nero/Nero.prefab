@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5416107230612850924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6952383251715976084}
+  m_Layer: 0
+  m_Name: BasicAttackSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6952383251715976084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416107230612850924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.288, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2608807790061824647}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-6746862780836164911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,6 +48,23 @@ MonoBehaviour:
   buffDuration: 15
   maxStacks: 1
   percentDamageTakenModifier: 1
+--- !u!114 &-3118206264379439244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608807790061824644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4b38878ce8374284c7b91ce607689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffNameId: Light's Blinding
+  buffDescription: Disables enemies for a short duration
+  buffIcon: {fileID: 21300000, guid: 24d91ca91631e4c4da0691901c74ffb1, type: 3}
+  buffDuration: 0
+  maxStacks: 1
 --- !u!114 &740907697011280635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,7 +91,7 @@ MonoBehaviour:
     augmentTitle: 
     augmentDescription: 
   sfx: {fileID: 0}
-  damageScale: 0
+  damageScale: 0.6
   baseEffectRange: 16
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
@@ -102,8 +149,8 @@ MonoBehaviour:
     augmentDescription: Leaves a circle of blinding light that deals damage to enemies
       in the area over time.
   moonlightAugment:
-    augmentTitle: 
-    augmentDescription: 
+    augmentTitle: Blinding
+    augmentDescription: Disables monsters in the area for a short duration.
   starlightAugment:
     augmentTitle: 
     augmentDescription: 
@@ -127,40 +174,12 @@ MonoBehaviour:
     type: 3}
   spotDuration: 10
   dpsScale: 0.03
+  disableMonsterBuff: {fileID: -3118206264379439244}
+  disableDurationScale: 0.05
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
   pointRef: {fileID: 3708409289486635681, guid: 89e59fd6414a90444be0974627a91cfb,
     type: 3}
---- !u!1 &5416107230612850924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6952383251715976084}
-  m_Layer: 0
-  m_Name: BasicAttackSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6952383251715976084
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5416107230612850924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.288, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2608807790061824647}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8972604932438624029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -168,6 +187,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
+        type: 3}
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
@@ -215,6 +240,26 @@ PrefabInstance:
       propertyPath: abilities.Array.data[1]
       value: 
       objectReference: {fileID: 740907697011280635}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.030089974
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.04608661
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.35244727
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.87473285
+      objectReference: {fileID: 0}
     - target: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,26 +315,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.030089974
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.04608661
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.35244727
-      objectReference: {fileID: 0}
-    - target: {fileID: 6390960235825343901, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.87473285
-      objectReference: {fileID: 0}
     - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: attack
@@ -310,12 +335,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.059
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e8232833b6f9e1847b572b3125bf361c,
-        type: 3}
     - target: {fileID: 733254305438948738, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_IsActive
