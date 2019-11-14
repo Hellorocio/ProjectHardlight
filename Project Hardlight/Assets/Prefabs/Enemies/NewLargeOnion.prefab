@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcfe7a08d985647bb55ebf3f520928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 160
   characterName: Angry Onion
   maxMana: 0
   moveSpeed: 200
@@ -21,11 +21,11 @@ MonoBehaviour:
   targetPrefs: 
   basicAttackRange: 18
   timeBetweenAttacks: 7
-  numJabsInAttack: 3
+  numJabsInAttack: 5
   basicAttackPrefab: {fileID: 5607511023273981050, guid: 690bba1cc7315cc4e81bef347658d4e0,
     type: 3}
   spawnPoint: {fileID: 2527272101334850535}
-  basicAttackDamage: 2
+  basicAttackDamage: 4
   basicAttackProjectileSpeed: 2
   basicAttackSfx: {fileID: 0}
   tiredSteam: {fileID: 3156517489800638740}
@@ -179,7 +179,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.21038336
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 996b25b6306c71543bb418d3aef7c606, type: 3}
 --- !u!1 &7058073066224950694 stripped
 GameObject:

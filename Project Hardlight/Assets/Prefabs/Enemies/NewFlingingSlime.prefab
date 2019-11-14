@@ -40,6 +40,8 @@ MonoBehaviour:
   basicAttackHitTime: 1.1
   flingSpeed: 6
   damageMultiplier: 1.5
+  flyingSprite: {fileID: 21300000, guid: 4ebad71b1462d704292c7b48b28e616a, type: 3}
+  normalSprite: {fileID: 21300000, guid: 782baa7102c334d4780e807e05508bbc, type: 3}
 --- !u!1001 &1052626933926778627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,11 +109,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5732159179760604423, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -121,6 +118,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 782baa7102c334d4780e807e05508bbc,
+        type: 3}
+    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
