@@ -327,12 +327,12 @@ PrefabInstance:
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.99
+      value: -8.31
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.88
+      value: 8.33
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
@@ -12617,12 +12617,12 @@ PrefabInstance:
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.35
+      value: -4.92
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.24
+      value: 6.25
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
@@ -12671,6 +12671,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1233b275076eb49a41bd44f4ddc8de, type: 3}
+--- !u!1 &1233626576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8788414719000912145, guid: 7a1233b275076eb49a41bd44f4ddc8de,
+    type: 3}
+  m_PrefabInstance: {fileID: 1787133935}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1233626583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233626576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0720baade7c871943be58a86ba8c085c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 'Merrha: "I really hope this big one doesn''t get out."'
+  percentThreshold: 0.8
+  notificationDuration: 3
+  triggered: 0
+  attackable: {fileID: 0}
+--- !u!114 &1233626584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233626576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0720baade7c871943be58a86ba8c085c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 'Merrha: "Uh oh..."'
+  percentThreshold: 0.3
+  notificationDuration: 3
+  triggered: 0
+  attackable: {fileID: 0}
 --- !u!1001 &1336867605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14043,7 +14083,47 @@ PrefabInstance:
     - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
       propertyPath: m_fontSize
-      value: 28.7
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 449574914537041300, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 1515078305181584588, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
         type: 3}
@@ -15841,6 +15921,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3870957524327089330, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3870957524327089330, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870957524327089330, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870957524327089330, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870957524327089330, guid: c9d1c6b6c4b03f244ae1bf2d912625dc,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8077793533163048003, guid: c9d1c6b6c4b03f244ae1bf2d912625dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9d1c6b6c4b03f244ae1bf2d912625dc, type: 3}
@@ -16104,12 +16209,12 @@ PrefabInstance:
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.28
+      value: -2.47
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.53
+      value: 4.16
       objectReference: {fileID: 0}
     - target: {fileID: 8132060636447868013, guid: 7a1233b275076eb49a41bd44f4ddc8de,
         type: 3}
@@ -16253,7 +16358,7 @@ PrefabInstance:
     - target: {fileID: 7811832471089052273, guid: 68f5f296efdc8e04a88d181269952476,
         type: 3}
       propertyPath: maxHealth
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 7811832471089052273, guid: 68f5f296efdc8e04a88d181269952476,
         type: 3}
@@ -16346,3 +16451,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1233b275076eb49a41bd44f4ddc8de, type: 3}
+--- !u!1 &3007475541646454440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8788414719000912145, guid: 7a1233b275076eb49a41bd44f4ddc8de,
+    type: 3}
+  m_PrefabInstance: {fileID: 3007475541646454439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3007475541646454441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007475541646454440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0720baade7c871943be58a86ba8c085c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 'Merrha: "It''s going to get out!"'
+  percentThreshold: 0.2
+  notificationDuration: 3
+  triggered: 0
+  attackable: {fileID: 0}

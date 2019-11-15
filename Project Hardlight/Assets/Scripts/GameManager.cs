@@ -159,7 +159,8 @@ public class GameManager : Singleton<GameManager>
             souls.Add(soul);
         }
 
-        LoadoutUI.Instance.Refresh();
+        // TODO this duplicates souls already in slots
+        LoadoutUI.Instance.PopulateSoulGrid();
     }
 
     /// <summary>
@@ -227,6 +228,8 @@ public class GameManager : Singleton<GameManager>
         //LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
         UIManager.Instance.SetLoadoutUI(true);
+        LoadoutUI.Instance.CreateLoadout();
+
         UIManager.Instance.loadoutUIButton.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
 
@@ -499,11 +502,6 @@ public class GameManager : Singleton<GameManager>
 
         // For tutorial, only need Taurin
         requiredVessels = 1;
-        LoadoutUI.Instance.CreateLoadoutSlots();
-        
-        // Refresh for Loadout
-        LoadoutUI.Instance.PopulateVesselGrid();
-        LoadoutUI.Instance.Refresh();
 
         // Start loadout tutorial dialogue
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
@@ -525,11 +523,6 @@ public class GameManager : Singleton<GameManager>
 
         // For tutorial, only need Taurin
         requiredVessels = 3;
-        LoadoutUI.Instance.CreateLoadoutSlots();
-        
-        // Refresh for Loadout
-        LoadoutUI.Instance.PopulateVesselGrid();
-        LoadoutUI.Instance.Refresh();
 
         // Start loadout tutorial dialogue- Removed for now to prevent repeat dialogue
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();

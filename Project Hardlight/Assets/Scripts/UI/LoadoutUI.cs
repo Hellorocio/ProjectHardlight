@@ -46,15 +46,19 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     ///////////////////
 
-    public void Refresh()
+    public void CreateLoadout()
     {
         if (!loadoutCreated)
         {
             loadoutCreated = true;
             CreateLoadoutSlots();
+            PopulateVesselGrid();
+            PopulateSoulGrid();
         }
-        PopulateVesselGrid();
-        PopulateSoulGrid();
+        else
+        {
+            Debug.Log("Trying to create loadout UI when already made");
+        }
     }
 
     // Sets vessel to display details for TODO do for Souls

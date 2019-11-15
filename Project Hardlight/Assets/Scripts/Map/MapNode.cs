@@ -15,6 +15,7 @@ public class MapNode : MonoBehaviour
     [Header("Node Details")]
     public NodeType type;
     public NodeStatus status;
+    public int allowedVessels = 1;
     
     public string levelName;
     [TextArea(5,5)]
