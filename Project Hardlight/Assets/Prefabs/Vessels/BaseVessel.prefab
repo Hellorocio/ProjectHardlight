@@ -559,11 +559,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
+  attackableBy: 02000000
   buffBar: {fileID: 1012097154563230144}
   percentDamageTakenModifier: 0
+  percentAttackDamageModifier: 0
+  percentAttackSpeedModifier: 0
+  percentAbilityModifier: 0
+  percentMovementSpeedModifier: 0
   maxHealth: 0
   currentHealth: 0
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  fighting: 0
 --- !u!114 &6390960235825343900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,8 +585,12 @@ MonoBehaviour:
   selectedUI: {fileID: 2647926368921614537}
   maxManaGlow: {fileID: 3030817009279536542}
   anim: {fileID: 6390960234732733081}
+  attackable: {fileID: 0}
   soul: {fileID: 0}
   manaFullSfx: {fileID: 8300000, guid: f47a1d57f64a36540ba98c4a1b23280d, type: 3}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
   battleManager: {fileID: 0}
 --- !u!114 &2953940653181175102
 MonoBehaviour:
@@ -595,6 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
+  allowAutoMovement: 0
+  autoMoveOnTarget: 1
   currentTarget: {fileID: 0}
   attack: {fileID: 3866378144017540731}
 --- !u!82 &8409799906034597506
@@ -705,8 +717,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing: 0
+  moveState: 0
   followingMoveOrder: 0
+  sprite: {fileID: 0}
 --- !u!114 &6920598889442749698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,12 +777,24 @@ MonoBehaviour:
   abilityName: Healing Jutsu
   abilityDescription: Throw 3 projectiles, each hit heals Ninja for medium amount
   abilityIcon: {fileID: 0}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
   sfx: {fileID: 0}
-  baseDamage: 4
+  damageScale: 0
   baseEffectRange: 8
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
   rangeIndicatorPrefab: {fileID: 8166058387217857041, guid: 819ad571157a11c498b124c432d5f3c0,
     type: 3}
   rangeIndicator: {fileID: 0}
@@ -792,12 +817,24 @@ MonoBehaviour:
   abilityDescription: Teleport to a new target and become invicible and stronger for
     5 seconds
   abilityIcon: {fileID: 0}
+  sunlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  moonlightAugment:
+    augmentTitle: 
+    augmentDescription: 
+  starlightAugment:
+    augmentTitle: 
+    augmentDescription: 
   sfx: {fileID: 0}
-  baseDamage: 10
+  damageScale: 0
   baseEffectRange: 10
   targetingType: 1
   selectedPosition: {x: 0, y: 0, z: 0}
   selectedTarget: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
   invulnBuff: {fileID: 0}
 --- !u!114 &3866378144017540731
 MonoBehaviour:
@@ -929,21 +966,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7526814695193317998, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7526814695193317998, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7405163628134393657, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 2193398377454489249, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Name
@@ -954,47 +976,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 2234039318963161273, guid: 3f4c553995451ee409855b56a57ee487,
+    - target: {fileID: 7526814695193317998, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.381
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2234039318963161273, guid: 3f4c553995451ee409855b56a57ee487,
+    - target: {fileID: 7526814695193317998, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.152
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 7319116268717647927, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: fighter
-      value: 
-      objectReference: {fileID: 6390960235825343900}
-    - target: {fileID: 7319116268717647927, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: attackable
-      value: 
-      objectReference: {fileID: 3851246974747038760}
-    - target: {fileID: 3348725543924743392, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: fighter
-      value: 
-      objectReference: {fileID: 6390960235825343900}
-    - target: {fileID: 2832024609790476077, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: fighter
-      value: 
-      objectReference: {fileID: 6390960235825343900}
-    - target: {fileID: 2832024609790476077, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: attackable
-      value: 
-      objectReference: {fileID: 3851246974747038760}
     - target: {fileID: 7608578057632925036, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 3403757471497944003, guid: 3f4c553995451ee409855b56a57ee487,
+    - target: {fileID: 7405163628134393657, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Layer
       value: 12
@@ -1019,6 +1016,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 122.544
       objectReference: {fileID: 0}
+    - target: {fileID: 2234039318963161273, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.381
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234039318963161273, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.152
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403757471497944003, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5269754843446474875, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Layer
@@ -1029,12 +1041,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 2528769270671149107, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3584755880066157502, guid: 3f4c553995451ee409855b56a57ee487,
+    - target: {fileID: 6515894583438377085, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Layer
       value: 12
@@ -1044,32 +1051,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 2528769270671149107, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4070784237472738814, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515894583438377085, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293103796424368356, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7694358423845279466, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3532647606827469388, guid: 3f4c553995451ee409855b56a57ee487,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744187977403428840, guid: 3f4c553995451ee409855b56a57ee487,
         type: 3}
       propertyPath: m_Layer
       value: 12
@@ -1084,6 +1071,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PreserveAspect
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584755880066157502, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744187977403428840, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694358423845279466, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319116268717647927, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 6390960235825343900}
+    - target: {fileID: 7319116268717647927, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 3851246974747038760}
+    - target: {fileID: 8293103796424368356, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348725543924743392, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 6390960235825343900}
+    - target: {fileID: 2832024609790476077, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 6390960235825343900}
+    - target: {fileID: 2832024609790476077, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 3851246974747038760}
+    - target: {fileID: 3532647606827469388, guid: 3f4c553995451ee409855b56a57ee487,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f4c553995451ee409855b56a57ee487, type: 3}

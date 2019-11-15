@@ -8,6 +8,8 @@ public class Attackable : MonoBehaviour
     public CombatInfo.Team team;
     
     public BuffBar buffBar;
+
+    public SpriteRenderer appearance;
     
     [Header("Donut Touch")]
     // Stat modifiers (usually modified by buffs)
@@ -41,6 +43,8 @@ public class Attackable : MonoBehaviour
         currentHealth = GetMaxHealth();
         percentDamageTakenModifier = 0.0f;
         percentAttackDamageModifier = 0.0f;
+
+        appearance = transform.Find("Appearance").GetComponent<SpriteRenderer>();
     }
     
     public void Heal (float amt)
@@ -74,7 +78,7 @@ public class Attackable : MonoBehaviour
         StartCoroutine(colorThing);
         if (currentHealth <= 0)
         {
-            if (team == CombatInfo.Team.Hero)
+            if (GetComponent<FighterMove>() != null)
             {
                 //remove moveLoc if following a move command
                 if (GetComponent<FighterMove>().followingMoveOrder)
@@ -113,7 +117,11 @@ public class Attackable : MonoBehaviour
     {
         int baseHealth = 0;
 
-        if (team == CombatInfo.Team.Hero)
+        if (GetComponent<NeutralBattleObject>() != null)
+        {
+            baseHealth = GetComponent<NeutralBattleObject>().maxHealth;
+        }
+        else if (team == CombatInfo.Team.Hero)
         {
             Soul soul = GetComponent<Fighter>().soul;
             if (soul != null)
@@ -140,7 +148,6 @@ public class Attackable : MonoBehaviour
         return baseHealth;
 
     }
-
 
     IEnumerator HitColorChanger()
     {

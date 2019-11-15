@@ -28,13 +28,6 @@ public class GenericMeleeMonster : MonsterAI
                 Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
             }
 
-            if (!InBasicRangeOfTarget(currentTarget.transform.position))
-            {
-                StopBasicAttacking();
-            }
-
-            yield return new WaitForSeconds(realBasicAttackHitTime);
-
             if (InBasicRangeOfTarget(currentTarget.transform.position) && moveState == MoveState.basicAttacking)
             {
                 DoBasicAttack(currentTarget);

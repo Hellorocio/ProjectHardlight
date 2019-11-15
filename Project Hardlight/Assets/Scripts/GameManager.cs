@@ -181,19 +181,13 @@ public class GameManager : Singleton<GameManager>
         }
         */
         //This spawns a healer, mage, ninja combo
-        
-        GameObject selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[0].vessel);
-        selectedVessel.GetComponent<Fighter>().soul = souls[0];
-        BattleManager.Instance.selectedVessels.Add(selectedVessel);
 
-        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[1].vessel);
-        selectedVessel.GetComponent<Fighter>().soul = souls[0];
-        BattleManager.Instance.selectedVessels.Add(selectedVessel);
-
-        selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[2].vessel);
-        selectedVessel.GetComponent<Fighter>().soul = souls[0];
-        BattleManager.Instance.selectedVessels.Add(selectedVessel);
-
+        for (int i = 0; i < requiredVessels; i++)
+        {
+            GameObject selectedVessel = Instantiate(VesselManager.Instance.vesselCatalog[i].vessel);
+            selectedVessel.GetComponent<Fighter>().soul = souls[i];
+            BattleManager.Instance.selectedVessels.Add(selectedVessel);
+        }
         
         SetCameraControls(true);
         StartVesselPlacement();

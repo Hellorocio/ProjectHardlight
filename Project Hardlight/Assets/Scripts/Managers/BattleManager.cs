@@ -313,7 +313,6 @@ public class BattleManager : Singleton<BattleManager>
             Fighter clickedFighter = collider.gameObject.GetComponent<Fighter>();
             if (clickedFighter != null)
             {
-                Debug.Log("got a clicked figter");
                 clickedHero = clickedFighter;
                 break;
             }
@@ -337,7 +336,6 @@ public class BattleManager : Singleton<BattleManager>
                 }
             } else
             {
-                                Debug.Log("b2");
                 DeselectHero();
                 SetSelectedHero(clickedHero);
             }
@@ -956,7 +954,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="team"></param>
     public void OnDeath (Attackable attackable)
     {
-        if (attackable.team == CombatInfo.Team.Hero)
+        if (attackable.GetComponent<Fighter>() != null)
         {
             
             numHeros--;
@@ -975,7 +973,7 @@ public class BattleManager : Singleton<BattleManager>
                 DeselectHero();
             }
         }
-        else
+        else if (attackable.GetComponent<MonsterAI>() != null)
         {
             numEnemies--;
             
@@ -985,6 +983,10 @@ public class BattleManager : Singleton<BattleManager>
             {
                 BattleOver(true);
             }
+        }
+        else
+        {
+            Debug.Log("Some weird attackable died: " + attackable.gameObject.name);
         }
     }
 

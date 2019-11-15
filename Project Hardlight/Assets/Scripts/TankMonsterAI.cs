@@ -26,7 +26,6 @@ public class TankMonsterAI : MonsterAI
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
         currentMana = 0;
-        attackParent = GameObject.Find("Vessels");
         startPos = transform.position;
         GameObject wayPt = new GameObject("GolemWayPt");
         wayPt.transform.position = startPos;
