@@ -159,8 +159,8 @@ public class GameManager : Singleton<GameManager>
             souls.Add(soul);
         }
 
-        // TODO this duplicates souls already in slots
-        LoadoutUI.Instance.PopulateSoulGrid();
+        // TODO this duplicates things already in slots
+        LoadoutUI.Instance.CreateLoadout();
     }
 
     /// <summary>

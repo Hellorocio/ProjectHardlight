@@ -103,7 +103,9 @@ public class MageAoEBlast : Ability
                             Vector2 knockbackVector = attackable.transform.position - selectedPosition;
                             knockbackVector.Normalize();
                             knockbackVector *= starlight*knockbackScale;
-                            attackable.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
+                            // Knockback
+                            attackable.GetComponent<Rigidbody2D>().velocity = knockbackVector;
+                            // To stop the knockback
                             attackable.AddBuff(knockbackBuff);
                         }
                     }
