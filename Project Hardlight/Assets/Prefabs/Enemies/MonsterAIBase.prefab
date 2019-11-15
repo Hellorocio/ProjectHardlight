@@ -67,7 +67,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103018291
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ba8ab8756ff4bb74a95627c13449ba54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -147,7 +147,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103018291
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bdde19d4c72b8ef488de0d33b3071be6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -265,7 +265,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 462535239
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 7f2bc82247d88844c8831f403ec56456, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -310,7 +310,6 @@ GameObject:
   - component: {fileID: 6991250358692162115}
   - component: {fileID: 4327619683124721687}
   - component: {fileID: 8671895037030593}
-  - component: {fileID: 8678461056888987651}
   m_Layer: 0
   m_Name: MonsterAIBase
   m_TagString: Enemy
@@ -372,7 +371,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1
+  m_Mass: 2.4827468
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -490,8 +489,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 2
-  attackableBy: 01000000
   buffBar: {fileID: 9066374117514809255}
+  appearance: {fileID: 0}
   percentDamageTakenModifier: 0
   percentAttackDamageModifier: 0
   percentAttackSpeedModifier: 0
@@ -501,42 +500,6 @@ MonoBehaviour:
   currentHealth: 0
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   fighting: 0
---- !u!114 &8678461056888987651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4327619683124721673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5008605f241384499003b11caea5cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Mushhead
-  maxHealth: 100
-  moveSpeed: 200
-  alertedRange: 20
-  maxAggroRange: 30
-  targetPrefs: 
-  basicAttackRange: 2
-  timeBetweenAttacks: 6
-  numJabsInAttack: 3
-  basicAttackPrefab: {fileID: 0}
-  spawnPoint: {fileID: 0}
-  basicAttackDamage: 5
-  basicAttackProjectileSpeed: 0
-  basicAttackSfx: {fileID: 0}
-  tiredUI: {fileID: 2722386884447033395}
-  alertedMark: {fileID: 4905752790243752015}
-  patrolType: 0
-  idleTime: 0
-  maxWanderPoints: 0
-  minWanderPoints: 0
-  patrolRoute: []
-  basicAttackClip: {fileID: 7400000, guid: 00d36d60a5047844b9a108380b35294b, type: 2}
-  basicAttackClipSpeedMultiplier: 4
-  basicAttackHitTime: 1.1
 --- !u!1 &4905752790243752015
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +567,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103018291
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cb1801cb2e469604b910b9569bb257bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

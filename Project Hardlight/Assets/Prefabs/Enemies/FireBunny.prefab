@@ -36,12 +36,14 @@ MonoBehaviour:
   basicAttackClip: {fileID: 0}
   basicAttackClipSpeedMultiplier: 1
   basicAttackHitTime: 1
+  currentTarget: {fileID: 0}
+  moveState: 0
   enragedAttackSpeedMultiplier: 2
   enragedAttackDamageMultiplier: 3
   enragedMovementSpeedMultiplier: 4
-  enragedRangeMultiplier: 2
-  enragedColor: {r: 1, g: 0.6367924, b: 0.6367924, a: 0}
-  explosion: {fileID: 0}
+  enragedRangeMultiplier: 1.3
+  enragedColor: {r: 1, g: 0.6367924, b: 0.6367924, a: 1}
+  explosion: {fileID: 5502731912500680389}
   enraged: 0
 --- !u!1 &5502731912500680389
 GameObject:
@@ -138,12 +140,12 @@ PrefabInstance:
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.13
+      value: 6.03
       objectReference: {fileID: 0}
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.88
+      value: -16.21
       objectReference: {fileID: 0}
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -231,7 +233,8 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 10.84288
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8678461056888987651, guid: 865c44a6dbc375b45ac267e449976756, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 865c44a6dbc375b45ac267e449976756, type: 3}
 --- !u!1 &901593753338950744 stripped
 GameObject:

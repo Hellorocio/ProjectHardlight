@@ -41,6 +41,9 @@ public abstract class MonsterAI : MonoBehaviour
     public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
     [Space(10)]
 
+    [Header("donut touch")]
+    public GameObject currentTarget;
+    
     protected int numWanderPoints;
     protected int wanderPointCounter;
     protected Vector3 currentWanderPoint;
@@ -51,13 +54,11 @@ public abstract class MonsterAI : MonoBehaviour
     protected Animator animator;
     protected AudioSource audioSource;
     protected Vector3 startPos;
-    protected float currentMana;
     protected Coroutine attackCoroutine;
-    protected GameObject currentTarget;
     protected bool anyValidTargets;
     protected int patrolIndex = -1;
     public enum MoveState { stopped, moving, patrolling, interrupted, basicAttacking, advancedAttacking }
-    protected MoveState moveState = MoveState.stopped;
+    public MoveState moveState = MoveState.stopped;
     public enum PatrolType { none, looping, reverse, random }
     private bool justAlerted = true;
 
@@ -67,7 +68,6 @@ public abstract class MonsterAI : MonoBehaviour
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-        currentMana = 0;
         startPos = transform.position;
         
         
@@ -170,6 +170,10 @@ public abstract class MonsterAI : MonoBehaviour
         return fighters;
     }
 
+    public void SetMoveState(MoveState state)
+    {
+        moveState = state;
+    }
 
     /// <summary>
     /// Check the monster's current target and if it is not valid then check if there are any valid targets
@@ -181,7 +185,7 @@ public abstract class MonsterAI : MonoBehaviour
             startPos = transform.position;
             if (moveState == MoveState.moving)
             {
-                moveState = MoveState.stopped;
+                SetMoveState(MoveState.stopped);
             }
             SetCurrentTarget();
         }
@@ -204,7 +208,7 @@ public abstract class MonsterAI : MonoBehaviour
                 }
                 gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
-                moveState = MoveState.moving;
+                SetMoveState(MoveState.moving);
 
 
             }
@@ -219,7 +223,7 @@ public abstract class MonsterAI : MonoBehaviour
             //There is noone around to attack
             if (GetValidTargets().Count == 0)
             {
-                moveState = MoveState.stopped;
+                SetMoveState(MoveState.stopped);
 
 
             }
@@ -230,36 +234,6 @@ public abstract class MonsterAI : MonoBehaviour
             }
         }
 
-
-    }
-
-    /// <summary>
-    /// Checks if we are in attack range of the current target and if we arn't then we move closer
-    /// </summary>
-    protected void MoveToTarget()
-    {
-
-        if (IsValidTarget(currentTarget) && !InBasicRangeOfTarget(currentTarget.transform.position))
-        {
-            if (moveState != MoveState.moving)
-            {
-                animator.Play("Walk");
-
-            }
-            gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, moveSpeed / 100 * Time.deltaTime);
-            moveState = MoveState.moving;
-
-
-        }
-        else
-        {
-            if (moveState == MoveState.moving)
-            {
-                animator.Play("Idle");
-            }
-            moveState = MoveState.stopped;
-        }
 
     }
 
@@ -277,9 +251,8 @@ public abstract class MonsterAI : MonoBehaviour
                 animator.Play("Walk");
 
             }
-            //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
-            moveState = MoveState.patrolling;
+            SetMoveState(MoveState.patrolling);
 
 
         }
@@ -289,7 +262,7 @@ public abstract class MonsterAI : MonoBehaviour
             {
                 animator.Play("Idle");
             }
-            moveState = MoveState.stopped;
+            SetMoveState(MoveState.stopped);
             currentIdleTime = idleTime;
             numWanderPoints = Random.Range(minWanderPoints, maxWanderPoints);
             wanderPointCounter = 0;
@@ -308,7 +281,7 @@ public abstract class MonsterAI : MonoBehaviour
             }
             //Debug.Log("My loc = " + transform.position.ToString() + " | Pos loc = " + pos.ToString());
             transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed / 100 * Time.deltaTime);
-            moveState = MoveState.patrolling;
+            SetMoveState(MoveState.patrolling);
 
 
         }
@@ -318,7 +291,7 @@ public abstract class MonsterAI : MonoBehaviour
             {
                 animator.Play("Idle");
             }
-            moveState = MoveState.stopped;
+            SetMoveState(MoveState.stopped);
             currentIdleTime = idleTime;
             wanderPointCounter++;
             if (wanderPointCounter == numWanderPoints)
@@ -391,10 +364,9 @@ public abstract class MonsterAI : MonoBehaviour
     /// </summary>
     protected void StartBasicAttacking()
     {
-        Debug.Log("basic attacking");
         if (moveState != MoveState.basicAttacking)
         {
-            moveState = MoveState.basicAttacking;
+            SetMoveState(MoveState.basicAttacking);
             if (attackCoroutine == null)
             {
                 gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (currentTarget.transform.position.x < transform.position.x);
@@ -418,7 +390,7 @@ public abstract class MonsterAI : MonoBehaviour
             {
                 jabsDone = 0;
             }
-            moveState = MoveState.stopped;
+            SetMoveState(MoveState.stopped);
             attackCoroutine = null;
         }
     }
@@ -457,8 +429,8 @@ public abstract class MonsterAI : MonoBehaviour
     /// <returns></returns>
     public bool InBasicRangeOfTarget(Vector3 p)
     {
-        //Debug.Log(Vector2.Distance(transform.position, p).ToString() + " " + basicAttackStats.range);
-        return Vector2.Distance(transform.position, p) < basicAttackRange;
+        bool inRange = Vector2.Distance(transform.position, p) < basicAttackRange;
+        return inRange;
 
     }
 

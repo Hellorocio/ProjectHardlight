@@ -323,6 +323,7 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
 
+        
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
         if (!TutorialManager.Instance.tutorialEnabled)
         {
@@ -368,41 +369,6 @@ public class GameManager : Singleton<GameManager>
                 }
             }
             nodesToUnlock = null;
-            /*
-            if (TutorialManager.Instance.inTutorialBattle)
-            {
-                // Tutorial end of battle stuff
-                if (win)
-                {
-                    // Go to next cutscene
-                    TutorialManager.Instance.inTutorialBattle = false;
-                    StartCutscene("TaurinMeetsFriends");
-                }
-                else
-                {
-                    // Restart tutorial battle
-                    TutorialManager.Instance.usedAbility = false;
-                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialBattle);
-                    DialogueManager.Instance.StartDialogue(new TextAsset("I've been defeated by a mere slime )-: Maybe I should try harder."));
-                }
-            }
-            else if (TutorialManager.Instance.inMeetupBattle)
-            {
-                // Meetup end of battle
-                if (win)
-                {
-                    TutorialManager.Instance.inMeetupBattle	 = false;
-                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
-                    DialogueManager.Instance.StartDialogue(new TextAsset("We did it! Let's check out the rest of the forest."));
-                }
-                else
-                {
-                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterTutorialMultibattle);
-                    DialogueManager.Instance.StartDialogue(new TextAsset("Ow ow ow! Let's go heal up and try and get past these slimes again."));
-                }
-                
-            }
-            */
         }
         
     }

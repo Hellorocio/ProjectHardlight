@@ -14,7 +14,6 @@ public class IndividualSwarmerAI : MonsterAI
         animator = gameObject.GetComponentInChildren<Animator>();
         animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-        currentMana = 0;
         GetComponent<Attackable>().maxHealth = 20;
         maxHealth = 20;
     }

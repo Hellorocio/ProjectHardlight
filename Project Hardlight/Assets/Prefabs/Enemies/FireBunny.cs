@@ -22,6 +22,7 @@ public class FireBunny : MonsterAI
 
         if (anyValidTargets)
         {
+            
             // Enrage if attacking Vessel: Gain attack speed and movement speed
             if (!enraged && currentTarget.GetComponent<Fighter>() != null)
             {
@@ -78,7 +79,7 @@ public class FireBunny : MonsterAI
         basicAttackRange *= enragedRangeMultiplier;
         enraged = true;
 
-        GetComponent<Attackable>().appearance.color = enragedColor;
+        explosion.SetActive(true);
     }
 
     public void Unenrage()
@@ -91,6 +92,6 @@ public class FireBunny : MonsterAI
         basicAttackRange /= enragedRangeMultiplier;
         enraged = false;
 
-        GetComponent<Attackable>().appearance.color = Color.white;
+        explosion.SetActive(false);
     }
 }
