@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MageAoEBlast : Ability
 {
-
     [Header("Base Stats")]
     public float baseEffectRadius;
 
@@ -109,7 +108,6 @@ public class MageAoEBlast : Ability
                         }
                     }
                 }
-                
             }
 
             //display boom!
