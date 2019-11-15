@@ -7,6 +7,7 @@ public class VesselData : MonoBehaviour
     public Sprite appearance;
     public Sprite fullPortrait;
     public Sprite headshot;
+    public Color color;
 
     public string vesselName = "Tony Slimeslayer";
     public string title = "Basic Fighter";
