@@ -2,28 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface MonsterInterface
-{
-
-}
-
-public abstract class GenericMonsterAI : MonoBehaviour
-{
-    public int maxHealth;
-    protected bool startedLevel;
-
-    public virtual void LevelStart()
-    {
-        startedLevel = true;
-    }
-}
-
-public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
+public abstract class MonsterAI : MonoBehaviour
 {
     [Header("Basic Attributes")]
     public string characterName;
-    
-    public float maxMana;
+
+    public int maxHealth;
     public float moveSpeed;
     public float alertedRange;
     public float maxAggroRange;
@@ -39,8 +23,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
     public int basicAttackDamage;
     public float basicAttackProjectileSpeed;
     public AudioClip basicAttackSfx;
-    public GameObject tiredSteam;
-    public GameObject tiredTear;
+    public GameObject tiredUI;
     public GameObject alertedMark;
     [Space(10)]
 
@@ -91,7 +74,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
     void FixedUpdate()
     {
-        if (startedLevel)
+        if (GetComponent<Attackable>().fighting)
         {
             UpdateTarget();
             if (anyValidTargets)
@@ -446,8 +429,7 @@ public abstract class MonsterAI : GenericMonsterAI, MonsterInterface
 
     public void ShowTiredUI(bool s)
     {
-        tiredSteam.SetActive(s);
-        tiredTear.SetActive(s);
+        tiredUI.SetActive(s);
     }
 
     /// <summary>

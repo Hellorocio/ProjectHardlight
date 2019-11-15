@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a4e43cf0d482746aae5e231bd14969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   characterName: Flinging Slime
-  maxMana: 0
+  maxHealth: 100
   moveSpeed: 200
   alertedRange: 20
   maxAggroRange: 30
@@ -27,9 +26,8 @@ MonoBehaviour:
   basicAttackDamage: 2
   basicAttackProjectileSpeed: 0
   basicAttackSfx: {fileID: 0}
-  tiredSteam: {fileID: 1672557337096598214}
-  tiredTear: {fileID: 1954314917337377088}
-  alertedMark: {fileID: 7379610503448536899}
+  tiredUI: {fileID: 4954639877205638734}
+  alertedMark: {fileID: 2670928075489435186}
   patrolType: 0
   idleTime: 0
   maxWanderPoints: 0
@@ -40,8 +38,6 @@ MonoBehaviour:
   basicAttackHitTime: 1.1
   flingSpeed: 6
   damageMultiplier: 1.5
-  flyingSprite: {fileID: 21300000, guid: 4ebad71b1462d704292c7b48b28e616a, type: 3}
-  normalSprite: {fileID: 21300000, guid: 782baa7102c334d4780e807e05508bbc, type: 3}
 --- !u!1001 &1052626933926778627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,6 +105,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5732159179760604423, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -125,11 +126,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 782baa7102c334d4780e807e05508bbc,
         type: 3}
-    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
@@ -139,21 +135,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1052626933926778627}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1672557337096598214 stripped
+--- !u!1 &2670928075489435186 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1850329188090471877, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+  m_CorrespondingSourceObject: {fileID: 3137500893333457201, guid: 0eb6315c745d72348bd1eccc45dd24cf,
     type: 3}
   m_PrefabInstance: {fileID: 1052626933926778627}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1954314917337377088 stripped
+--- !u!1 &4954639877205638734 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1550559397691981379, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1052626933926778627}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7379610503448536899 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7562117968054480960, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+  m_CorrespondingSourceObject: {fileID: 5357528912700467533, guid: 0eb6315c745d72348bd1eccc45dd24cf,
     type: 3}
   m_PrefabInstance: {fileID: 1052626933926778627}
   m_PrefabAsset: {fileID: 0}

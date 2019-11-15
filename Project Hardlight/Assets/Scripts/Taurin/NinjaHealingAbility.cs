@@ -49,27 +49,6 @@ public class NinjaHealingAbility : Ability
     {
         if (Vector2.Distance(transform.position, selectedPosition) < GetRange())
         {
-            //do something different based on allight values
-            Soul soul = GetComponent<Soul>();
-            if (soul != null)
-            {
-                foreach (AllightAttribute allight in soul.allightAttributes)
-                {
-                    switch (allight.allightType)
-                    {
-                        case AllightType.SUNLIGHT:
-                            //remember to scale based on allight.baseValue
-                            break;
-                        case AllightType.MOONLIGHT:
-                            break;
-                        case AllightType.STARLIGHT:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            
             // Create projectile
             GameObject shuriken = Instantiate(ninjaProjecilePrefab);
             shuriken.transform.position = transform.position;

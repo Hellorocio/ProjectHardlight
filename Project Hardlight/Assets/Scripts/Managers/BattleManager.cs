@@ -271,7 +271,7 @@ public class BattleManager : Singleton<BattleManager>
                             clickedFighter = hitFighter.gameObject;
                             break;
                         }
-                        GenericMonsterAI monster = collider.gameObject.GetComponent<GenericMonsterAI>();
+                        MonsterAI monster = collider.gameObject.GetComponent<MonsterAI>();
 
                         if (monster != null)
                         {
@@ -878,21 +878,14 @@ public class BattleManager : Singleton<BattleManager>
         savedSelectedHero = null;
         savedMultiSelectedHeros = new List<Fighter>();
 
-        // call levelStart on enemies
-        foreach (FighterAttack f in enemyParent.GetComponentsInChildren<FighterAttack>())
+        foreach (Attackable enemy in enemyParent.GetComponentsInChildren<Attackable>())
         {
-            numEnemies++;
-            f.LevelStart();
-        }
-
-        foreach (MonsterAI f in enemyParent.GetComponentsInChildren<MonsterAI>())
-        {
-            if (f.transform.parent.GetComponent<SwarmMasterAI>() == null)
+            if (enemy.transform.parent.GetComponent<SwarmMasterAI>() == null)
             {
                 numEnemies++;
             }
-            
-            f.LevelStart();
+
+            enemy.fighting = true;
         }
 
         foreach (SwarmMasterAI f in enemyParent.GetComponentsInChildren<SwarmMasterAI>())

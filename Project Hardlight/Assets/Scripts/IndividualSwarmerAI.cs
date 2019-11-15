@@ -2,49 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IndividualSwarmerAI : GenericMonsterAI
+public class IndividualSwarmerAI : MonsterAI
 {
-    [Header("Basic Attributes")]
-    public string characterName;
-    //public float maxHealth;
-    public float maxMana;
-    public float moveSpeed;
-    public float alertedRange;
-    public float maxAggroRange;
-    public List<CombatInfo.TargetPreference> targetPrefs;
-    [Space(10)]
-
-    [Header("Basic Attack Stats")]
-    public float basicAttackRange;
-    public float timeBetweenAttacks;
-    public int numJabsInAttack;
-    public GameObject basicAttackPrefab;
-    public GameObject spawnPoint;
-    public int basicAttackDamage;
-    public float basicAttackProjectileSpeed;
-    public AudioClip basicAttackSfx;
-    [Space(10)]
-
-   
-
-    [Header("Animation Info")]
-    public AnimationClip basicAttackClip;
-    public float basicAttackClipSpeedMultiplier;
-    public float basicAttackHitTime; //How long into the animation before the hit should be displayed to the player
-    [Space(10)]
-
     [HideInInspector]
     public Vector3 swarmLoc;
     public bool isAttacking = false;
-    protected BattleManager battleManager;
-    protected float realBasicAttackHitTime;
-    protected Animator animator;
-    protected Color defaultColor;
-    protected Color hitColor;
-    protected float currentHealth;
-    protected float currentMana;
-    protected Coroutine attackCoroutine;
-    protected GameObject currentTarget;
 
     void Start()
     {
@@ -55,10 +17,6 @@ public class IndividualSwarmerAI : GenericMonsterAI
         currentMana = 0;
         GetComponent<Attackable>().maxHealth = 20;
         maxHealth = 20;
-        currentHealth = maxHealth;
-        //GetComponent<Attackable>().TakeDamage(1);
-        defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
-        hitColor = new Color(1f, .5235f, .6194f);
     }
 
 
@@ -110,7 +68,7 @@ public class IndividualSwarmerAI : GenericMonsterAI
     /// If the player has moved out of range before the damage is dealt then the coroutine is ended early
     /// </summary>
     /// <returns></returns>
-    public IEnumerator BasicAttack()
+    public override IEnumerator BasicAttack()
     {
 
         while (currentTarget != null && currentTarget.activeSelf && !InBasicRangeOfTarget(currentTarget.transform.position)){

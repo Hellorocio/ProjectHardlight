@@ -29,6 +29,8 @@ public class Attackable : MonoBehaviour
     public event HealthChanged OnHealthChanged;
     public event AttackableDeath OnAttackableDeath;
 
+    public bool fighting = false;
+
     //death event
     public delegate void AttackableDeath(Attackable attackable);
 
@@ -127,7 +129,7 @@ public class Attackable : MonoBehaviour
         }
         else if (team == CombatInfo.Team.Enemy)
         {
-            baseHealth = GetComponent<GenericMonsterAI>().maxHealth;
+            baseHealth = GetComponent<MonsterAI>().maxHealth;
         }
         else
         {
