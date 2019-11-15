@@ -391,6 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 2
   buffBar: {fileID: 4837351804049217089}
+  appearance: {fileID: 0}
   percentDamageTakenModifier: 0
   percentAttackDamageModifier: 0
   percentAttackSpeedModifier: 0
@@ -399,6 +400,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  fighting: 0
 --- !u!114 &4490933456396565498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,11 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4fccbd1d6fa064f85d66408cfc1af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 700
   characterName: Rock Golem
-  maxMana: 0
+  maxHealth: 500
   moveSpeed: 150
-  alertedRange: 12
+  alertedRange: 15
   maxAggroRange: 20
   targetPrefs: 
   basicAttackRange: 8
@@ -423,12 +424,11 @@ MonoBehaviour:
   numJabsInAttack: 1
   basicAttackPrefab: {fileID: 0}
   spawnPoint: {fileID: 0}
-  basicAttackDamage: 60
+  basicAttackDamage: 70
   basicAttackProjectileSpeed: 0
   basicAttackSfx: {fileID: 8300000, guid: bfd2b5ab29fdb66438589a9c5b516030, type: 3}
-  tiredSteam: {fileID: 5242236296555728221}
-  tiredTear: {fileID: 4965547593869596379}
-  alertedMark: {fileID: 4152196317428979928}
+  tiredUI: {fileID: 0}
+  alertedMark: {fileID: 0}
   patrolType: 1
   idleTime: 1
   maxWanderPoints: 2
@@ -437,6 +437,8 @@ MonoBehaviour:
   basicAttackClip: {fileID: 7400000, guid: b16492aa542e72b48b9be32dc2961282, type: 2}
   basicAttackClipSpeedMultiplier: 0.75
   basicAttackHitTime: 0.1
+  currentTarget: {fileID: 0}
+  moveState: 0
   attackZone: {fileID: 6409209769913782}
   crackedSprite: {fileID: 21300000, guid: 974907da60d43fe4eb98ddeba3d52e8b, type: 3}
   myFilter:
@@ -521,7 +523,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 462535239
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
     type: 3}
@@ -561,6 +563,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8886442979362926230}
     m_Modifications:
+    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_Name
+      value: AttackableUI
+      objectReference: {fileID: 0}
     - target: {fileID: 2478720113520355115, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -681,6 +688,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 8.389685
       objectReference: {fileID: 0}
+    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 8040634478984781631}
+    - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 8040634478984781631}
+    - target: {fileID: 8795824689268757160, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6588611549129167741, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -706,11 +728,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.47
       objectReference: {fileID: 0}
-    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_Name
-      value: AttackableUI
-      objectReference: {fileID: 0}
     - target: {fileID: 637234881732113341, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -721,11 +738,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.02
       objectReference: {fileID: 0}
-    - target: {fileID: 8795824689268757160, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9096776698671601437, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -736,11 +748,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: attackable
-      value: 
-      objectReference: {fileID: 8040634478984781631}
     - target: {fileID: 2685910105774176616, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -751,11 +758,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: attackable
-      value: 
-      objectReference: {fileID: 8040634478984781631}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 156dacb5b1de5cd4abc0856358410010, type: 3}
 --- !u!224 &7055088590296755547 stripped
@@ -776,21 +778,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcac162aa52662542bc69e5b150d3480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5242236296555728221 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 814783599494465325, guid: 156dacb5b1de5cd4abc0856358410010,
-    type: 3}
-  m_PrefabInstance: {fileID: 4867999216803482224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4965547593869596379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 533588889849765035, guid: 156dacb5b1de5cd4abc0856358410010,
-    type: 3}
-  m_PrefabInstance: {fileID: 4867999216803482224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4152196317428979928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8795824689268757160, guid: 156dacb5b1de5cd4abc0856358410010,
-    type: 3}
-  m_PrefabInstance: {fileID: 4867999216803482224}
-  m_PrefabAsset: {fileID: 0}
