@@ -13,6 +13,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public BattleConfig battleConfig;
     public bool allowDeselect = false;
+    public bool allowRightClickDrag = false;
 
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
@@ -713,23 +714,30 @@ public class BattleManager : Singleton<BattleManager>
             inputState = InputState.NothingSelected;
             if (multiSelectedHeros.Count == 0)
             {
-                // nothing was selected on drag, so reload previous selection (could be single or multiple vessels)
-                if (savedSelectedHero != null)
+                // nothing was selected on drag
+                if (allowDeselect)
                 {
-                    inputState = InputState.HeroSelected;
-                    SetSelectedHero(savedSelectedHero);
-                    savedSelectedHero = null;
+                    DeselectHero();
                 }
                 else
-                if (savedMultiSelectedHeros != null && savedMultiSelectedHeros.Count > 0)
                 {
-                    inputState = InputState.HeroSelected;
-                    for (int i = 0; i < savedMultiSelectedHeros.Count; i++)
+                    if (savedSelectedHero != null)
                     {
-                        multiSelectedHeros.Add(savedMultiSelectedHeros[i]);
-                        multiSelectedHeros[i].SetSelectedUI(true);
+                        inputState = InputState.HeroSelected;
+                        SetSelectedHero(savedSelectedHero);
+                        savedSelectedHero = null;
                     }
-                    savedMultiSelectedHeros.Clear();
+                    else
+                    if (savedMultiSelectedHeros != null && savedMultiSelectedHeros.Count > 0)
+                    {
+                        inputState = InputState.HeroSelected;
+                        for (int i = 0; i < savedMultiSelectedHeros.Count; i++)
+                        {
+                            multiSelectedHeros.Add(savedMultiSelectedHeros[i]);
+                            multiSelectedHeros[i].SetSelectedUI(true);
+                        }
+                        savedMultiSelectedHeros.Clear();
+                    }
                 }
             }
             else
@@ -762,7 +770,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         //print("select multiple");
         PointerEventData pointerData = data as PointerEventData;
-        if ((pointerData.button == PointerEventData.InputButton.Left || pointerData.button == PointerEventData.InputButton.Right) && GameManager.Instance.gameState == GameState.FIGHTING && 
+        if ((pointerData.button == PointerEventData.InputButton.Left || 
+            (allowRightClickDrag && pointerData.button == PointerEventData.InputButton.Right)) && 
+            GameManager.Instance.gameState == GameState.FIGHTING && 
             (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected || inputState == InputState.DraggingSelect))
         {
             // save currently selected vessels
