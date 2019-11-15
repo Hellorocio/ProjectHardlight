@@ -72,7 +72,7 @@ public abstract class MonsterAI : MonoBehaviour
         startPos = transform.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (GetComponent<Attackable>().fighting)
         {
@@ -206,8 +206,7 @@ public abstract class MonsterAI : MonoBehaviour
             }
             else
             {
-                
-                
+
                 SetCurrentTarget();
             }
         }

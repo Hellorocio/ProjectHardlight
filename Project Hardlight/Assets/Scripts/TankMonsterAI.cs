@@ -81,14 +81,11 @@ public class TankMonsterAI : MonsterAI
                     DoBasicAttack(collider.gameObject);
                 }
             }
-            //attackZone.transform.position = transform.position;
-            //attackZone.transform.rotation = defaultAttackZoneTransform.rotation;
             
             StartCoroutine(DisplayCracks());
             basicAttackClipSpeedMultiplier = tmp;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
             realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
-            //Debug.Log(basicAttackClip.length / basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
             yield return new WaitForSeconds(.75f);
             
         }
@@ -122,48 +119,8 @@ public class TankMonsterAI : MonsterAI
     /// </summary>
     public override void StopBasicAttacking()
     {
-        StopCoroutine(attackCoroutine);
+        base.StopBasicAttacking();
         attackZone.SetActive(false);
-        if (jabsDone >= numJabsInAttack)
-        {
-            jabsDone = 0;
-        }
-        moveState = MoveState.stopped;
-        attackCoroutine = null;
-    }
-
-    /// <summary>
-    /// Check the monster's current target and if it is not valid then check if there are any valid targets
-    /// </summary>
-    protected override void UpdateTarget()
-    {
-        if (!IsValidTarget(currentTarget)) // Needs to also check if there are multiple enemies in alerted dist
-        {
-            
-            if (moveState == MoveState.moving)
-            {
-                moveState = MoveState.stopped;
-            }
-            SetCurrentTarget();
-        }
-    }
-    /// <summary>
-    /// Returns a list of fighters that are non-null, active, and within this monster's aggro range
-    /// </summary>
-    /// <returns></returns>
-    protected override List<Attackable> GetValidTargets()
-    {
-        List<Attackable> fighters = new List<Attackable>();
-        Attackable[] enemyListTMP = attackParent.GetComponentsInChildren<Attackable>();
-        for (int i = 0; i < enemyListTMP.Length; i++)
-        {
-            if (IsValidTarget(enemyListTMP[i].gameObject) && InAlertedRange(enemyListTMP[i].transform.position) && InMaxAgroRange(enemyListTMP[i].transform.position))
-            {
-                fighters.Add(enemyListTMP[i]);
-            }
-        }
-        anyValidTargets = fighters.Count > 0;
-        return fighters;
     }
 
 
