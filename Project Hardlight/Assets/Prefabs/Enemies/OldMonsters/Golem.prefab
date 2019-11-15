@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317324162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.071502924, y: -0.38, z: -0.3959938}
-  m_LocalScale: {x: 0.16000001, y: 0.16000001, z: 0.2}
+  m_LocalPosition: {x: 0.055, y: -0.3, z: -0.3959938}
+  m_LocalScale: {x: 0.51855004, y: 0.51855004, z: 0.6481875}
   m_Children: []
   m_Father: {fileID: 952073211779320124}
   m_RootOrder: 1
@@ -160,9 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 7703914629110049797, guid: 200dbd8c82cde4940989a361e3edd21d,
     type: 3}
-  fighter: {fileID: 6417920846059879940}
-  gMeleeMonster: {fileID: 0}
-  gRangedMonster: {fileID: 0}
+  attackable: {fileID: 0}
 --- !u!1 &295596027026680896
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,14 +249,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858594fb98ed7d47b51e0c9e907bad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 2
   selectedUI: {fileID: 0}
   maxManaGlow: {fileID: 0}
   anim: {fileID: 1317324165}
+  attackable: {fileID: 0}
   soul: {fileID: 0}
-  buffBar: {fileID: 0}
+  manaFullSfx: {fileID: 0}
+  sunlight: 0
+  moonlight: 0
+  starlight: 0
   battleManager: {fileID: 0}
-  percentDamageTakenModifier: 0
 --- !u!114 &205179122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   title: 
   range: 0
   damage: 12
-  cooldown: 1
+  frequency: 1
   description: 
   sfx: {fileID: 0}
 --- !u!114 &8680636418704861795
@@ -290,6 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefs: 
+  allowAutoMovement: 0
+  autoMoveOnTarget: 1
   currentTarget: {fileID: 0}
   attack: {fileID: 0}
 --- !u!114 &7094492070759052052
@@ -304,8 +306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff74cf78921e854aa6dab608b4d88f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing: 0
+  moveState: 0
   followingMoveOrder: 0
+  sprite: {fileID: 0}
 --- !u!114 &-8435489496767234783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +323,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appearance: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
     type: 3}
+  fullPortrait: {fileID: 0}
+  headshot: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   vesselName: Tony Slimeslayer
   title: Basic Fighter
   description: 
@@ -327,6 +333,7 @@ MonoBehaviour:
   baseMana: 0
   baseAbility: 100
   baseMovementSpeed: 160
+  maxAggroRange: 25
   basicAttack: {fileID: 8680636418704861795}
   abilities: []
 --- !u!1 &4037550738124259913
@@ -419,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d024529edf78ab4d8977cd4c4d4f194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fighter: {fileID: 0}
+  attackable: {fileID: 0}
   healthText: {fileID: 7662144250416700133}
   healthBar: {fileID: 6990121416717888078}
 --- !u!1 &6626125585419159368
