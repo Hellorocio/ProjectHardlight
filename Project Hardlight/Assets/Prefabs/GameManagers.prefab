@@ -427,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneName: PebbleWoodsBefore
   bgImage: {fileID: 21300000, guid: 59343f9a804372843813c7bafcc6b208, type: 3}
-  cutsceneText: {fileID: 4900000, guid: c1bbb50009cbd4400a85602c2d7da4f2, type: 3}
+  cutsceneText: {fileID: 4900000, guid: 4f85873d90dbd0744a94e75f789eb93b, type: 3}
   onCutsceneEnd:
     m_PersistentCalls:
       m_Calls:
@@ -525,6 +525,7 @@ MonoBehaviour:
   - {fileID: 74228778366122047}
   tutorialPopups: []
   currentTutorialLevel: 0
+  testing: 0
   startGeneratingMana: 1
   tutorialEnabled: 1
   inTutorialBattle: 0
@@ -1098,9 +1099,14 @@ MonoBehaviour:
   cutsceneBG: {fileID: 3856169871120448524}
   battleManager: {fileID: 6321964353752999066}
   levelStartDialogue: {fileID: 4900000, guid: 5812fa6b4d00a02459ad32481283cb2c, type: 3}
+  fightingStartDialogue: {fileID: 0}
   fightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6, type: 3}
   defaultFightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6,
     type: 3}
+  fightingLoseDialogue: {fileID: 0}
+  defaultFightingLoseDialogue: {fileID: 4900000, guid: 64b405401f7153c41b15138d3f39d31f,
+    type: 3}
+  enterMapAfterBattleDialogue: {fileID: 0}
   firstCutsceneName: Exposition
   tutorialBattleSceneName: TutorialBattle
   loadoutTutorialDialogue: {fileID: 4900000, guid: 505facac16e011348b65f60bd9208842,
@@ -1468,6 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleConfig: {fileID: 11400000, guid: fb38ed8923fb4b0439b77f73a99f804c, type: 2}
   allowDeselect: 0
+  allowRightClickDrag: 0
   notEnoughManaUI: {fileID: 4401064958202629787}
   battleTargetPrefab: {fileID: 6391830390797983290, guid: 622767f1e00134f47b9e351508ab8c98,
     type: 3}

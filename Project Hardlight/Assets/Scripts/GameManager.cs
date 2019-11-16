@@ -13,9 +13,9 @@ public class GameManager : Singleton<GameManager>
     public GameState gameState;
 
     public List<Soul> souls;
-    
+
     public int requiredVessels = 3;
-    
+
     //[HideInInspector]
     public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
@@ -25,15 +25,25 @@ public class GameManager : Singleton<GameManager>
     public CutsceneLevel currentCutscene;
     public GameObject cutsceneUI;
     public GameObject cutsceneBG;
-    
+
     public GameObject battleManager;
 
     public TextAsset levelStartDialogue;
+
+    public TextAsset fightingStartDialogue;
+
     // You can change this in runtime
     public TextAsset fightingEndDialogue;
     // Pls don't change this in runtime
     public TextAsset defaultFightingEndDialogue;
-    
+
+    public TextAsset fightingLoseDialogue;
+    public TextAsset defaultFightingLoseDialogue;
+
+    // Plays in the map after a battle is won (set by mapManager)
+    public TextAsset enterMapAfterBattleDialogue;
+    private bool lastBattleWon;
+
     // Tutorial stuff
     public string firstCutsceneName;
     public string tutorialBattleSceneName;
@@ -58,7 +68,7 @@ public class GameManager : Singleton<GameManager>
     private Vector2 allightDropRange;
 
     public DialogueBoxController topDialogue;
-    
+
     public void Start()
     {
         // Destroy self if already exists
@@ -236,8 +246,6 @@ public class GameManager : Singleton<GameManager>
         battleManager.SetActive(true);
         BattleManager.Instance.Initialize();
 
-        gameState = GameState.PREBATTLE;
-
         //switch music
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         if (camera != null && UIMusic != null)
@@ -258,11 +266,11 @@ public class GameManager : Singleton<GameManager>
         {
             if (TutorialManager.Instance.inTutorialBattle)
             {
-                SayTop("Click to place each character before the battle. You can navigate the map with the scroll wheel and middle mouse.", 10);
+                //SayTop("Click to place each character before the battle. You can navigate the map with the scroll wheel and middle mouse.", 10);
             }
             else
             {
-                SayTop("Healer: Hey! You better put me out of harm's way or we're all in trouble.", 10);
+                //SayTop("Healer: Hey! You better put me out of harm's way or we're all in trouble.", 10);
             }
         }
         
@@ -275,11 +283,11 @@ public class GameManager : Singleton<GameManager>
         {
             if (TutorialManager.Instance.inTutorialBattle)
             {
-                SayTop("Characters start fighting automatically. They gain mana based on the damage they deal with basic attacks.", 10);
+                //SayTop("Characters start fighting automatically. They gain mana based on the damage they deal with basic attacks.", 10);
             }
             else if (TutorialManager.Instance.inMeetupBattle)
             {
-                SayTop("Mage: I have a powerful area attack called Light's Extosis, and Healer has Major Heal. You'll need them.", 10);
+                //SayTop("Mage: I have a powerful area attack called Light's Extosis, and Healer has Major Heal. You'll need them.", 10);
             }
         }
         
@@ -332,38 +340,61 @@ public class GameManager : Singleton<GameManager>
         {
             if (win)
             {
-                if (battleEndCutscene != "")
-                {
-                    DialogueManager.Instance.onDialogueEnd.AddListener(StartAfterBattleCutscene);
-                }
-                else
-                {
-                    DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
-                }
+                lastBattleWon = true;
 
                 if (fightingEndDialogue != null)
                 {
                     DialogueManager.Instance.StartDialogue(fightingEndDialogue);
+
+                    if (battleEndCutscene != "")
+                    {
+                        DialogueManager.Instance.onDialogueEnd.AddListener(StartAfterBattleCutscene);
+                    }
+                    else
+                    {
+                        DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
+                    }
                 }
                 else
                 {
-                    DialogueManager.Instance.StartDialogue(defaultFightingEndDialogue);
+                    if (battleEndCutscene != "")
+                    {
+                        StartAfterBattleCutscene();
+                    }
+                    else
+                    {
+                        EnterMap();
+                    }
                 }
-                
+
                 //unlock levels
                 UnlockLevels();
             }
             else
             {
+                lastBattleWon = false;
+
                 DialogueManager.Instance.onDialogueEnd.AddListener(EnterMap);
-                DialogueManager.Instance.StartDialogue(new TextAsset("Shoot! Let's try this again."));
+                if (fightingLoseDialogue != null)
+                {
+                    DialogueManager.Instance.StartDialogue(fightingLoseDialogue);
+                }
+                else
+                {
+                    DialogueManager.Instance.StartDialogue(defaultFightingLoseDialogue);
+                }
+
+                if (levelStatuses[currentLevel] == MapNode.NodeStatus.UNDISCOVERED)
+                {
+                    levelStatuses[currentLevel] = MapNode.NodeStatus.DISCOVERED;
+                }
             }
         }
         else
         {
             TutorialManager.Instance.FinishTutorialLevel();
 
-            //set all levels that the beaten level unlocks to undiscovered
+            // set all levels that the beaten level unlocks to undiscovered
             if (nodesToUnlock != null)
             {
                 for (int i = 0; i < nodesToUnlock.Length; i++)
@@ -421,9 +452,9 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     /// <param name="scene"></param>
     /// <param name="initBattle"></param>
-    public void LoadScene(string scene, bool initBattle = false)
+    public void LoadScene(string scene)
     {
-        StartCoroutine(LoadNewScene(scene, initBattle));
+        StartCoroutine(LoadNewScene(scene));
         //SceneManager.LoadScene(scene);
     }
 
@@ -441,6 +472,7 @@ public class GameManager : Singleton<GameManager>
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         Debug.Log("GameManager | Starting to load level " + levelName);
         sceneToLoad = levelName;
+        gameState = GameState.PREBATTLE;
 
         if (levelStartDialogue != null)
         {
@@ -449,7 +481,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            LoadScene(sceneToLoad, true);
+            LoadScene(sceneToLoad);
         }
     }
 
@@ -459,13 +491,12 @@ public class GameManager : Singleton<GameManager>
     private void LoadSceneAfterDialogue()
     {
         ClearUI();
-        gameState = GameState.CUTSCENE;
-        LoadScene(sceneToLoad, true);
+        LoadScene(sceneToLoad);
     }
 
     // Ref: https://blog.teamtreehouse.com/make-loading-screen-unity
     // TODO: Add loading screen stuff 
-    IEnumerator LoadNewScene(string scene, bool initBattle)
+    IEnumerator LoadNewScene(string scene)
     {
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
         AsyncOperation async = SceneManager.LoadSceneAsync(scene);
@@ -481,52 +512,24 @@ public class GameManager : Singleton<GameManager>
             TutorialManager.Instance.InitTutorial();
         }
         else
-        if (initBattle)
+        if (gameState == GameState.PREBATTLE)
         {
-            InitializeBattle();
+            SetCurrentCombatLevelDialogue();
+            if (fightingStartDialogue != null)
+            {
+                DialogueManager.Instance.onDialogueEnd.AddListener(InitializeBattle);
+                DialogueManager.Instance.StartDialogue(fightingStartDialogue);
+            }
+            else
+            {
+                InitializeBattle();
+            }            
         }
-    }
-
-    ////////// Tutorial fun
-    // Can pull out into TutorialManager if it gets too unwieldy
-    // Battle with just Taurin, basics
-    public void EnterTutorialBattle()
-    {
-        TutorialManager.Instance.inTutorialBattle = true;
-        
-        LoadScene(tutorialBattleSceneName, true);
-                
-        // Disable other vessels for now
-        VesselManager.Instance.SetAllVesselEnabledTo(false);
-        VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
-
-        // For tutorial, only need Taurin
-        requiredVessels = 1;
-
-        // Start loadout tutorial dialogue
-        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
-        DialogueManager.Instance.StartDialogue(loadoutTutorialDialogue);
-    }
-
-    // Battle with multiple units
-    public void EnterTutorialMultibattle()
-    {
-        TutorialManager.Instance.inMeetupBattle	= true;
-        
-        LoadScene("TutorialMeetupBattle", true);
-        
-        // Disable other vessels for now
-        VesselManager.Instance.SetAllVesselEnabledTo(false);
-        VesselManager.Instance.GetVesselEntryById("Taurin").enabled = true;
-        VesselManager.Instance.GetVesselEntryById("Mage").enabled = true;
-        VesselManager.Instance.GetVesselEntryById("Healer").enabled = true;
-
-        // For tutorial, only need Taurin
-        requiredVessels = 3;
-
-        // Start loadout tutorial dialogue- Removed for now to prevent repeat dialogue
-        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
-        DialogueManager.Instance.StartDialogue(tutorialMeetupPrebattleDialogue);
+        else
+        if (gameState == GameState.MAP && enterMapAfterBattleDialogue != null && lastBattleWon)
+        {
+            DialogueManager.Instance.StartDialogue(enterMapAfterBattleDialogue);
+        }
     }
 
     /// <summary>
@@ -536,7 +539,16 @@ public class GameManager : Singleton<GameManager>
     {
         currentLevel = current;
         nodesToUnlock = unlock;
-        battleEndCutscene = node.cutsceneAfter;
+
+        if (levelStatuses[currentLevel] != MapNode.NodeStatus.COMPLETED)
+        {
+            battleEndCutscene = node.cutsceneAfter;
+        }
+        else
+        {
+            battleEndCutscene = "";
+        }
+        
         allightDrops = node.allightDrops;
         allightDropRange = node.allightDropRange;
     }
@@ -544,7 +556,7 @@ public class GameManager : Singleton<GameManager>
     public void UnlockLevels ()
     {
         //set level that was just beaten to discovered
-        levelStatuses[currentLevel] = MapNode.NodeStatus.DISCOVERED;
+        levelStatuses[currentLevel] = MapNode.NodeStatus.COMPLETED;
 
         //set all levels that the beaten level unlocks to undiscovered
         if (nodesToUnlock != null)
@@ -623,4 +635,45 @@ public class GameManager : Singleton<GameManager>
         
         return newFragments;
     }
+
+    /// <summary>
+    /// This is all controlled by GameManager instead of CombatLevel in order to prevent race conditions between the level starting
+    /// and CombatLevel setting the variables for dialogue stuff. It's uglier this way but I think it'll work better
+    /// </summary>
+    public void SetCurrentCombatLevelDialogue ()
+    {
+        GameObject combatLevelObj = GameObject.Find("CombatLevel");
+        if (combatLevelObj != null)
+        {
+            CombatLevel combatLevel = combatLevelObj.GetComponent<CombatLevel>();
+            if (combatLevel != null)
+            {
+                if (levelStatuses[currentLevel] != MapNode.NodeStatus.COMPLETED)
+                {
+                    fightingEndDialogue = combatLevel.postBattleDialogue;
+
+                    if (fightingEndDialogue == null)
+                    {
+                        fightingEndDialogue = defaultFightingEndDialogue;
+                    }
+                }
+                else
+                {
+                    fightingEndDialogue = null;
+                }
+
+                if (levelStatuses[currentLevel] == MapNode.NodeStatus.UNDISCOVERED)
+                {
+                    fightingStartDialogue = combatLevel.preBattleDialogue;
+                }
+                else
+                {
+                    fightingStartDialogue = null;
+                }
+
+                fightingLoseDialogue = combatLevel.loseDialogue;
+            }
+        }
+    }
+
 }
