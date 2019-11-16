@@ -7,6 +7,9 @@ public class FlingingSlimeMonster : MonsterAI
 {
     [Space(10)] [Header("Fling Settings")] public float flingSpeed;
     public float damageMultiplier;
+    public float travelDist;
+    public float rotationOffset;
+    public float rotateAmt;
     
     [Header("donut touch")]
     public bool isFlying;
@@ -26,7 +29,7 @@ public class FlingingSlimeMonster : MonsterAI
         yield return new WaitForSeconds(.75f);
         targetPos = currentTarget.transform.position;
         targetPos.z = transform.position.z;
-        targetPos = transform.position + (targetPos - transform.position).normalized * (basicAttackRange + 1);
+        targetPos = transform.position + (targetPos - transform.position).normalized * (travelDist);
         isFlying = true;
         Color tmp = renderer.color;
         renderer.color = new Color(1, 0, 0);
@@ -34,13 +37,13 @@ public class FlingingSlimeMonster : MonsterAI
         animator.Play("Flying");
         if (targetPos.x < transform.position.x)
         {
-            renderer.transform.Rotate(new Vector3(0, 0, -12f));
+            renderer.transform.Rotate(new Vector3(0, 0, -rotationOffset));
         }
         else
         {
-            renderer.transform.Rotate(new Vector3(0, 0, 12f));
+            renderer.transform.Rotate(new Vector3(0, 0, rotationOffset));
         }
-
+        GetComponent<BoxCollider2D>().isTrigger = true;
         while (!InBodyRangeOfTarget(targetPos))
         {
             if (!isFlying)
@@ -57,17 +60,17 @@ public class FlingingSlimeMonster : MonsterAI
             //renderer.transform.rotation = new Quaternion(renderer.transform.rotation.x, renderer.transform.rotation.y, renderer.transform.rotation.z + flingSpeed * Time.deltaTime, renderer.transform.rotation.w);
             if (targetPos.x < transform.position.x)
             {
-                renderer.transform.Rotate(new Vector3(0, 0, .5f));
+                renderer.transform.Rotate(new Vector3(0, 0, rotateAmt));
             }
             else
             {
-                renderer.transform.Rotate(new Vector3(0, 0, -.5f));
+                renderer.transform.Rotate(new Vector3(0, 0, -rotateAmt));
             }
 
 
             yield return null;
         }
-
+        GetComponent<BoxCollider2D>().isTrigger = false;
         animator.Play("Postlaunch");
         isFlying = false;
         renderer.transform.rotation = new Quaternion(0, 0, 0, renderer.transform.rotation.w);
@@ -96,6 +99,7 @@ public class FlingingSlimeMonster : MonsterAI
                 float distTraveled = Vector3.Distance(startedAttackPos, transform.position);
                 basicAttackDamage = (int) (distTraveled * damageMultiplier) + 1;
                 DoBasicAttack(target.gameObject);
+
 
             }
         }
