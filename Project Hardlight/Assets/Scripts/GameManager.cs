@@ -591,6 +591,7 @@ public class GameManager : Singleton<GameManager>
             BattleManager.Instance.BattleOver(false);
             UIManager.Instance.postBattleUI.DisablePostBattleUI();
         }
+        BattleManager.Instance.checkAllowMovement = false;
 
         currentCutscene = null;
 
