@@ -639,7 +639,7 @@ public class BattleManager : Singleton<BattleManager>
                 break;
             }
             else
-            if (checkAllowMove && hit.gameObject.name == "AllowMove")
+            if (checkAllowMove && (hit.gameObject.name == "AllowMove" || hit.gameObject.name == "DropZone"))
             {
                 // Seems like we can allow click, but keep checking just in case there's a collision with the environment
                 allowClick = true;
