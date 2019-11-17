@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7993656966895726379}
   - component: {fileID: 7993656966895726380}
-  - component: {fileID: 7993656966895726381}
+  - component: {fileID: 1758799929103065345}
   m_Layer: 0
   m_Name: BigMossyRock
   m_TagString: Untagged
@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 25571329
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: db35534524b89ec48885e0ea6efce252, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &7993656966895726381
-EdgeCollider2D:
+--- !u!61 &1758799929103065345
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,16 +95,15 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 11.08, y: 5.84}
+    newSize: {x: 3.9, y: 2.37}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 11.08, y: 5.84}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -4.840955, y: -2.0895686}
-  - {x: -4.3185525, y: -0.683236}
-  - {x: -3.79593, y: 2.0704188}
-  - {x: -1.7979654, y: 2.7753582}
-  - {x: -0.24275003, y: 2.602685}
-  - {x: 1.0965241, y: 1.8174206}
-  - {x: 2.2713742, y: 0.49115872}
-  - {x: 5.347961, y: -2.0337944}
-  - {x: 3.7699704, y: -2.304811}
-  - {x: 0.66169065, y: -2.664088}
-  - {x: -4.888739, y: -2.0990763}
