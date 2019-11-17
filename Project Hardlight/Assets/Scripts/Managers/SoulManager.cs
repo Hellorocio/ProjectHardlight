@@ -54,6 +54,39 @@ public class SoulManager : Singleton<SoulManager>
         return soul;
     }
 
+    /// <summary>
+    /// Generates 3 souls with 3 different allight types and 4 different stat focus types (last allight is rng)
+    /// </summary>
+    /// <returns></returns>
+    public Soul[] GenerateDiverseSouls ()
+    {
+        Soul[] souls = new Soul[4];
+        for (int i = 0; i < 4; i++)
+        {
+            Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;
+            soul.appearance = soulAppearances[Random.Range(0, soulAppearances.Count)];
+
+            List<StatFocusType> statFocuses = new List<StatFocusType>();
+            statFocuses.Add((StatFocusType)i);
+            soul.statFocuses = statFocuses;
+
+            List<AllightAttribute> allightAttributes = new List<AllightAttribute>();            
+            if (i < 3)
+            {
+                allightAttributes.Add(new AllightAttribute((AllightType)i, oneAllightBaseValue));
+            }
+            else
+            {
+                allightAttributes = GetRandomAllightTypes();
+            }
+            soul.allightAttributes = allightAttributes;
+
+            souls[i] = soul;
+        }
+
+        return souls;
+    }
+
     private List<StatFocusType> GetRandomStatFocuses()
     {
         // Give random combo of stat focuses

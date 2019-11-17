@@ -104,7 +104,7 @@ public class GameManager : Singleton<GameManager>
     public void StartCampaign()
     {
         Debug.Log("GameManager | Starting Campaign");
-        GrantRandomSouls(3);
+        GetStarterSouls();
         StartCutscene(firstCutsceneName);
     }
 
@@ -162,14 +162,24 @@ public class GameManager : Singleton<GameManager>
     
     public void GrantRandomSouls(int qty)
     {
-        // Generate 3 random souls
+        // Generate random souls
         for (int i = 0; i < qty; i++)
         {
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
+        
+        LoadoutUI.Instance.CreateLoadout();
+    }
 
-        // TODO this duplicates things already in slots
+    public void GetStarterSouls()
+    {
+        Soul[] newSouls = SoulManager.Instance.GenerateDiverseSouls();
+        for (int i = 0; i < newSouls.Length; i++)
+        {
+            souls.Add(newSouls[i]);
+        }
+
         LoadoutUI.Instance.CreateLoadout();
     }
 
@@ -180,7 +190,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (souls.Count < 3)
         {
-            GrantRandomSouls(3);
+            GetStarterSouls();
         }
 
         /*
@@ -605,7 +615,7 @@ public class GameManager : Singleton<GameManager>
 
         if (souls.Count < 3)
         {
-            GrantRandomSouls(3);
+            GetStarterSouls();
         }
 
         EnterMap();
