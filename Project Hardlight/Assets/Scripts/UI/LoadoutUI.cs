@@ -77,7 +77,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
             }
         }
 
-        nameText.text = vesselData.vesselName + " " + vesselData.title;
+        nameText.text = vesselData.vesselName + " the " + vesselData.title;
         vesselImage.sprite = vesselData.appearance;
 
         string healthText = vesselData.baseHealth.ToString();

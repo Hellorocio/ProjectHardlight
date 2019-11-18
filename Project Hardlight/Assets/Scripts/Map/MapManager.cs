@@ -14,7 +14,7 @@ public class MapManager : MonoBehaviour
 
     //colors for nodes (replace with images?)
     public Color locked;
-    public Color discoveredBattle;
+    public Color completedBattle;
     public Color undiscoveredBattle;
     public Color hub;
     public Color boss;
@@ -127,7 +127,7 @@ public class MapManager : MonoBehaviour
     /// <returns></returns>
     public Color GetNodeAppearance (MapNode.NodeStatus status, MapNode.NodeType type)
     {
-        if (status == MapNode.NodeStatus.UNDISCOVERED)
+        if (status == MapNode.NodeStatus.UNDISCOVERED || status == MapNode.NodeStatus.DISCOVERED)
         {
             if (type == MapNode.NodeType.BATTLE || type == MapNode.NodeType.TUTORIAL)
             {
@@ -144,7 +144,7 @@ public class MapManager : MonoBehaviour
                 return hub;
             }
         }
-        else if (status == MapNode.NodeStatus.DISCOVERED)
+        else if (status == MapNode.NodeStatus.COMPLETED)
         {
             if (type == MapNode.NodeType.HUB)
             {
@@ -152,7 +152,7 @@ public class MapManager : MonoBehaviour
             }
             else
             {
-                return discoveredBattle;
+                return completedBattle;
             }
         }
 
@@ -251,10 +251,25 @@ public class MapManager : MonoBehaviour
         Debug.Log("vessels");
         GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
 
-        GameManager.Instance.levelStartDialogue = currentNode.dialogueBefore;
-        GameManager.Instance.fightingEndDialogue = currentNode.dialogueAfter;
+        if (currentNode.status == MapNode.NodeStatus.UNDISCOVERED)
+        {
+            GameManager.Instance.levelStartDialogue = currentNode.dialogueBefore;
+        }
+        else
+        {
+            GameManager.Instance.levelStartDialogue = null;
+        }
 
-        if (currentNode.cutsceneBefore != "")
+        if (currentNode.status != MapNode.NodeStatus.COMPLETED)
+        {
+            GameManager.Instance.enterMapAfterBattleDialogue = currentNode.dialogueAfter;
+        }
+        else
+        {
+            GameManager.Instance.enterMapAfterBattleDialogue = null;
+        }
+
+        if (currentNode.cutsceneBefore != "" && currentNode.status == MapNode.NodeStatus.UNDISCOVERED)
         {
             GameManager.Instance.levelStartDialogue = null; // Right now we don't allow both dialogue and cutscenes before battle, because that causes problems
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);

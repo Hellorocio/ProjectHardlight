@@ -427,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneName: PebbleWoodsBefore
   bgImage: {fileID: 21300000, guid: 59343f9a804372843813c7bafcc6b208, type: 3}
-  cutsceneText: {fileID: 4900000, guid: c1bbb50009cbd4400a85602c2d7da4f2, type: 3}
+  cutsceneText: {fileID: 4900000, guid: 4f85873d90dbd0744a94e75f789eb93b, type: 3}
   onCutsceneEnd:
     m_PersistentCalls:
       m_Calls:
@@ -525,6 +525,7 @@ MonoBehaviour:
   - {fileID: 74228778366122047}
   tutorialPopups: []
   currentTutorialLevel: 0
+  testing: 0
   startGeneratingMana: 1
   tutorialEnabled: 1
   inTutorialBattle: 0
@@ -548,30 +549,33 @@ MonoBehaviour:
   tutorialSteps:
   - name: SelectionTutorial
     dialogue: {fileID: 4900000, guid: 2bfc805dae27a5e4a849d8a773072ea5, type: 3}
-    popupText: Select a hero by clicking on them
+    popupText: Select a hero by clicking on them.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: StartDialogueTrigger
     endPopupTrigger: 2
     endTriggerParam: 0
     nextTutorialPopup: MoveTutorial
   - name: MoveTutorial
     dialogue: {fileID: 0}
-    popupText: Move a selected hero by right clicking on a location
+    popupText: Move a selected hero by right clicking on a location.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: MovementFinishTrigger
     endPopupTrigger: 0
     endTriggerParam: 0
     nextTutorialPopup: 
   - name: ZoomTutorial
     dialogue: {fileID: 4900000, guid: 69c3fdcaadf84804b9ad95344071c1b4, type: 3}
-    popupText: Zoom out by scrolling the middle mouse button
+    popupText: Zoom out by scrolling the middle mouse button.
     pauseOnPopup: 0
     disableMovementOnPopup: 1
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 3
     endTriggerParam: 0
@@ -579,51 +583,56 @@ MonoBehaviour:
   - name: PanTutorial
     dialogue: {fileID: 0}
     popupText: Pan the camera using the arrow keys or clicking and dragging with the
-      middle mouse button
+      middle mouse button.
     pauseOnPopup: 0
     disableMovementOnPopup: 1
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: PanTutorialArrow
     endPopupTrigger: 11
     endTriggerParam: 0
     nextTutorialPopup: 
   - name: MoveNextAreaTutorial
     dialogue: {fileID: 0}
-    popupText: Move your fighter to the indicated spot
+    popupText: Move your fighter to the indicated spot.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: MoveNextAreaTrigger
     endPopupTrigger: 0
     endTriggerParam: 0
     nextTutorialPopup: 
   - name: MonsterInfo
     dialogue: {fileID: 4900000, guid: 486d05910e45e4645b71790a2eb4a379, type: 3}
-    popupText: When this monster sees you, it will begin attacking you
-    pauseOnPopup: 0
+    popupText: When this monster sees you, it will begin attacking you.
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 12
     endTriggerParam: 0
     nextTutorialPopup: SelectionTutorial2
   - name: SelectionTutorial2
     dialogue: {fileID: 0}
-    popupText: Select your fighter
-    pauseOnPopup: 0
+    popupText: Select your fighter.
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: SelectHeroAgainArrow
     endPopupTrigger: 2
     endTriggerParam: 0
     nextTutorialPopup: TargetTutorial
   - name: TargetTutorial
     dialogue: {fileID: 0}
-    popupText: Right click the monster to select it as a target
-    pauseOnPopup: 0
+    popupText: Right click the monster to select it as a target.
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 1
-    activateObjectsParent: 
+    keepObjectsActivated: 0
+    activateObjectsParent: SelectEnemy1Arrow
     endPopupTrigger: 5
     endTriggerParam: 0
     nextTutorialPopup: BasicAttackTutorial
@@ -634,26 +643,29 @@ MonoBehaviour:
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    keepObjectsActivated: 0
+    activateObjectsParent: DefeatFirstMonster
     endPopupTrigger: 8
     endTriggerParam: 0
     nextTutorialPopup: FirstBattleOver
   - name: FirstBattleOver
     dialogue: {fileID: 4900000, guid: 069d51ce818117e4b8473858fa0dd338, type: 3}
-    popupText: Investigate the next area
+    popupText: Investigate the next area.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: SecondPanArrow
     endPopupTrigger: 11
     endTriggerParam: 0
     nextTutorialPopup: 
   - name: Movement2
     dialogue: {fileID: 0}
-    popupText: Move your fighter to the next area
+    popupText: Move your fighter to the next area.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Movement2Trigger
     endPopupTrigger: 0
     endTriggerParam: 0
@@ -665,6 +677,7 @@ MonoBehaviour:
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -676,6 +689,7 @@ MonoBehaviour:
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability1Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -683,10 +697,11 @@ MonoBehaviour:
   - name: LearnAbility2
     dialogue: {fileID: 0}
     popupText: This is Merrha's Bastion of the Mountain ability. It increases the
-      defense of heros that you place it on
+      defense of heros that you place it on.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability2Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -698,30 +713,44 @@ MonoBehaviour:
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 13
     endTriggerParam: 0
     nextTutorialPopup: TargetAbility
   - name: TargetAbility
     dialogue: {fileID: 0}
-    popupText: Click where you want the ability to be cast
+    popupText: Click where you want the ability to be cast.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 10
     endTriggerParam: 0
-    nextTutorialPopup: 
+    nextTutorialPopup: DefeatMonsterPrompt
   - name: TargetMonster2
     dialogue: {fileID: 0}
-    popupText: Right click the monster to select it as a target
+    popupText: Right click the monster to select it as a target.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    keepObjectsActivated: 0
+    activateObjectsParent: SelectEnemy2Arrow
     endPopupTrigger: 5
     endTriggerParam: 0
     nextTutorialPopup: LearnAbility1
+  - name: DefeatMonsterPrompt
+    dialogue: {fileID: 0}
+    popupText: Defeat the monster.
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    keepObjectsActivated: 0
+    activateObjectsParent: 
+    endPopupTrigger: 15
+    endTriggerParam: 0
+    nextTutorialPopup: 
 --- !u!114 &74228778366122047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,31 +767,33 @@ MonoBehaviour:
   tutorialSteps:
   - name: StartLevel
     dialogue: {fileID: 4900000, guid: c7150f77da1617144920727c0c4a3294, type: 3}
-    popupText: Zoom out and pan around to find out what is happening
-    pauseOnPopup: 0
+    popupText: Select Merrha.
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: SeesTaurin
-    endPopupTrigger: 0
+    keepObjectsActivated: 0
+    activateObjectsParent: SelectHeroStart
+    endPopupTrigger: 2
     endTriggerParam: 0
-    nextTutorialPopup: 
+    nextTutorialPopup: FindTaurin
   - name: SeesTaurin
     dialogue: {fileID: 4900000, guid: 9155beabc9a45dd40aa1fc99e2973ae1, type: 3}
-    popupText: To select another character, click on them, or use hot keys 1 and 2.
-      Select Taurin now
+    popupText: Select Taurin.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 1
-    activateObjectsParent: 
+    keepObjectsActivated: 0
+    activateObjectsParent: SelectTaurin
     endPopupTrigger: 2
     endTriggerParam: 0
     nextTutorialPopup: TaurinBasicAttack
   - name: TaurinBasicAttack
     dialogue: {fileID: 0}
-    popupText: Taurin's basic attack is melee, but he attacks quickly
+    popupText: Taurin's basic attack is melee, but he attacks quickly.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -770,10 +801,11 @@ MonoBehaviour:
   - name: TaruinAbility1
     dialogue: {fileID: 0}
     popupText: Taurin has two abilites. His first ability is Jump Jutsu, which teleports
-      him to to targetted enemy and makes him temporarily invincible
+      him to to targetted enemy and makes him temporarily invincible.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability1Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -781,30 +813,33 @@ MonoBehaviour:
   - name: TaurinAbility2
     dialogue: {fileID: 0}
     popupText: Taurin's second ability is Healing Jutsu, which is aimed at enemies
-      and heals Taurin if it hits
+      and heals Taurin if it hits.
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability2Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
     nextTutorialPopup: TargetTaurinAbility
   - name: TaurinCastAbility
     dialogue: {fileID: 0}
-    popupText: Click on a monster to choose a target for the ability
+    popupText: Click on a monster to choose a target for the ability.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 10
     endTriggerParam: 0
     nextTutorialPopup: BeforeFirstFight
   - name: BeforeFirstFight
     dialogue: {fileID: 4900000, guid: f7625182218b64c378394e7f269d205b, type: 3}
-    popupText: Defeat the enemies
+    popupText: Defeat the enemies.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 8
     endTriggerParam: 2
@@ -812,29 +847,32 @@ MonoBehaviour:
   - name: AfterFirstFight
     dialogue: {fileID: 4900000, guid: 0e16efa87db8b4f0f9e430b3f18d7f1a, type: 3}
     popupText: Taurin has joined the party!
-    pauseOnPopup: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 12
     endTriggerParam: 0
     nextTutorialPopup: ClickAndDrag
   - name: ClickAndDrag
     dialogue: {fileID: 0}
-    popupText: Click and drag to select multiple heros
+    popupText: Click and drag to select multiple heros.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
-    activateObjectsParent: 
+    keepObjectsActivated: 0
+    activateObjectsParent: ClickAndDragBarrier
     endPopupTrigger: 14
     endTriggerParam: 0
     nextTutorialPopup: LookForNero
   - name: LookForNero
     dialogue: {fileID: 0}
-    popupText: Find Taurin's friend
+    popupText: Find Taurin's friend.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: SeesNero
     endPopupTrigger: 0
     endTriggerParam: 0
@@ -842,9 +880,10 @@ MonoBehaviour:
   - name: SeesNero
     dialogue: {fileID: 4900000, guid: 893c0c97f16aa4d4d99cb7029a268632, type: 3}
     popupText: Nero has joined the party!
-    pauseOnPopup: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -852,10 +891,11 @@ MonoBehaviour:
   - name: NeroAbility1
     dialogue: {fileID: 0}
     popupText: Nero also has two abilities. Her first ability is called Light's Extosis
-      and it harms multiple enemies in a small range
+      and it harms multiple enemies in a small range.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability3Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -863,10 +903,11 @@ MonoBehaviour:
   - name: NeroAbility2
     dialogue: {fileID: 0}
     popupText: Nero's second ability is Light Prison, which harms one enemy for a
-      large amount of damage
+      large amount of damage.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: Ability4Arrow
     endPopupTrigger: 12
     endTriggerParam: 0
@@ -877,30 +918,44 @@ MonoBehaviour:
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 10
     endTriggerParam: 0
     nextTutorialPopup: BeforeLastFight
   - name: BeforeLastFight
     dialogue: {fileID: 4900000, guid: 037ddaafeec1a21469c7774218f082ed, type: 3}
-    popupText: Defeat all the monsters
+    popupText: Defeat all the monsters.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
-    endPopupTrigger: 0
+    endPopupTrigger: 15
     endTriggerParam: 0
     nextTutorialPopup: 
   - name: TargetTaurinAbility
     dialogue: {fileID: 0}
-    popupText: Choose one of Taurin's abilities to cast right now
+    popupText: Choose one of Taurin's abilities to cast right now.
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
+    keepObjectsActivated: 0
     activateObjectsParent: 
     endPopupTrigger: 13
     endTriggerParam: 0
     nextTutorialPopup: TaurinCastAbility
+  - name: FindTaurin
+    dialogue: {fileID: 0}
+    popupText: Zoom out and pan around to find out what is happening.
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    keepObjectsActivated: 0
+    activateObjectsParent: SeesTaurin
+    endPopupTrigger: 0
+    endTriggerParam: 0
+    nextTutorialPopup: 
 --- !u!1 &1171275168379345570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,9 +1153,14 @@ MonoBehaviour:
   cutsceneBG: {fileID: 3856169871120448524}
   battleManager: {fileID: 6321964353752999066}
   levelStartDialogue: {fileID: 4900000, guid: 5812fa6b4d00a02459ad32481283cb2c, type: 3}
+  fightingStartDialogue: {fileID: 0}
   fightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6, type: 3}
   defaultFightingEndDialogue: {fileID: 4900000, guid: db999cc23e374f73a3700012c76393c6,
     type: 3}
+  fightingLoseDialogue: {fileID: 0}
+  defaultFightingLoseDialogue: {fileID: 4900000, guid: 64b405401f7153c41b15138d3f39d31f,
+    type: 3}
+  enterMapAfterBattleDialogue: {fileID: 0}
   firstCutsceneName: Exposition
   tutorialBattleSceneName: TutorialBattle
   loadoutTutorialDialogue: {fileID: 4900000, guid: 505facac16e011348b65f60bd9208842,
@@ -1468,6 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleConfig: {fileID: 11400000, guid: fb38ed8923fb4b0439b77f73a99f804c, type: 2}
   allowDeselect: 0
+  allowRightClickDrag: 0
   notEnoughManaUI: {fileID: 4401064958202629787}
   battleTargetPrefab: {fileID: 6391830390797983290, guid: 622767f1e00134f47b9e351508ab8c98,
     type: 3}
@@ -1485,7 +1546,8 @@ MonoBehaviour:
   inputState: 0
   numEnemies: 0
   numHeros: 0
-  sizingFactor: 0.0017
+  checkAllowMovement: 0
+  sizingFactor: 0.0015
   onHeroSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1877,6 +1939,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_margin.y
+      value: 15.017573
+      objectReference: {fileID: 0}
+    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2214,6 +2284,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4401064956470136694}
+    - target: {fileID: 9001829539300122412, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetStarterSouls
+      objectReference: {fileID: 0}
+    - target: {fileID: 9001829539300122412, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9208103281080054513, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target

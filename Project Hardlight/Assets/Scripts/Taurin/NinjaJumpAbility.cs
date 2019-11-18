@@ -53,8 +53,8 @@ public class NinjaJumpAbility : Ability
                 }
 
                 //teleport ninja (play poof of smoke anim)
-                Vector3 newPos = selectedAttackable.transform.position;
-                newPos.x -= 0.9f;
+                Vector3 newPos = selectedAttackable.transform.position - ((selectedAttackable.transform.position - transform.position).normalized);
+                //newPos.x -= 0.9f;
                 transform.position = newPos;
 
                 //set ninja's target to the fighter it teleported to

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.Events;
 
-public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON, USE_ABILITY, SELECT_ALL }
+public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON, USE_ABILITY, SELECT_ALL, BATTLE_OVER }
 
 // Keep track of state and things related to the tutorial, like events
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
@@ -48,6 +48,7 @@ public class TutorialManager : Singleton<TutorialManager>
     public void InitTutorial()
     {
         tutorialPopups = tutorialLevels[currentTutorialLevel].tutorialSteps;
+        currentTutorialIndex = -1;
 
         // move marrha
         GameObject moveLoc = GameObject.Find("StartMoveLoc");
@@ -214,6 +215,9 @@ public class TutorialManager : Singleton<TutorialManager>
                 case PopupTrigger.SELECT_ALL:
                     BattleManager.Instance.onAllHerosSelected.AddListener(CompleteTutorialStep);
                     break;
+                case PopupTrigger.MOVEMENT:
+                    BattleManager.Instance.checkAllowMovement = true;
+                    break;
                 default:
                     break;
             }
@@ -226,15 +230,19 @@ public class TutorialManager : Singleton<TutorialManager>
     public void CompleteTutorialStep ()
     {
         BattleManager.Instance.onMonsterDeath.RemoveAllListeners();
+        BattleManager.Instance.checkAllowMovement = false;
         //print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
         if (currentTutorialIndex != -1)
         {
             int index = currentTutorialIndex;
 
             GameManager.Instance.HideTutorialPopup();
-
+            
             // deactivate objects
-            SetPopupActivateObjects(currentTutorialIndex, false);
+            if (!tutorialPopups[currentTutorialIndex].keepObjectsActivated)
+            {
+                SetPopupActivateObjects(currentTutorialIndex, false);
+            }
 
             // start battle
             if (tutorialPopups[currentTutorialIndex].startBattle)
@@ -291,15 +299,9 @@ public class TutorialManager : Singleton<TutorialManager>
             GameObject activateObj = GameObject.Find(tutorialPopups[popupIndex].activateObjectsParent);
             if (activateObj != null)
             {
-                foreach (SpriteRenderer spriteRenderer in activateObj.GetComponentsInChildren<SpriteRenderer>())
+                for (int i = 0; i < activateObj.transform.childCount; i++)
                 {
-                    //print("Setting " + spriteRenderer.gameObject + ", child of " + spriteRenderer.transform.parent.gameObject.name + " to active = " + activate);
-                    spriteRenderer.enabled = activate;
-                }
-
-                foreach (Image image in activateObj.GetComponentsInChildren<Image>())
-                {
-                    image.enabled = activate;
+                    activateObj.transform.GetChild(i).gameObject.SetActive(activate);
                 }
             }
         }
@@ -401,6 +403,7 @@ public struct TutorialPopupData
     public bool pauseOnPopup;
     public bool disableMovementOnPopup;
     public bool startBattle;
+    public bool keepObjectsActivated;
     public string activateObjectsParent; // name of the objects that need their sprite renderers activated
     public PopupTrigger endPopupTrigger;
     public int endTriggerParam;

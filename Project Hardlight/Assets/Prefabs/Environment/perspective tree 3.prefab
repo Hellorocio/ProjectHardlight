@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5847690086253170475}
   - component: {fileID: 5851070363063933492}
-  - component: {fileID: 6497473044142140919}
+  - component: {fileID: 3303276144294631792}
   m_Layer: 0
   m_Name: perspective tree 3
   m_TagString: Untagged
@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 25571329
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 93991b969a870f3498a17644af422ec2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &6497473044142140919
-EdgeCollider2D:
+--- !u!61 &3303276144294631792
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,20 +95,15 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.15, y: 15.7}
+    newSize: {x: 15.15, y: 15.7}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15.15, y: 15.7}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: 1.1610413, y: -7.392912}
-  - {x: -2.8837204, y: -6.6975117}
-  - {x: -1.9916916, y: -3.866434}
-  - {x: -3.6422348, y: -3.4029388}
-  - {x: -7.300644, y: -0.3731537}
-  - {x: -6.4308167, y: 3.645506}
-  - {x: -4.2190933, y: 6.2524796}
-  - {x: 1.3759518, y: 7.448883}
-  - {x: 4.7443295, y: 6.4740276}
-  - {x: 6.5476704, y: 3.8629723}
-  - {x: 6.9655037, y: 0.5962086}
-  - {x: 4.9385357, y: -3.1715393}
-  - {x: 2.8618336, y: -3.694687}
-  - {x: 4.1089344, y: -6.565943}
-  - {x: 0.9525204, y: -7.181692}

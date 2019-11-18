@@ -7,8 +7,8 @@ public class MapNode : MonoBehaviour
 {
     public enum NodeType { BATTLE, HUB, BOSS, TUTORIAL }
 
-    //LOCKED- can't go to, UNDISCOVERED- can go to, haven't beaten yet, DISCOVERED- can go to, have beaten already 
-    public enum NodeStatus { LOCKED, UNDISCOVERED, DISCOVERED }
+    //LOCKED- can't go to, UNDISCOVERED- can go to, haven't beaten yet, DISCOVERED- can go to, have attempted at least once, but haven't beaten yet, COMPLETED- can go to, have beaten
+    public enum NodeStatus { LOCKED, UNDISCOVERED, DISCOVERED, COMPLETED }
 
     public enum Difficulty { NONE, EASY, MEDIUM, HARD }
 
@@ -64,11 +64,11 @@ public class MapNode : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets paths from discovered nodes
+    /// Sets paths from completed nodes
     /// </summary>
     public void SetPaths ()
     {
-        if (status == NodeStatus.DISCOVERED)
+        if (status == NodeStatus.COMPLETED)
         {
             for (int i = 0; i < unlockNodes.Length; i++)
             {
@@ -81,7 +81,7 @@ public class MapNode : MonoBehaviour
                 {
                     mapPaths[i].ShowDottedLine();
                 }
-                else if (unlockNodes[i].status == NodeStatus.DISCOVERED)
+                else if (unlockNodes[i].status == NodeStatus.DISCOVERED || unlockNodes[i].status == NodeStatus.COMPLETED)
                 {
                     mapPaths[i].ShowSolidLine();
                 }

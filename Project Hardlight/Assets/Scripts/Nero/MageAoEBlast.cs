@@ -33,7 +33,7 @@ public class MageAoEBlast : Ability
     // Prefab instances
     public GameObject rangeIndicator;
     public GameObject radiusIndicator;
-    public GameObject pointRef;
+    //public GameObject pointRef;
 
     private bool targeting;
    
@@ -103,7 +103,9 @@ public class MageAoEBlast : Ability
                             Vector2 knockbackVector = attackable.transform.position - selectedPosition;
                             knockbackVector.Normalize();
                             knockbackVector *= starlight*knockbackScale;
-                            attackable.GetComponent<Rigidbody2D>().AddForce(knockbackVector, ForceMode2D.Impulse);
+                            // Knockback
+                            attackable.GetComponent<Rigidbody2D>().velocity = knockbackVector;
+                            // To stop the knockback
                             attackable.AddBuff(knockbackBuff);
                         }
                     }
@@ -140,8 +142,8 @@ public class MageAoEBlast : Ability
             Vector3 rangePoint = Vector3.MoveTowards(transform.position, selectedPosition, GetRange());
             float moveDist = Vector3.Distance(rangePoint, selectedPosition);
             Vector3 InRangePoint = Vector3.MoveTowards(transform.position, selectedPosition, moveDist);
-            GameObject refObj = Instantiate(pointRef);
-            refObj.transform.position = rangePoint;
+            //GameObject refObj = Instantiate(pointRef);
+            //refObj.transform.position = rangePoint;
             GameObject newMoveLoc = Instantiate(GameObject.Find("BattleManager").GetComponent<BattleManager>().moveLoc);
             newMoveLoc.SetActive(true);
             newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);

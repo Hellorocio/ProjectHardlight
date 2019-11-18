@@ -52,11 +52,13 @@ public class BattleManager : Singleton<BattleManager>
    
     public int numEnemies;
     public int numHeros;
+    
+    public bool checkAllowMovement; // used by Tutorial to make movement only allowed in clickable zones
 
     // draggable box params
     private float startX;
     private float startY;
-    public float sizingFactor = 0.01f;
+    public float sizingFactor = 0.0015f;
 
     // saved during drag in case it fails
     private Fighter savedSelectedHero;
@@ -592,7 +594,7 @@ public class BattleManager : Singleton<BattleManager>
                     DeselectHero();
                 }
             }
-            else if (inputState == InputState.HeroSelected && pointerData.button == PointerEventData.InputButton.Right)
+            else if (inputState == InputState.HeroSelected && pointerData.button == PointerEventData.InputButton.Right && AllowClick(Input.mousePosition, checkAllowMovement))
             {
                 // select new target for vessel(s)
                 bool foundEnemy = SetVesselTarget();
@@ -616,6 +618,34 @@ public class BattleManager : Singleton<BattleManager>
                 }
             }
         }
+    }
+
+    /// <summary>
+    ///  Checks we're allowed to click on the given pos
+    ///  Clicks are not allowed on objects in the enviornment sprite render layer
+    ///  If checking for allowMove, clicks are only allowed in areas with that collider
+    /// </summary>
+    /// <returns>Returns true if movement is allowed in the area that was clicked</returns>
+    public bool AllowClick (Vector3 pos, bool checkAllowMove = false)
+    {
+        bool allowClick = !checkAllowMove;
+        Collider2D[] hitCollider = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(pos));
+        foreach (Collider2D hit in hitCollider)
+        {
+            SpriteRenderer spriteRenderer = hit.gameObject.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null && spriteRenderer.sortingLayerName == "Environment")
+            {
+                allowClick = false;
+                break;
+            }
+            else
+            if (checkAllowMove && (hit.gameObject.name == "AllowMove" || hit.gameObject.name == "DropZone"))
+            {
+                // Seems like we can allow click, but keep checking just in case there's a collision with the environment
+                allowClick = true;
+            }
+        }
+        return allowClick;
     }
 
     /// <summary>
@@ -804,8 +834,8 @@ public class BattleManager : Singleton<BattleManager>
             Vector3 size = multiSelectionBox.transform.localScale;
 
             size.x = (Input.mousePosition.x - startX) * sizingFactor * 0.5f * Camera.main.orthographicSize;
-
             size.y = (Input.mousePosition.y - startY) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+
             Vector2 difs = new Vector2(size.x - multiSelectionBox.transform.localScale.x, size.y - multiSelectionBox.transform.localScale.y);
             multiSelectionBox.transform.localScale = size;
 
