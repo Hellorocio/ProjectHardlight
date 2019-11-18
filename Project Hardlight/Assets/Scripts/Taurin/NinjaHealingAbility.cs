@@ -49,6 +49,7 @@ public class NinjaHealingAbility : Ability
     {
         if (Vector2.Distance(transform.position, selectedPosition) < GetRange())
         {
+            GetComponent<FighterMove>().StopMovingCommandHandle();
             // Create projectile
             GameObject shuriken = Instantiate(ninjaProjecilePrefab);
             shuriken.transform.position = transform.position;

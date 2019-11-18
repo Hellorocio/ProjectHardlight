@@ -78,6 +78,7 @@ public class MageAoEBlast : Ability
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
+            GetComponent<FighterMove>().StopMovingCommandHandle();
             // Hit enemies
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(selectedPosition, GetRadius());
             foreach (Collider2D collider in hitColliders)

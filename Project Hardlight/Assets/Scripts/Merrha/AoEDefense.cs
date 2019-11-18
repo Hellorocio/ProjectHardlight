@@ -58,7 +58,7 @@ public class AoEDefense : Ability
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, gameObject.transform.position) < GetRange())
         {
-            
+            GetComponent<FighterMove>().StopMovingCommandHandle();
             // Cast spell appearance
             GameObject spellInstance = Instantiate(defenseSpellPrefab);
             spellInstance.transform.localScale *= GetRadius();

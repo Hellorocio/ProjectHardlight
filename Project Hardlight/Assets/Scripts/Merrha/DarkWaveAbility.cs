@@ -5,7 +5,7 @@ using UnityEngine;
 public class DarkWaveAbility : Ability
 {
     public GameObject projectilePrefab;
-
+    public float animationDelay;
     // Stats
     [Header("Base Stats")]
     public float baseWidth = 1;
@@ -34,6 +34,8 @@ public class DarkWaveAbility : Ability
     public GameObject widthIndicator;
 
     public bool targeting;
+
+    public Coroutine basicAttack;
 
     public void Update()
     {
@@ -77,39 +79,15 @@ public class DarkWaveAbility : Ability
 
     public override bool DoAbility()
     {
-        
+
         // Check that selectedPosition (set by BM) is in range
         if (Vector2.Distance(selectedPosition, transform.position) < GetRange())
         {
-            // Display
-            GameObject wind = Instantiate(projectilePrefab);
-            // Set width
-            wind.transform.localScale *= GetRadius();
-            // Set initial pos to caster (Merrha)
-            wind.transform.position = transform.position;
-            // Set projectile movement
-            ProjectileMovement projectile = wind.GetComponent<ProjectileMovement>();
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            projectile.SetTarget(mousePos);
-            projectile.StartMovement();
-            // Set projectile stats
-            int damage = (int) (damageScale * GetComponent<Fighter>().GetAbility());
-            int healing = (int) (healScale * GetComponent<Fighter>().GetAbility());
-            int damageIncrease = (int) (sunlight*damageIncreaseScale);
-            int healTrailAmt = (int) (moonlight*healTrailScale);
-            Debug.Log("wtf" + healTrailAmt);
-            projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
-            
-            // Heal self
-            GetComponent<Attackable>().Heal(healing);
-            projectile.GetComponent<DarkWaveProjectile>().affectedAttackables.Add(GetComponent<Attackable>());
-
-            if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+            if (basicAttack == null)
             {
-                //Debug.Log("Ability1 anim is played");
-                gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+                GetComponent<FighterMove>().StopMovingCommandHandle();
+                basicAttack = StartCoroutine(BasicAttack());
             }
-
             return true;
         }
         else
@@ -117,6 +95,44 @@ public class DarkWaveAbility : Ability
             Debug.Log("Dark Wave out of range");
             return false;
         }
+    }
+
+    IEnumerator BasicAttack()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (gameObject.GetComponent<Fighter>().anim.HasState(0, Animator.StringToHash("Ability1")))
+        {
+            //Debug.Log("Ability1 anim is played");
+            gameObject.GetComponent<Fighter>().anim.Play("Ability1");
+        }
+
+        yield return new WaitForSeconds(animationDelay);
+
+        // Display
+        GameObject wind = Instantiate(projectilePrefab);
+        // Set width
+        wind.transform.localScale *= GetRadius();
+        // Set initial pos to caster (Merrha)
+        wind.transform.position = transform.position;
+        // Set projectile movement
+        ProjectileMovement projectile = wind.GetComponent<ProjectileMovement>();
+        
+        projectile.SetTarget(mousePos);
+        projectile.StartMovement();
+        // Set projectile stats
+        int damage = (int)(damageScale * GetComponent<Fighter>().GetAbility());
+        int healing = (int)(healScale * GetComponent<Fighter>().GetAbility());
+        int damageIncrease = (int)(sunlight * damageIncreaseScale);
+        int healTrailAmt = (int)(moonlight * healTrailScale);
+        Debug.Log("wtf" + healTrailAmt);
+        projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
+
+        // Heal self
+        GetComponent<Attackable>().Heal(healing);
+        projectile.GetComponent<DarkWaveProjectile>().affectedAttackables.Add(GetComponent<Attackable>());
+
+        
+        basicAttack = null;
     }
 
     public override float GetRange()

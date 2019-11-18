@@ -52,7 +52,7 @@ public class MageCurseAbility : Ability
             if (attackable != null && attackable.team == CombatInfo.Team.Enemy)
             {
                 Debug.Log("Mage Light Prison");
-
+                GetComponent<FighterMove>().StopMovingCommandHandle();
                 // Deal damage and add debuff
                 attackable.TakeDamage(GetDamage());
                 attackable.AddBuff(defenseDebuff);

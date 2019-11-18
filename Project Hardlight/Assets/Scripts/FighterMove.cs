@@ -83,6 +83,16 @@ public class FighterMove : MonoBehaviour
                     StopMoving();
                 }
             }
+        } else
+        {
+            if (fighter.anim != null)
+            {
+                int nameHash = fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash;
+                if (fighter.anim.HasState(0, Animator.StringToHash("Idle")) && (nameHash == Animator.StringToHash("Walk")))
+                {
+                    fighter.anim.Play("Idle");
+                }
+            }
         }
     }
 
@@ -125,7 +135,6 @@ public class FighterMove : MonoBehaviour
             
             Destroy(target.gameObject);
         }
-
         //set new target
         followingMoveOrder = true;
         if (fighter == null)

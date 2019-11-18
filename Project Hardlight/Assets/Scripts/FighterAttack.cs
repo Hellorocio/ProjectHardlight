@@ -137,7 +137,7 @@ public class FighterAttack : MonoBehaviour
             // attack
             if (GameManager.Instance.gameState != GameState.PAUSED && fighterMove.GetMoveState() != FighterMove.MoveState.moving)
             {
-                attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
+                
                 //Debug.Log("Current anime" + fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
                 //Debug.Log("ability 2" + Animator.StringToHash("Ability2"));
                 //Debug.Log("ability 1" + Animator.StringToHash("Ability1"));
@@ -149,7 +149,7 @@ public class FighterAttack : MonoBehaviour
                         fighter.anim.Play("Attack");
                     }
                 }
-
+                attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
                 AudioSource audioSource = gameObject.GetComponent<AudioSource>();
                 if (audioSource != null && attack.sfx != null && !audioSource.isPlaying)
                 {
