@@ -58,7 +58,7 @@ public class BattleManager : Singleton<BattleManager>
     // draggable box params
     private float startX;
     private float startY;
-    public float sizingFactor = 0.01f;
+    public float sizingFactor = 0.0015f;
 
     // saved during drag in case it fails
     private Fighter savedSelectedHero;
@@ -834,8 +834,8 @@ public class BattleManager : Singleton<BattleManager>
             Vector3 size = multiSelectionBox.transform.localScale;
 
             size.x = (Input.mousePosition.x - startX) * sizingFactor * 0.5f * Camera.main.orthographicSize;
-
             size.y = (Input.mousePosition.y - startY) * sizingFactor * 0.5f * Camera.main.orthographicSize;
+
             Vector2 difs = new Vector2(size.x - multiSelectionBox.transform.localScale.x, size.y - multiSelectionBox.transform.localScale.y);
             multiSelectionBox.transform.localScale = size;
 
