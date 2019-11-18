@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Rock Golem
-  maxHealth: 700
+  maxHealth: 600
   moveSpeed: 150
   alertedRange: 12
   maxAggroRange: 20
@@ -162,6 +162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6991250358692162115, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Mass
+      value: 48.975662
       objectReference: {fileID: 0}
     - target: {fileID: 3828782765706812789, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -238,11 +243,6 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 2.3402328
       objectReference: {fileID: 0}
-    - target: {fileID: 6991250358692162115, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_Mass
-      value: 48.975662
-      objectReference: {fileID: 0}
     - target: {fileID: 4041101233343615434, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -268,36 +268,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5543525
       objectReference: {fileID: 0}
-    - target: {fileID: 4041101233343615437, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
-        type: 3}
-    - target: {fileID: 4041101233343615436, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6645140f0bf417d4eacff48a44c70e59, type: 2}
     - target: {fileID: 1502550471555121512, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1.4899998
-      objectReference: {fileID: 0}
-    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 35.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3111203454800886791, guid: 865c44a6dbc375b45ac267e449976756,
         type: 3}
@@ -319,6 +293,32 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 29.9
       objectReference: {fileID: 0}
+    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 124499125797213533, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041101233343615436, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6645140f0bf417d4eacff48a44c70e59, type: 2}
+    - target: {fileID: 4041101233343615437, guid: 865c44a6dbc375b45ac267e449976756,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2795058058563878030, guid: 2b751f988f81c0f4da8863511e463215,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 865c44a6dbc375b45ac267e449976756, type: 3}
 --- !u!1 &7347479402515115730 stripped

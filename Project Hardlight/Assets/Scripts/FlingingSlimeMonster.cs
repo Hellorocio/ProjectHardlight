@@ -97,9 +97,14 @@ public class FlingingSlimeMonster : MonsterAI
             if (target != null && target.team == CombatInfo.Team.Hero)
             {
                 float distTraveled = Vector3.Distance(startedAttackPos, transform.position);
-                basicAttackDamage = (int) (distTraveled * damageMultiplier) + 1;
+                basicAttackDamage = (int)(distTraveled * damageMultiplier) + 1;
                 DoBasicAttack(target.gameObject);
 
+
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
+            {
+                isFlying = false;
 
             }
         }

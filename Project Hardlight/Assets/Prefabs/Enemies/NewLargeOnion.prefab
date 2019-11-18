@@ -18,13 +18,13 @@ MonoBehaviour:
   alertedRange: 28
   maxAggroRange: 40
   targetPrefs: 
-  basicAttackRange: 18
-  timeBetweenAttacks: 7
+  basicAttackRange: 24
+  timeBetweenAttacks: 4
   numJabsInAttack: 5
   basicAttackPrefab: {fileID: 5607511023273981050, guid: 690bba1cc7315cc4e81bef347658d4e0,
     type: 3}
   spawnPoint: {fileID: 2527272101334850535}
-  basicAttackDamage: 4
+  basicAttackDamage: 26
   basicAttackProjectileSpeed: 2
   basicAttackSfx: {fileID: 0}
   tiredUI: {fileID: 8663315242862902684}
@@ -39,7 +39,7 @@ MonoBehaviour:
   basicAttackHitTime: 0.75
   currentTarget: {fileID: 0}
   moveState: 0
-  numProjectilesToSpawn: 8
+  numProjectilesToSpawn: 6
   spawnAllAtOnce: 1
 --- !u!1001 &4687311945744060773
 PrefabInstance:
@@ -121,7 +121,27 @@ PrefabInstance:
     - target: {fileID: 9076124800125640329, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
       propertyPath: m_Mass
-      value: 74.88391
+      value: 20.54915
+      objectReference: {fileID: 0}
+    - target: {fileID: 140174264714879523, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 140174264714879523, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0015899017
+      objectReference: {fileID: 0}
+    - target: {fileID: 140174264714879523, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.3459453
+      objectReference: {fileID: 0}
+    - target: {fileID: 140174264714879523, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2085159244591989771, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
@@ -159,6 +179,26 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 2658766909409322240, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658766909409322240, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.257
+      objectReference: {fileID: 0}
+    - target: {fileID: 588590506717656482, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0139999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 588590506717656482, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.06400002
+      objectReference: {fileID: 0}
     - target: {fileID: 4122740007118367993, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
       propertyPath: m_IsActive
@@ -168,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658766909409322247, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2815853848951910171, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
@@ -233,6 +278,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.21038336
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323192877950014388, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270525118660644576, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361508599499215430, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606, type: 3}

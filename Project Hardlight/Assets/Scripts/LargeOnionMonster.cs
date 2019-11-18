@@ -50,15 +50,23 @@ public class LargeOnionMonster : MonsterAI
                     basicAttackProjectile.GetComponent<ProjectileMovement>().SetTarget(locList[i] * 200f);
                 }
                 locIndex = locList.Count;
+                yield return new WaitForSeconds(basicAttackClip.length / basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
             } else
             {
-                spawnPoint.transform.localPosition = locList[locIndex] * .4f;
-                gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (spawnPoint.transform.position.x < transform.position.x);
-                GameObject basicAttackProjectile = Instantiate(basicAttackPrefab);
-                basicAttackProjectile.transform.position = spawnPoint.transform.position;
-                basicAttackProjectile.GetComponent<GenericRangedMonsterProjectile>().damage = basicAttackDamage;
-                basicAttackProjectile.GetComponent<ProjectileMovement>().speed = basicAttackProjectileSpeed;
-                basicAttackProjectile.GetComponent<ProjectileMovement>().SetTarget(locList[locIndex] * 200f);
+                
+                for (int i = 0; i < locList.Count; i++)
+                {
+                    gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (locList[i].x < transform.position.x);
+                    spawnPoint.transform.localPosition = locList[i] * .4f;
+                    gameObject.GetComponentInChildren<SpriteRenderer>().flipX = (spawnPoint.transform.position.x < transform.position.x);
+                    GameObject basicAttackProjectile = Instantiate(basicAttackPrefab);
+                    basicAttackProjectile.transform.position = spawnPoint.transform.position;
+                    basicAttackProjectile.GetComponent<GenericRangedMonsterProjectile>().damage = basicAttackDamage;
+                    basicAttackProjectile.GetComponent<ProjectileMovement>().speed = basicAttackProjectileSpeed;
+                    basicAttackProjectile.GetComponent<ProjectileMovement>().SetTarget(locList[i] * 200f);
+                    yield return new WaitForSeconds(1f);
+                }
+                locIndex = locList.Count;
             }
             
             /*
@@ -74,7 +82,7 @@ public class LargeOnionMonster : MonsterAI
                 //DoBasicAttack(currentTarget);
             }
             */
-            yield return new WaitForSeconds(basicAttackClip.length / basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
+            
             locIndex++;
         }
         ShowTiredUI(true);
@@ -88,11 +96,20 @@ public class LargeOnionMonster : MonsterAI
     public List<Vector3> GenerateProjectileLocs()
     {
         List<Vector3> locs = new List<Vector3>();
+        float randy = Random.value * 2 * Mathf.PI;
         for(int i = 0; i < numProjectilesToSpawn; i++)
         {
-            float theta = (2 * Mathf.PI / numProjectilesToSpawn) * i;
+            float theta = (2 * Mathf.PI / numProjectilesToSpawn) * i + randy;
             Vector3 tmp = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), transform.position.z);
-            locs.Add(tmp);
+            if (!spawnAllAtOnce)
+            {
+                int randPlacer = Random.Range(0, locs.Count);
+                locs.Insert(randPlacer, tmp);
+            } else
+            {
+                locs.Add(tmp);
+            }
+            
         }
         return locs;
     }
