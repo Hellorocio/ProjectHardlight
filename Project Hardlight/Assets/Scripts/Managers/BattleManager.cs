@@ -703,12 +703,18 @@ public class BattleManager : Singleton<BattleManager>
         if (multiSelectedHeros.Count > 0)
         {
             // move multiple heroes
-            foreach (Fighter f in multiSelectedHeros)
+            for(int i = 0; i < multiSelectedHeros.Count; i++)
             {
                 // init moveloc
                 GameObject newMoveLoc = Instantiate(moveLoc);
                 newMoveLoc.SetActive(true);
                 newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+                if (i > 0)
+                {
+                    Vector3 relativeLoc = (multiSelectedHeros[i-1].transform.position - multiSelectedHeros[i].transform.position).normalized * 3f;
+                    newMoveLoc.transform.position -= relativeLoc;
+                }
 
                 // init line
                 LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
@@ -716,8 +722,34 @@ public class BattleManager : Singleton<BattleManager>
                 line.SetPosition(0, newMoveLoc.transform.position);
                 line.SetPosition(1, multiSelectedHeros[0].transform.position);
 
-                f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                
+
+                multiSelectedHeros[i].GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+
             }
+
+            //foreach (Fighter f in multiSelectedHeros)
+            //{
+            //    // init moveloc
+            //    GameObject newMoveLoc = Instantiate(moveLoc);
+            //    newMoveLoc.SetActive(true);
+            //    newMoveLoc.transform.position = new Vector3(pos.x, pos.y, 2);
+
+            //    // init line
+            //    LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
+            //    line.positionCount = 2;
+            //    line.SetPosition(0, newMoveLoc.transform.position);
+            //    line.SetPosition(1, multiSelectedHeros[0].transform.position);
+
+            //    if (fIndex > 0)
+            //    {
+
+            //    }
+
+            //    f.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
+                
+            //    fIndex++;
+            //}
         }
         else if (selectedHero != null)
         {
