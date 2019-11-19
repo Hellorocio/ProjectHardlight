@@ -61,6 +61,8 @@ public class TankMonsterAI : MonsterAI
             direction = direction.normalized;
             attackZone.transform.localPosition = direction*2;
             yield return new WaitForSeconds(1.2f);
+            
+            
             float tmp = basicAttackClipSpeedMultiplier;
             basicAttackClipSpeedMultiplier = .1f;
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);

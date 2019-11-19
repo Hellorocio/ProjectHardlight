@@ -293,7 +293,6 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void PressFightButton ()
     {
-        GameManager.Instance.SetRequiredVessels(currentNode.allowedVessels);
         GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
 
         if (currentNode.status == MapNode.NodeStatus.UNDISCOVERED)

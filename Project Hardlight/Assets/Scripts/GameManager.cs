@@ -244,6 +244,12 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
 
         Debug.Log("init battle");
+
+        // Num vessels in this level
+        CombatLevel combatLevel = GameObject.Find("CombatLevel").GetComponent<CombatLevel>();
+        requiredVessels = combatLevel.requiredVessels;
+        combatLevel.initialized = true;
+        
         // Set to create loadout
         //LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
@@ -686,15 +692,6 @@ public class GameManager : Singleton<GameManager>
 
                 fightingLoseDialogue = combatLevel.loseDialogue;
             }
-        }
-    }
-
-    public void SetRequiredVessels (int set)
-    {
-        if (set != requiredVessels)
-        {
-            requiredVessels = set;
-            LoadoutUI.Instance.Refresh();
         }
     }
 

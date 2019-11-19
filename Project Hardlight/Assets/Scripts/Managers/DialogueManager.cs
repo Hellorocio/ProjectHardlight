@@ -93,7 +93,6 @@ public class DialogueManager : Singleton<DialogueManager>
     // Called by coroutine RunDialogue
     public void EndDialogue()
     {
-        string tmp = script.text;
         text.text = "";
         ShowBox(false);
         ShowImage(false);
