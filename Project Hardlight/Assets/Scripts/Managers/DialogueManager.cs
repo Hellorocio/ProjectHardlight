@@ -64,6 +64,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(TextAsset inputScript)
     {
+
         if (!initialized)
         {
             InitializeDialogueManager();
@@ -75,11 +76,18 @@ public class DialogueManager : Singleton<DialogueManager>
             EndDialogue();
         }
         
-        script = inputScript;
-        ShowBox(true);
+        if (inputScript != null)
+        {
+            script = inputScript;
+            ShowBox(true);
 
-        dialogueLoop = RunDialogue();
-        StartCoroutine(dialogueLoop);
+            dialogueLoop = RunDialogue();
+            StartCoroutine(dialogueLoop);
+        }
+        else
+        {
+            onDialogueEnd.Invoke();
+        }
     }
 
     // Called by coroutine RunDialogue
@@ -112,6 +120,10 @@ public class DialogueManager : Singleton<DialogueManager>
             {
                 DoProfileCommand(line.Substring(commandPrefix.Length));
                 continue;
+            }
+            else if (line == "" || line == "\n" || line == "\r")
+            {
+                break;
             }
 
             var sb = new StringBuilder();
