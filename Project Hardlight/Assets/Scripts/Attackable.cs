@@ -65,6 +65,12 @@ public class Attackable : MonoBehaviour
     /// <param name="dmg"></param>
     public void TakeDamage (float dmg)
     {
+        if (currentHealth <= 0)
+        {
+            // pls don't take damage if you're dead
+            return;
+        }
+
         // Calculate based on modifiers
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
