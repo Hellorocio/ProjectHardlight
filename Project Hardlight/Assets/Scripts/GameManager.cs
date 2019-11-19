@@ -500,6 +500,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void LoadSceneAfterDialogue()
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         ClearUI();
         LoadScene(sceneToLoad);
     }
