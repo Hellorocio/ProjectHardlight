@@ -79,7 +79,8 @@ public class MapManager : MonoBehaviour
             //move party to node
             StopAllCoroutines();
             StartCoroutine(MoveParty(currentNode, node));
-
+            BattleUISoundManager thisSoundManager = GameManager.Instance.soundManager;
+            thisSoundManager.PlayClip(thisSoundManager.rpgClick);
             //show popover
             if (currentNodePopOver != null)
             {
@@ -293,6 +294,12 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void PressFightButton ()
     {
+        GameManager.Instance.myAudio.clip = GameManager.Instance.rpgClick;
+        StartCoroutine(GameManager.Instance.PlaySoundFirst(ActualPressFightButton));
+    }
+
+    private void ActualPressFightButton()
+    {
         GameManager.Instance.SetRequiredVessels(currentNode.allowedVessels);
         GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
 
@@ -319,18 +326,19 @@ public class MapManager : MonoBehaviour
             GameManager.Instance.levelStartDialogue = null; // Right now we don't allow both dialogue and cutscenes before battle, because that causes problems
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);
         }
-        else 
+        else
         if (currentNode.type == MapNode.NodeType.BATTLE || currentNode.type == MapNode.NodeType.BOSS)
         {
             GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
         }
-        else 
+        else
         if (currentNode.type == MapNode.NodeType.HUB)
         {
             GameManager.Instance.EnterHub(currentNode.sceneToLoad);
         }
         party.SetActive(false);
     }
+
 
     public int GetIndexFromNode (MapNode node)
     {
