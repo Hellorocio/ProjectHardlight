@@ -168,8 +168,8 @@ public class GameManager : Singleton<GameManager>
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
         }
-        
-        LoadoutUI.Instance.CreateLoadout();
+
+        LoadoutUI.Instance.PopulateSoulGrid();
     }
 
     public void GetStarterSouls()
@@ -180,7 +180,7 @@ public class GameManager : Singleton<GameManager>
             souls.Add(newSouls[i]);
         }
 
-        LoadoutUI.Instance.CreateLoadout();
+        LoadoutUI.Instance.PopulateSoulGrid();
     }
 
     /// <summary>
@@ -565,15 +565,18 @@ public class GameManager : Singleton<GameManager>
 
     public void UnlockLevels ()
     {
-        //set level that was just beaten to discovered
+        // set level that was just beaten to discovered
         levelStatuses[currentLevel] = MapNode.NodeStatus.COMPLETED;
 
-        //set all levels that the beaten level unlocks to undiscovered
+        // set all levels that the beaten level unlocks to undiscovered
         if (nodesToUnlock != null)
         {
             for (int i = 0; i < nodesToUnlock.Length; i++)
             {
-                levelStatuses[nodesToUnlock[i]] = MapNode.NodeStatus.UNDISCOVERED;
+                if (levelStatuses[nodesToUnlock[i]] == MapNode.NodeStatus.LOCKED)
+                {
+                    levelStatuses[nodesToUnlock[i]] = MapNode.NodeStatus.UNDISCOVERED;
+                }
             }
         }
         nodesToUnlock = null;
@@ -604,8 +607,6 @@ public class GameManager : Singleton<GameManager>
         BattleManager.Instance.checkAllowMovement = false;
 
         currentCutscene = null;
-
-        requiredVessels = 3;
         LoadoutUI.Instance.CreateLoadoutSlots();
 
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
@@ -684,6 +685,15 @@ public class GameManager : Singleton<GameManager>
 
                 fightingLoseDialogue = combatLevel.loseDialogue;
             }
+        }
+    }
+
+    public void SetRequiredVessels (int set)
+    {
+        if (set != requiredVessels)
+        {
+            requiredVessels = set;
+            LoadoutUI.Instance.Refresh();
         }
     }
 

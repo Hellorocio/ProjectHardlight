@@ -37,7 +37,12 @@ public class MapNode : MonoBehaviour
     public List<AllightType> allightDrops;
     public Vector2 allightDropRange = new Vector2(1, 10);
 
+    [Header("Bosses ONLY")]
+    [Tooltip("Nodes that must be completed before this node unlocks- just use for bosses pls b/c I'm a dummy")]
+    public MapNode[] requiredNodesCompleted;
+
     private Text nameText;
+    Animator animator;
 
     [HideInInspector]
     public List<MapNode> history; //this is just used for node searching (see GetNodePath in MapManager)
@@ -46,6 +51,7 @@ public class MapNode : MonoBehaviour
     {
         nameText = GetComponentInChildren<Text>();
         nameText.text = levelName;
+        animator = GetComponent<Animator>();
         //nameText.gameObject.SetActive(false);
     }
     /// <summary>
@@ -54,7 +60,27 @@ public class MapNode : MonoBehaviour
     public void SetStatus (NodeStatus s, Color c, bool showLockedNodes = false)
     {
         status = s;
-        GetComponent<Image>().color = c;
+        //GetComponent<Image>().color = c;
+
+        // give this node a chance to init
+        if (animator == null)
+        {
+            Start();
+        }
+
+        if (animator != null)
+        {
+            if (status == NodeStatus.COMPLETED)
+            {
+                animator.Play("LevelCompleteBanner");
+            }
+            else
+            {
+                animator.Play("LevelIncompleteBanner");
+            }
+        }
+        
+
         gameObject.SetActive(true);
 
         if (status == NodeStatus.LOCKED)

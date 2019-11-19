@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 131381168433407621}
   - component: {fileID: 8428604014814029570}
   - component: {fileID: 5205369003251120651}
+  - component: {fileID: 7461758589766117465}
   m_Layer: 5
   m_Name: Node
   m_TagString: Untagged
@@ -30,7 +31,7 @@ RectTransform:
   m_GameObject: {fileID: 2349563467956042294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4228, y: 1.4228, z: 1.4228}
   m_Children:
   - {fileID: 7869222677048179483}
   - {fileID: 7237210223240430233}
@@ -39,7 +40,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -392.30005, y: -112}
+  m_AnchoredPosition: {x: -403.92, y: -112}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8068379144321049430
@@ -70,9 +71,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 24a81d8490064b041815dedf3206f3c9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -150,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   status: 2
+  allowedVessels: 1
   levelName: New Grove
   levelDescription: 'A relatively new grove of trees. It is usually too dangergous
     to go to the center. Thick trees and forest sprites guard the core.
@@ -169,6 +171,7 @@ MonoBehaviour:
   difficulty: 2
   allightDrops: 000000000100000002000000
   allightDropRange: {x: 1, y: 10}
+  requiredNodesCompleted: []
   history: []
 --- !u!114 &5205369003251120651
 MonoBehaviour:
@@ -234,6 +237,25 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!95 &7461758589766117465
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349563467956042294}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3678fed6e41fa4642a429fd45803f40e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2361743101563089056
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,14 +486,14 @@ RectTransform:
   m_GameObject: {fileID: 5478341062769858398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.82764, y: 0.82764, z: 0.82764}
   m_Children: []
   m_Father: {fileID: 9083902760361251392}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 44.8}
+  m_AnchoredPosition: {x: 3.4, y: -32.3}
   m_SizeDelta: {x: 172.56, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &597801100174821662

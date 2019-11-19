@@ -46,6 +46,12 @@ public class LoadoutUI : Singleton<LoadoutUI>
 
     ///////////////////
 
+    public void Refresh ()
+    {
+        loadoutCreated = false;
+        CreateLoadout();
+    }
+
     public void CreateLoadout()
     {
         if (!loadoutCreated)

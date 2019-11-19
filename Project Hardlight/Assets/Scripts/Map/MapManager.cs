@@ -19,19 +19,19 @@ public class MapManager : MonoBehaviour
     public Color hub;
     public Color boss;
 
-    private MapNode[] nodes;
+    public MapNode[] nodes;
     private MapNode currentNode;
     private MapNode currentTraveralNode;
 
     void Start()
     {
-        //init nodes
+        // init nodes
         nodes = GetComponentsInChildren<MapNode>();
 
         
         if (GameManager.Instance.levelStatuses.Length != 0)
         {
-            //set level statuses
+            // set level statuses
             for (int i = 0; i < nodes.Length; i++)
             {
                 nodes[i].status = GameManager.Instance.levelStatuses[i];
@@ -39,7 +39,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            //init level statuses
+            // init level statuses
             MapNode.NodeStatus[] statuses = new MapNode.NodeStatus[nodes.Length];
             for (int i = 0; i < statuses.Length; i++)
             {
@@ -49,8 +49,13 @@ public class MapManager : MonoBehaviour
         }
 
         SetNodeAppearances();
+        bool updateMap = CheckForUnlockedNodes();
+        if (updateMap)
+        {
+            SetNodeAppearances();
+        }
 
-        //set party location
+        // set party location
         party.transform.position = nodes[GameManager.Instance.currentLevel].transform.position;
         currentNode = nodes[GameManager.Instance.currentLevel];
     }
@@ -98,6 +103,47 @@ public class MapManager : MonoBehaviour
 
             currentNode = node;
         }
+    }
+
+    /// <summary>
+    /// Checks if any nodes have the requirements met for unlocking (used for BOSS levels)
+    /// Returns true if a node was changed (need to reload the map, sigh)
+    /// </summary>
+    public bool CheckForUnlockedNodes ()
+    {
+        bool mapChanged = false;
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            if (nodes[i].status != MapNode.NodeStatus.COMPLETED && nodes[i].requiredNodesCompleted.Length > 0)
+            {
+                // check if the required nodes are completed yet
+                bool readyToUnlock = true;
+                for (int j = 0; j < nodes[i].requiredNodesCompleted.Length; j++)
+                {
+                    if (nodes[i].requiredNodesCompleted[j].status != MapNode.NodeStatus.COMPLETED)
+                    {
+                        readyToUnlock = false;
+                        break;
+                    }
+                }
+
+                if (readyToUnlock)
+                {
+                    nodes[i].status = MapNode.NodeStatus.UNDISCOVERED;
+                    GameManager.Instance.levelStatuses[i] = MapNode.NodeStatus.UNDISCOVERED;
+                    for (int j = 0; j < nodes[i].requiredNodesCompleted.Length; j++)
+                    {
+                        // makes this node an unlock node on the nodes it was unlocked from
+                        // admittedly this is super hacky, but I don't have time to fix it rip
+                        nodes[i].requiredNodesCompleted[j].unlockNodes = new MapNode[1];
+                        nodes[i].requiredNodesCompleted[j].unlockNodes[0] = nodes[i];
+                    }
+
+                    mapChanged = true;
+                }
+            }
+        }
+        return mapChanged;
     }
     
     /// <summary>
@@ -225,7 +271,7 @@ public class MapManager : MonoBehaviour
                 {
 
                     MapNode currentChild = current.adjacentNodes[i];
-                    if (!visited.Contains(currentChild))
+                    if (!visited.Contains(currentChild) && currentChild.status != MapNode.NodeStatus.LOCKED)
                     {
 
                         work.Enqueue(currentChild);
@@ -247,8 +293,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void PressFightButton ()
     {
-        GameManager.Instance.requiredVessels = currentNode.allowedVessels;
-        Debug.Log("vessels");
+        GameManager.Instance.SetRequiredVessels(currentNode.allowedVessels);
         GameManager.Instance.SetCurrentLevelInfo(GetIndexFromNode(currentNode), GetLevelsToUnlock(currentNode.unlockNodes), currentNode);
 
         if (currentNode.status == MapNode.NodeStatus.UNDISCOVERED)
@@ -275,7 +320,7 @@ public class MapManager : MonoBehaviour
             GameManager.Instance.StartCutscene(currentNode.cutsceneBefore);
         }
         else 
-        if (currentNode.type == MapNode.NodeType.BATTLE)
+        if (currentNode.type == MapNode.NodeType.BATTLE || currentNode.type == MapNode.NodeType.BOSS)
         {
             GameManager.Instance.EnterBattleScene(currentNode.sceneToLoad);
         }
