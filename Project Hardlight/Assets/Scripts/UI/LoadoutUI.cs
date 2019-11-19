@@ -7,6 +7,7 @@ using TMPro;
 
 public class LoadoutUI : Singleton<LoadoutUI>
 {
+    public BattleUISoundManager soundManager;
     public bool loadoutCreated = false;
     public GameObject loadoutSlotPrefab;
     public GameObject loadoutSlots;
@@ -181,6 +182,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
     {
         if (IsLoadoutValid(true))
         {
+            soundManager.PlayClip(soundManager.rpgClick);
             // Create vessels based on player's selected loadout. TODO(mchi) put these GOs somewhere sane
             foreach (Transform child in loadoutSlots.transform)
             {
@@ -196,6 +198,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
             // Start placing newly created vessels
             GameManager.Instance.StartVesselPlacement();
         }
+
     }
 
     /// <summary>

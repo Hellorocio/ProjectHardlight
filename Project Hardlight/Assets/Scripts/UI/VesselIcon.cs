@@ -11,6 +11,12 @@ public class VesselIcon : BaseIcon
     public GameObject vessel;
     [HideInInspector]
     public VesselData vesselData;
+    private BattleUISoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = GetComponentInParent<BattleUISoundManager>();
+    }
 
     public void SetVessel (GameObject inVessel)
     {
@@ -18,6 +24,15 @@ public class VesselIcon : BaseIcon
         vesselData = vessel.GetComponent<VesselData>();
         GetComponent<Image>().sprite = vesselData.appearance;
      }
+
+    public void PlayClick()
+    {
+        if(vessel != null)
+        {
+            soundManager.PlayClip(soundManager.rpgClick);
+        }
+        
+    }
 
     public override void Clear()
     {

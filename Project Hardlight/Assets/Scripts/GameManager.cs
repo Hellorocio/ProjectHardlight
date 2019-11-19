@@ -9,7 +9,7 @@ public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB,
 
 public class GameManager : Singleton<GameManager>
 {
-
+    public BattleUISoundManager soundManager;
     public GameState gameState;
 
     public List<Soul> souls;
@@ -53,7 +53,10 @@ public class GameManager : Singleton<GameManager>
     // Audio stuff
     public AudioClip UIMusic;
     public AudioClip battleMusic;
+    public AudioClip rpgClick;
 
+    [HideInInspector]
+    public AudioSource myAudio;
     // Used to load dialogue after something for example
     string sceneToLoad = "";
 
@@ -78,6 +81,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         BattleManager.Instance.SetCursor(BattleManager.Instance.battleConfig.defaultCursor);
+        myAudio = GetComponent<AudioSource>();
     }
 
     public void ClearUI()
@@ -97,7 +101,9 @@ public class GameManager : Singleton<GameManager>
     public void NewCampaign()
     {
         InitializeGame();
-        StartCampaign();
+        myAudio.clip = rpgClick;
+        StartCoroutine(PlaySoundFirst(StartCampaign));
+        //StartCampaign();
     }
     
     // Initialized everything needed in a new game
@@ -599,6 +605,12 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void SkipTutorial()
     {
+        myAudio.clip = rpgClick;
+        StartCoroutine(PlaySoundFirst(ActualSkipTutorial));
+    }
+
+    private void ActualSkipTutorial()
+    {
         TutorialManager.Instance.tutorialEnabled = false;
         TutorialManager.Instance.currentTutorialLevel = 1;
         UIManager.Instance.skipTutorialButton.SetActive(false);
@@ -695,4 +707,10 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public IEnumerator PlaySoundFirst(System.Action callback)
+    {
+        myAudio.Play();
+        yield return new WaitForSeconds(myAudio.clip.length);
+        callback?.Invoke();
+    }
 }

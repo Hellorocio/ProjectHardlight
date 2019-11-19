@@ -9,6 +9,7 @@ using TMPro;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
+    public BattleUISoundManager soundManager;
     public GameObject box;
     public TextMeshProUGUI text;
     public GameObject nameLabel;
@@ -149,8 +150,10 @@ public class DialogueManager : Singleton<DialogueManager>
             while (!didInput)
             {
                 didInput = CheckRPressed();
+                
                 yield return 0;
             }
+            soundManager.PlayClip(soundManager.rpgClick);
         }
 
         EndDialogue();

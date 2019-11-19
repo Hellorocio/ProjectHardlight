@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a782be4acffeb24dbb43d1df844162d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 5722896779099646206}
   box: {fileID: 3856169872539017057}
   text: {fileID: 3856169871720904230}
   nameLabel: {fileID: 7322582859469075867}
@@ -323,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneName: Exposition
   bgImage: {fileID: 21300000, guid: 9e75044b1904bec468cf3ac8fb664d68, type: 3}
-  cutsceneText: {fileID: 4900000, guid: f31a4513a0384f6db2b26fb63f449be6, type: 3}
+  cutsceneText: {fileID: 4900000, guid: 38719618d59db4bc8ad773577d213433, type: 3}
   onCutsceneEnd:
     m_PersistentCalls:
       m_Calls:
@@ -549,7 +550,8 @@ MonoBehaviour:
   tutorialSteps:
   - name: SelectionTutorial
     dialogue: {fileID: 4900000, guid: 2bfc805dae27a5e4a849d8a773072ea5, type: 3}
-    popupText: Select a hero by clicking on them.
+    popupText: Select a hero by left clicking on them.
+    control: 1
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -561,6 +563,7 @@ MonoBehaviour:
   - name: MoveTutorial
     dialogue: {fileID: 0}
     popupText: Move a selected hero by right clicking on a location.
+    control: 2
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -572,6 +575,7 @@ MonoBehaviour:
   - name: ZoomTutorial
     dialogue: {fileID: 4900000, guid: 69c3fdcaadf84804b9ad95344071c1b4, type: 3}
     popupText: Zoom out by scrolling the middle mouse button.
+    control: 3
     pauseOnPopup: 0
     disableMovementOnPopup: 1
     startBattle: 0
@@ -584,6 +588,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Pan the camera using the arrow keys or clicking and dragging with the
       middle mouse button.
+    control: 3
     pauseOnPopup: 0
     disableMovementOnPopup: 1
     startBattle: 0
@@ -594,7 +599,8 @@ MonoBehaviour:
     nextTutorialPopup: 
   - name: MoveNextAreaTutorial
     dialogue: {fileID: 0}
-    popupText: Move your fighter to the indicated spot.
+    popupText: Move Merrha to the indicated spot.
+    control: 2
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -606,6 +612,7 @@ MonoBehaviour:
   - name: MonsterInfo
     dialogue: {fileID: 4900000, guid: 486d05910e45e4645b71790a2eb4a379, type: 3}
     popupText: When this monster sees you, it will begin attacking you.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -616,7 +623,8 @@ MonoBehaviour:
     nextTutorialPopup: SelectionTutorial2
   - name: SelectionTutorial2
     dialogue: {fileID: 0}
-    popupText: Select your fighter.
+    popupText: Select Merrha.
+    control: 1
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -628,6 +636,7 @@ MonoBehaviour:
   - name: TargetTutorial
     dialogue: {fileID: 0}
     popupText: Right click the monster to select it as a target.
+    control: 2
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 1
@@ -640,6 +649,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Fighters will attack automatically with their basic attack. This fighter
       has a ranged basic attack.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -651,6 +661,7 @@ MonoBehaviour:
   - name: FirstBattleOver
     dialogue: {fileID: 4900000, guid: 069d51ce818117e4b8473858fa0dd338, type: 3}
     popupText: Investigate the next area.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -662,6 +673,7 @@ MonoBehaviour:
   - name: Movement2
     dialogue: {fileID: 0}
     popupText: Move your fighter to the next area.
+    control: 2
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -674,6 +686,7 @@ MonoBehaviour:
     dialogue: {fileID: 4900000, guid: 5022613e6ebd0d54780b5f07a0a5538c, type: 3}
     popupText: Fighters can cast abilities when they have full mana. They gain mana
       as they do their basic attacks.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -686,6 +699,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: This is Merrha's Dark Wind ability. It's a projectile that hurts enemies
       and heals heros that it hits.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -698,6 +712,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: This is Merrha's Bastion of the Mountain ability. It increases the
       defense of heros that you place it on.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -710,7 +725,8 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: 'Because Merrha has max mana, she can cast an ability right now. Click
       the ability button to choose it. '
-    pauseOnPopup: 0
+    control: 1
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -720,8 +736,9 @@ MonoBehaviour:
     nextTutorialPopup: TargetAbility
   - name: TargetAbility
     dialogue: {fileID: 0}
-    popupText: Click where you want the ability to be cast.
-    pauseOnPopup: 0
+    popupText: Left click where you want the ability to be cast.
+    control: 1
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -732,6 +749,7 @@ MonoBehaviour:
   - name: TargetMonster2
     dialogue: {fileID: 0}
     popupText: Right click the monster to select it as a target.
+    control: 2
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -743,6 +761,7 @@ MonoBehaviour:
   - name: DefeatMonsterPrompt
     dialogue: {fileID: 0}
     popupText: Defeat the monster.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -768,6 +787,7 @@ MonoBehaviour:
   - name: StartLevel
     dialogue: {fileID: 4900000, guid: c7150f77da1617144920727c0c4a3294, type: 3}
     popupText: Select Merrha.
+    control: 1
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -776,9 +796,10 @@ MonoBehaviour:
     endPopupTrigger: 2
     endTriggerParam: 0
     nextTutorialPopup: FindTaurin
-  - name: SeesTaurin
+  - name: MeetTaurin
     dialogue: {fileID: 4900000, guid: 9155beabc9a45dd40aa1fc99e2973ae1, type: 3}
     popupText: Select Taurin.
+    control: 1
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 1
@@ -790,6 +811,7 @@ MonoBehaviour:
   - name: TaurinBasicAttack
     dialogue: {fileID: 0}
     popupText: Taurin's basic attack is melee, but he attacks quickly.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -802,6 +824,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Taurin has two abilites. His first ability is Jump Jutsu, which teleports
       him to to targetted enemy and makes him temporarily invincible.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -814,6 +837,7 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Taurin's second ability is Healing Jutsu, which is aimed at enemies
       and heals Taurin if it hits.
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -825,7 +849,8 @@ MonoBehaviour:
   - name: TaurinCastAbility
     dialogue: {fileID: 0}
     popupText: Click on a monster to choose a target for the ability.
-    pauseOnPopup: 0
+    control: 1
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -836,6 +861,7 @@ MonoBehaviour:
   - name: BeforeFirstFight
     dialogue: {fileID: 4900000, guid: f7625182218b64c378394e7f269d205b, type: 3}
     popupText: Defeat the enemies.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -847,6 +873,7 @@ MonoBehaviour:
   - name: AfterFirstFight
     dialogue: {fileID: 4900000, guid: 0e16efa87db8b4f0f9e430b3f18d7f1a, type: 3}
     popupText: Taurin has joined the party!
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -858,6 +885,7 @@ MonoBehaviour:
   - name: ClickAndDrag
     dialogue: {fileID: 0}
     popupText: Click and drag to select multiple heros.
+    control: 1
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -869,6 +897,7 @@ MonoBehaviour:
   - name: LookForNero
     dialogue: {fileID: 0}
     popupText: Find Taurin's friend.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -880,6 +909,7 @@ MonoBehaviour:
   - name: SeesNero
     dialogue: {fileID: 4900000, guid: 893c0c97f16aa4d4d99cb7029a268632, type: 3}
     popupText: Nero has joined the party!
+    control: 0
     pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
@@ -892,7 +922,8 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Nero also has two abilities. Her first ability is called Light's Extosis
       and it harms multiple enemies in a small range.
-    pauseOnPopup: 0
+    control: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -904,7 +935,8 @@ MonoBehaviour:
     dialogue: {fileID: 0}
     popupText: Nero's second ability is Light Prison, which harms one enemy for a
       large amount of damage.
-    pauseOnPopup: 0
+    control: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -915,7 +947,8 @@ MonoBehaviour:
   - name: CastNeroAbility
     dialogue: {fileID: 0}
     popupText: Cast one of Nero's abilities now!
-    pauseOnPopup: 0
+    control: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -926,6 +959,7 @@ MonoBehaviour:
   - name: BeforeLastFight
     dialogue: {fileID: 4900000, guid: 037ddaafeec1a21469c7774218f082ed, type: 3}
     popupText: Defeat all the monsters.
+    control: 0
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -937,7 +971,8 @@ MonoBehaviour:
   - name: TargetTaurinAbility
     dialogue: {fileID: 0}
     popupText: Choose one of Taurin's abilities to cast right now.
-    pauseOnPopup: 0
+    control: 0
+    pauseOnPopup: 1
     disableMovementOnPopup: 0
     startBattle: 0
     keepObjectsActivated: 0
@@ -948,6 +983,19 @@ MonoBehaviour:
   - name: FindTaurin
     dialogue: {fileID: 0}
     popupText: Zoom out and pan around to find out what is happening.
+    control: 0
+    pauseOnPopup: 0
+    disableMovementOnPopup: 0
+    startBattle: 0
+    keepObjectsActivated: 0
+    activateObjectsParent: 
+    endPopupTrigger: 11
+    endTriggerParam: 0
+    nextTutorialPopup: SeesTaurin
+  - name: SeesTaurin
+    dialogue: {fileID: 0}
+    popupText: Move Merrha to the indicated spot.
+    control: 2
     pauseOnPopup: 0
     disableMovementOnPopup: 0
     startBattle: 0
@@ -1102,6 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4401064956470136689}
   - component: {fileID: 4401064956470136694}
+  - component: {fileID: 7227193577051683147}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -1142,6 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7582d9fd1c34534a1090e119b7afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 5722896779099646206}
   gameState: 5
   souls: []
   requiredVessels: 3
@@ -1169,9 +1219,107 @@ MonoBehaviour:
     type: 3}
   UIMusic: {fileID: 8300000, guid: 5ea4b18dfa949ca4595f76ee3011ba66, type: 3}
   battleMusic: {fileID: 8300000, guid: 0e06474bbe88e144abe66ef5b83e94e7, type: 3}
+  rpgClick: {fileID: 8300000, guid: 0a55ac788370af243b6cddc5d9c50865, type: 3}
+  myAudio: {fileID: 0}
   levelStatuses: 
   currentLevel: 0
   topDialogue: {fileID: 2750734401340295608}
+--- !u!82 &7227193577051683147
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401064956470136692}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4401064956782455407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,15 +2063,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5956b743782b3e8429308664f2dd3f91, type: 3}
---- !u!1 &7813644966428597455 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5319238359162354597, guid: 5956b743782b3e8429308664f2dd3f91,
-    type: 3}
-  m_PrefabInstance: {fileID: 2719646032357893994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7813644966428597448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5319238359162354594, guid: 5956b743782b3e8429308664f2dd3f91,
+    type: 3}
+  m_PrefabInstance: {fileID: 2719646032357893994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7813644966428597455 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5319238359162354597, guid: 5956b743782b3e8429308664f2dd3f91,
     type: 3}
   m_PrefabInstance: {fileID: 2719646032357893994}
   m_PrefabAsset: {fileID: 0}
@@ -1934,23 +2082,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4401064956470136689}
     m_Modifications:
-    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_margin.y
-      value: 15.017573
-      objectReference: {fileID: 0}
-    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730020, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_Name
@@ -2081,6 +2212,11 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 617106757887730017, guid: 3fbea0904b702924089f4f66c5d98218,
         type: 3}
       propertyPath: m_SortingOrder
@@ -2147,7 +2283,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -161.7
       objectReference: {fileID: 0}
+    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_margin.y
+      value: 15.017573
+      objectReference: {fileID: 0}
+    - target: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 313237501, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4163,84 +4311,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbea0904b702924089f4f66c5d98218, type: 3}
---- !u!114 &4056422425861411270 stripped
+--- !u!114 &5722896779099646206 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 993202756783524710, guid: 3fbea0904b702924089f4f66c5d98218,
+  m_CorrespondingSourceObject: {fileID: 8856344463444193886, guid: 3fbea0904b702924089f4f66c5d98218,
     type: 3}
   m_PrefabInstance: {fileID: 3856169872641792672}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e39021708b7d194ba8fb520c358137d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3856169871413490435 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1330293155, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2750734401340295608 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1418436298342224664, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73dff6586495aa42b46335aca710521, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1515078305181584588 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7322582859469075867 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5772722198513200955, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3856169871720904230 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &3856169872539017057 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3856169872510038101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 149334773, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1010380229868212178 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4289196398580061554, guid: 3fbea0904b702924089f4f66c5d98218,
-    type: 3}
-  m_PrefabInstance: {fileID: 3856169872641792672}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3856169871424250296 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1336867608, guid: 3fbea0904b702924089f4f66c5d98218,
@@ -4259,21 +4341,99 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3856169872641792672}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3856169871120448524 stripped
+--- !u!1 &4450721801267608912 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1574053548, guid: 3fbea0904b702924089f4f66c5d98218,
+  m_CorrespondingSourceObject: {fileID: 596724703465629680, guid: 3fbea0904b702924089f4f66c5d98218,
     type: 3}
   m_PrefabInstance: {fileID: 3856169872641792672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3856169871413490435 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1330293155, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3856169872539017057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 169919937, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3856169871720904230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 958164102, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7322582859469075867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5772722198513200955, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1515078305181584588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2343417313830590060, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2750734401340295608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1418436298342224664, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73dff6586495aa42b46335aca710521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4401064958202629787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 617106757402416187, guid: 3fbea0904b702924089f4f66c5d98218,
     type: 3}
   m_PrefabInstance: {fileID: 3856169872641792672}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4450721801267608912 stripped
+--- !u!1 &3856169871120448524 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 596724703465629680, guid: 3fbea0904b702924089f4f66c5d98218,
+  m_CorrespondingSourceObject: {fileID: 1574053548, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4056422425861411270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 993202756783524710, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3856169872510038101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 149334773, guid: 3fbea0904b702924089f4f66c5d98218,
+    type: 3}
+  m_PrefabInstance: {fileID: 3856169872641792672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1010380229868212178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4289196398580061554, guid: 3fbea0904b702924089f4f66c5d98218,
     type: 3}
   m_PrefabInstance: {fileID: 3856169872641792672}
   m_PrefabAsset: {fileID: 0}

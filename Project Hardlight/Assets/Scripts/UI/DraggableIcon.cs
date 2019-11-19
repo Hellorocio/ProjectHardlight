@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DraggableIcon : MonoBehaviour
 {
+    private BattleUISoundManager soundManager;
     public bool allowDrag = true;
     public bool allowReplacement;
     private DraggableIcon replaceObj;
@@ -25,6 +26,7 @@ public class DraggableIcon : MonoBehaviour
 
     private void Start()
     {
+        
         //init icon type based on which icon script is attached
         if (GetComponent<VesselIcon>() != null)
         {
@@ -51,6 +53,7 @@ public class DraggableIcon : MonoBehaviour
         {
             loadoutParent = loadoutParent.transform.parent.parent;
         }
+        soundManager = loadoutParent.parent.parent.parent.GetComponent<BattleUISoundManager>();
     }
 
     /// <summary>
@@ -206,6 +209,7 @@ public class DraggableIcon : MonoBehaviour
                 VesselIcon myVessel = GetComponent<VesselIcon>();
                 if (myVessel.vessel == null || allowReplacement)
                 {
+                    soundManager.PlayClip(soundManager.rpgClick);
                     myVessel.SetVessel(draggable.GetComponent<VesselIcon>().vessel);
                     dropSucceeded = true;
                 }
@@ -215,8 +219,22 @@ public class DraggableIcon : MonoBehaviour
                 SoulIcon mySoul = GetComponent<SoulIcon>();
                 if (mySoul.soul == null || allowReplacement)
                 {
+
                     mySoul.SetSoul(draggable.GetComponent<SoulIcon>().soul);
                     dropSucceeded = true;
+
+                    if (mySoul.soul.GetAllightValue(AllightType.SUNLIGHT) != 0)
+                    {
+                        soundManager.PlayClip(soundManager.sunlightSFX);
+                    }
+                    else if (mySoul.soul.GetAllightValue(AllightType.MOONLIGHT) != 0)
+                    {
+                        soundManager.PlayClip(soundManager.moonlightSFX);
+                    }
+                    else if (mySoul.soul.GetAllightValue(AllightType.STARLIGHT) != 0)
+                    {
+                        soundManager.PlayClip(soundManager.starlightSFX);
+                    }
                 }
                 break;
             default:
