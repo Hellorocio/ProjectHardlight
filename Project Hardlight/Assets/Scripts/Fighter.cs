@@ -115,7 +115,7 @@ public class Fighter : MonoBehaviour
     /// <returns></returns>
     public float GetBasicAttackDamage ()
     {
-        float dmg = GetComponent<FighterAttack>().attack.damage;
+        float dmg = GetComponent<VesselData>().basicAttack.damage;
         int soulBoost = 0;
         if (soul != null)
         {

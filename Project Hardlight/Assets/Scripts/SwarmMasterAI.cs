@@ -699,7 +699,7 @@ public class SwarmMasterAI : MonoBehaviour
             if (currentTargets[i].gameObject.activeSelf)
             {
                 float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range > 3)
+                if (dist < minDist && currentTargets[i].GetComponent<VesselData>().basicAttack.range > 3)
                 {
                     minDist = dist;
                     tempcurrentTarget = currentTargets[i].gameObject;
@@ -729,7 +729,7 @@ public class SwarmMasterAI : MonoBehaviour
             if (currentTargets[i].gameObject.activeSelf)
             {
                 float dist = (transform.position - currentTargets[i].transform.position).sqrMagnitude;
-                if (dist < minDist && currentTargets[i].GetComponent<FighterAttack>().attack.range < 4)
+                if (dist < minDist && currentTargets[i].GetComponent<VesselData>().basicAttack.range < 4)
                 {
                     minDist = dist;
                     tempcurrentTarget = currentTargets[i].gameObject;
