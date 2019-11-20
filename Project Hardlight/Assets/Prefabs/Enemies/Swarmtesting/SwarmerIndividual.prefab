@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06b64d36339796449d05afd07a8bdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
   characterName: Swarmer
-  maxMana: 0
+  maxHealth: 20
   moveSpeed: 1400
   alertedRange: 12
   maxAggroRange: 18
@@ -27,9 +26,18 @@ MonoBehaviour:
   basicAttackDamage: 2
   basicAttackProjectileSpeed: 0
   basicAttackSfx: {fileID: 8300000, guid: 2a1d5ff2ce61c0840b7cdd2e4b3744ef, type: 3}
+  tiredUI: {fileID: 0}
+  alertedMark: {fileID: 0}
+  patrolType: 0
+  idleTime: 0
+  maxWanderPoints: 0
+  minWanderPoints: 0
+  patrolRoute: []
   basicAttackClip: {fileID: 0}
   basicAttackClipSpeedMultiplier: 1
   basicAttackHitTime: 1
+  currentTarget: {fileID: 0}
+  moveState: 0
   swarmLoc: {x: 0, y: 0, z: 0}
   isAttacking: 0
 --- !u!1001 &1697385694096325481
@@ -114,6 +122,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.0204604
       objectReference: {fileID: 0}
+    - target: {fileID: 8259269492757686167, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259269492757686167, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259269492757686167, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052700415259024189, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021545214016194921, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6308127398962815156, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -139,21 +172,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.09845253
       objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.9510727
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8463106253352522184, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -178,6 +196,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.011984972
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9510727
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308127398962815155, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
