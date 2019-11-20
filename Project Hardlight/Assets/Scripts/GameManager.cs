@@ -250,6 +250,12 @@ public class GameManager : Singleton<GameManager>
         ClearUI();
 
         Debug.Log("init battle");
+
+        // Num vessels in this level
+        CombatLevel combatLevel = GameObject.Find("CombatLevel").GetComponent<CombatLevel>();
+        SetRequiredVessels(combatLevel.requiredVessels);
+        combatLevel.initialized = true;
+        
         // Set to create loadout
         //LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
@@ -701,15 +707,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void SetRequiredVessels (int set)
-    {
-        if (set != requiredVessels)
-        {
-            requiredVessels = set;
-            LoadoutUI.Instance.Refresh();
-        }
-    }
-
     public IEnumerator PlaySoundFirst(System.Action callback)
     {
         myAudio.Play();
@@ -717,4 +714,12 @@ public class GameManager : Singleton<GameManager>
         callback?.Invoke();
     }
 
+    public void SetRequiredVessels(int set)
+    {
+        if (set != requiredVessels)
+        {
+            requiredVessels = set;
+            LoadoutUI.Instance.Refresh();
+        }
+    }
 }

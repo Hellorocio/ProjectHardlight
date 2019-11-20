@@ -15,4 +15,8 @@ public class CombatLevel : MonoBehaviour
     public TextAsset postBattleDialogue;
     // Plays if vessels lose
     public TextAsset loseDialogue;
+
+    public int requiredVessels = 3;
+
+    public bool initialized = false;
 }

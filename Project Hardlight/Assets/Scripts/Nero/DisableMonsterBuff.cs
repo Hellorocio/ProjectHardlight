@@ -9,10 +9,13 @@ public class DisableMonsterBuff : Buff
     {
         affectedObject.GetComponent<MonsterAI>().StopBasicAttacking();
         affectedObject.GetComponent<MonsterAI>().enabled = false;
+
+        affectedObject.GetComponent<Attackable>().fighting = false;
     }
 
     public override void CleanupBuff(GameObject affectedObject)
     {
         affectedObject.GetComponent<MonsterAI>().enabled = true;
+        affectedObject.GetComponent<Attackable>().fighting = true;
     }
 }

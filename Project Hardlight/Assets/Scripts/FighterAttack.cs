@@ -18,7 +18,7 @@ public class FighterAttack : MonoBehaviour
 
     [HideInInspector]
     public GameObject currentTarget;
-    public BasicAttackAction attack;
+    public BasicAttackAction basicAttackAction;
 
     private GameObject attackParent;
 
@@ -35,6 +35,7 @@ public class FighterAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        basicAttackAction = GetComponent<VesselData>().basicAttack;
         fighter = GetComponent<Fighter>();
         fighterMove = GetComponent<FighterMove>();
 
@@ -154,16 +155,15 @@ public class FighterAttack : MonoBehaviour
                         }
                     }
                 }
-                attack.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
+                basicAttackAction.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
                 AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-                if (audioSource != null && attack.sfx != null && !audioSource.isPlaying)
+                if (audioSource != null && basicAttackAction.sfx != null && !audioSource.isPlaying)
                 {
-                    audioSource.clip = attack.sfx;
+                    audioSource.clip = basicAttackAction.sfx;
                     audioSource.Play();
                 }
             }
-           
-            yield return new WaitForSeconds(fighter.GetAttackSpeed(1/attack.frequency));
+            yield return new WaitForSeconds(1.0f / fighter.GetAttackSpeed(basicAttackAction.frequency));
         }
 
         /*
@@ -191,12 +191,12 @@ public class FighterAttack : MonoBehaviour
     /// <returns></returns>
     public bool InRangeOfTarget (Transform t, bool useRange = true)
     {
-        if(attack == null)
+        if(basicAttackAction == null)
         {
             Debug.Log(gameObject.name);
             Debug.Log("BasicAttackAction is null");
         }
-        bool inRange = Vector2.Distance(transform.position, t.position) < attack.range + attackRangeAllowance;
+        bool inRange = Vector2.Distance(transform.position, t.position) < basicAttackAction.range + attackRangeAllowance;
         if (!useRange)
         {
             inRange = Vector2.Distance(transform.position, t.position) < attackRangeAllowance;

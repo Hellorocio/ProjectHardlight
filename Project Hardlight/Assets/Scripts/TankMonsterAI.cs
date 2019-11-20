@@ -17,6 +17,9 @@ public class TankMonsterAI : MonsterAI
     public Sprite crackedSprite;
     public ContactFilter2D myFilter;
     private Transform defaultAttackZoneTransform;
+
+    private Coroutine cracksCoroutine;
+    
     protected override void Start()
     {
         targetSprite = attackZone.GetComponent<SpriteRenderer>().sprite;
@@ -60,15 +63,23 @@ public class TankMonsterAI : MonsterAI
             direction -= transform.position;
             direction = direction.normalized;
             attackZone.transform.localPosition = direction*2;
+            
             yield return new WaitForSeconds(1.2f);
-            float tmp = basicAttackClipSpeedMultiplier;
-            basicAttackClipSpeedMultiplier = .1f;
-            animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
-            realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
+
+            Debug.Log(1);
+            
+            float modifiedAttackSpeed = .1f;
+            animator.SetFloat("basicAttackSpeedMultiplier", modifiedAttackSpeed);
+            
             yield return new WaitForSeconds(1.5f);
-            basicAttackClipSpeedMultiplier = tmp;
-            animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
+            Debug.Log(2);
+            
+            modifiedAttackSpeed = basicAttackClipSpeedMultiplier;
+            animator.SetFloat("basicAttackSpeedMultiplier", modifiedAttackSpeed);
+            
             yield return new WaitForSeconds(.4f);
+            Debug.Log(3);
+            
             Collider2D[] hitColliders = new Collider2D[1000];
             Physics2D.OverlapCollider(attackZone.GetComponent<CircleCollider2D>(), myFilter, hitColliders);
             List<GameObject> hitFighters = new List<GameObject>();
@@ -80,11 +91,10 @@ public class TankMonsterAI : MonsterAI
                 }
             }
             
-            StartCoroutine(DisplayCracks());
-            basicAttackClipSpeedMultiplier = tmp;
+            cracksCoroutine = StartCoroutine(DisplayCracks());
             animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
-            realBasicAttackHitTime = basicAttackHitTime / basicAttackClipSpeedMultiplier;
             yield return new WaitForSeconds(.75f);
+            Debug.Log(4);
             
         }
         ShowTiredUI(true);
@@ -117,8 +127,15 @@ public class TankMonsterAI : MonsterAI
     /// </summary>
     public override void StopBasicAttacking()
     {
+        animator.Play("Idle");
         base.StopBasicAttacking();
+        animator.SetFloat("basicAttackSpeedMultiplier", basicAttackClipSpeedMultiplier);
         attackZone.SetActive(false);
+        if (cracksCoroutine != null)
+        {
+            StopCoroutine(cracksCoroutine);
+            cracksCoroutine = null;
+        }
     }
 
 

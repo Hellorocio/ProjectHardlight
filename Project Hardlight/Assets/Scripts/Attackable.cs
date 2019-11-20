@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Attackable : MonoBehaviour
 {
-    
+
     public CombatInfo.Team team;
-    
+
     public BuffBar buffBar;
 
     public SpriteRenderer appearance;
@@ -21,8 +21,8 @@ public class Attackable : MonoBehaviour
     public float percentAbilityModifier;
 
     public float percentMovementSpeedModifier;
-    
-    
+
+
     public int maxHealth;
     public int currentHealth;
     public Color defaultColor;
@@ -47,7 +47,7 @@ public class Attackable : MonoBehaviour
 
         appearance = transform.Find("Appearance").GetComponent<SpriteRenderer>();
     }
-    
+
     public void Heal (float amt)
     {
         currentHealth += (int) amt;
@@ -59,17 +59,24 @@ public class Attackable : MonoBehaviour
         //OnHealthChanged event
         OnHealthChanged?.Invoke(currentHealth);
     }
-    
+
     /// <summary>
     /// Called by other fighters when they attack this one
     /// </summary>
     /// <param name="dmg"></param>
     public void TakeDamage (float dmg)
     {
+        if (currentHealth <= 0)
+        {
+            // pls don't take damage if you're dead
+            return;
+        }
+
         if(gotHitSound != null)
         {
             GetComponent<AudioSource>().PlayOneShot(gotHitSound);
         }
+
         // Calculate based on modifiers
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
@@ -97,7 +104,7 @@ public class Attackable : MonoBehaviour
             //death event
             OnAttackableDeath?.Invoke(this);
         }
-        
+
         //OnHealthChanged event
         OnHealthChanged?.Invoke(currentHealth);
     }
@@ -109,7 +116,7 @@ public class Attackable : MonoBehaviour
         {
             BattleManager.Instance.OnDeath(this);
         }
-        
+
         gameObject.SetActive(false);
     }
 
@@ -117,7 +124,7 @@ public class Attackable : MonoBehaviour
     {
         return currentHealth;
     }
-    
+
     public int GetMaxHealth()
     {
         int baseHealth = 0;
@@ -148,34 +155,33 @@ public class Attackable : MonoBehaviour
         {
             Debug.Log("Attackable doesn't have a Team set'");
         }
-        
-        
+
+
         return baseHealth;
 
     }
 
     IEnumerator HitColorChanger()
     {
-        
+
         gameObject.GetComponentInChildren<SpriteRenderer>().color = BattleManager.Instance.hitColor;
         yield return new WaitForSeconds((float)0.25);
         gameObject.GetComponentInChildren<SpriteRenderer>().color = defaultColor;
     }
 
-    
+
     public BuffInstance AddBuff(Buff buff)
     {
         BuffInstance buffInstance = gameObject.AddComponent(typeof(BuffInstance)) as BuffInstance;
         buffInstance.SetBuff(buff);
         buffInstance.StartBuff();
-        
+
         // Add to buff bar
-        Debug.Log(gameObject.name);
         buffBar.AddBuffInstance(buffInstance);
 
         return buffInstance;
     }
-    
+
     // Called by the buff to tell you it's done
     public void RemoveBuff(BuffInstance buffInstance)
     {

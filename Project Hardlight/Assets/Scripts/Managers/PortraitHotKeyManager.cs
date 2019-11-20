@@ -22,6 +22,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Button ability2Button;
     public TextMeshProUGUI ability1Desc;
     public TextMeshProUGUI ability2Desc;
+    public GameObject hero1deathShadow;
 
     //Hero2 components
     private GameObject hero2;
@@ -35,6 +36,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Button ability4Button;
     public TextMeshProUGUI ability3Desc;
     public TextMeshProUGUI ability4Desc;
+    public GameObject hero2deathShadow;
 
     //Hero3 components
     private GameObject hero3;
@@ -48,6 +50,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     private Button ability6Button;
     public TextMeshProUGUI ability5Desc;
     public TextMeshProUGUI ability6Desc;
+    public GameObject hero3deathShadow;
 
     /*
     //Command1 components
@@ -80,6 +83,7 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero1Selected = hero1.transform.Find("Selected").gameObject;
         ability1Button = hero1.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
         ability2Button = hero1.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
+        hero1deathShadow = hero1.transform.Find("DeathShadow").gameObject;
 
 
         hero2ManaFullImage = hero2.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
@@ -90,6 +94,7 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero2Selected = hero2.transform.Find("Selected").gameObject;
         ability3Button = hero2.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
         ability4Button = hero2.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
+        hero2deathShadow = hero2.transform.Find("DeathShadow").gameObject;
 
         hero3ManaFullImage = hero3.transform.Find("ManaFullImage").gameObject.GetComponent<Image>();
         hero3Image = hero3.transform.Find("Portrait/PortraitCircle/HeroImage").gameObject.GetComponent<Image>();
@@ -99,6 +104,7 @@ public class PortraitHotKeyManager : MonoBehaviour
         hero3Selected = hero3.transform.Find("Selected").gameObject;
         ability5Button = hero3.transform.Find("Abilities/AbilityOneOutline/Ability1Box").gameObject.GetComponent<Button>();
         ability6Button = hero3.transform.Find("Abilities/AbilityTwoOutline/Ability2Box").gameObject.GetComponent<Button>();
+        hero3deathShadow = hero3.transform.Find("DeathShadow").gameObject;
 
         /*
         GameObject ordersPanel = hotKeyPanel.transform.Find("OrdersPanel").gameObject;
@@ -156,14 +162,17 @@ public class PortraitHotKeyManager : MonoBehaviour
         if (hero1HealthBar.isDead)
         {
             hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
+            hero1deathShadow.SetActive(true);
         }
         if (hero2HealthBar.isDead)
         {
             hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
+            hero2deathShadow.SetActive(true);
         }
         if (hero3HealthBar.isDead)
         {
             hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = false;
+            hero3deathShadow.SetActive(true);
         }
     }
 
@@ -226,6 +235,7 @@ public class PortraitHotKeyManager : MonoBehaviour
             ability2Desc.text = ((Ability)partyList[0].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
 
             hero1.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+            hero1deathShadow.SetActive(false);
         }
         if (partyList.Count > 1)
         {
@@ -243,6 +253,7 @@ public class PortraitHotKeyManager : MonoBehaviour
             ability4Desc.text = ((Ability)partyList[1].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
 
             hero2.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+            hero2deathShadow.SetActive(false);
 
         }
         if (partyList.Count > 2)
@@ -261,6 +272,7 @@ public class PortraitHotKeyManager : MonoBehaviour
             ability6Desc.text = ((Ability)partyList[2].gameObject.GetComponent<VesselData>().abilities[1]).abilityDescription;
 
             hero3.transform.Find("Portrait/PortraitCircle").GetComponent<Button>().interactable = true;
+            hero3deathShadow.SetActive(false);
         }
 
         HeroPortraitSwitch(true);

@@ -6,6 +6,7 @@ using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.Events;
 
 public enum PopupTrigger { MOVEMENT, POPUP_END, SELECT_HERO, ZOOM, PAN, SET_TARGET, GAIN_MANA, MAX_MANA, MONSTER_DEATH, BUTTON_PRESS, ABILITY_CAST, VISIBILITY, OK_BUTTON, USE_ABILITY, SELECT_ALL, BATTLE_OVER }
+public enum TutorialControl { NONE, LEFTCLICK, RIGHTCLICK, MIDDLEMOUSE }
 
 // Keep track of state and things related to the tutorial, like events
 // Tutorial dialogue is all handled in GameManager and BattleManager and Fighter, which uses TutorialManager to check status
@@ -201,6 +202,7 @@ public class TutorialManager : Singleton<TutorialManager>
                     else
                     {
                         enemiesDefeated = 0;
+                        print("monster death check start");
                         testNumEnemies = tutorialPopups[currentTutorialIndex].endTriggerParam;
                         BattleManager.Instance.onMonsterDeath.AddListener(UpdateMonsterCount);
                     }
@@ -345,6 +347,7 @@ public class TutorialManager : Singleton<TutorialManager>
     public void UpdateMonsterCount ()
     {
         enemiesDefeated++;
+        print("UpdateMonsterCount: enemiesDefeated = " + enemiesDefeated);
         if (enemiesDefeated >= testNumEnemies)
         {
             CompleteTutorialStep();
@@ -400,6 +403,7 @@ public struct TutorialPopupData
     public TextAsset dialogue;
     [TextArea(2, 5)]
     public string popupText;
+    public TutorialControl control;
     public bool pauseOnPopup;
     public bool disableMovementOnPopup;
     public bool startBattle;

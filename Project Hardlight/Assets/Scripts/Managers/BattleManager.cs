@@ -112,7 +112,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 SetSelectedHero(selectedVessels[2].GetComponent<Fighter>());
             }
-        } else if (Input.GetKeyDown(KeyCode.Escape))
+        } else if (Input.GetKeyDown(KeyCode.Escape) && !TutorialManager.Instance.tutorialEnabled)
         {
             // escape battle
             BattleOver(false);
@@ -192,6 +192,9 @@ public class BattleManager : Singleton<BattleManager>
                 }
                 // Lose mana
                 selectedHero.LoseMana(selectedHero.GetMaxMana());
+
+                onAbilityCast.Invoke();
+                onAbilityCast.RemoveAllListeners();
                 //commandsUI.SwitchButtonColor(false);
                 StopTargeting();
                 //DeselectHero();
@@ -482,9 +485,6 @@ public class BattleManager : Singleton<BattleManager>
         selectedAbility.StopTargeting();
         selectedAbility.selectedTarget = null;
 
-        onAbilityCast.Invoke();
-        onAbilityCast.RemoveAllListeners();
-
         inputState = InputState.HeroSelected;
         selectedAbility = null;
         SetCursor(battleConfig.defaultCursor);
@@ -613,7 +613,7 @@ public class BattleManager : Singleton<BattleManager>
                 {
                     TargetSelected();
                 }
-                else if (pointerData.button == PointerEventData.InputButton.Right)
+                else if (pointerData.button == PointerEventData.InputButton.Right && !(TutorialManager.Instance.enabled && TutorialManager.Instance.currentTutorialLevel == 0))
                 {
                     StopTargeting();
                 }

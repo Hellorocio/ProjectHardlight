@@ -21,7 +21,7 @@ public class VesselData : MonoBehaviour
     public float maxAggroRange = 25;
 
     // TODO Make fighters use this
-    public MonoBehaviour basicAttack;
+    public BasicAttackAction basicAttack;
 
     public List<MonoBehaviour> abilities;
 
