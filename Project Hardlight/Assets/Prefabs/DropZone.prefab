@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 2196265259291286435}
   - component: {fileID: 4177152788236261337}
   - component: {fileID: 7555478467412026144}
+  - component: {fileID: 7402851582294935502}
   m_Layer: 0
   m_Name: DropZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2196265259291286435
 Transform:
   m_ObjectHideFlags: 0
@@ -70,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 546523209
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 57f8a4f373616b64abba87f21922160e, type: 3}
-  m_Color: {r: 0.48584908, g: 0.9538658, b: 1, a: 0.4392157}
+  m_Sprite: {fileID: 21300000, guid: 5761c95ad5e48f849b1f3fb75f703dae, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +99,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
+    oldSize: {x: 14.73, y: 14.9}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -107,3 +108,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!58 &7402851582294935502
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767136005070169592}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 6.7
