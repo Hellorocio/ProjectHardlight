@@ -103,7 +103,7 @@ public class GameManager : Singleton<GameManager>
         InitializeGame();
         myAudio.clip = rpgClick;
         StartCoroutine(PlaySoundFirst(StartCampaign));
-        //StartCampaign();
+        TutorialManager.Instance.tutorialEnabled = true;
     }
     
     // Initialized everything needed in a new game
