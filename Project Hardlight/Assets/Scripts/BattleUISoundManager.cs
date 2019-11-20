@@ -8,6 +8,7 @@ public class BattleUISoundManager : MonoBehaviour
     public AudioClip sunlightSFX;
     public AudioClip starlightSFX;
     public AudioClip moonlightSFX;
+    public AudioClip notEnoughManaPopUpSFX;
 
 
     public AudioSource myAudio;

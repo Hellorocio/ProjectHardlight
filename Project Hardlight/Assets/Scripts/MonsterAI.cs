@@ -73,15 +73,6 @@ public abstract class MonsterAI : MonoBehaviour
         
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
 
-        if (audioSource != null && basicAttackSfx != null)
-        {
-            audioSource.clip = basicAttackSfx;
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
-        }
 
     }
 

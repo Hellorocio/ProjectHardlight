@@ -102,6 +102,7 @@ public class Attackable : MonoBehaviour
             OnDeath();
 
             //death event
+
             OnAttackableDeath?.Invoke(this);
         }
 
