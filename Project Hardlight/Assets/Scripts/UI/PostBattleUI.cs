@@ -91,5 +91,10 @@ public class PostBattleUI : MonoBehaviour
         fragmentsGained.SetActive(false);
         continueButton.SetActive(false);
         GetComponent<Image>().enabled = false;
+
+        if (GetComponent<AudioSource>() != null)
+        {
+            GetComponent<AudioSource>().Stop();
+        }
     }
 }
