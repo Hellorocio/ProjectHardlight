@@ -332,13 +332,13 @@ public class BattleManager : Singleton<BattleManager>
                 if (doubleClickPrimer && doubleClickTimer <= doubleClickTimeLimit)
                 {
                     //Debug.Log("Double-clicked Hero");
-                    if(camController != null) //Safety check to avoid breaking other scenes while testing
-                    {
-                        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        worldPoint.z = camController.transform.position.z;
-                        camController.transform.position = worldPoint;
-                        camController.GetCamera().orthographicSize = camController.zoomMin;
-                    }
+                    //if(camController != null) //Safety check to avoid breaking other scenes while testing
+                    //{
+                    //    Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    //    worldPoint.z = camController.transform.position.z;
+                    //    camController.transform.position = worldPoint;
+                    //    camController.GetCamera().orthographicSize = camController.zoomMin;
+                    //}
                 }
             } else
             {
