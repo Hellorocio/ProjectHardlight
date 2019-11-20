@@ -149,9 +149,9 @@ public class FighterAttack : MonoBehaviour
                         && (nameHash != Animator.StringToHash("Attack")))
                     {
                         fighter.anim.Play("Attack");
-                        if (attack.sfx != null)
+                        if (basicAttackAction.sfx != null)
                         {
-                            GetComponent<AudioSource>().PlayOneShot(attack.sfx);
+                            GetComponent<AudioSource>().PlayOneShot(basicAttackAction.sfx);
                         }
                     }
                 }
