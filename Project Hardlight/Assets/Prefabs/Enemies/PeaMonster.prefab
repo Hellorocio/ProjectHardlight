@@ -26,7 +26,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 5554881291716736998}
   basicAttackDamage: 3
   basicAttackProjectileSpeed: 3
-  basicAttackSfx: {fileID: 8300000, guid: da06a54bbff1222488546f4cb5097b54, type: 3}
+  basicAttackSfx: {fileID: 8300000, guid: 2b6a0c6c0b652f2408f73b2fbc2d6322, type: 3}
   tiredUI: {fileID: 1602732659459314077}
   alertedMark: {fileID: 8641682582272258529}
   patrolType: 0
@@ -108,11 +108,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9076124800125640329, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 140174264714879523, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
       propertyPath: m_Offset.y
@@ -138,39 +133,9 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+    - target: {fileID: 9076124800125640329, guid: 996b25b6306c71543bb418d3aef7c606,
         type: 3}
-      propertyPath: characterName
-      value: Peabeddy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: maxHealth
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: timeBetweenAttacks
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: basicAttackRange
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: numJabsInAttack
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: basicAttackDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2213701332233137497, guid: 996b25b6306c71543bb418d3aef7c606,
-        type: 3}
-      propertyPath: m_IsTrigger
+      propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2658766909409322240, guid: 996b25b6306c71543bb418d3aef7c606,
@@ -212,6 +177,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.6016865
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: characterName
+      value: Peabeddy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: maxHealth
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: basicAttackRange
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: numJabsInAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: basicAttackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213701332233137497, guid: 996b25b6306c71543bb418d3aef7c606,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5619811607816641621, guid: 996b25b6306c71543bb418d3aef7c606, type: 3}
