@@ -18,7 +18,7 @@ public class TutorialManager : Singleton<TutorialManager>
     public bool testing = false;
     public bool startGeneratingMana = true;
 
-    public bool tutorialEnabled = true;
+    public bool tutorialEnabled = false;
     public bool inTutorialBattle = false;
     public bool usedAbility = false;
     public bool inMeetupBattle = false;

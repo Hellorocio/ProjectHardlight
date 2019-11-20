@@ -42,16 +42,7 @@ public class TankMonsterAI : MonsterAI
         {
             jabsDone++;
             animator.Play("BasicAttack");
-            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            if (audioSource != null && basicAttackSfx != null)
-            {
-                audioSource.clip = basicAttackSfx;
-                audioSource.Play();
-            }
-            else
-            {
-                Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
-            }
+            
 
             //if (currentTarget != null && !InBasicRangeOfTarget(currentTarget.transform.position))
             //{
@@ -73,7 +64,16 @@ public class TankMonsterAI : MonsterAI
             
             yield return new WaitForSeconds(1.5f);
             Debug.Log(2);
-            
+            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+            if (audioSource != null && basicAttackSfx != null)
+            {
+                audioSource.clip = basicAttackSfx;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.Log("No valid audioSource or sfx for this enemy's attack!!");
+            }
             modifiedAttackSpeed = basicAttackClipSpeedMultiplier;
             animator.SetFloat("basicAttackSpeedMultiplier", modifiedAttackSpeed);
             

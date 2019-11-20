@@ -423,6 +423,8 @@ public class BattleManager : Singleton<BattleManager>
                     // (but not with hotkeys, so I'm leaving it for now)
                     if (notEnoughManaUI != null && !notEnoughManaUI.activeSelf)
                     {
+                        
+                        GameManager.Instance.soundManager.PlayClip(GameManager.Instance.soundManager.notEnoughManaPopUpSFX);
                         notEnoughManaUI.SetActive(true);
                     }
                 }
@@ -444,6 +446,7 @@ public class BattleManager : Singleton<BattleManager>
             //Debug.Log("Not enough mana");
             if (notEnoughManaUI != null && !notEnoughManaUI.activeSelf)
             {
+                GameManager.Instance.soundManager.PlayClip(GameManager.Instance.soundManager.notEnoughManaPopUpSFX);
                 notEnoughManaUI.SetActive(true);
             }
         }

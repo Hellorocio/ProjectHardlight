@@ -25,7 +25,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   basicAttackDamage: 2
   basicAttackProjectileSpeed: 0
-  basicAttackSfx: {fileID: 0}
+  basicAttackSfx: {fileID: 8300000, guid: ff7c328b2ab61f04e82867e71abe2ed5, type: 3}
   tiredUI: {fileID: 4954639877205638734}
   alertedMark: {fileID: 2670928075489435186}
   patrolType: 0
@@ -111,11 +111,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8259269492757686167, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6021545214016194921, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034658479479620031, guid: 0eb6315c745d72348bd1eccc45dd24cf,
+        type: 3}
+      propertyPath: gotHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 60e68d7368aa1b44a9f1c5b011303bd6, type: 3}
     - target: {fileID: 5732159179760604423, guid: 0eb6315c745d72348bd1eccc45dd24cf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -132,11 +147,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 782baa7102c334d4780e807e05508bbc,
         type: 3}
-    - target: {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1724331111148769661, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0eb6315c745d72348bd1eccc45dd24cf, type: 3}
