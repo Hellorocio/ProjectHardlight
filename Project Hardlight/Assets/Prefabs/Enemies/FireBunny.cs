@@ -43,14 +43,20 @@ public class FireBunny : MonsterAI
         while (jabsDone < numJabsInAttack)
         {
             jabsDone++;
+            int nameHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+            while (nameHash == Animator.StringToHash("Attack"))
+            {
+                yield return new WaitForEndOfFrame();
+            }
             animator.Play("BasicAttack");
-            
+
+            yield return new WaitForSeconds(realBasicAttackHitTime);
             if (audioSource != null && basicAttackSfx != null)
             {
                 audioSource.clip = basicAttackSfx;
                 audioSource.Play();
             }
-            
+
             if (InBasicRangeOfTarget(currentTarget.transform.position) && moveState == MoveState.basicAttacking)
             {
                 DoBasicAttack(currentTarget);
@@ -60,7 +66,7 @@ public class FireBunny : MonsterAI
                 StopBasicAttacking();
             }
             
-            yield return new WaitForSeconds(realBasicAttackHitTime);
+            yield return new WaitForSeconds(basicAttackClip.length/basicAttackClipSpeedMultiplier - realBasicAttackHitTime);
         }
         ShowTiredUI(true);
         yield return new WaitForSeconds(timeBetweenAttacks);

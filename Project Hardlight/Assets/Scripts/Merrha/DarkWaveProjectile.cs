@@ -64,7 +64,9 @@ public class DarkWaveProjectile : MonoBehaviour
             }
             else if (hitAttackable.team == CombatInfo.Team.Enemy)
             {
-                hitAttackable.TakeDamage(damageAmount + damageIncrease*affectedAttackables.Count);
+                // NOTE: Caps by 3 enemies hit
+                float damageTaken = damageAmount + damageIncrease * (Mathf.Min(5, affectedAttackables.Count));
+                hitAttackable.TakeDamage(damageTaken);
             }
             affectedAttackables.Add(hitAttackable);
         }

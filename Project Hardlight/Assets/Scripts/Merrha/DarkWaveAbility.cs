@@ -124,7 +124,6 @@ public class DarkWaveAbility : Ability
         int healing = (int)(healScale * GetComponent<Fighter>().GetAbility());
         int damageIncrease = (int)(sunlight * damageIncreaseScale);
         int healTrailAmt = (int)(moonlight * healTrailScale);
-        Debug.Log("wtf" + healTrailAmt);
         projectile.GetComponent<DarkWaveProjectile>().Initialize(transform.position, damage, healing, GetRange(), damageIncrease, healTrailAmt);
 
         // Heal self

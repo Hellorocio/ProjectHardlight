@@ -72,14 +72,15 @@ public class Attackable : MonoBehaviour
             return;
         }
 
-        if(gotHitSound != null && dmg > 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(gotHitSound);
-        }
+        
 
         // Calculate based on modifiers
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
+        if (gotHitSound != null && realDamage >= 1)
+        {
+            GetComponent<AudioSource>().PlayOneShot(gotHitSound);
+        }
         currentHealth -= (int) realDamage;
         if (currentHealth < 0)
         {

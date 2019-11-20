@@ -5,6 +5,8 @@ using UnityEngine;
 public class GenericRangedMonsterProjectile : MonoBehaviour
 {
     public float damage;
+    // Adds this to something if not null
+    public Buff buff = null;
     private void OnTriggerEnter2D(Collider2D other)
     {
         //GameObject target = GetComponent<ProjectileMovement>().targetObject;
@@ -20,6 +22,11 @@ public class GenericRangedMonsterProjectile : MonoBehaviour
 
             // Gain mana
             //sourceFighter.GainMana(10);
+
+            if (buff != null)
+            {
+                target.AddBuff(buff);
+            }
 
             Destroy(gameObject);
         }
