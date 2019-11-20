@@ -36,7 +36,7 @@ public class UIManager : Singleton<UIManager>
 
     public void ToggleLoadoutUI()
     {
-        SetLoadoutUI(!loadoutUI.active);
+        SetLoadoutUI(!loadoutUI.activeSelf);
     }
 
     public void ToggleSoulUpgradeUI()
