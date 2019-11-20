@@ -253,7 +253,7 @@ public class GameManager : Singleton<GameManager>
 
         // Num vessels in this level
         CombatLevel combatLevel = GameObject.Find("CombatLevel").GetComponent<CombatLevel>();
-        requiredVessels = combatLevel.requiredVessels;
+        SetRequiredVessels(combatLevel.requiredVessels);
         combatLevel.initialized = true;
         
         // Set to create loadout
@@ -712,5 +712,14 @@ public class GameManager : Singleton<GameManager>
         myAudio.Play();
         yield return new WaitForSeconds(myAudio.clip.length);
         callback?.Invoke();
+    }
+
+    public void SetRequiredVessels(int set)
+    {
+        if (set != requiredVessels)
+        {
+            requiredVessels = set;
+            LoadoutUI.Instance.Refresh();
+        }
     }
 }

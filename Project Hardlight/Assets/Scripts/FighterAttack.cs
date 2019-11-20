@@ -145,9 +145,14 @@ public class FighterAttack : MonoBehaviour
                 if (fighter.anim != null) {
                     int nameHash = fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash;
                     if ((nameHash != Animator.StringToHash("Ability1"))
-                        && (nameHash != Animator.StringToHash("Ability2")))
+                        && (nameHash != Animator.StringToHash("Ability2"))
+                        && (nameHash != Animator.StringToHash("Attack")))
                     {
                         fighter.anim.Play("Attack");
+                        if (basicAttackAction.sfx != null)
+                        {
+                            GetComponent<AudioSource>().PlayOneShot(basicAttackAction.sfx);
+                        }
                     }
                 }
                 basicAttackAction.DoBasicAttack(GetComponent<Fighter>(), currentTarget);
