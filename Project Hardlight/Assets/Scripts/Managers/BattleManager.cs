@@ -181,7 +181,7 @@ public class BattleManager : Singleton<BattleManager>
             if (selectedAbility.DoAbility())
             {
                 // Play sound
-                if (selectedAbility.sfx != null)
+                if (selectedHero != null && selectedAbility != null && selectedAbility.sfx != null)
                 {
                     selectedHero.GetComponent<AudioSource>().PlayOneShot(selectedAbility.sfx);
 
