@@ -20,6 +20,7 @@ public class MerrhaBasicAttack : BasicAttackAction
 
     IEnumerator BasicAttackWithAnimationDelay(Fighter sourceFighter, GameObject target)
     {
+        
         yield return new WaitForSeconds(animationDelay);
         GameObject gooAttack = Instantiate(gooPrefab);
         gooAttack.transform.parent = target.transform.Find("Appearance");

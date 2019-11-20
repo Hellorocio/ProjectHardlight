@@ -17,7 +17,9 @@ public class MeleeBasicAttackAction : BasicAttackAction
 
     IEnumerator BasicAttackWithAnimationDelay(Fighter sourceFighter, GameObject target)
     {
+        
         yield return new WaitForSeconds(animationDelay);
+        
         float damage = sourceFighter.GetBasicAttackDamage();
 
         Attackable attackableEnemy = target.GetComponent<Attackable>();
@@ -26,5 +28,4 @@ public class MeleeBasicAttackAction : BasicAttackAction
         sourceFighter.GainMana(10);
         basicAttack = null;
     }
-
-    }
+}

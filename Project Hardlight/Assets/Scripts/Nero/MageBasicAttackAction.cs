@@ -22,8 +22,9 @@ public class MageBasicAttackAction : BasicAttackAction
     IEnumerator BasicAttackWithAnimationDelay(GameObject target)
     {
         // TODO(mchi) scale animation delay to attack speed changes
-        yield return new WaitForSeconds(animationDelay);
         
+        
+        yield return new WaitForSeconds(animationDelay);
         GameObject mageBasicAttack = Instantiate(mageBasicAttackPrefab);
         Debug.Log(mageBasicAttack.name);
         mageBasicAttack.transform.position = spawnPoint.transform.position;

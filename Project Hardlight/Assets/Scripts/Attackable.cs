@@ -10,7 +10,8 @@ public class Attackable : MonoBehaviour
     public BuffBar buffBar;
 
     public SpriteRenderer appearance;
-    
+
+    public AudioClip gotHitSound;
     [Header("Donut Touch")]
     // Stat modifiers (usually modified by buffs)
     // e.g. percentDamageTakenModifier = -.2 --> Take 20% less damage
@@ -65,6 +66,10 @@ public class Attackable : MonoBehaviour
     /// <param name="dmg"></param>
     public void TakeDamage (float dmg)
     {
+        if(gotHitSound != null)
+        {
+            GetComponent<AudioSource>().PlayOneShot(gotHitSound);
+        }
         // Calculate based on modifiers
         float realDamage = dmg * (1.0f + percentDamageTakenModifier);
         //Debug.Log(realDamage);
