@@ -52,7 +52,7 @@ public class MapNode : MonoBehaviour
     private void Start()
     {
         nameText = GetComponentInChildren<TextMeshProUGUI>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         //nameText.gameObject.SetActive(false);
     }
     /// <summary>
