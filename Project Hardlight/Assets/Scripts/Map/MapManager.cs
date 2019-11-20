@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,15 +90,15 @@ public class MapManager : MonoBehaviour
             //activate go button
             if (node.type == MapNode.NodeType.HUB)
             {
-                enterButton.GetComponentInChildren<Text>().text = "ENTER";
+                enterButton.GetComponentInChildren<TextMeshProUGUI>().text = "Enter";
             }
             else
             {
-                enterButton.GetComponentInChildren<Text>().text = "FIGHT";
+                enterButton.GetComponentInChildren<TextMeshProUGUI>().text = "Fight!";
             }
 
             Vector3 tempPos = node.transform.position;
-            tempPos.y -= 40f;
+            tempPos.y += 70f;
             enterButton.transform.position = tempPos;
             enterButton.SetActive(true);
 

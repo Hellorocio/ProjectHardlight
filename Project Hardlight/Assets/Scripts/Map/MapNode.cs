@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MapNode : MonoBehaviour
 {
@@ -41,7 +43,7 @@ public class MapNode : MonoBehaviour
     [Tooltip("Nodes that must be completed before this node unlocks- just use for bosses pls b/c I'm a dummy")]
     public MapNode[] requiredNodesCompleted;
 
-    private Text nameText;
+    private TextMeshProUGUI nameText;
     Animator animator;
 
     [HideInInspector]
@@ -49,8 +51,7 @@ public class MapNode : MonoBehaviour
 
     private void Start()
     {
-        nameText = GetComponentInChildren<Text>();
-        nameText.text = levelName;
+        nameText = GetComponentInChildren<TextMeshProUGUI>();
         animator = GetComponent<Animator>();
         //nameText.gameObject.SetActive(false);
     }

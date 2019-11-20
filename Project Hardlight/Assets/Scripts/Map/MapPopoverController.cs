@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MapPopoverController : MonoBehaviour
 {
-    public Text titleText;
-    public Text descriptionText;
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI difficultyText;
     public Image[] allightDropImages;
 
     [HideInInspector]
@@ -47,7 +49,9 @@ public class MapPopoverController : MonoBehaviour
             //add difficulty to description
             if (node.difficulty != MapNode.Difficulty.NONE)
             {
-                descriptionText.text += "\nDifficulty: " + node.difficulty.ToString().ToLower();
+                string difficulty = node.difficulty.ToString();
+                difficultyText.text = "";
+                difficultyText.text += difficulty.Substring(0,1).ToUpper() + difficulty.Substring(1).ToLower();
             }
 
             //add allight drop icons
