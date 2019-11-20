@@ -72,7 +72,7 @@ public class Attackable : MonoBehaviour
             return;
         }
 
-        if(gotHitSound != null)
+        if(gotHitSound != null && dmg > 0)
         {
             GetComponent<AudioSource>().PlayOneShot(gotHitSound);
         }
