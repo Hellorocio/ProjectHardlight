@@ -33,6 +33,10 @@ public class DialogueManager : Singleton<DialogueManager>
     private bool initialized = false;
     
     private IEnumerator dialogueLoop = null;
+
+    // Change to something more generic later- but for now hardcoded rip
+    public AudioSource dialogueSfx;
+
     public void InitializeDialogueManager()
     {
         // convert profileDatas -> profileDict
@@ -182,7 +186,15 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             ShowImage(false);
             ShowName(false);
+
             //Debug.Log("No sprite corresponding to command " + line);
+
+            // this is terrible, I'm sorry, but I'm piggybacking off the names to get an sfx to play here.
+            if (line == "sfx" && dialogueSfx != null)
+            {
+                dialogueSfx.Play();
+            }
+
             return;
         }
     }

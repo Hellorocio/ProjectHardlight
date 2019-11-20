@@ -39,6 +39,7 @@ public class PostBattleUI : MonoBehaviour
                 GetComponent<AudioSource>().Play();
             }
 
+            /*
             if (!TutorialManager.Instance.tutorialEnabled)
             {
                 int[] newFragments = GameManager.Instance.AddFragments();
@@ -59,6 +60,7 @@ public class PostBattleUI : MonoBehaviour
 
                 fragmentsGained.SetActive(true);
             }
+            */
         }
         else
         {
