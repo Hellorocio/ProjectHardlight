@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8279412031717463554}
   - component: {fileID: 6273027267819291488}
   - component: {fileID: 3814740011378534933}
-  - component: {fileID: 564592005654218806}
   m_Layer: 0
   m_Name: BlueberryProjectile
   m_TagString: Untagged
@@ -103,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  buff: {fileID: 0}
 --- !u!58 &3814740011378534933
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,18 +119,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &564592005654218806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172629089513662615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c442766de8b134ebe3b9922f966c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &172629091286885126
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 172629091286885126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 172629089513662609}
   m_RootOrder: 0
@@ -200,8 +188,8 @@ SpriteRenderer:
   m_SortingLayerID: -1194659793
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5cff08235bdc9b84cad0cb1ed31c47b9, type: 3}
-  m_Color: {r: 0, g: 0.17538528, b: 0.43529412, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a8c4dd566061621419bbd582c8308b07, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
