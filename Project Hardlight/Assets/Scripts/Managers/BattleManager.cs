@@ -616,7 +616,7 @@ public class BattleManager : Singleton<BattleManager>
                 {
                     TargetSelected();
                 }
-                else if (pointerData.button == PointerEventData.InputButton.Right && !(TutorialManager.Instance.enabled && TutorialManager.Instance.currentTutorialLevel == 0))
+                else if (pointerData.button == PointerEventData.InputButton.Right && !(TutorialManager.Instance.tutorialEnabled && TutorialManager.Instance.currentTutorialLevel == 0))
                 {
                     StopTargeting();
                 }
