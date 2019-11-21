@@ -53,7 +53,6 @@ public class MapNode : MonoBehaviour
     {
         nameText = GetComponentInChildren<TextMeshProUGUI>();
         animator = GetComponentInChildren<Animator>();
-        //nameText.gameObject.SetActive(false);
     }
     /// <summary>
     /// Sets the status of this node, which also updates the color
@@ -83,10 +82,12 @@ public class MapNode : MonoBehaviour
         
 
         gameObject.SetActive(true);
+        nameText.gameObject.SetActive(true);
 
         if (status == NodeStatus.LOCKED)
         {
             gameObject.SetActive(showLockedNodes);
+            nameText.gameObject.SetActive(false);
         }
     }
 
