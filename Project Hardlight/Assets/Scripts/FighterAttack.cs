@@ -132,13 +132,11 @@ public class FighterAttack : MonoBehaviour
                 {
                     fighterMove.StartMoving(currentTarget.transform);
                 }
-                break;
             }
-            fighterMove.sprite.flipX = (currentTarget.transform.position.x < transform.position.x);
-            // attack
+            else
             if (GameManager.Instance.gameState != GameState.PAUSED && fighterMove.GetMoveState() != FighterMove.MoveState.moving)
             {
-                
+                fighterMove.sprite.flipX = (currentTarget.transform.position.x < transform.position.x);
                 //Debug.Log("Current anime" + fighter.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
                 //Debug.Log("ability 2" + Animator.StringToHash("Ability2"));
                 //Debug.Log("ability 1" + Animator.StringToHash("Ability1"));
@@ -161,7 +159,7 @@ public class FighterAttack : MonoBehaviour
                 {
                     audioSource.clip = basicAttackAction.sfx;
                     audioSource.Play();
-                }
+                }                
             }
             yield return new WaitForSeconds(1.0f / fighter.GetAttackSpeed(basicAttackAction.frequency));
         }

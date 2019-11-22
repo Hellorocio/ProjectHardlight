@@ -82,7 +82,7 @@ public class MapManager : MonoBehaviour
             StartCoroutine(MoveParty(currentNode, node));
 
             //show popover
-            if (currentNodePopOver != null)
+            if (currentNodePopOver != null && node.type != MapNode.NodeType.HUB)
             {
                 currentNodePopOver.ShowPopover(node);
             }
