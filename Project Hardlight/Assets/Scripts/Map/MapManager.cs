@@ -20,6 +20,8 @@ public class MapManager : MonoBehaviour
     public Color hub;
     public Color boss;
 
+    public float mapTravelSpeed = 7f;
+
     public MapNode[] nodes;
     private MapNode currentNode;
     private MapNode currentTraveralNode;
@@ -132,8 +134,12 @@ public class MapManager : MonoBehaviour
 
                 if (readyToUnlock)
                 {
-                    nodes[i].status = MapNode.NodeStatus.UNDISCOVERED;
-                    GameManager.Instance.levelStatuses[i] = MapNode.NodeStatus.UNDISCOVERED;
+                    if (GameManager.Instance.levelStatuses[i] == MapNode.NodeStatus.LOCKED)
+                    {
+                        nodes[i].status = MapNode.NodeStatus.UNDISCOVERED;
+                        GameManager.Instance.levelStatuses[i] = MapNode.NodeStatus.UNDISCOVERED;
+                    }
+                    
                     for (int j = 0; j < nodes[i].requiredNodesCompleted.Length; j++)
                     {
                         // makes this node an unlock node on the nodes it was unlocked from
@@ -229,7 +235,7 @@ public class MapManager : MonoBehaviour
                 currentTraveralNode = node;
                 while (Vector2.Distance(party.transform.position, node.transform.position) > 0.1f)
                 {
-                    party.transform.position = Vector3.MoveTowards(party.transform.position, node.transform.position, 2f);
+                    party.transform.position = Vector3.MoveTowards(party.transform.position, node.transform.position, mapTravelSpeed);
                     yield return null;
                 }
             }
