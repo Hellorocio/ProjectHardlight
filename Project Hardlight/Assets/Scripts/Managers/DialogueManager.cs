@@ -61,7 +61,7 @@ public class DialogueManager : Singleton<DialogueManager>
             rInput = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && dialogueLoop != null)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dialogueLoop != null)
         {
             EndDialogue();
         }

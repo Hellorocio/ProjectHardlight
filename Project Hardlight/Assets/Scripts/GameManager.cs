@@ -7,15 +7,22 @@ using UnityEngine.UI;
 
 public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB, PAUSED };
 
+[System.Serializable]
+public enum Difficulty
+{
+    NORMAL,
+    HARDCORE
+};
+
 public class GameManager : Singleton<GameManager>
 {
     public BattleUISoundManager soundManager;
     public GameState gameState;
 
     public List<Soul> souls;
-
     public int requiredVessels = 3;
-
+    public Difficulty difficulty = Difficulty.NORMAL;
+    
     //[HideInInspector]
     public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
 
@@ -25,6 +32,7 @@ public class GameManager : Singleton<GameManager>
     public CutsceneLevel currentCutscene;
     public GameObject cutsceneUI;
     public GameObject cutsceneBG;
+    public GameObject menuUI;
 
     public GameObject battleManager;
 
@@ -84,10 +92,25 @@ public class GameManager : Singleton<GameManager>
         myAudio = GetComponent<AudioSource>();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMenu();
+        }
+    }
+
+    public void ToggleMenu()
+    {
+        bool active = menuUI.activeInHierarchy;
+        menuUI.SetActive(!active);
+    }
+
     public void ClearUI()
     {
         // Turn things off
         UIManager.Instance.battleUI.SetActive(false);
+        UIManager.Instance.menuUI.SetActive(false);
         cutsceneUI.SetActive(false);
     }
 
@@ -97,6 +120,12 @@ public class GameManager : Singleton<GameManager>
         gameState = GameState.START;
     }
 
+    public void ExitGame()
+    {
+        Debug.Log("Exiting");
+        Application.Quit();
+    }
+    
     // Here in case we want to do Continue Campaign in the future
     public void NewCampaign()
     {
@@ -721,5 +750,10 @@ public class GameManager : Singleton<GameManager>
             requiredVessels = set;
             LoadoutUI.Instance.Refresh();
         }
+    }
+    public void SetDifficulty(int difficultyInt)
+    {
+        difficulty = difficultyInt == 0 ? Difficulty.NORMAL : Difficulty.HARDCORE;
+        SayTop("Difficulty set to " + difficulty, 5.0f);
     }
 }

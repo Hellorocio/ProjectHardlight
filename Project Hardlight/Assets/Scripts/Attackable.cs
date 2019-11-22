@@ -39,6 +39,11 @@ public class Attackable : MonoBehaviour
 
     void Start()
     {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         defaultColor = gameObject.GetComponentInChildren<SpriteRenderer>().color;
         maxHealth = GetMaxHealth();
         currentHealth = GetMaxHealth();

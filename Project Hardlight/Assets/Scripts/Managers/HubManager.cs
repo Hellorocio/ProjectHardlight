@@ -31,7 +31,7 @@ public class HubManager : MonoBehaviour
             selectedFighter.StartMovingCommandHandle(newMoveLoc.transform);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             UIManager.Instance.soulUpgradeUI.SetActive(false);
             GameManager.Instance.EnterMap();

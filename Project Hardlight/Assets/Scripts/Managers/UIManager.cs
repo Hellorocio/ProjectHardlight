@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject commandsUI;
     public GameObject soulUpgradeUI;
     public GameObject heroPlacer;
+    public GameObject menuUI;
 
     public PostBattleUI postBattleUI;
 

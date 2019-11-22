@@ -112,7 +112,7 @@ public class BattleManager : Singleton<BattleManager>
             {
                 SetSelectedHero(selectedVessels[2].GetComponent<Fighter>());
             }
-        } else if (Input.GetKeyDown(KeyCode.Escape) && !TutorialManager.Instance.tutorialEnabled)
+        } else if (Input.GetKeyDown(KeyCode.LeftShift) && !TutorialManager.Instance.tutorialEnabled)
         {
             // escape battle
             BattleOver(false);
