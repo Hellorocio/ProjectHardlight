@@ -25,6 +25,7 @@ public class HealSpot : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Attackable attackable = other.gameObject.GetComponent<Attackable>();
+        Debug.Log(other.gameObject.name + " " + attackable?.team);
         if (attackable != null)
         {
             if (attackable.team == ownerTeam)

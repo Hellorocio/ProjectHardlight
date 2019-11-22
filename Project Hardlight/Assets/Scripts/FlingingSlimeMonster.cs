@@ -88,7 +88,6 @@ public class FlingingSlimeMonster : MonsterAI
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
         //GameObject target = GetComponent<ProjectileMovement>().targetObject;
         if (isFlying)
         {
