@@ -51,6 +51,10 @@ public class Attackable : MonoBehaviour
         percentAttackDamageModifier = 0.0f;
 
         appearance = transform.Find("Appearance").GetComponent<SpriteRenderer>();
+        
+        // Update hp bar
+        HealthBar hpBar = GetComponentInChildren<HealthBar>();
+        hpBar.Initialize();
     }
 
     public void Heal (float amt)

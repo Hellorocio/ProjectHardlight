@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public List<Soul> souls;
     public int requiredVessels = 3;
     public Difficulty difficulty = Difficulty.NORMAL;
+    public float difficultyScale = 0.75f;
     
     //[HideInInspector]
     public int[] fragments = new int[3]; //[0] = sunlight, [1] = moonlight, [2] = starlight
@@ -307,6 +308,27 @@ public class GameManager : Singleton<GameManager>
                 audioSource.Stop();
                 audioSource.clip = UIMusic;
                 audioSource.Play();
+            }
+        }
+        
+        // Set healths of enemies based on difficulty
+        Attackable[] attackables = FindObjectsOfType<Attackable>();
+        foreach (Attackable att in attackables)
+        {
+            if (att.team == CombatInfo.Team.Enemy && difficulty == Difficulty.NORMAL)
+            {
+                // HP adjust
+                float maxHp = att.GetComponent<MonsterAI>().maxHealth;
+                maxHp *= difficultyScale;
+                att.GetComponent<MonsterAI>().maxHealth = (int) maxHp;
+                
+                // Attack adjust
+                float damage = att.GetComponent<MonsterAI>().basicAttackDamage;
+                damage *= difficultyScale;
+                att.GetComponent<MonsterAI>().basicAttackDamage = (int) damage;
+                
+                att.Initialize();
+                
             }
         }
     }

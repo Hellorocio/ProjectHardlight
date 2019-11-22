@@ -14,6 +14,11 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         maxBarWidth = healthBar.GetComponent<RectTransform>().sizeDelta.x;
 
         if (attackable != null)
