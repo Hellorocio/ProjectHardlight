@@ -317,7 +317,7 @@ public class BattleManager : Singleton<BattleManager>
         foreach (Collider2D collider in colliders)
         {
             Fighter clickedFighter = collider.gameObject.GetComponent<Fighter>();
-            if (clickedFighter != null)
+            if (clickedFighter != null && selectedVessels.Contains(clickedFighter.gameObject))
             {
                 clickedHero = clickedFighter;
                 break;

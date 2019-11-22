@@ -29,9 +29,9 @@ public class ProjectileMovement: MonoBehaviour
             {
                 // If unit disappears, destroy self
                 // TODO Do something more elegant?
-                if (targetObject == null)
+                if (targetObject == null || !targetObject.activeSelf)
                 {
-                    StopCoroutine(moveLoop);
+                    Destroy(gameObject);
                 }
                 
                 // Update movement
