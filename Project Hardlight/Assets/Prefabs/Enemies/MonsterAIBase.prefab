@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4041101233343615435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0813, y: 0.1416, z: 2}
+  m_LocalPosition: {x: 0, y: 0.1416, z: 2}
   m_LocalScale: {x: 0.124463186, y: 0.10802027, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3828782765706812789}
@@ -491,6 +491,7 @@ MonoBehaviour:
   team: 2
   buffBar: {fileID: 9066374117514809255}
   appearance: {fileID: 0}
+  gotHitSound: {fileID: 0}
   percentDamageTakenModifier: 0
   percentAttackDamageModifier: 0
   percentAttackSpeedModifier: 0
@@ -618,8 +619,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 423}
+  m_AnchoredPosition: {x: 0, y: 0.224}
+  m_SizeDelta: {x: 32.494, y: 34.914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6394839342316836026
 Canvas:
@@ -688,7 +689,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1502550471555121512}
     m_Modifications:
-    - target: {fileID: 7643482272840002390, guid: 156dacb5b1de5cd4abc0856358410010,
+    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_Name
+      value: AttackableUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_Layer
       value: 14
@@ -751,12 +757,12 @@ PrefabInstance:
     - target: {fileID: 2478720113520355115, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.89
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2478720113520355115, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.17
+      value: 3.92
       objectReference: {fileID: 0}
     - target: {fileID: 2478720113520355115, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
@@ -813,6 +819,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 8.389685
       objectReference: {fileID: 0}
+    - target: {fileID: 7463027010574693152, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6732804122311260143, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -823,17 +834,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.56
       objectReference: {fileID: 0}
-    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_Name
-      value: AttackableUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3168359507724155450, guid: 156dacb5b1de5cd4abc0856358410010,
+    - target: {fileID: 8345384768031814888, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 8345384768031814888, guid: 156dacb5b1de5cd4abc0856358410010,
+    - target: {fileID: 7643482272840002390, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_Layer
       value: 14
@@ -843,22 +849,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 8316216712374400282, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
-        type: 3}
-      propertyPath: attackable
-      value: 
-      objectReference: {fileID: 8671895037030593}
     - target: {fileID: 2929738315068271036, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2881712456778471265, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: attackable
+      value: 
+      objectReference: {fileID: 8671895037030593}
+    - target: {fileID: 8316216712374400282, guid: 156dacb5b1de5cd4abc0856358410010,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287387290049069179, guid: 156dacb5b1de5cd4abc0856358410010,
         type: 3}
       propertyPath: attackable
       value: 
