@@ -159,9 +159,11 @@ public class FighterAttack : MonoBehaviour
                 {
                     audioSource.clip = basicAttackAction.sfx;
                     audioSource.Play();
-                }                
+                }
+                yield return new WaitForSeconds(1.0f / fighter.GetAttackSpeed(basicAttackAction.frequency));
             }
-            yield return new WaitForSeconds(1.0f / fighter.GetAttackSpeed(basicAttackAction.frequency));
+            //Don't delete this otherwise unity will stop responding
+            yield return new WaitForSeconds(.01f);
         }
 
         /*
