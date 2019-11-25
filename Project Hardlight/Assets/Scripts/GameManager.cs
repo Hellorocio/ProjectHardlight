@@ -488,13 +488,10 @@ public class GameManager : Singleton<GameManager>
     {
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
         topDialogue.PopupDialogue(text, showOkay);
-        if (pause)
-        {
-            Time.timeScale = 0;
-        }
-        if (disableMovement)
+        if (pause || disableMovement)
         {
             gameState = GameState.PAUSED;
+            BattleManager.Instance.SetPauseStateOnAllEnemies(true);
         }
     }
 
@@ -505,7 +502,13 @@ public class GameManager : Singleton<GameManager>
     {
         topDialogue.CancelPopupDialogue();
         Time.timeScale = 1;
-        gameState = GameState.FIGHTING;
+
+        if (gameState == GameState.PAUSED)
+        {
+            gameState = GameState.FIGHTING;
+            BattleManager.Instance.SetPauseStateOnAllEnemies(false);
+        }
+       
     }
     
     public void SayTop(string text, float duration)

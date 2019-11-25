@@ -88,7 +88,7 @@ public class BattleManager : Singleton<BattleManager>
     public void Update()
     {
         // Don't do BattleManager updates if not fighting
-        if (GameManager.Instance.gameState != GameState.FIGHTING || inputState == InputState.BattleOver)
+        if (!(GameManager.Instance.gameState == GameState.FIGHTING || GameManager.Instance.gameState == GameState.PAUSED) || inputState == InputState.BattleOver)
         {
             return;
         }
@@ -131,40 +131,37 @@ public class BattleManager : Singleton<BattleManager>
             doubleClickPrimer = false;
         }
 
-        if (inputState != InputState.BattleOver)
+        // ability hotkeys
+        if (Input.GetKeyDown(KeyCode.Q) && selectedVessels[0].activeSelf)
         {
-            if ((Input.GetKeyDown(KeyCode.Q)))
-            {
-                UseAbility(0);
-            }
-            else if ((Input.GetKeyDown(KeyCode.W)))
-            {
-                UseAbility(1);
-            }
-            else if ((Input.GetKeyDown(KeyCode.A)))
-            {
-                UseAbility(2);
-            }
-            else if ((Input.GetKeyDown(KeyCode.S)))
-            {
-                UseAbility(3);
-            }
-            else if ((Input.GetKeyDown(KeyCode.Z)))
-            {
-                UseAbility(4);
-            }
-            else if ((Input.GetKeyDown(KeyCode.X)))
-            {
-                UseAbility(5);
-            }
-            /*
-            else if ((Input.GetKeyDown(KeyCode.A)))
-            {
-                SetStateToUpdateTarget();
-            }
-            */
-            
+            UseAbility(0);
         }
+        else if (Input.GetKeyDown(KeyCode.W) && selectedVessels[0].activeSelf)
+        {
+            UseAbility(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.A) && selectedVessels.Count >= 2 && selectedVessels[1].activeSelf)
+        {
+            UseAbility(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.S) && selectedVessels.Count >= 2 && selectedVessels[1].activeSelf)
+        {
+            UseAbility(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z) && selectedVessels.Count >= 3 && selectedVessels[2].activeSelf)
+        {
+            UseAbility(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.X) && selectedVessels.Count >= 3 && selectedVessels[2].activeSelf)
+        {
+            UseAbility(5);
+        }
+        /*
+        else if ((Input.GetKeyDown(KeyCode.A)))
+        {
+            SetStateToUpdateTarget();
+        }
+        */
     }
 
     /// <summary>
@@ -588,7 +585,8 @@ public class BattleManager : Singleton<BattleManager>
     public void SelectNonBattleButton (BaseEventData data)
     {
         PointerEventData pointerData = data as PointerEventData;
-        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        GameState currentState = GameManager.Instance.gameState;
+        if (currentState == GameState.FIGHTING || currentState == GameState.PAUSED)
         {
             if (pointerData.button == PointerEventData.InputButton.Left && (inputState == InputState.NothingSelected || inputState == InputState.HeroSelected))
             {
@@ -604,7 +602,7 @@ public class BattleManager : Singleton<BattleManager>
                 bool foundEnemy = SetVesselTarget();
 
                 // move vessel(s)
-                if (!foundEnemy)
+                if (!foundEnemy && currentState == GameState.FIGHTING)
                 {
                     MoveVessel();
                 }
@@ -960,11 +958,44 @@ public class BattleManager : Singleton<BattleManager>
 
         GameManager.Instance.SetCameraControls(true);
 
-
         //This event was causing tons of problems, so we're getting rid of it for now
         //OnLevelStart?.Invoke();
         //portraitHotKeyManager.InitBattlerUI(selectedVessels);
         battleStarted = true;
+
+        // make sure game is still paused if it was paused before the battle started
+        if (GameManager.Instance.gameState == GameState.PAUSED)
+        {
+            SetPauseStateOnAllEnemies(true);
+        }
+    }
+
+    /// <summary>
+    /// Is pause is true, pauses enemies. Otherwise, unpauses enemies
+    /// </summary>
+    /// <param name="pause"></param>
+    public void SetPauseStateOnAllEnemies(bool pause)
+    {
+        if (battleStarted)
+        {
+            GameObject enemyParent = GameObject.Find("Enemies");
+            MonsterAI[] ai = enemyParent.GetComponentsInChildren<MonsterAI>();
+            for (int i = 0; i < ai.Length; i++)
+            {
+                if (pause)
+                {
+                    ai[i].StopBasicAttacking();
+                    ai[i].enabled = false;
+
+                    ai[i].gameObject.GetComponent<Attackable>().fighting = false;
+                }
+                else
+                {
+                    ai[i].enabled = true;
+                    ai[i].gameObject.GetComponent<Attackable>().fighting = true;
+                }
+            }
+        }
     }
 
     /// <summary>

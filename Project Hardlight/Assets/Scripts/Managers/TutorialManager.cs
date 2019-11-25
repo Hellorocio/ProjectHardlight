@@ -132,6 +132,7 @@ public class TutorialManager : Singleton<TutorialManager>
                     DialogueManager.Instance.onDialogueEnd.AddListener(TutorialPopupAfterDialogue);
                 }
                 GameManager.Instance.gameState = GameState.PAUSED;
+                BattleManager.Instance.SetPauseStateOnAllEnemies(true);
                 saveCamEnabled = BattleManager.Instance.camController.enabled;
                 BattleManager.Instance.camController.enabled = false;
                 DialogueManager.Instance.StartDialogue(tutorialPopups[popupIndex].dialogue);
@@ -150,6 +151,7 @@ public class TutorialManager : Singleton<TutorialManager>
     public void TutorialPopupAfterDialogue ()
     {
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+        BattleManager.Instance.SetPauseStateOnAllEnemies(false);
         GameManager.Instance.gameState = GameState.FIGHTING;
         BattleManager.Instance.camController.enabled = saveCamEnabled;
 
@@ -233,6 +235,7 @@ public class TutorialManager : Singleton<TutorialManager>
     {
         BattleManager.Instance.onMonsterDeath.RemoveAllListeners();
         BattleManager.Instance.checkAllowMovement = false;
+        BattleManager.Instance.SetPauseStateOnAllEnemies(false);
         //print("CompleteTutorialStep: tutorial index = " + currentTutorialIndex);
         if (currentTutorialIndex != -1)
         {
@@ -264,6 +267,11 @@ public class TutorialManager : Singleton<TutorialManager>
                 startGeneratingMana = true;
                 BattleManager.Instance.portraitHotKeyManager.SetAbilityStuff(true);
                 merrha.GetComponent<Fighter>().SetMaxMana();
+            }
+
+            if (tutorialPopups[currentTutorialIndex].name == "MeetTaurin")
+            {
+                BattleManager.Instance.portraitHotKeyManager.InitBattlerUI(BattleManager.Instance.selectedVessels);
             }
 
             if (tutorialPopups[currentTutorialIndex].name == "TaurinAbility2")

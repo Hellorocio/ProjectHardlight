@@ -129,7 +129,7 @@ public class PortraitHotKeyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.gameState == GameState.FIGHTING)
+        if (GameManager.Instance.gameState == GameState.FIGHTING || GameManager.Instance.gameState == GameState.PAUSED)
         {
             UpdateManaProcs();
             UpdateDeathState();
