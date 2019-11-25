@@ -15,6 +15,8 @@ public class PostBattleUI : MonoBehaviour
     public GameObject fragmentsGained;
     public TextMeshProUGUI[] fragmentNums; //[0] = sun, [1] = moon, [2] = star
     public GameObject continueButton;
+
+    public GameObject enableOnVictory;
     
     private bool storeWin;
 
@@ -38,6 +40,8 @@ public class PostBattleUI : MonoBehaviour
                 GetComponent<AudioSource>().clip = winSound;
                 GetComponent<AudioSource>().Play();
             }
+
+            enableOnVictory.SetActive(true);
 
             /*
             if (!TutorialManager.Instance.tutorialEnabled)
@@ -65,6 +69,7 @@ public class PostBattleUI : MonoBehaviour
         else
         {
             title.text = loseTitle;
+            enableOnVictory.SetActive(false);
             if (loseSound != null && GetComponent<AudioSource>())
             {
                 GetComponent<AudioSource>().clip = loseSound;
@@ -90,6 +95,7 @@ public class PostBattleUI : MonoBehaviour
         title.gameObject.SetActive(false);
         fragmentsGained.SetActive(false);
         continueButton.SetActive(false);
+        enableOnVictory.SetActive(false);
         GetComponent<Image>().enabled = false;
 
         if (GetComponent<AudioSource>() != null)
