@@ -21,6 +21,10 @@ public class AbilityDetail : MonoBehaviour
     public TextMeshProUGUI starlightName;
     public TextMeshProUGUI starlightDesc;
     public Image starlightIcon;
+
+    public ParticleSystem sunParticle;
+    public ParticleSystem moonParticle;
+    public ParticleSystem starParticle;
     
     private Color fullOpacity = Color.white;
     private Color halfOpacity = new Color(Color.white.r, Color.white.g, Color.white.b, 0.5f);
@@ -54,5 +58,19 @@ public class AbilityDetail : MonoBehaviour
         starlightName.color = starColor;
         starlightDesc.color = starColor;
         starlightIcon.color = starColor;
+
+        // activate particles
+        if (soul.GetAllightValue(AllightType.SUNLIGHT) > 0)
+        {
+            sunParticle.Play();
+        }
+        if (soul.GetAllightValue(AllightType.MOONLIGHT) > 0)
+        {
+            moonParticle.Play();
+        }
+        if (soul.GetAllightValue(AllightType.STARLIGHT) > 0)
+        {
+            starParticle.Play();
+        }
     }
 }
