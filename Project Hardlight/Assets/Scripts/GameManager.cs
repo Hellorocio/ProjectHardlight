@@ -80,6 +80,7 @@ public class GameManager : Singleton<GameManager>
     private Vector2 allightDropRange;
 
     public DialogueBoxController topDialogue;
+    private bool loadoutInfoShown = false;
 
     public void Start()
     {
@@ -294,6 +295,16 @@ public class GameManager : Singleton<GameManager>
 
         UIManager.Instance.loadoutUIButton.SetActive(true);
         UIManager.Instance.battleUI.SetActive(true);
+
+        if (!loadoutInfoShown)
+        {
+            UIManager.Instance.SetLoadoutInfo(true);
+            loadoutInfoShown = true;
+        }
+        else
+        {
+            UIManager.Instance.SetLoadoutInfo(false);
+        }
 
         battleManager.SetActive(true);
         BattleManager.Instance.Initialize();
