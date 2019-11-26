@@ -64,6 +64,7 @@ public class LoadoutUI : Singleton<LoadoutUI>
         }
         else
         {
+            SetGoButton();
             Debug.Log("Trying to create loadout UI when already made");
         }
     }
@@ -239,17 +240,12 @@ public class LoadoutUI : Singleton<LoadoutUI>
     }
 
     /// <summary>
-    /// Change GO button between gray and orange depending on if loudout is set
-    /// Also updates vessel details (switches panel to whichever was just changed)
+    /// Updates go button and vessel details (switches panel to whichever was just changed)
     /// Called on every change to selection icons
     /// </summary>
     public void LoadoutUpdated (GameObject icon)
     {
-        ActivateButton goButtonActivate = goButton.GetComponent<ActivateButton>();
-        if (goButtonActivate != null)
-        {
-            goButtonActivate.SetButtonActivation(IsLoadoutValid(false));
-        }
+        SetGoButton();
 
         GameObject changedVessel = null;
         if (icon.GetComponent<SoulIcon>() != null)
@@ -270,6 +266,18 @@ public class LoadoutUI : Singleton<LoadoutUI>
         if (missingPopupText != null)
         {
             missingPopupText.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Change GO button between active and inactive depending on if loudout is set
+    /// </summary>
+    private void SetGoButton()
+    {
+        ActivateButton goButtonActivate = goButton.GetComponent<ActivateButton>();
+        if (goButtonActivate != null)
+        {
+            goButtonActivate.SetButtonActivation(IsLoadoutValid(false));
         }
     }
 }

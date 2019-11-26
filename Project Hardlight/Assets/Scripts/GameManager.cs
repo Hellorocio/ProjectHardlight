@@ -286,15 +286,15 @@ public class GameManager : Singleton<GameManager>
         CombatLevel combatLevel = GameObject.Find("CombatLevel").GetComponent<CombatLevel>();
         SetRequiredVessels(combatLevel.requiredVessels);
         combatLevel.initialized = true;
-        
+
         // Set to create loadout
         //LoadoutUI.Instance.loadoutCreated = false;
         // Toggle correct UIs
+        UIManager.Instance.loadoutUIButton.SetActive(true); // enable loadout first now so button anim works properly (won't start if not enabled)
+        UIManager.Instance.battleUI.SetActive(true);
+
         UIManager.Instance.SetLoadoutUI(true);
         LoadoutUI.Instance.CreateLoadout();
-
-        UIManager.Instance.loadoutUIButton.SetActive(true);
-        UIManager.Instance.battleUI.SetActive(true);
 
         if (!loadoutInfoShown)
         {
