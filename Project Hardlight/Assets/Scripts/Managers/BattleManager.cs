@@ -1094,6 +1094,12 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="herosWin"></param>
     public void BattleOver (bool herosWin)
     {
+        if (inputState == InputState.BattleOver)
+        {
+            // Don't call this if the battle is already over!
+            return;
+        }
+
         //Invoke levelEnd event so levelManager knows to show dialogue
         OnLevelEnd?.Invoke(herosWin);
         onBattleEnd.Invoke();
