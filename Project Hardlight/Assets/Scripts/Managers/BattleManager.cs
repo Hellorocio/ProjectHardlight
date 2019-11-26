@@ -190,6 +190,14 @@ public class BattleManager : Singleton<BattleManager>
                 // Lose mana
                 selectedHero.LoseMana(selectedHero.GetMaxMana());
 
+                // Turn to face casting direction
+                Vector3 targetDir = selectedAbility.selectedPosition;
+                if (selectedAbility.selectedTarget != null)
+                {
+                    targetDir = selectedAbility.selectedTarget.transform.position;
+                }
+                selectedHero.GetComponent<FighterMove>().sprite.flipX = (targetDir.x < selectedHero.transform.position.x);
+
                 onAbilityCast.Invoke();
                 onAbilityCast.RemoveAllListeners();
                 //commandsUI.SwitchButtonColor(false);
@@ -232,16 +240,9 @@ public class BattleManager : Singleton<BattleManager>
                     line.SetPosition(0, newMoveLoc.transform.position);
                     line.SetPosition(1, selectedHero.transform.position);
                     selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
-                }
-                
-                
-    
+                }    
             }
         }
-        //if (selectedHero != null && selectedAbility.DoAbility() && inputState != InputState.BattleOver)
-        //{
-            
-        //}
     }
 
     /// <summary>
