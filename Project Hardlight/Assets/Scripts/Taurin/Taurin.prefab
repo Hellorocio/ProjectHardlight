@@ -26,6 +26,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8e305f801e844847b44081e43daab4d,
+        type: 3}
     - target: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_Name
@@ -158,67 +164,36 @@ PrefabInstance:
       propertyPath: gotHitSound
       value: 
       objectReference: {fileID: 8300000, guid: 8e3bda6c1dd635e439dbe8d60a6403dc, type: 3}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: abilityDescription
-      value: Teleport to a new target and become invulnerable
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: abilityIcon
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 7019536318447566657, guid: f4ddff1249963604ba04067a3e9f21bc,
+      objectReference: {fileID: 9100000, guid: a9270c1bddcdf6248839d422a0c71143, type: 2}
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: baseDamage
-      value: 15
+      propertyPath: m_LocalPosition.x
+      value: -0.035
       objectReference: {fileID: 0}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: invulnBuff
-      value: 
-      objectReference: {fileID: 3929582137514170004}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: sfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 39de027620c6b1a40bbaf78dd21fb8da, type: 3}
-    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: damageScale
-      value: 0.1
+      propertyPath: m_LocalPosition.y
+      value: -0.401
       objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: damage
-      value: 1
+      propertyPath: m_LocalScale.x
+      value: 0.12726487
       objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: cooldown
-      value: 0.3
+      propertyPath: m_LocalScale.y
+      value: 0.12726487
       objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: frequency
-      value: 2
+      propertyPath: m_LocalScale.z
+      value: 0.12726487
       objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: animationDelay
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
-        type: 3}
-      propertyPath: sfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 33afc98f66874af448b4fcdf9514e2d0, type: 3}
     - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: abilityDescription
@@ -250,42 +225,77 @@ PrefabInstance:
       propertyPath: damageScale
       value: 0.09
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733081, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 7314596986426577828, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_Controller
+      propertyPath: abilityName
+      value: Bloodtrick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilityDescription
+      value: Teleport to a new target and become invulnerable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: abilityIcon
       value: 
-      objectReference: {fileID: 9100000, guid: a9270c1bddcdf6248839d422a0c71143, type: 2}
-    - target: {fileID: 6390960234732733080, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+      objectReference: {fileID: 7019536318447566657, guid: f4ddff1249963604ba04067a3e9f21bc,
         type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: baseDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: invulnBuff
       value: 
-      objectReference: {fileID: 21300000, guid: a8e305f801e844847b44081e43daab4d,
+      objectReference: {fileID: 3929582137514170004}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 39de027620c6b1a40bbaf78dd21fb8da, type: 3}
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.035
+      propertyPath: damageScale
+      value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 1502405149423524159, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.401
+      propertyPath: abilityName
+      value: Blink
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.12726487
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.12726487
+      propertyPath: cooldown
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: 6390960234732733079, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.12726487
+      propertyPath: frequency
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: animationDelay
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866378144017540731, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 33afc98f66874af448b4fcdf9514e2d0, type: 3}
     - target: {fileID: 8214742803668735277, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: m_LocalPosition.x
