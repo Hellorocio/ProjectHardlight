@@ -34,8 +34,9 @@ public class DialogueManager : Singleton<DialogueManager>
     
     private IEnumerator dialogueLoop = null;
 
-    // Change to something more generic later- but for now hardcoded rip
-    public AudioSource dialogueSfx;
+    private AudioSource audioSource;
+    [Tooltip("Play sfx from this list during dialogue by adding 'sfx' plus the index in this list as the name, ex: sfx0")]
+    public AudioClip[] dialogueSFX;
 
     public void InitializeDialogueManager()
     {
@@ -49,6 +50,8 @@ public class DialogueManager : Singleton<DialogueManager>
         ShowBox(false);
         ShowImage(false);
         ShowName(false);
+
+        audioSource = GetComponent<AudioSource>();
 
         initialized = true;
     }
@@ -189,10 +192,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
             //Debug.Log("No sprite corresponding to command " + line);
 
-            // this is terrible, I'm sorry, but I'm piggybacking off the names to get an sfx to play here.
-            if (line == "sfx" && dialogueSfx != null)
+            // this is terrible, I'm sorry, but I'm piggybacking off the names to get sfx to play here.
+            int sfxIndex;
+            if (line.Contains("sfx") && audioSource != null && int.TryParse(line.Substring(3), out sfxIndex))
             {
-                dialogueSfx.Play();
+                audioSource.clip = dialogueSFX[sfxIndex];
+                audioSource.Play();
             }
 
             return;

@@ -6,4 +6,6 @@ public class TutorialLevelInfo : MonoBehaviour
 {
     public string tutorialScene;
     public List<TutorialPopupData> tutorialSteps;
+
+    public TextAsset fightingEndDialogue;
 }

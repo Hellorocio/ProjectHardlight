@@ -64,7 +64,7 @@ public class SoulManager : Singleton<SoulManager>
         for (int i = 0; i < 4; i++)
         {
             Soul soul = gameObject.AddComponent(typeof(Soul)) as Soul;
-            soul.appearance = soulAppearances[Random.Range(0, soulAppearances.Count)];
+            soul.appearance = soulAppearances[i];
 
             List<StatFocusType> statFocuses = new List<StatFocusType>();
             statFocuses.Add((StatFocusType)i);

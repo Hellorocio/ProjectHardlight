@@ -51,6 +51,8 @@ public class TutorialManager : Singleton<TutorialManager>
         tutorialPopups = tutorialLevels[currentTutorialLevel].tutorialSteps;
         currentTutorialIndex = -1;
 
+        GameManager.Instance.fightingEndDialogue = tutorialLevels[currentTutorialLevel].fightingEndDialogue;
+
         // move marrha
         GameObject moveLoc = GameObject.Find("StartMoveLoc");
         GameObject merrha = GameObject.Find("Merrha");
@@ -85,6 +87,8 @@ public class TutorialManager : Singleton<TutorialManager>
 
     public void FinishTutorialLevel()
     {
+        DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
+
         currentTutorialLevel++;
         
         if (currentTutorialLevel < tutorialLevels.Count)
@@ -355,7 +359,6 @@ public class TutorialManager : Singleton<TutorialManager>
     public void UpdateMonsterCount ()
     {
         enemiesDefeated++;
-        print("UpdateMonsterCount: enemiesDefeated = " + enemiesDefeated);
         if (enemiesDefeated >= testNumEnemies)
         {
             CompleteTutorialStep();

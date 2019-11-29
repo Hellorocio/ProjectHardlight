@@ -476,7 +476,15 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            TutorialManager.Instance.FinishTutorialLevel();
+            if (fightingEndDialogue != null)
+            {
+                DialogueManager.Instance.StartDialogue(fightingEndDialogue);
+                DialogueManager.Instance.onDialogueEnd.AddListener(TutorialManager.Instance.FinishTutorialLevel);
+            }
+            else
+            {
+                TutorialManager.Instance.FinishTutorialLevel();
+            }            
 
             // set all levels that the beaten level unlocks to undiscovered
             if (nodesToUnlock != null)
