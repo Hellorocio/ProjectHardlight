@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     public GameState gameState;
 
     public List<Soul> souls;
+    public int maxSouls = 8;
     public int requiredVessels = 3;
     public Difficulty difficulty = Difficulty.NORMAL;
     public float difficultyScale = 0.75f;
@@ -77,7 +78,8 @@ public class GameManager : Singleton<GameManager>
     private string battleEndCutscene = "";
     private int[] nodesToUnlock;
     private List<AllightType> allightDrops;
-    private Vector2 allightDropRange;
+    private Vector2Int allightDropRange;
+    private Vector2Int soulDropRange;
 
     public DialogueBoxController topDialogue;
     private bool loadoutInfoShown = false;
@@ -197,16 +199,20 @@ public class GameManager : Singleton<GameManager>
         endingCutscene.onCutsceneEnd.Invoke();
     }
     
-    public void GrantRandomSouls(int qty)
+    public Soul[] GrantRandomSouls(int qty)
     {
+        Soul[] newSouls = new Soul[qty];
+
         // Generate random souls
         for (int i = 0; i < qty; i++)
         {
             Soul soul = SoulManager.Instance.GenerateSoul();
             souls.Add(soul);
+            newSouls[i] = soul;
         }
 
         LoadoutUI.Instance.PopulateSoulGrid();
+        return newSouls;
     }
 
     public void GetStarterSouls()
@@ -647,6 +653,7 @@ public class GameManager : Singleton<GameManager>
         
         allightDrops = node.allightDrops;
         allightDropRange = node.allightDropRange;
+        soulDropRange = node.soulDropRange;
     }
 
     public void UnlockLevels ()
@@ -720,7 +727,7 @@ public class GameManager : Singleton<GameManager>
     /// Returns amounts of each fragments type that was generated ([0] = sun, [1] = moon, [2] = stars, so postBattleUI can display them
     /// </summary>
     /// <returns></returns>
-    public int[] AddFragments ()
+    public int[] AddFragments()
     {
         int[] newFragments = new int[3];
 
@@ -730,7 +737,7 @@ public class GameManager : Singleton<GameManager>
             {
                 if (allightDrops.Contains((AllightType)i))
                 {
-                    int numFragments = Random.Range((int)allightDropRange.x, (int)allightDropRange.y + 1);
+                    int numFragments = Random.Range(allightDropRange.x, allightDropRange.y + 1);
                     newFragments[i] = numFragments;
                     fragments[i] += numFragments;
                 }
@@ -741,10 +748,29 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
+    /// Called after a victorious battle (by PostBattleUI)
+    /// Souls are generated based on values from soulDropRange (orignally set in mapNode)
+    /// The number of souls you can have is capped at maxSouls, so this will not generate any souls if the player is at max
+    /// Returns new soul(s) so postBattleUI can display them
+    /// </summary>
+    /// <returns></returns>
+    public Soul[] AddSoulsAfterBattle()
+    {
+        int maxSoulsGained = maxSouls - souls.Count;
+        int numSoulsGained = 0;
+        if (soulDropRange != null)
+        {
+            numSoulsGained = Mathf.Clamp(Random.Range(soulDropRange.x, soulDropRange.y + 1), 0, maxSoulsGained);
+        }
+        
+        return GrantRandomSouls(numSoulsGained);
+    }
+
+    /// <summary>
     /// This is all controlled by GameManager instead of CombatLevel in order to prevent race conditions between the level starting
     /// and CombatLevel setting the variables for dialogue stuff. It's uglier this way but I think it'll work better
     /// </summary>
-    public void SetCurrentCombatLevelDialogue ()
+    public void SetCurrentCombatLevelDialogue()
     {
         GameObject combatLevelObj = GameObject.Find("CombatLevel");
         if (combatLevelObj != null)

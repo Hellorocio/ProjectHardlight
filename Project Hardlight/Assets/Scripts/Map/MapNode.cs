@@ -37,7 +37,10 @@ public class MapNode : MonoBehaviour
     [Header("Battle Details")]
     public Difficulty difficulty;
     public List<AllightType> allightDrops;
-    public Vector2 allightDropRange = new Vector2(1, 10);
+    // both of these ranges are inclusive
+    public Vector2Int allightDropRange = new Vector2Int(1, 10);
+    [Tooltip("Note that the max we can display right now is 4")]
+    public Vector2Int soulDropRange = new Vector2Int(0, 1);
 
     [Header("Bosses ONLY")]
     [Tooltip("Nodes that must be completed before this node unlocks- just use for bosses pls b/c I'm a dummy")]

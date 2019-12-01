@@ -29,6 +29,7 @@ public class PostBattleUI : MonoBehaviour
     public GameObject soulsGained;
     public TextMeshProUGUI soulsGainedText;
     public SoulIcon[] soulIcons;
+    public SoulIcon singleSoul; // this one is bigger, so it looks better when you just gain 1 soul
     
     private bool storeWin;
 
@@ -167,8 +168,39 @@ public class PostBattleUI : MonoBehaviour
         }
         else
         {
-            // Generate new souls and display them
-            // TODO(amber)
+            // generate new souls and display them
+            Soul[] newSouls = GameManager.Instance.AddSoulsAfterBattle();
+            if (newSouls.Length > 0)
+            {
+                soulsGained.SetActive(true);
+                title.gameObject.SetActive(false);
+
+                for (int i = 0; i < soulIcons.Length; i++)
+                {
+                    soulIcons[i].ShowIcon(false);
+                }
+
+                if (newSouls.Length == 1)
+                {
+                    // just show 1 big soul
+                    singleSoul.SetSoul(newSouls[0]);
+                    singleSoul.ShowIcon(true);
+                    soulsGainedText.text = "You got a new soul!";
+                }
+                else
+                {
+                    // gained multiple souls
+                    for (int i = 0; i < soulIcons.Length; i++)
+                    {
+                        if (i < newSouls.Length)
+                        {
+                            soulIcons[i].SetSoul(newSouls[i]);
+                            soulIcons[i].ShowIcon(true);
+                        }
+                    }
+                    soulsGainedText.text = "You gained " + newSouls.Length + " souls!";
+                }
+            }
         }
     }
 }
