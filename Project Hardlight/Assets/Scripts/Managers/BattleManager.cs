@@ -18,6 +18,7 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject notEnoughManaUI;
     public GameObject battleTargetPrefab;
     public GameObject moveLoc;
+    public bool showMoveLine;
     public GameObject multiSelectionBox;
     public GameObject countdownUI;
     
@@ -217,11 +218,20 @@ public class BattleManager : Singleton<BattleManager>
                     GameObject newMoveLoc = Instantiate(moveLoc);
                     newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);
                     newMoveLoc.SetActive(true);
-                    //init line
+
                     LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                    line.positionCount = 2;
-                    line.SetPosition(0, newMoveLoc.transform.position);
-                    line.SetPosition(1, selectedHero.transform.position);
+                    if (showMoveLine)
+                    {
+                        //init line
+                        line.positionCount = 2;
+                        line.SetPosition(0, newMoveLoc.transform.position);
+                        line.SetPosition(1, selectedHero.transform.position);
+                    }
+                    else
+                    {
+                        line.gameObject.SetActive(false);
+                    }
+                    
                     selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
 
                 } else
@@ -234,11 +244,20 @@ public class BattleManager : Singleton<BattleManager>
                     GameObject newMoveLoc = Instantiate(moveLoc);
                     newMoveLoc.transform.position = new Vector3(InRangePoint.x, InRangePoint.y, 2);
                     newMoveLoc.SetActive(true);
-                    //init line
+
                     LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                    line.positionCount = 2;
-                    line.SetPosition(0, newMoveLoc.transform.position);
-                    line.SetPosition(1, selectedHero.transform.position);
+                    if (showMoveLine)
+                    {
+                        //init line
+                        line.positionCount = 2;
+                        line.SetPosition(0, newMoveLoc.transform.position);
+                        line.SetPosition(1, selectedHero.transform.position);
+                    }
+                    else
+                    {
+                        line.gameObject.SetActive(false);
+                    }
+
                     selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
                 }    
             }
@@ -721,11 +740,16 @@ public class BattleManager : Singleton<BattleManager>
 
                 // init line
                 LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-                line.positionCount = 2;
-                line.SetPosition(0, newMoveLoc.transform.position);
-                line.SetPosition(1, multiSelectedHeros[0].transform.position);
-
-                
+                if (showMoveLine)
+                {
+                    line.positionCount = 2;
+                    line.SetPosition(0, newMoveLoc.transform.position);
+                    line.SetPosition(1, multiSelectedHeros[0].transform.position);
+                }
+                else
+                {
+                    line.gameObject.SetActive(false);
+                }
 
                 multiSelectedHeros[i].GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
 
@@ -763,9 +787,16 @@ public class BattleManager : Singleton<BattleManager>
 
             // init line
             LineRenderer line = newMoveLoc.GetComponentInChildren<LineRenderer>();
-            line.positionCount = 2;
-            line.SetPosition(0, newMoveLoc.transform.position);
-            line.SetPosition(1, selectedHero.transform.position);
+            if (showMoveLine)
+            {
+                line.positionCount = 2;
+                line.SetPosition(0, newMoveLoc.transform.position);
+                line.SetPosition(1, selectedHero.transform.position);
+            }
+            else
+            {
+                line.gameObject.SetActive(false);
+            }
             selectedHero.GetComponent<FighterMove>().StartMovingCommandHandle(newMoveLoc.transform);
         }
     }

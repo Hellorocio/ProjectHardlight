@@ -150,7 +150,10 @@ public class FighterMove : MonoBehaviour
             fighter.anim.Play("Walk");
         }
 
-        targetLine = target.GetComponentInChildren<LineRenderer>();
+        if (BattleManager.Instance.showMoveLine)
+        {
+            targetLine = target.GetComponentInChildren<LineRenderer>();
+        }
 
        // if (fighter.anim.HasState(0, Animator.StringToHash("Walk")))
        // {
