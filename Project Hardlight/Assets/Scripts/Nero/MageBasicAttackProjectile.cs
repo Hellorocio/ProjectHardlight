@@ -17,8 +17,6 @@ public class MageBasicAttackProjectile : MonoBehaviour
         if (other.gameObject == target)
         {
             // Deal damage
-
-            //Sorry for the gross code, this will be refactored after this playtest!!!
             Attackable attackable = target.GetComponent<Attackable>();
 
             if(attackable != null)

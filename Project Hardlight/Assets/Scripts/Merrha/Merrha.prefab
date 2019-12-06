@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2974151858370669960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15449158896686759}
+  m_Layer: 12
+  m_Name: BasicAttackSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &15449158896686759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2974151858370669960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.44, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2513952173870391778}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &20893948577878501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,7 +80,7 @@ MonoBehaviour:
   rangeIndicator: {fileID: 0}
   widthIndicator: {fileID: 0}
   targeting: 0
---- !u!114 &1974475011015928984
+--- !u!114 &379270961422271122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2513952173870391777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b078248d20a694fbc317069604af3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2577adc26c4d73b4f9dc804199e2d944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   title: Purple Blastalast
@@ -68,8 +98,9 @@ MonoBehaviour:
   frequency: 0.4
   description: A powerful, slow, high range blast of channeled energy.
   sfx: {fileID: 8300000, guid: e2f4371cf04a038408677ebb9e732051, type: 3}
-  gooPrefab: {fileID: 2134644063743925849, guid: 8bf63feb0a1a36d4da5f23118850f6b0,
+  mageBasicAttackPrefab: {fileID: 2134644063743925849, guid: 8bf63feb0a1a36d4da5f23118850f6b0,
     type: 3}
+  spawnPoint: {fileID: 2974151858370669960}
   animationDelay: 0.3
 --- !u!114 &4437844966064891378
 MonoBehaviour:
@@ -132,6 +163,20 @@ MonoBehaviour:
     type: 3}
   rangeIndicator: {fileID: 0}
   radiusIndicator: {fileID: 0}
+--- !u!114 &7770413857050672426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513952172819730158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5361cde8c53b57d4a919cd735cf67204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPointObj: {fileID: 2974151858370669960}
+  renderer: {fileID: 2513952172819730144}
 --- !u!1001 &8814136383961140344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,7 +225,7 @@ PrefabInstance:
         type: 3}
       propertyPath: basicAttack
       value: 
-      objectReference: {fileID: 1974475011015928984}
+      objectReference: {fileID: 379270961422271122}
     - target: {fileID: 6920598889442749698, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: abilities.Array.data[0]
@@ -290,7 +335,12 @@ PrefabInstance:
         type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 1974475011015928984}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953940653181175102, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+        type: 3}
+      propertyPath: basicAttackAction
+      value: 
+      objectReference: {fileID: 379270961422271122}
     - target: {fileID: 743599957097044493, guid: da7ca1c0c5fbb82418b130cf22878cf4,
         type: 3}
       propertyPath: appearence
@@ -340,6 +390,18 @@ PrefabInstance:
 --- !u!1 &2513952173870391777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6390960235825343897, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8814136383961140344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2513952173870391778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6390960235825343898, guid: da7ca1c0c5fbb82418b130cf22878cf4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8814136383961140344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2513952172819730158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6390960234732733078, guid: da7ca1c0c5fbb82418b130cf22878cf4,
     type: 3}
   m_PrefabInstance: {fileID: 8814136383961140344}
   m_PrefabAsset: {fileID: 0}
