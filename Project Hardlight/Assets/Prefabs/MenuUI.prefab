@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 4795568495611487668}
   - component: {fileID: 8986919532472141194}
   - component: {fileID: 7239224345960080196}
+  - component: {fileID: 2315605145307743668}
   m_Layer: 5
   m_Name: Hardcore
   m_TagString: Untagged
@@ -280,9 +281,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8986919532472141194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2315605145307743668}
+        m_MethodName: Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &2315605145307743668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2488719477705142556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650486487a80b4a47bb785147aaf671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 4628619409257958676}
+  otherText: {fileID: 1631790837464614591}
 --- !u!1 &3889520251328187106
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +603,7 @@ GameObject:
   - component: {fileID: 6471044393112625836}
   - component: {fileID: 8103139158197068543}
   - component: {fileID: 2030444075861121345}
+  - component: {fileID: 7670922620377508891}
   m_Layer: 5
   m_Name: Normal
   m_TagString: Untagged
@@ -684,9 +711,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8103139158197068543}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7670922620377508891}
+        m_MethodName: Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &7670922620377508891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282353608559294286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650486487a80b4a47bb785147aaf671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 1631790837464614591}
+  otherText: {fileID: 4628619409257958676}
 --- !u!1 &4529548086743271433
 GameObject:
   m_ObjectHideFlags: 0
