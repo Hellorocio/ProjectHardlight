@@ -84,6 +84,8 @@ public class GameManager : Singleton<GameManager>
     public DialogueBoxController topDialogue;
     private bool loadoutInfoShown = false;
 
+    public GameObject exitLevelButton;
+
     public void Start()
     {
         // Destroy self if already exists
@@ -423,8 +425,10 @@ public class GameManager : Singleton<GameManager>
         SetCameraControls(false);
         ClearUI();
         DialogueManager.Instance.onDialogueEnd.RemoveAllListeners();
-
         
+        // exit level button
+        exitLevelButton.SetActive(false);
+
         // Normally, return to map. Later, we may want to do things like play cutscenes for quest ends, or go to special scenes
         if (!TutorialManager.Instance.tutorialEnabled)
         {
@@ -584,6 +588,9 @@ public class GameManager : Singleton<GameManager>
         {
             LoadScene(sceneToLoad);
         }
+        
+        // exit level button
+        exitLevelButton.SetActive(true);
     }
 
     /// <summary>
