@@ -1143,17 +1143,21 @@ public class BattleManager : Singleton<BattleManager>
         inputState = InputState.BattleOver;
         selectedVessels = new List<GameObject>();
         
-        // Do scoring
-        VesselData[] vessels = FindObjectsOfType<VesselData>();
-        foreach (VesselData v in vessels)
-        {
-            GameManager.Instance.SetWin(v.vesselName);
-        }
 
         //GameManager.Instance.EndFighting(herosWin); //Now called in PostBattleUI
         if (!TutorialManager.Instance.firstTutorialBattle)
         {
             UIManager.Instance.postBattleUI.StartPostBattle(herosWin);
+
+            // Do scoring
+            if (herosWin)
+            {
+                VesselData[] vessels = FindObjectsOfType<VesselData>();
+                foreach (VesselData v in vessels)
+                {
+                    GameManager.Instance.SetWin(v.vesselName);
+                }
+            }
         }
         
     }

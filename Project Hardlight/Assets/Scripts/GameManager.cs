@@ -11,7 +11,8 @@ public enum GameState { UNKNOWN, START, CUTSCENE, MAP, PREBATTLE, FIGHTING, HUB,
 public enum Difficulty
 {
     NORMAL,
-    HARDCORE
+    HARDCORE,
+    NONE
 };
 
 public class GameManager : Singleton<GameManager>
@@ -35,6 +36,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject cutsceneUI;
     public GameObject cutsceneBG;
     public GameObject menuUI;
+    public GameObject scoreUI;
 
     public GameObject battleManager;
 
@@ -89,6 +91,14 @@ public class GameManager : Singleton<GameManager>
     public MapNode currentMapNode;
     public Difficulty currentCombatDifficulty;
 
+    public LevelCompletion southernForestCompletion;
+    public LevelCompletion deepForestCompletion;
+    public LevelCompletion peacefulFarmCompletion;
+
+    public LevelCompletion elenetonCompletion;
+    public LevelCompletion bridgeCompletion;
+    public LevelCompletion ruinsCompletion;
+
     public void Start()
     {
         // Destroy self if already exists
@@ -113,6 +123,7 @@ public class GameManager : Singleton<GameManager>
     {
         bool active = menuUI.activeInHierarchy;
         menuUI.SetActive(!active);
+        scoreUI.SetActive(menuUI.activeInHierarchy);
     }
 
     public void ClearUI()
@@ -842,8 +853,29 @@ public class GameManager : Singleton<GameManager>
 
     public void SetWin(string vesselName)
     {
-        Debug.Log(currentMapNode.levelName);
+        string currentLevelName = currentMapNode.levelName;
+        Debug.Log(currentLevelName);
         Debug.Log(currentCombatDifficulty);
         Debug.Log(vesselName);
+
+        if (currentLevelName == "Southern Forest")
+        {
+            southernForestCompletion.SetWin(vesselName, currentCombatDifficulty);
+        } else if (currentLevelName == "Deep Forest")
+        {
+            deepForestCompletion.SetWin(vesselName, currentCombatDifficulty);
+        } else if (currentLevelName == "Peaceful Farm")
+        {
+            peacefulFarmCompletion.SetWin(vesselName, currentCombatDifficulty);
+        } else if (currentLevelName == "Eleneton")
+        {
+            elenetonCompletion.SetWin(vesselName, currentCombatDifficulty);
+        } else if (currentLevelName == "Crescent Bridge")
+        {
+            bridgeCompletion.SetWin(vesselName, currentCombatDifficulty);
+        } else if (currentLevelName == "Ancient Ruins")
+        {
+            ruinsCompletion.SetWin(vesselName, currentCombatDifficulty);
+        }
     }
 }
