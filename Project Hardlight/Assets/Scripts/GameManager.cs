@@ -86,6 +86,9 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject exitLevelButton;
 
+    public MapNode currentMapNode;
+    public Difficulty currentCombatDifficulty;
+
     public void Start()
     {
         // Destroy self if already exists
@@ -661,6 +664,9 @@ public class GameManager : Singleton<GameManager>
         allightDrops = node.allightDrops;
         allightDropRange = node.allightDropRange;
         soulDropRange = node.soulDropRange;
+
+        currentMapNode = node;
+        currentCombatDifficulty = difficulty;
     }
 
     public void UnlockLevels ()
@@ -832,5 +838,12 @@ public class GameManager : Singleton<GameManager>
     {
         difficulty = difficultyInt == 0 ? Difficulty.NORMAL : Difficulty.HARDCORE;
         SayTop("Difficulty set to " + difficulty, 5.0f);
+    }
+
+    public void SetWin(string vesselName)
+    {
+        Debug.Log(currentMapNode.levelName);
+        Debug.Log(currentCombatDifficulty);
+        Debug.Log(vesselName);
     }
 }
