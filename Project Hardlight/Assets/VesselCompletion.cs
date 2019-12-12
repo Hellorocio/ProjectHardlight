@@ -25,10 +25,7 @@ public class VesselCompletion : MonoBehaviour
             bestWon = Difficulty.HARDCORE;
             status.sprite = gold;
             fade.SetActive(false);
-        }
-        
-        // Only do silver if bestWon is not HARDCORE
-        if (difficulty == Difficulty.NORMAL && bestWon != Difficulty.HARDCORE)
+        } else if (difficulty == Difficulty.NORMAL && bestWon != Difficulty.HARDCORE)
         {
             bestWon = Difficulty.NORMAL;
             status.sprite = silver;
